@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="hexo," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="0x01 简介 hexo是node.js提供的一个强大的，并且简单快速搭建自己博客的工具，通过该工具可以快速的搭建起自己的博客，该工具还提供了一系列的主题，可以快捷的设置不同主题。通过修改几个命令就可以将搭建好的博客部署到github上。下面将会讲解如何1.通过hexo搭建自己的博客 2.如何设置博客的主题 3.如何应用到github 4.域名关联，通过自己的域名访问博客">
+<meta name="keywords" content="hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用hexo在github上搭建自己的博客">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/使用hexo在github上搭建自己的博客/index.html">
+<meta property="og:site_name" content="Lemon&#39;s blog">
+<meta property="og:description" content="0x01 简介 hexo是node.js提供的一个强大的，并且简单快速搭建自己博客的工具，通过该工具可以快速的搭建起自己的博客，该工具还提供了一系列的主题，可以快捷的设置不同主题。通过修改几个命令就可以将搭建好的博客部署到github上。下面将会讲解如何1.通过hexo搭建自己的博客 2.如何设置博客的主题 3.如何应用到github 4.域名关联，通过自己的域名访问博客">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15324821682415.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15324833176604.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15324859351285.jpg">
+<meta property="og:updated_time" content="2018-07-25T03:13:36.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用hexo在github上搭建自己的博客">
+<meta name="twitter:description" content="0x01 简介 hexo是node.js提供的一个强大的，并且简单快速搭建自己博客的工具，通过该工具可以快速的搭建起自己的博客，该工具还提供了一系列的主题，可以快捷的设置不同主题。通过修改几个命令就可以将搭建好的博客部署到github上。下面将会讲解如何1.通过hexo搭建自己的博客 2.如何设置博客的主题 3.如何应用到github 4.域名关联，通过自己的域名访问博客">
+<meta name="twitter:image" content="http://pcd17v2u0.bkt.clouddn.com/15324821682415.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/使用hexo在github上搭建自己的博客/"/>
+
+
+
+
+
+  <title>使用hexo在github上搭建自己的博客 | Lemon's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lemon's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Talk is cheap show me the code</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-家">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/使用hexo在github上搭建自己的博客/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用hexo在github上搭建自己的博客</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-25T10:52:10+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他技术/" itemprop="url" rel="index">
+                    <span itemprop="name">其他技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h2><blockquote>
+<p>hexo是node.js提供的一个强大的，并且简单快速搭建自己博客的工具，通过该工具可以快速的搭建起自己的博客，该工具还提供了一系列的主题，可以快捷的设置不同主题。通过修改几个命令就可以将搭建好的博客部署到github上。<br>下面将会讲解如何1.通过hexo搭建自己的博客 2.如何设置博客的主题 3.如何应用到github 4.域名关联，通过自己的域名访问博客</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="0x02-准备工作"><a href="#0x02-准备工作" class="headerlink" title="0x02 准备工作"></a>0x02 准备工作</h2><blockquote>
+<p>在开始工作之前你需要做一些准备工作</p>
+</blockquote>
+<ul>
+<li>创建一个github账号，如果没有的话</li>
+<li>安装node.js</li>
+<li>安装npm</li>
+</ul>
+<h2 id="0x03-LET’S-DO-IT"><a href="#0x03-LET’S-DO-IT" class="headerlink" title="0x03 LET’S DO IT"></a>0x03 LET’S DO IT</h2><p>1、 首先在登录你的github账号，并且创建一个仓库，这个仓库的名字一定要按照<code>特定的格式</code>来写：也就是你的 <code>用户名.github.io</code>，如下图所示：<br><img src="http://pcd17v2u0.bkt.clouddn.com/15324821682415.jpg" alt=""><br>由于我之前已经创建过相同命名的仓库，所以会提示我已经重复了，以上的截图只是用于做仓库命名的示例，切记仓库的名字一定是 <code>用户名.github.io</code></p>
+<p>2、 如果github上面没有配置SSH的话需要在本地生成一个公钥，然后配置到github上面。（如果已经配置的可以直接看第三步）<br>     使用以下命令创建一对公私秘钥</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;your_email@youremail.com&quot; //创建秘钥，执行该命令后一直回车即可</span><br><span class="line">$ cat ~/.ssh/id_rsa.pub  //创建完成后查看创建好的公钥</span><br></pre></td></tr></table></figure>
+</code></pre><p>   将上面创建好的公钥复制，然后登录github, 按照Settings -&gt; 左栏点击 SSH and GPG keys -&gt; 点击 New SSH key的步骤，粘贴公钥即可。</p>
+<p>3、 安装hexo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo</span><br></pre></td></tr></table></figure>
+<p>4、 初始化目录在本地创建一个文件夹，可以随便起一个名字， 然后进入到该文件夹里面，通过hexo init初始化，初始化完成后会在该文件夹里面生成一些文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Lemons-MacBookPro:~ lemon$ mkdir hexo</span><br><span class="line">Lemons-MacBookPro:~ lemon$ cd hexo/</span><br><span class="line">Lemons-MacBookPro:hexo lemon$ hexo init</span><br></pre></td></tr></table></figure>
+<p>生成的目录如下所示：<br><img src="http://pcd17v2u0.bkt.clouddn.com/15324833176604.jpg" alt=""></p>
+<p>5、 修改 _config.yml: 配置文件，可以在里面配置博客的名字，描述，主题，部署到哪里等等，下面来看一下里面主要需要修改的地方。<br>设置博客网站的标题，副标题，描述，作者的名字，语言，时区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  # Site</span><br><span class="line">title: Lemon&apos;s blog</span><br><span class="line">subtitle: Talk is cheap show me the code</span><br><span class="line">description: iOS Developer | 拥抱变化 | 🍋😊</span><br><span class="line">keywords: </span><br><span class="line">author: lemon</span><br><span class="line">language: zh-CN</span><br><span class="line">timezone: Asia/Shanghai</span><br></pre></td></tr></table></figure>
+<p>需要部署到哪个平台,你需要修改的地方是repo，将仓库的地址换成在第一步创建的仓库地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: git@github.com:codemonkeybulucck/codemonkeybulucck.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>6、在本地浏览器查看博客的效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate # 生成，可以用简写 hexo g</span><br><span class="line">$ hexo server # 启动服务，可以用简写 hexo s</span><br><span class="line">INFO  Start processing</span><br><span class="line">WARN  ===============================================================</span><br><span class="line">WARN  ========================= ATTENTION! ==========================</span><br><span class="line">WARN  ===============================================================</span><br><span class="line">WARN   NexT repository is moving here: https://github.com/theme-next</span><br><span class="line">WARN  ===============================================================</span><br><span class="line">WARN   It&apos;s rebase to v6.0.0 and future maintenance will resume there</span><br><span class="line">WARN  ===============================================================</span><br><span class="line">INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
+<p>这样就会将博客部署到本地，在浏览器打开<a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a> 即可访问</p>
+<p>7、在第六步中我们看到的生成默认主题的博客，我们也许想换成更加符合我们审美的主题。 我们可以在 <a href="https://www.zhihu.com/question/24422335" target="_blank" rel="noopener">hexo有哪些好看的主题</a>这里找到我们自己喜欢的主题，下面以 hexo-theme-next 为例。 还是在我们的博客目录，下载主题到该目录下的theme文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/iissnan/hexo-theme-next.git themes/next</span><br></pre></td></tr></table></figure>
+<p>下载完成之后，打开_config.yml文件修改以下地方</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https://hexo.io/plugins/</span><br><span class="line">## Themes: https://hexo.io/themes/</span><br><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+<p>将原来的默认的主题改为next，然后执行hexo server 来重新生成本地博客，这个时候在浏览器查看会发现主题和之前的不一样了。你还可以在theme-&gt;next-&gt;_config.yml文件夹里面修改布局，可以设置下面四个中任意的一个</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Schemes</span><br><span class="line">#scheme: Muse</span><br><span class="line">#scheme: Mist</span><br><span class="line">scheme: Pisces</span><br><span class="line">#scheme: Gemini</span><br></pre></td></tr></table></figure>
+<p>8、 到此为止我们已经搭建好博客并且设置了相应的主题，下面我们来试一下写一篇博客。博客的类型是markdown格式，可以下载一个Mweb来提前写好文章然后复制到source-&gt;_posts文件夹里面，也通过通过 hexo new post “博客名字”来生成一个markdown类型的博客</p>
+<p>9、上传到github，由于我们在第5点已经设置了github的地址，因此我们直使用 <code>hexo deploy</code>来上传即可。<br>如果发现执行以上命令后有如下错误<br><code>Deployer not found: github 或者 Deployer not found: git</code><br>则需要先安装一个插件</p>
+<p><code>npm install hexo-deployer-git --save</code><br>安装完该插件之后继续执行 <code>hexo deploy</code> 即可通过 <code>你的用户名.github.io</code>来访问你的博客。下面是我的博客 <a href="http://codemonkeybulucck.github.io" target="_blank" rel="noopener">codemonkeybulucck</a></p>
+<p>10、绑定域名，如果没有域名的可以到<a href="https://wanwang.aliyun.com/?utm_content=se_1000094076" target="_blank" rel="noopener">阿里万网</a> 购买一个域名，<br>购买完成后到控制台找到对应的域名，添加解析，域名配置最常见有2种方式，CNAME和A记录，CNAME填写域名，A记录填写IP，由于不带www方式只能采用A记录，所以必须先ping一下你的用户名.github.io的IP，然后到你的域名DNS设置页，将A记录指向你ping出来的IP，将CNAME指向你的用户名.github.io，这样可以保证无论是否添加www都可以访问<br>按照我下面的设置即可<br><img src="http://pcd17v2u0.bkt.clouddn.com/15324859351285.jpg" alt=""></p>
+<p>设置完成之后还不可以立刻使用域名访问，需要到本地的博客的目录下的source文件夹里面创建一个CNAME文件，里面填写购买的域名<br>然后重新 <code>hexo deploy</code>之后就可以通过域名来访问你的博客了。</p>
+<h2 id="0x04-以上，希望能帮助到你。"><a href="#0x04-以上，希望能帮助到你。" class="headerlink" title="0x04 以上，希望能帮助到你。"></a>0x04 以上，希望能帮助到你。</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/24/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg"
+                alt="lemon" />
+            
+              <p class="site-author-name" itemprop="name">lemon</p>
+              <p class="site-description motion-element" itemprop="description">iOS Developer | 拥抱变化 | 🍋😊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/codemonkeybulucck" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:codebulucck@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-简介"><span class="nav-number">1.</span> <span class="nav-text">0x01 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-准备工作"><span class="nav-number">2.</span> <span class="nav-text">0x02 准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-LET’S-DO-IT"><span class="nav-number">3.</span> <span class="nav-text">0x03 LET’S DO IT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-以上，希望能帮助到你。"><span class="nav-number">4.</span> <span class="nav-text">0x04 以上，希望能帮助到你。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lemon</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
