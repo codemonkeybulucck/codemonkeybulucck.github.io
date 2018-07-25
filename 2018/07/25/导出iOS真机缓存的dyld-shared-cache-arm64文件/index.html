@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1前言在iOS系统中，存在着这么一个文件夹，/System/Library/Caches/com.apple.dyld，这个文件夹里面放着的是什么文件呢，在我的iphone5s中，两个文件dyld_shared_cache_armv7s和dyly_shared_arm64，这两个文件分别代表两个arm架构，一个是armv7s一个是arm64。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="导出iOS真机缓存的dyld_shared_cache_arm64文件">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/导出iOS真机缓存的dyld-shared-cache-arm64文件/index.html">
+<meta property="og:site_name" content="Lemon&#39;s blog">
+<meta property="og:description" content="1前言在iOS系统中，存在着这么一个文件夹，/System/Library/Caches/com.apple.dyld，这个文件夹里面放着的是什么文件呢，在我的iphone5s中，两个文件dyld_shared_cache_armv7s和dyly_shared_arm64，这两个文件分别代表两个arm架构，一个是armv7s一个是arm64。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-25T06:38:18.822Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="导出iOS真机缓存的dyld_shared_cache_arm64文件">
+<meta name="twitter:description" content="1前言在iOS系统中，存在着这么一个文件夹，/System/Library/Caches/com.apple.dyld，这个文件夹里面放着的是什么文件呢，在我的iphone5s中，两个文件dyld_shared_cache_armv7s和dyly_shared_arm64，这两个文件分别代表两个arm架构，一个是armv7s一个是arm64。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/导出iOS真机缓存的dyld-shared-cache-arm64文件/"/>
+
+
+
+
+
+  <title>导出iOS真机缓存的dyld_shared_cache_arm64文件 | Lemon's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lemon's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Talk is cheap show me the code</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-家">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/导出iOS真机缓存的dyld-shared-cache-arm64文件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">导出iOS真机缓存的dyld_shared_cache_arm64文件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-25T14:37:48+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-逆向/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 逆向</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1前言"><a href="#1前言" class="headerlink" title="1前言"></a>1前言</h3><p>在iOS系统中，存在着这么一个文件夹，/System/Library/Caches/com.apple.dyld，这个文件夹里面放着的是什么文件呢，在我的iphone5s中，两个文件dyld_shared_cache_armv7s和dyly_shared_arm64，这两个文件分别代表两个arm架构，一个是armv7s一个是arm64。</p>
+<a id="more"></a>
+<p>顾名思义，这两个都是缓存文件，里面放着的都是各种系统所可能用到的动态库。如Foundation.framework,Security.framework等等。在/System/Library/Frameworks/这个路径下面所有的动态库只放了一些配置文件，而真正的执行文件就在上面说的缓存文件里面。因为几乎所有的iOS程序都会用到系统库，当程序运行的时候会使用dyld(位于/usr/lib/dylb)程序进行连接，另一方面，由于每个iOS程序都会连接很多的动态库，如果需要一个一个连接会很耗时，如果把它们放在一个地方打包好，等到运行的时候全部连接岂不美滋滋，基于这些原因，就有了dyld_shared_cache_armv7s和dyld_shared_cache_armv64两个缓存文件（有些设备有可能还会有dyld_shared_cache_armv7）。</p>
+<h4 id="2工具"><a href="#2工具" class="headerlink" title="2工具"></a>2工具</h4><p>上面我已经解释了为什么会存在这两个文件以及这两个文件的作用，在iOS逆向中，我们常常需要查看某一个系统类的实现，这个时候就要去对应的系统库里面查看，这些系统库就放在对应的缓存文件里面了。但是这些文件是经过处理的，不可以直接查看，所以需要用到一些工具来查看。这里介绍两个工具，一个是<a href="https://github.com/kennytm/Miscellaneous/downloads" target="_blank" rel="noopener">dyld_decache[v0.1c]</a> 另外一个是<a href="https://opensource.apple.com/source/dyld/dyld-195.6/launch-cache/dsc_extractor.cpp" target="_blank" rel="noopener">dsc_extractor</a>，<a href="https://www.jianshu.com/p/a7b1fed0359f" target="_blank" rel="noopener">编译方法</a> 。这两个工具的不同之处是，第一个工具是不可以用来解析arm64指令集的缓存文件的，而dsc_extractor是可以用来解析arm64指令集的缓存文件的，现在基本上大家用的都是arm64位指令集的设备了。（iPhone5s以上都是arm64位结构）</p>
+<h4 id="3还原"><a href="#3还原" class="headerlink" title="3还原"></a>3还原</h4><p>通过2中的dyld_decache[v0.1c]工具和dsc_extractor我们可以还原出<br>dyld_shared_cache_armX缓存文件中隐藏的framework。下面是语法</p>
+<p>#####3.1 dsc_extractor<br>usage: dsc_extractor <path-to-cache-file> <path-to-device-dir></path-to-device-dir></path-to-cache-file></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usage: dsc_extractor 你要解析的arm64的缓存文件路径 保存的路径</span><br></pre></td></tr></table></figure>
+<p>解析过程中会出现类似于<br>0/969</p>
+<p>1/969</p>
+<p>2/969</p>
+<p>3/969</p>
+<p>4/969</p>
+<p>5/969</p>
+<p>…..</p>
+<p>这样的文字。</p>
+<h5 id="3-2-dyld-decache-v0-1c"><a href="#3-2-dyld-decache-v0-1c" class="headerlink" title="3.2 dyld_decache[v0.1c]"></a>3.2 dyld_decache[v0.1c]</h5><p>dyld_decache[v0.1c] -o 要保存的路径   你要解析的缓存文件路径</p>
+<p>解析完成后会出现两个文件加，一个是system,另外一个usr，如无意外，所有的动态库都会在里面，接下来尽情的蹂躏他们吧。不过记得在开始这一切之前，要将iphone里面的dyld_shared_cache_arm64文件拷贝一份到OSX上面去操作。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/25/dsc-extractor的编译和使用/" rel="next" title="dsc_extractor的编译和使用">
+                <i class="fa fa-chevron-left"></i> dsc_extractor的编译和使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/25/通过theos提供的logify来为类的所有方法添加追踪日志/" rel="prev" title="通过theos提供的logify来为类的所有方法添加追踪日志">
+                通过theos提供的logify来为类的所有方法添加追踪日志 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg"
+                alt="lemon" />
+            
+              <p class="site-author-name" itemprop="name">lemon</p>
+              <p class="site-description motion-element" itemprop="description">iOS Developer | 拥抱变化 | 🍋😊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/codemonkeybulucck" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:codebulucck@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1前言"><span class="nav-number">1.</span> <span class="nav-text">1前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2工具"><span class="nav-number">1.1.</span> <span class="nav-text">2工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3还原"><span class="nav-number">1.2.</span> <span class="nav-text">3还原</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-dyld-decache-v0-1c"><span class="nav-number">1.2.1.</span> <span class="nav-text">3.2 dyld_decache[v0.1c]</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lemon</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

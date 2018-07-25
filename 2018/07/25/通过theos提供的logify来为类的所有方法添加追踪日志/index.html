@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="logify," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.简介###logify是THEOS自带的为代码添加Log的工具，可以使用该工具给指定的类添加Log代码并且生成一个新的Tweak.xm文件 2.用法2.1 准备工作2.1.1 安装Theos 首先需要安装Theos，安装完成之后会默认安装此工具。">
+<meta name="keywords" content="logify">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过theos提供的logify来为类的所有方法添加追踪日志">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/通过theos提供的logify来为类的所有方法添加追踪日志/index.html">
+<meta property="og:site_name" content="Lemon&#39;s blog">
+<meta property="og:description" content="1.简介###logify是THEOS自带的为代码添加Log的工具，可以使用该工具给指定的类添加Log代码并且生成一个新的Tweak.xm文件 2.用法2.1 准备工作2.1.1 安装Theos 首先需要安装Theos，安装完成之后会默认安装此工具。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-25T06:41:07.874Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通过theos提供的logify来为类的所有方法添加追踪日志">
+<meta name="twitter:description" content="1.简介###logify是THEOS自带的为代码添加Log的工具，可以使用该工具给指定的类添加Log代码并且生成一个新的Tweak.xm文件 2.用法2.1 准备工作2.1.1 安装Theos 首先需要安装Theos，安装完成之后会默认安装此工具。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/通过theos提供的logify来为类的所有方法添加追踪日志/"/>
+
+
+
+
+
+  <title>通过theos提供的logify来为类的所有方法添加追踪日志 | Lemon's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lemon's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Talk is cheap show me the code</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-家">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/通过theos提供的logify来为类的所有方法添加追踪日志/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">通过theos提供的logify来为类的所有方法添加追踪日志</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-25T14:40:31+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-逆向/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 逆向</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>###logify是THEOS自带的为代码添加Log的工具，可以使用该工具给指定的类添加Log代码并且生成一个新的Tweak.xm文件</p>
+<h2 id="2-用法"><a href="#2-用法" class="headerlink" title="2.用法"></a>2.用法</h2><h3 id="2-1-准备工作"><a href="#2-1-准备工作" class="headerlink" title="2.1 准备工作"></a>2.1 准备工作</h3><h4 id="2-1-1-安装Theos"><a href="#2-1-1-安装Theos" class="headerlink" title="2.1.1 安装Theos"></a>2.1.1 安装Theos</h4><p> 首先需要安装<a href="https://github.com/theos/theos" target="_blank" rel="noopener">Theos</a>，安装完成之后会默认安装此工具。</p>
+<a id="more"></a>
+<h4 id="2-1-2-将APP脱壳，有两种方式可以获得脱壳的APP"><a href="#2-1-2-将APP脱壳，有两种方式可以获得脱壳的APP" class="headerlink" title="2.1.2 将APP脱壳，有两种方式可以获得脱壳的APP"></a>2.1.2 将APP脱壳，有两种方式可以获得脱壳的APP</h4><h5 id="2-1-2-1-无越狱机"><a href="#2-1-2-1-无越狱机" class="headerlink" title="2.1.2.1 无越狱机"></a>2.1.2.1 无越狱机</h5><p>通过PP助手去越狱市场下载脱壳的ipa，有时下载下来的也不一定是脱壳后的，你可以通过在终端执行以下命令<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otool -l target.app/target | grep crypt</span><br></pre></td></tr></table></figure></p>
+<p> 如果输出<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cryptoff 16384</span><br><span class="line">cryptsize 58753024</span><br><span class="line">cryptid 0 //0 代表已经砸壳，1代表未砸壳</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-1-2-2-有越狱机"><a href="#2-1-2-2-有越狱机" class="headerlink" title="2.1.2.2 有越狱机"></a>2.1.2.2 有越狱机</h5><p> 你需要一台越狱机器，安装完整版之后通过工具来脱壳，这个时候你也有两个方法获得脱壳应用。方法一：你可以使用<a href="https://github.com/stefanesser/dumpdecrypted" target="_blank" rel="noopener">dumpdecrypted</a>工具来砸壳。方式二：你也可以使用庆总开源的工具<a href="https://github.com/AloneMonkey/frida-ios-dump" target="_blank" rel="noopener">frida-iOS-dump</a>一条命令行进行砸壳。</p>
+<h4 id="2-1-3-class-dump-出头文件"><a href="#2-1-3-class-dump-出头文件" class="headerlink" title="2.1.3 class-dump 出头文件"></a>2.1.3 class-dump 出头文件</h4><p>通过以上的方式得到砸壳后的应用之后，需要利用<a href="https://github.com/nygard/class-dump" target="_blank" rel="noopener">clas-dump</a>工具dump出头文件。具体的用法如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class-dump -s -S -H target.app/target -o /path/to/save/header</span><br></pre></td></tr></table></figure>
+<h4 id="2-1-4-使用logify工具生成Tweak-xm文件"><a href="#2-1-4-使用logify工具生成Tweak-xm文件" class="headerlink" title="2.1.4 使用logify工具生成Tweak.xm文件"></a>2.1.4 使用logify工具生成Tweak.xm文件</h4><p>该文件里面会hook该头文件对应的类，并且会在代码里面加上Log打印<br>用法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logify.pl HookHeader.h的全路径 &gt;Tweak.xm</span><br></pre></td></tr></table></figure>
+<p>如果要跟踪多个头文件，则继续转换：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logify.pl 其它头文件 &gt;&gt; Tweak.xm</span><br></pre></td></tr></table></figure>
+<p> <em>注意中间是 &gt;&gt;</em></p>
+<h4 id="2-1-5-使用nic-pl命令来生成Theos工程，选择Teak工具。"><a href="#2-1-5-使用nic-pl命令来生成Theos工程，选择Teak工具。" class="headerlink" title="2.1.5 使用nic.pl命令来生成Theos工程，选择Teak工具。"></a>2.1.5 使用nic.pl命令来生成Theos工程，选择Teak工具。</h4><h4 id="2-1-6-创建完Tweak工程之后，将在2-1-4中生成的Tweak-xm替换掉工程中的Teak-xm-不过此时还需要对该文件做一些修改"><a href="#2-1-6-创建完Tweak工程之后，将在2-1-4中生成的Tweak-xm替换掉工程中的Teak-xm-不过此时还需要对该文件做一些修改" class="headerlink" title="2.1.6 创建完Tweak工程之后，将在2.1.4中生成的Tweak.xm替换掉工程中的Teak.xm.不过此时还需要对该文件做一些修改"></a>2.1.6 创建完Tweak工程之后，将在2.1.4中生成的Tweak.xm替换掉工程中的Teak.xm.不过此时还需要对该文件做一些修改</h4><p>a.去掉.cxx_destruct 方法</p>
+<p>b.将HBLogDebug 改为NSLog</p>
+<p>然后修改makefile文件，在最上面那一行增加<br>THEOS_DEVICE_IP = 你的设备的IP</p>
+<h4 id="2-1-7"><a href="#2-1-7" class="headerlink" title="2.1.7"></a>2.1.7</h4><p> 使用一下make package install 生成deb包，并且安装到越狱设备上。</p>
+<h4 id="2-1-8-运行目标APP，观察日志。"><a href="#2-1-8-运行目标APP，观察日志。" class="headerlink" title="2.1.8 运行目标APP，观察日志。"></a>2.1.8 运行目标APP，观察日志。</h4><p> 有两种方法可以观察日志，第一种是通过xcode-&gt;window-&gt;Device and simulators-&gt;view device logs 。<br> 第二种是通过idevicesyslog -u udid 来查看特定设备的日志。这种方式需要安装<a href="https://www.jianshu.com/p/746f3ddded1f" target="_blank" rel="noopener">libimobiledevice</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/logify/" rel="tag"># logify</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/25/导出iOS真机缓存的dyld-shared-cache-arm64文件/" rel="next" title="导出iOS真机缓存的dyld_shared_cache_arm64文件">
+                <i class="fa fa-chevron-left"></i> 导出iOS真机缓存的dyld_shared_cache_arm64文件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/25/iOS-逆向常用命令/" rel="prev" title="iOS 逆向常用命令">
+                iOS 逆向常用命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg"
+                alt="lemon" />
+            
+              <p class="site-author-name" itemprop="name">lemon</p>
+              <p class="site-description motion-element" itemprop="description">iOS Developer | 拥抱变化 | 🍋😊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/codemonkeybulucck" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:codebulucck@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简介"><span class="nav-number">1.</span> <span class="nav-text">1.简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-用法"><span class="nav-number">2.</span> <span class="nav-text">2.用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-准备工作"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-安装Theos"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 安装Theos</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-将APP脱壳，有两种方式可以获得脱壳的APP"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 将APP脱壳，有两种方式可以获得脱壳的APP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-2-1-无越狱机"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">2.1.2.1 无越狱机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-2-2-有越狱机"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">2.1.2.2 有越狱机</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-class-dump-出头文件"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 class-dump 出头文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-使用logify工具生成Tweak-xm文件"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.4 使用logify工具生成Tweak.xm文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-5-使用nic-pl命令来生成Theos工程，选择Teak工具。"><span class="nav-number">2.1.5.</span> <span class="nav-text">2.1.5 使用nic.pl命令来生成Theos工程，选择Teak工具。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-6-创建完Tweak工程之后，将在2-1-4中生成的Tweak-xm替换掉工程中的Teak-xm-不过此时还需要对该文件做一些修改"><span class="nav-number">2.1.6.</span> <span class="nav-text">2.1.6 创建完Tweak工程之后，将在2.1.4中生成的Tweak.xm替换掉工程中的Teak.xm.不过此时还需要对该文件做一些修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-7"><span class="nav-number">2.1.7.</span> <span class="nav-text">2.1.7</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-8-运行目标APP，观察日志。"><span class="nav-number">2.1.8.</span> <span class="nav-text">2.1.8 运行目标APP，观察日志。</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lemon</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="链式编程,masonry," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言： 相信做过iOS开发的都知道系统给开发者提供的代码设置约束有多难用，设置一个元素的位置往往要写十多行的代码，因为NSLayoutConstraint这个类是在太难用了。所以一个简单的代码布局框架就会很受开发者欢迎。所以也有了这次实践，通过链式编程实现简单的自动布局。下面也是模仿Masonry做一套自己的自动布局框架。">
+<meta name="keywords" content="链式编程,masonry">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS链式编程实(仿Masonry框架)">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/iOS链式编程实-仿Masonry框架/index.html">
+<meta property="og:site_name" content="Lemon&#39;s blog">
+<meta property="og:description" content="前言： 相信做过iOS开发的都知道系统给开发者提供的代码设置约束有多难用，设置一个元素的位置往往要写十多行的代码，因为NSLayoutConstraint这个类是在太难用了。所以一个简单的代码布局框架就会很受开发者欢迎。所以也有了这次实践，通过链式编程实现简单的自动布局。下面也是模仿Masonry做一套自己的自动布局框架。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-25T06:18:32.773Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS链式编程实(仿Masonry框架)">
+<meta name="twitter:description" content="前言： 相信做过iOS开发的都知道系统给开发者提供的代码设置约束有多难用，设置一个元素的位置往往要写十多行的代码，因为NSLayoutConstraint这个类是在太难用了。所以一个简单的代码布局框架就会很受开发者欢迎。所以也有了这次实践，通过链式编程实现简单的自动布局。下面也是模仿Masonry做一套自己的自动布局框架。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/iOS链式编程实-仿Masonry框架/"/>
+
+
+
+
+
+  <title>iOS链式编程实(仿Masonry框架) | Lemon's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lemon's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Talk is cheap show me the code</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-家">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/iOS链式编程实-仿Masonry框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS链式编程实(仿Masonry框架)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-25T11:40:31+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>前言： 相信做过iOS开发的都知道系统给开发者提供的代码设置约束有多难用，设置一个元素的位置往往要写十多行的代码，因为NSLayoutConstraint这个类是在太难用了。所以一个简单的代码布局框架就会很受开发者欢迎。所以也有了这次实践，通过链式编程实现简单的自动布局。下面也是模仿<a href="https://github.com/SnapKit/Masonry" target="_blank" rel="noopener">Masonry</a>做一套自己的自动布局框架。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="1-先看看我们最终实现同样的效果的代码对比"><a href="#1-先看看我们最终实现同样的效果的代码对比" class="headerlink" title="1.先看看我们最终实现同样的效果的代码对比"></a>1.先看看我们最终实现同样的效果的代码对比</h1><h2 id="1-1使用系统代码设置约束"><a href="#1-1使用系统代码设置约束" class="headerlink" title="1.1使用系统代码设置约束"></a>1.1使用系统代码设置约束</h2><pre><code>greenView.translatesAutoresizingMaskIntoConstraints = NO;
+[superview addConstraints:@[
+
+                            //greenView constraints
+                            [NSLayoutConstraint constraintWithItem:greenView
+                                                         attribute:NSLayoutAttributeTop
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:superview
+                                                         attribute:NSLayoutAttributeTop
+                                                        multiplier:1.0
+                                                          constant:20],
+
+                            [NSLayoutConstraint constraintWithItem:greenView
+                                                         attribute:NSLayoutAttributeLeft
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:superview
+                                                         attribute:NSLayoutAttributeLeft
+                                                        multiplier:1.0
+                                                          constant:20],
+
+                            [NSLayoutConstraint constraintWithItem:greenView
+                                                         attribute:NSLayoutAttributeBottom
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:nil
+                                                         attribute:NSLayoutAttributeNotAnAttribute
+                                                        multiplier:1.0
+                                                          constant:80],
+
+                            [NSLayoutConstraint constraintWithItem:greenView
+                                                         attribute:NSLayoutAttributeRight
+                                                         relatedBy:NSLayoutRelationEqual
+                                                            toItem:superview
+                                                         attribute:NSLayoutAttributeNotAnAttribute
+                                                        multiplier:1
+                                                          constant:80],
+
+                            ]];
+</code></pre><h2 id="1-2使用链式编程实现约束"><a href="#1-2使用链式编程实现约束" class="headerlink" title="1.2使用链式编程实现约束"></a>1.2使用链式编程实现约束</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[greenView makeLayout:^void(LMLayout *layout) &#123;</span><br><span class="line">      layout.width.equalTo(@(80));</span><br><span class="line">      layout.height.equalTo(@80);</span><br><span class="line">      layout.left.equalTo(self.view.lm_left).offSet(20);</span><br><span class="line">      layout.top.equalTo(self.view.lm_top).offSet(20);</span><br><span class="line">  &#125;];</span><br></pre></td></tr></table></figure>
+<h1 id="2-以上的代码缩减了这么多主要是因为将复杂的方法调用用链式的方式实现出来了，那么什么是链式编程呢？"><a href="#2-以上的代码缩减了这么多主要是因为将复杂的方法调用用链式的方式实现出来了，那么什么是链式编程呢？" class="headerlink" title="2.以上的代码缩减了这么多主要是因为将复杂的方法调用用链式的方式实现出来了，那么什么是链式编程呢？"></a>2.以上的代码缩减了这么多主要是因为将复杂的方法调用用链式的方式实现出来了，那么什么是链式编程呢？</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">layout.left.equalTo(self.view.lm_left).offSet(20);</span><br></pre></td></tr></table></figure>
+<pre><code>以这句代码为例，可以通过点语法一直不断的调用下一个方法，像一条链子一样，这样的方式就叫做链式编程。
+</code></pre><p>那么在代码层面，如何可以实现一直不断的通过点语法调用下一个方法。<br>实质上就是通过点语法调用方法的时候，返回一个block。而这个block必须需要包涵一个很重要的特点，这个block有返回值，这个返回值的类型是一个调用下一个方法的对象，这样下次又可以通过这个对象执行下一个方法。代码示例为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(LMLayout *(^)(NSObject *object))equalTo;</span><br></pre></td></tr></table></figure></p>
+<p>上述代码返回了一个(LMLayout <em>(^)(NSObject </em>object)block,该block返回了一个LMLayout对象，以便后面可以继续调用下一个方法，然后接受输入一个object的参数，该参数可以用来设置内部的约束的值。</p>
+<h1 id="3-基于以上的了解，我们开始着手写一个仿masonry的框架。"><a href="#3-基于以上的了解，我们开始着手写一个仿masonry的框架。" class="headerlink" title="3.基于以上的了解，我们开始着手写一个仿masonry的框架。"></a>3.基于以上的了解，我们开始着手写一个仿masonry的框架。</h1><p>以下使我们最终要实现的调用方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[greenView makeLayout:^void(LMLayout *layout) &#123;</span><br><span class="line">      layout.width.equalTo(@(80));</span><br><span class="line">      layout.height.equalTo(@80);</span><br><span class="line">      layout.left.equalTo(self.view.lm_left).offSet(20);</span><br><span class="line">      layout.top.equalTo(self.view.lm_top).offSet(20);</span><br><span class="line">  &#125;];</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-1先从外层的方法看起，首先给UIView创建了一个分类，并且定义了一个makeLayout的方法，需要传进一个block的参数，该block的作用就是设置greenView的约束。所以最外层的方法就是"><a href="#3-1先从外层的方法看起，首先给UIView创建了一个分类，并且定义了一个makeLayout的方法，需要传进一个block的参数，该block的作用就是设置greenView的约束。所以最外层的方法就是" class="headerlink" title="3.1先从外层的方法看起，首先给UIView创建了一个分类，并且定义了一个makeLayout的方法，需要传进一个block的参数，该block的作用就是设置greenView的约束。所以最外层的方法就是"></a>3.1先从外层的方法看起，首先给UIView创建了一个分类，并且定义了一个makeLayout的方法，需要传进一个block的参数，该block的作用就是设置greenView的约束。所以最外层的方法就是</h2><p>UIView+layout.h 文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (void)makeLayout:(void(^)(LMLayout *layout))layoutBlock;</span><br></pre></td></tr></table></figure></p>
+<p>UIView+layout.m文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)makeLayout:(void(^)(LMLayout *layout))layoutBlock&#123;</span><br><span class="line">    LMLayout *layout = [[LMLayout alloc]initWithView:self];</span><br><span class="line">    layoutBlock(layout);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在以上的方法中，创建了一个LMLayout的对象，并且将当前的view作为参数去初始化LMLayout对象。接下来看看一些LMLayout的初始化方法的实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithView:(UIView *)view&#123;</span><br><span class="line">    NSAssert([view superview]!=nil, @&quot;未能找到view的superView&quot;);</span><br><span class="line">    if (self = [super init]) &#123;</span><br><span class="line">        _view = view;</span><br><span class="line">        view.translatesAutoresizingMaskIntoConstraints = NO;</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在初始化方法内部会判断当前设置约束的view是否有superView，并且用属性保存当前传进来的view，关闭translatesAutoresizingMaskIntoConstraints。<br>再返回到上一个方法，初始化完成之后就执行该block，将初始化好的layout对象传过去。</p>
+<h2 id="3-2-接下来看block内部的调用"><a href="#3-2-接下来看block内部的调用" class="headerlink" title="3.2 接下来看block内部的调用"></a>3.2 接下来看block内部的调用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">layout.width.equalTo(@(80));</span><br></pre></td></tr></table></figure>
+<p>一层一层分析，layout.width实质上是调用了-(LMLayout*)width; 看看该方法内部的实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-(LMLayout*)width&#123;</span><br><span class="line">    _property = PropertyTypeWidth;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>PropertyTypeWidth 是一个枚举值，表示当前设置约束的属性是width，然后返回当前layout对象。<br>既然返回了layout对象，那么同样可以通过点执行下一个方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">layout.equalTo(@(80))</span><br></pre></td></tr></table></figure></p>
+<p>同样看一下方法的定义和实现<br>.h<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(LMLayout *(^)(NSObject *object))equalTo;</span><br></pre></td></tr></table></figure></p>
+<p>.m<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">-(LMLayout *(^)(NSObject *object))equalTo&#123;</span><br><span class="line">    __weak typeof(self)weakSelf = self;</span><br><span class="line">    return ^(NSObject *object)&#123;</span><br><span class="line">        //判断外部调用equalTo()这个block的时候会传什么值</span><br><span class="line">        //如果是直接设置属性的值</span><br><span class="line">        if ([object isKindOfClass:[NSNumber class]]) &#123;</span><br><span class="line">            CGFloat floatValue = [(NSNumber*)object floatValue];</span><br><span class="line">            NSLayoutAttribute attribute = NSLayoutAttributeHeight;</span><br><span class="line">            switch (weakSelf.property) &#123;</span><br><span class="line">                case PropertyTypeWidth:</span><br><span class="line">                    attribute = NSLayoutAttributeWidth;</span><br><span class="line">                    break;</span><br><span class="line">                case PropertyTypeHeight:</span><br><span class="line">                    attribute = NSLayoutAttributeHeight;</span><br><span class="line">                    break;</span><br><span class="line">                default:</span><br><span class="line">                    attribute = NSLayoutAttributeNotAnAttribute;</span><br><span class="line">                    break;</span><br><span class="line">            &#125;</span><br><span class="line">            NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:weakSelf.view attribute:attribute relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:floatValue];</span><br><span class="line">            //检测之前是否已经设置了旧的同一属性的约束，如果是就删除，添加新的约束</span><br><span class="line">            [weakSelf checkIfExistOldLayoutWithNewLayout:constraint];</span><br><span class="line">            [weakSelf.view addConstraint:constraint];</span><br><span class="line">        &#125;</span><br><span class="line">        //如果是设置一个参照view</span><br><span class="line">        else if([object isKindOfClass:[NSDictionary class]])&#123;</span><br><span class="line">            NSDictionary *dict = (NSDictionary*)object;</span><br><span class="line">            UIView *view = (UIView *)dict[@&quot;view&quot;];</span><br><span class="line">            weakSelf.conferenceView = view;</span><br><span class="line">            weakSelf.conferProperty = [dict[@&quot;property&quot;] floatValue];</span><br><span class="line">            NSLayoutAttribute attribute = [LMLayout attributeWithProperty:weakSelf.property];</span><br><span class="line">            NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:weakSelf.view attribute:attribute relatedBy:NSLayoutRelationEqual toItem:weakSelf.conferenceView attribute:weakSelf.conferProperty multiplier:1 constant:0];</span><br><span class="line">            //检测之前是否已经设置了旧的同一属性的约束，如果是就删除，添加新的约束</span><br><span class="line">            [weakSelf checkIfExistOldLayoutWithNewLayout:constraint];</span><br><span class="line">            weakSelf.currentConstraint = constraint;</span><br><span class="line">            [weakSelf.view.superview addConstraint:constraint];</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        return self;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>上述方法首先返回一个返回值类型为LMLayout，参数类型型为NSObject对象的Block，为什么是NSObject对象类型，因为equalTo有可能会直接传入一个数值，也有可能会传入一个view的属性，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">layout.height.equalTo(@80);</span><br><span class="line">layout.left.equalTo(self.view.lm_left).offSet(20);</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-2-1-首先看传进来的是一个数值的情况"><a href="#3-2-1-首先看传进来的是一个数值的情况" class="headerlink" title="3.2.1 首先看传进来的是一个数值的情况"></a>3.2.1 首先看传进来的是一个数值的情况</h3><p>如果传进来是一个数值，那么会判断之前是否已经设置过该约束，如果已经设置过就删除该约束，重新添加新的约束。</p>
+<h4 id="3-2-2-如果是-equalTo-self-view-lm-left-这种形式，括号内的self-view-lm-left实质上是执行了UIView的分类的"><a href="#3-2-2-如果是-equalTo-self-view-lm-left-这种形式，括号内的self-view-lm-left实质上是执行了UIView的分类的" class="headerlink" title="3.2.2 如果是.equalTo(self.view.lm_left)这种形式，括号内的self.view.lm_left实质上是执行了UIView的分类的"></a>3.2.2 如果是.equalTo(self.view.lm_left)这种形式，括号内的self.view.lm_left实质上是执行了UIView的分类的</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(NSDictionary&lt;UIView *,NSNumber *&gt;*)lm_left;</span><br></pre></td></tr></table></figure>
+<p>.m文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-(NSDictionary&lt;UIView *,NSNumber *&gt;*)lm_left&#123;</span><br><span class="line">    return [self dictWithProperty:PropertyTypeLeft];</span><br><span class="line">&#125;</span><br><span class="line">- (NSDictionary&lt;UIView *,NSNumber *&gt;*)dictWithProperty:(PropertyType)type&#123;</span><br><span class="line">    NSDictionary *dict = @&#123;@&quot;view&quot;:self,@&quot;property&quot;:@([LMLayout attributeWithProperty:type])&#125;;</span><br><span class="line">    return dict;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>方法内部会返回一个字典，字典的第一个参数表示需要参照的view，第二个参数表示的参照view的哪个属性。<br>当接收到返回的字典之后，因为之前已经获取了需要约束的view和需要约束的属性，现在也获取了参照的view和参照的属性，可以创建NSLayoutConstraint对象，并且添加约束到他们共同的superView上面。</p>
+<h2 id="3-3-下面来关注一下offset-20"><a href="#3-3-下面来关注一下offset-20" class="headerlink" title="3.3 下面来关注一下offset(20)"></a>3.3 下面来关注一下offset(20)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">layout.left.equalTo(self.view.lm_left).offSet(20);</span><br></pre></td></tr></table></figure>
+<p>.h<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-(void(^LayoutOffsetBlock)(CGFloat offset))offSet;</span><br></pre></td></tr></table></figure></p>
+<p>.m<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-(void(^LayoutOffsetBlock)(CGFloat offset))offSet&#123;</span><br><span class="line"> __weak typeof(self)weakSelf = self;</span><br><span class="line">    return ^(CGFloat margin)&#123;</span><br><span class="line">        NSLayoutAttribute attribute = [LMLayout attributeWithProperty:weakSelf.property];</span><br><span class="line">        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:weakSelf.view attribute:attribute relatedBy:NSLayoutRelationEqual toItem:weakSelf.conferenceView attribute:weakSelf.conferProperty multiplier:1 constant:margin];</span><br><span class="line">        if (weakSelf.currentConstraint.firstItem == constraint.firstItem &amp;&amp; weakSelf.currentConstraint.firstAttribute == constraint.firstAttribute &amp;&amp; weakSelf.currentConstraint.secondItem == constraint.secondItem &amp;&amp; weakSelf.currentConstraint.secondAttribute == constraint.secondAttribute) &#123;</span><br><span class="line">            weakSelf.currentConstraint.constant = margin;</span><br><span class="line">            //[weakSelf.view.superview removeConstraint:weakSelf.currentConstraint];</span><br><span class="line">           // [weakSelf.view.superview addConstraint:constraint];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该方法内部首先会根据枚举值拿到对应的NSLayoutAttribute，然后判断是否已经设置了该约束，如果是，那么直接修改该约束的值。</p>
+<h1 id="4-设置其他约束的方法都和上述类似。相关的源码已经上传到LMlayout，具体可以查看github"><a href="#4-设置其他约束的方法都和上述类似。相关的源码已经上传到LMlayout，具体可以查看github" class="headerlink" title="4 设置其他约束的方法都和上述类似。相关的源码已经上传到LMlayout，具体可以查看github."></a>4 设置其他约束的方法都和上述类似。相关的源码已经上传到<a href="https://github.com/codemonkeybulucck/LMLayout.git" target="_blank" rel="noopener">LMlayout</a>，具体可以查看github.</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/链式编程/" rel="tag"># 链式编程</a>
+          
+            <a href="/tags/masonry/" rel="tag"># masonry</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/25/使用xcode7创建静态库和动态库的完整过程/" rel="next" title="使用xcode7创建静态库和动态库的完整过程">
+                <i class="fa fa-chevron-left"></i> 使用xcode7创建静态库和动态库的完整过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/25/iOS-SDK利用Aggregate打包动态库和静态库/" rel="prev" title="iOS SDK利用Aggregate打包动态库和静态库">
+                iOS SDK利用Aggregate打包动态库和静态库 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg"
+                alt="lemon" />
+            
+              <p class="site-author-name" itemprop="name">lemon</p>
+              <p class="site-description motion-element" itemprop="description">iOS Developer | 拥抱变化 | 🍋😊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/codemonkeybulucck" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:codebulucck@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-先看看我们最终实现同样的效果的代码对比"><span class="nav-number">1.</span> <span class="nav-text">1.先看看我们最终实现同样的效果的代码对比</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1使用系统代码设置约束"><span class="nav-number">1.1.</span> <span class="nav-text">1.1使用系统代码设置约束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2使用链式编程实现约束"><span class="nav-number">1.2.</span> <span class="nav-text">1.2使用链式编程实现约束</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-以上的代码缩减了这么多主要是因为将复杂的方法调用用链式的方式实现出来了，那么什么是链式编程呢？"><span class="nav-number">2.</span> <span class="nav-text">2.以上的代码缩减了这么多主要是因为将复杂的方法调用用链式的方式实现出来了，那么什么是链式编程呢？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-基于以上的了解，我们开始着手写一个仿masonry的框架。"><span class="nav-number">3.</span> <span class="nav-text">3.基于以上的了解，我们开始着手写一个仿masonry的框架。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1先从外层的方法看起，首先给UIView创建了一个分类，并且定义了一个makeLayout的方法，需要传进一个block的参数，该block的作用就是设置greenView的约束。所以最外层的方法就是"><span class="nav-number">3.1.</span> <span class="nav-text">3.1先从外层的方法看起，首先给UIView创建了一个分类，并且定义了一个makeLayout的方法，需要传进一个block的参数，该block的作用就是设置greenView的约束。所以最外层的方法就是</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-接下来看block内部的调用"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 接下来看block内部的调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-首先看传进来的是一个数值的情况"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 首先看传进来的是一个数值的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-如果是-equalTo-self-view-lm-left-这种形式，括号内的self-view-lm-left实质上是执行了UIView的分类的"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">3.2.2 如果是.equalTo(self.view.lm_left)这种形式，括号内的self.view.lm_left实质上是执行了UIView的分类的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-下面来关注一下offset-20"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 下面来关注一下offset(20)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-设置其他约束的方法都和上述类似。相关的源码已经上传到LMlayout，具体可以查看github"><span class="nav-number">4.</span> <span class="nav-text">4 设置其他约束的方法都和上述类似。相关的源码已经上传到LMlayout，具体可以查看github.</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lemon</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

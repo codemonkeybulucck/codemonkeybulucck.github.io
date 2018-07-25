@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="LLDB,debugserver," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.1 LLDB  LLDB全称为low level debugger,是xcode自带的动态调试工具，可用于c,c++,objective-c，全盘支持iOS，OSX以及iOS模拟器。 LLDB有以下四个功能：  1.在特定的情况下暂停程序  2.在特定的情况下启动程序  3.在程序停止的情况下检查程序内部  4.在程序停止的情况下改动程序，观察执行过程。  LLDB是运行在OSX程序中的，可以">
+<meta name="keywords" content="LLDB,debugserver">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LLDB &amp;&amp; debugserver的使用">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/LLDB-debugserver的使用/index.html">
+<meta property="og:site_name" content="Lemon&#39;s blog">
+<meta property="og:description" content="1.1 LLDB  LLDB全称为low level debugger,是xcode自带的动态调试工具，可用于c,c++,objective-c，全盘支持iOS，OSX以及iOS模拟器。 LLDB有以下四个功能：  1.在特定的情况下暂停程序  2.在特定的情况下启动程序  3.在程序停止的情况下检查程序内部  4.在程序停止的情况下改动程序，观察执行过程。  LLDB是运行在OSX程序中的，可以">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-25T06:35:44.680Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LLDB &amp;&amp; debugserver的使用">
+<meta name="twitter:description" content="1.1 LLDB  LLDB全称为low level debugger,是xcode自带的动态调试工具，可用于c,c++,objective-c，全盘支持iOS，OSX以及iOS模拟器。 LLDB有以下四个功能：  1.在特定的情况下暂停程序  2.在特定的情况下启动程序  3.在程序停止的情况下检查程序内部  4.在程序停止的情况下改动程序，观察执行过程。  LLDB是运行在OSX程序中的，可以">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/LLDB-debugserver的使用/"/>
+
+
+
+
+
+  <title>LLDB && debugserver的使用 | Lemon's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lemon's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Talk is cheap show me the code</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-家">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/LLDB-debugserver的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LLDB && debugserver的使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-25T14:32:07+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-逆向/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 逆向</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-1-LLDB"><a href="#1-1-LLDB" class="headerlink" title="1.1 LLDB"></a>1.1 LLDB</h4><p>  </p><h4>LLDB全称为low level debugger,是xcode自带的动态调试工具，可用于c,c++,objective-c，全盘支持iOS，OSX以及iOS模拟器。<br> LLDB有以下四个功能：<p></p>
+<p> 1.在特定的情况下暂停程序</p>
+<p> 2.在特定的情况下启动程序</p>
+<p> 3.在程序停止的情况下检查程序内部</p>
+<p> 4.在程序停止的情况下改动程序，观察执行过程。</p>
+<p> LLDB是运行在OSX程序中的，可以通过特定的语句配合debugServer对iOS中的程序进行监视。</p>
+<a id="more"></a>
+<h4 id="1-2-debugServer"><a href="#1-2-debugServer" class="headerlink" title="1.2 debugServer"></a>1.2 debugServer</h4><p> </p><h4>debugserver是运行在iOS程序中的，顾名思义，作为server端，它接受与来自服务端，也就是LLDB传送过来的命令，继而执行的操作。再把执行结果返回给LLDB,默认情况下， iOS并没有安装debugserver，只有在设备连接了一次xcode之后，并在window-&gt;device中添加此设备之后，debugservercai才会别安装到iOS中，默认位于Developer/usr/bin目录下。<p></p>
+<p> 但是默认的debugserver只用用户调试我们自己的app，如果想要调试iOS里面所有的app，还需要通过给debugserver赋予task_for_pid的权限。以下是配置task_for_pid的教程</p>
+<p> 1.debugserver瘦身，首先根据你的iOS设备确定你的手机对应的ARM，4s是armv7,5,5c是armv7s，5s以上的机型都是arm64，我的手机是5s，所以对应的arm是arm64，所以只从debugserver保留arm64的架构即可。具体步骤:<br> 首先将未经处理的debugserver从iOS拷贝到OSX中，可以用scp命令，也可以用iFunBox。<br> 然后利用命令</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo -thin arm64（这里对应你的iOS设备的结构） (未经处理的debugServer的路径) -output (新的debugserver的保存路径)</span><br></pre></td></tr></table></figure>
+<p> 2.给debugServer添加task_for_pid权限，将以下xml保存为ent.xml。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> &lt;plist version=&quot;1.0&quot;&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">&lt;key&gt;com.apple.springboard.debugapplications&lt;/key&gt;</span><br><span class="line">&lt;true/&gt;</span><br><span class="line">&lt;key&gt;get-task-allow&lt;/key&gt;</span><br><span class="line">&lt;true/&gt;</span><br><span class="line">&lt;key&gt;task_for_pid-allow&lt;/key&gt;</span><br><span class="line">&lt;true/&gt;</span><br><span class="line">&lt;key&gt;run-unsigned-code&lt;/key&gt;</span><br><span class="line">&lt;true/&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
+<p> 运行以下命令：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldid -S(ent.xml的全路径) (debugServer的全路径)</span><br></pre></td></tr></table></figure>
+<p> 以上命令实质上是通过ldid这个签名工具，为debugserver添加task_for_pid权限，上面的命令也可以用xcode自带的codesign实现。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">codesign -s -f - --entitlements ent.plist -f debugserver</span><br></pre></td></tr></table></figure>
+<p> 3.将添加权限后的debugserver放回去iOS复制到/usr/bin/debugserver，这样的好处是可以全局执行debugserver命令。另一个原因是因为在developer里面的是不可以写的，无法覆盖。<br> 4.给新的debugserver添加可执行的权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x /usr/bin/debugserver</span><br></pre></td></tr></table></figure>
+<p>####1.3 debugserver使用</p>
+<p></p><h4>debugserver有两个命令。<p></p>
+<p> 1.启动进程,debugserver会启动进程，并且开启port端口，等待来自ip的LLDB接入。ip如果为*则代表任意ip</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">debugserver backend ip:port /path/to/excutable</span><br></pre></td></tr></table></figure>
+<p> 2.附加进程，附加进程是在进程已打开的情况下，可以执行以下命令。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">debugserver ip:port -a &quot;processname&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-LLDB-amp-amp-debugserver配合使用"><a href="#1-4-LLDB-amp-amp-debugserver配合使用" class="headerlink" title="1.4 LLDB &amp;&amp; debugserver配合使用"></a>1.4 LLDB &amp;&amp; debugserver配合使用</h4><p></p><h5><br>假设我们要调试在iOS中要按下home键的处理。通过IDA我们知道按下home键的时候调用了 -[SpringBoard _menuButtonDown:] 这个方法，现在我们的需求是在menuButtonDown的方法下面打一个断点。<p></p>
+<p>(1)首先利用debugserver启动进程或者附加进程。系统的SpringBoard默认是启动的，所以不需要启动进程，使用附加进程命令即可。SSH到iOS中，然后附加到SpringBoard进程(以下命令开启了1234接口并且等待来自任意ip的LLDB接入)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Last login: Sun Apr  8 11:04:23 on ttys016</span><br><span class="line">MacBookPro:~ lemon$ ssh root@192.168.2.154</span><br><span class="line">lemons-iPhone5S:~ root# debugserver *:1234 -a &quot;SpringBoard&quot;</span><br><span class="line">debugserver-@(#)PROGRAM:debugserver  PROJECT:debugserver-340.3.124</span><br><span class="line"> for arm64.</span><br><span class="line">Attaching to process SpringBoard...</span><br><span class="line">Listening to port 1234 for a connection from *...</span><br></pre></td></tr></table></figure>
+<p>(2)在OSX的terminal中启动LLDB，然后连接远程1234端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MacBookPro:~ lemon$ lldb</span><br><span class="line">(lldb) process connect connect://192.168.2.154:1234</span><br><span class="line">Process 2148 stopped</span><br><span class="line">* thread #1, queue = &apos;com.apple.main-thread&apos;, stop reason = signal SIGSTOP</span><br><span class="line">    frame #0: 0x000000018208cfd8 libsystem_kernel.dylib`mach_msg_trap + 8</span><br><span class="line">libsystem_kernel.dylib`mach_msg_trap:</span><br><span class="line">-&gt;  0x18208cfd8 &lt;+8&gt;: ret    </span><br><span class="line"></span><br><span class="line">libsystem_kernel.dylib`mach_msg_overwrite_trap:</span><br><span class="line">    0x18208cfdc &lt;+0&gt;: mov    x16, #-0x20</span><br><span class="line">    0x18208cfe0 &lt;+4&gt;: svc    #0x80</span><br><span class="line">    0x18208cfe4 &lt;+8&gt;: ret    </span><br><span class="line">Target 0: (SpringBoard) stopped.</span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure>
+<p>(3)通过以上两步我们已经可以在电脑的终端利用LLDB调试APP了。现在在终端输入 image list -o -f 可以看到当前所有iOS中启动的所有的进程模块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[(lldb) image list -o -f</span><br><span class="line">[  0] 0x0000000000040000 /Users/lemon/Library/Developer/Xcode/iOS DeviceSupport/9.3.1 (13E238)/Symbols/usr/lib/dyld</span><br><span class="line">[  1] 0x00000000000dc000 /System/Library/CoreServices/SpringBoard.app/SpringBoard(0x00000001000dc000)</span><br><span class="line">[  2] 0x0000000100988000 /Library/MobileSubstrate/MobileSubstrate.dylib(0x0000000100988000)</span><br><span class="line">[  3] 0x0000000001acc000 /Users/lemon/Library/Developer/Xcode/iOS DeviceSupport/9.3.1 (13E238)/Symbols/System/Library/PrivateFrameworks/StoreServices.framework/StoreServices</span><br></pre></td></tr></table></figure>
+<p>(4)通过3中的信息我们发现了Spring的偏移是0x00000000000dc000，接下来我们需要用ida查看menuButtonDown这个函数在模块中的地址是多少。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">                     -[SpringBoard _menuButtonDown:]:</span><br><span class="line">0000000100016fe8         stp        x28, x27, [sp, #0xffffffa0]!                ; Objective C Implementation defined at 0x1006a4550 (instance)</span><br><span class="line">0000000100016fec         stp        x26, x25, [sp, #0x10]</span><br><span class="line">0000000100016ff0         stp        x24, x23, [sp, #0x20]</span><br><span class="line">0000000100016ff4         stp        x22, x21, [sp, #0x30]</span><br><span class="line">0000000100016ff8         stp        x20, x19, [sp, #0x40]</span><br><span class="line">0000000100016ffc         stp        x29, x30, [sp, #0x50]</span><br><span class="line">0000000100017000         add        x29, sp, #0x50</span><br><span class="line">0000000100017004         sub        sp, sp, #0x60</span><br></pre></td></tr></table></figure>
+<p>通过上面的信息可以看到，该函数的第一条指令的地址是0000000100016fe8，所以该函数偏移后的地址是：原地址+偏移 =》0x00000000000dc000 +   0000000100016fe8 = 0x1000F2FE8</p>
+<p>(5)在偏移后的地址出打断点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(lldb) br s -a 0x1000F2FE8</span><br><span class="line">Breakpoint 1: where = SpringBoard`_mh_execute_header + 71804, address = 0x00000001000f2fe8</span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure>
+<p>(6)在打完断点之后，可以按下home键，这个时候程序就会停在断点处，可以用1.5里面的命令进行调试等等</p>
+<h4 id="1-5-LLDB命令解析"><a href="#1-5-LLDB命令解析" class="headerlink" title="1.5 LLDB命令解析"></a>1.5 LLDB命令解析</h4><p></p><h5><br>(1) b NSog // 在函数的起始位置设置断点<p></p>
+<p>(2) br s -a address //在地址处设置断点</p>
+<p>(3) br s -a ‘address + offsetAddress’ //在地址处设置断点</p>
+<p>(4) br dis //禁用所有的断点</p>
+<p>(5) br dis 6 //禁用序号为6的断点</p>
+<p>(6) br del //删除所有断点</p>
+<p>(7) br del 6 //删除序号为6的断点</p>
+<p>(8) br en //启用所有断点</p>
+<p>(9) br en 6 //启用序号为6的断点</p>
+<p>(10)br com add 1 //当序号为1的断点执行的时候，可以执行预先设置的指令。当执行了这条指令之后，llDB会要求你输入一些指令，并且以DONE结束，当程序停在序号为1的断点时，就会执行这些预先设定的指令。</p>
+<p>(11)p $R1 //打印R1的值</p>
+<p>(12)p/x $sp //打印SP的地址，以16进制输出</p>
+<p>(13)x/10 $sp //打印sp的地址，以10进制输出</p>
+<p>(14)nexti 和 stepi //nexti不进入函数体，stepi进入函数体，nexti可以简写成ni,setpi可以简写成si。</p>
+<p>(15)register write r0 1 //用于给指定的寄存器r0赋值为1从而达到对程序进行改动的目的。</p>
+</h5></h5></h4></h4></h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/LLDB/" rel="tag"># LLDB</a>
+          
+            <a href="/tags/debugserver/" rel="tag"># debugserver</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/25/libimobiledevice的安装和使用/" rel="next" title="libimobiledevice的安装和使用">
+                <i class="fa fa-chevron-left"></i> libimobiledevice的安装和使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/25/iOS-基础汇编知识/" rel="prev" title="iOS 基础汇编知识">
+                iOS 基础汇编知识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg"
+                alt="lemon" />
+            
+              <p class="site-author-name" itemprop="name">lemon</p>
+              <p class="site-description motion-element" itemprop="description">iOS Developer | 拥抱变化 | 🍋😊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/codemonkeybulucck" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:codebulucck@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-LLDB"><span class="nav-number">1.</span> <span class="nav-text">1.1 LLDB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">LLDB全称为low level debugger,是xcode自带的动态调试工具，可用于c,c++,objective-c，全盘支持iOS，OSX以及iOS模拟器。 LLDB有以下四个功能：
+ 1.在特定的情况下暂停程序
+ 2.在特定的情况下启动程序
+ 3.在程序停止的情况下检查程序内部
+ 4.在程序停止的情况下改动程序，观察执行过程。
+ LLDB是运行在OSX程序中的，可以通过特定的语句配合debugServer对iOS中的程序进行监视。
+
+1.2 debugServer debugserver是运行在iOS程序中的，顾名思义，作为server端，它接受与来自服务端，也就是LLDB传送过来的命令，继而执行的操作。再把执行结果返回给LLDB,默认情况下， iOS并没有安装debugserver，只有在设备连接了一次xcode之后，并在window-&gt;device中添加此设备之后，debugservercai才会别安装到iOS中，默认位于Developer/usr/bin目录下。
+ 但是默认的debugserver只用用户调试我们自己的app，如果想要调试iOS里面所有的app，还需要通过给debugserver赋予task_for_pid的权限。以下是配置task_for_pid的教程
+ 1.debugserver瘦身，首先根据你的iOS设备确定你的手机对应的ARM，4s是armv7,5,5c是armv7s，5s以上的机型都是arm64，我的手机是5s，所以对应的arm是arm64，所以只从debugserver保留arm64的架构即可。具体步骤: 首先将未经处理的debugserver从iOS拷贝到OSX中，可以用scp命令，也可以用iFunBox。 然后利用命令
+ 1lipo -thin arm64（这里对应你的iOS设备的结构） (未经处理的debugServer的路径) -output (新的debugserver的保存路径)
+ 2.给debugServer添加task_for_pid权限，将以下xml保存为ent.xml。
+ 123456789101112 &lt;plist version=&quot;1.0&quot;&gt;&lt;dict&gt;&lt;key&gt;com.apple.springboard.debugapplications&lt;/key&gt;&lt;true/&gt;&lt;key&gt;get-task-allow&lt;/key&gt;&lt;true/&gt;&lt;key&gt;task_for_pid-allow&lt;/key&gt;&lt;true/&gt;&lt;key&gt;run-unsigned-code&lt;/key&gt;&lt;true/&gt;&lt;/dict&gt;&lt;/plist&gt;
+ 运行以下命令：
+ 1ldid -S(ent.xml的全路径) (debugServer的全路径)
+ 以上命令实质上是通过ldid这个签名工具，为debugserver添加task_for_pid权限，上面的命令也可以用xcode自带的codesign实现。
+ 1codesign -s -f - --entitlements ent.plist -f debugserver
+ 3.将添加权限后的debugserver放回去iOS复制到/usr/bin/debugserver，这样的好处是可以全局执行debugserver命令。另一个原因是因为在developer里面的是不可以写的，无法覆盖。 4.给新的debugserver添加可执行的权限
+1chmod +x /usr/bin/debugserver
+####1.3 debugserver使用
+debugserver有两个命令。
+ 1.启动进程,debugserver会启动进程，并且开启port端口，等待来自ip的LLDB接入。ip如果为*则代表任意ip
+ 1debugserver backend ip:port /path/to/excutable
+ 2.附加进程，附加进程是在进程已打开的情况下，可以执行以下命令。
+ 1debugserver ip:port -a &quot;processname&quot;
+1.4 LLDB &amp;&amp; debugserver配合使用假设我们要调试在iOS中要按下home键的处理。通过IDA我们知道按下home键的时候调用了 -[SpringBoard _menuButtonDown:] 这个方法，现在我们的需求是在menuButtonDown的方法下面打一个断点。
+(1)首先利用debugserver启动进程或者附加进程。系统的SpringBoard默认是启动的，所以不需要启动进程，使用附加进程命令即可。SSH到iOS中，然后附加到SpringBoard进程(以下命令开启了1234接口并且等待来自任意ip的LLDB接入)
+1234567Last login: Sun Apr  8 11:04:23 on ttys016MacBookPro:~ lemon$ ssh root@192.168.2.154lemons-iPhone5S:~ root# debugserver *:1234 -a &quot;SpringBoard&quot;debugserver-@(#)PROGRAM:debugserver  PROJECT:debugserver-340.3.124 for arm64.Attaching to process SpringBoard...Listening to port 1234 for a connection from *...
+(2)在OSX的terminal中启动LLDB，然后连接远程1234端口
+1234567891011121314MacBookPro:~ lemon$ lldb(lldb) process connect connect://192.168.2.154:1234Process 2148 stopped* thread #1, queue = &#39;com.apple.main-thread&#39;, stop reason = signal SIGSTOP    frame #0: 0x000000018208cfd8 libsystem_kernel.dylib`mach_msg_trap + 8libsystem_kernel.dylib`mach_msg_trap:-&gt;  0x18208cfd8 &lt;+8&gt;: ret    libsystem_kernel.dylib`mach_msg_overwrite_trap:    0x18208cfdc &lt;+0&gt;: mov    x16, #-0x20    0x18208cfe0 &lt;+4&gt;: svc    #0x80    0x18208cfe4 &lt;+8&gt;: ret    Target 0: (SpringBoard) stopped.(lldb)
+(3)通过以上两步我们已经可以在电脑的终端利用LLDB调试APP了。现在在终端输入 image list -o -f 可以看到当前所有iOS中启动的所有的进程模块。
+12345[(lldb) image list -o -f[  0] 0x0000000000040000 /Users/lemon/Library/Developer/Xcode/iOS DeviceSupport/9.3.1 (13E238)/Symbols/usr/lib/dyld[  1] 0x00000000000dc000 /System/Library/CoreServices/SpringBoard.app/SpringBoard(0x00000001000dc000)[  2] 0x0000000100988000 /Library/MobileSubstrate/MobileSubstrate.dylib(0x0000000100988000)[  3] 0x0000000001acc000 /Users/lemon/Library/Developer/Xcode/iOS DeviceSupport/9.3.1 (13E238)/Symbols/System/Library/PrivateFrameworks/StoreServices.framework/StoreServices
+(4)通过3中的信息我们发现了Spring的偏移是0x00000000000dc000，接下来我们需要用ida查看menuButtonDown这个函数在模块中的地址是多少。
+123456789                     -[SpringBoard _menuButtonDown:]:0000000100016fe8         stp        x28, x27, [sp, #0xffffffa0]!                ; Objective C Implementation defined at 0x1006a4550 (instance)0000000100016fec         stp        x26, x25, [sp, #0x10]0000000100016ff0         stp        x24, x23, [sp, #0x20]0000000100016ff4         stp        x22, x21, [sp, #0x30]0000000100016ff8         stp        x20, x19, [sp, #0x40]0000000100016ffc         stp        x29, x30, [sp, #0x50]0000000100017000         add        x29, sp, #0x500000000100017004         sub        sp, sp, #0x60
+通过上面的信息可以看到，该函数的第一条指令的地址是0000000100016fe8，所以该函数偏移后的地址是：原地址+偏移 =》0x00000000000dc000 +   0000000100016fe8 = 0x1000F2FE8
+(5)在偏移后的地址出打断点
+123(lldb) br s -a 0x1000F2FE8Breakpoint 1: where = SpringBoard`_mh_execute_header + 71804, address = 0x00000001000f2fe8(lldb)
+(6)在打完断点之后，可以按下home键，这个时候程序就会停在断点处，可以用1.5里面的命令进行调试等等
+1.5 LLDB命令解析(1) b NSog // 在函数的起始位置设置断点
+(2) br s -a address //在地址处设置断点
+(3) br s -a ‘address + offsetAddress’ //在地址处设置断点
+(4) br dis //禁用所有的断点
+(5) br dis 6 //禁用序号为6的断点
+(6) br del //删除所有断点
+(7) br del 6 //删除序号为6的断点
+(8) br en //启用所有断点
+(9) br en 6 //启用序号为6的断点
+(10)br com add 1 //当序号为1的断点执行的时候，可以执行预先设置的指令。当执行了这条指令之后，llDB会要求你输入一些指令，并且以DONE结束，当程序停在序号为1的断点时，就会执行这些预先设定的指令。
+(11)p $R1 //打印R1的值
+(12)p/x $sp //打印SP的地址，以16进制输出
+(13)x/10 $sp //打印sp的地址，以10进制输出
+(14)nexti 和 stepi //nexti不进入函数体，stepi进入函数体，nexti可以简写成ni,setpi可以简写成si。
+(15)register write r0 1 //用于给指定的寄存器r0赋值为1从而达到对程序进行改动的目的。
+</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-debugServer"><span class="nav-number">3.</span> <span class="nav-text">1.2 debugServer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">debugserver是运行在iOS程序中的，顾名思义，作为server端，它接受与来自服务端，也就是LLDB传送过来的命令，继而执行的操作。再把执行结果返回给LLDB,默认情况下， iOS并没有安装debugserver，只有在设备连接了一次xcode之后，并在window-&gt;device中添加此设备之后，debugservercai才会别安装到iOS中，默认位于Developer/usr/bin目录下。
+ 但是默认的debugserver只用用户调试我们自己的app，如果想要调试iOS里面所有的app，还需要通过给debugserver赋予task_for_pid的权限。以下是配置task_for_pid的教程
+ 1.debugserver瘦身，首先根据你的iOS设备确定你的手机对应的ARM，4s是armv7,5,5c是armv7s，5s以上的机型都是arm64，我的手机是5s，所以对应的arm是arm64，所以只从debugserver保留arm64的架构即可。具体步骤: 首先将未经处理的debugserver从iOS拷贝到OSX中，可以用scp命令，也可以用iFunBox。 然后利用命令
+ 1lipo -thin arm64（这里对应你的iOS设备的结构） (未经处理的debugServer的路径) -output (新的debugserver的保存路径)
+ 2.给debugServer添加task_for_pid权限，将以下xml保存为ent.xml。
+ 123456789101112 &lt;plist version=&quot;1.0&quot;&gt;&lt;dict&gt;&lt;key&gt;com.apple.springboard.debugapplications&lt;/key&gt;&lt;true/&gt;&lt;key&gt;get-task-allow&lt;/key&gt;&lt;true/&gt;&lt;key&gt;task_for_pid-allow&lt;/key&gt;&lt;true/&gt;&lt;key&gt;run-unsigned-code&lt;/key&gt;&lt;true/&gt;&lt;/dict&gt;&lt;/plist&gt;
+ 运行以下命令：
+ 1ldid -S(ent.xml的全路径) (debugServer的全路径)
+ 以上命令实质上是通过ldid这个签名工具，为debugserver添加task_for_pid权限，上面的命令也可以用xcode自带的codesign实现。
+ 1codesign -s -f - --entitlements ent.plist -f debugserver
+ 3.将添加权限后的debugserver放回去iOS复制到/usr/bin/debugserver，这样的好处是可以全局执行debugserver命令。另一个原因是因为在developer里面的是不可以写的，无法覆盖。 4.给新的debugserver添加可执行的权限
+1chmod +x /usr/bin/debugserver
+####1.3 debugserver使用
+debugserver有两个命令。
+ 1.启动进程,debugserver会启动进程，并且开启port端口，等待来自ip的LLDB接入。ip如果为*则代表任意ip
+ 1debugserver backend ip:port /path/to/excutable
+ 2.附加进程，附加进程是在进程已打开的情况下，可以执行以下命令。
+ 1debugserver ip:port -a &quot;processname&quot;
+1.4 LLDB &amp;&amp; debugserver配合使用假设我们要调试在iOS中要按下home键的处理。通过IDA我们知道按下home键的时候调用了 -[SpringBoard _menuButtonDown:] 这个方法，现在我们的需求是在menuButtonDown的方法下面打一个断点。
+(1)首先利用debugserver启动进程或者附加进程。系统的SpringBoard默认是启动的，所以不需要启动进程，使用附加进程命令即可。SSH到iOS中，然后附加到SpringBoard进程(以下命令开启了1234接口并且等待来自任意ip的LLDB接入)
+1234567Last login: Sun Apr  8 11:04:23 on ttys016MacBookPro:~ lemon$ ssh root@192.168.2.154lemons-iPhone5S:~ root# debugserver *:1234 -a &quot;SpringBoard&quot;debugserver-@(#)PROGRAM:debugserver  PROJECT:debugserver-340.3.124 for arm64.Attaching to process SpringBoard...Listening to port 1234 for a connection from *...
+(2)在OSX的terminal中启动LLDB，然后连接远程1234端口
+1234567891011121314MacBookPro:~ lemon$ lldb(lldb) process connect connect://192.168.2.154:1234Process 2148 stopped* thread #1, queue = &#39;com.apple.main-thread&#39;, stop reason = signal SIGSTOP    frame #0: 0x000000018208cfd8 libsystem_kernel.dylib`mach_msg_trap + 8libsystem_kernel.dylib`mach_msg_trap:-&gt;  0x18208cfd8 &lt;+8&gt;: ret    libsystem_kernel.dylib`mach_msg_overwrite_trap:    0x18208cfdc &lt;+0&gt;: mov    x16, #-0x20    0x18208cfe0 &lt;+4&gt;: svc    #0x80    0x18208cfe4 &lt;+8&gt;: ret    Target 0: (SpringBoard) stopped.(lldb)
+(3)通过以上两步我们已经可以在电脑的终端利用LLDB调试APP了。现在在终端输入 image list -o -f 可以看到当前所有iOS中启动的所有的进程模块。
+12345[(lldb) image list -o -f[  0] 0x0000000000040000 /Users/lemon/Library/Developer/Xcode/iOS DeviceSupport/9.3.1 (13E238)/Symbols/usr/lib/dyld[  1] 0x00000000000dc000 /System/Library/CoreServices/SpringBoard.app/SpringBoard(0x00000001000dc000)[  2] 0x0000000100988000 /Library/MobileSubstrate/MobileSubstrate.dylib(0x0000000100988000)[  3] 0x0000000001acc000 /Users/lemon/Library/Developer/Xcode/iOS DeviceSupport/9.3.1 (13E238)/Symbols/System/Library/PrivateFrameworks/StoreServices.framework/StoreServices
+(4)通过3中的信息我们发现了Spring的偏移是0x00000000000dc000，接下来我们需要用ida查看menuButtonDown这个函数在模块中的地址是多少。
+123456789                     -[SpringBoard _menuButtonDown:]:0000000100016fe8         stp        x28, x27, [sp, #0xffffffa0]!                ; Objective C Implementation defined at 0x1006a4550 (instance)0000000100016fec         stp        x26, x25, [sp, #0x10]0000000100016ff0         stp        x24, x23, [sp, #0x20]0000000100016ff4         stp        x22, x21, [sp, #0x30]0000000100016ff8         stp        x20, x19, [sp, #0x40]0000000100016ffc         stp        x29, x30, [sp, #0x50]0000000100017000         add        x29, sp, #0x500000000100017004         sub        sp, sp, #0x60
+通过上面的信息可以看到，该函数的第一条指令的地址是0000000100016fe8，所以该函数偏移后的地址是：原地址+偏移 =》0x00000000000dc000 +   0000000100016fe8 = 0x1000F2FE8
+(5)在偏移后的地址出打断点
+123(lldb) br s -a 0x1000F2FE8Breakpoint 1: where = SpringBoard`_mh_execute_header + 71804, address = 0x00000001000f2fe8(lldb)
+(6)在打完断点之后，可以按下home键，这个时候程序就会停在断点处，可以用1.5里面的命令进行调试等等
+1.5 LLDB命令解析(1) b NSog // 在函数的起始位置设置断点
+(2) br s -a address //在地址处设置断点
+(3) br s -a ‘address + offsetAddress’ //在地址处设置断点
+(4) br dis //禁用所有的断点
+(5) br dis 6 //禁用序号为6的断点
+(6) br del //删除所有断点
+(7) br del 6 //删除序号为6的断点
+(8) br en //启用所有断点
+(9) br en 6 //启用序号为6的断点
+(10)br com add 1 //当序号为1的断点执行的时候，可以执行预先设置的指令。当执行了这条指令之后，llDB会要求你输入一些指令，并且以DONE结束，当程序停在序号为1的断点时，就会执行这些预先设定的指令。
+(11)p $R1 //打印R1的值
+(12)p/x $sp //打印SP的地址，以16进制输出
+(13)x/10 $sp //打印sp的地址，以10进制输出
+(14)nexti 和 stepi //nexti不进入函数体，stepi进入函数体，nexti可以简写成ni,setpi可以简写成si。
+(15)register write r0 1 //用于给指定的寄存器r0赋值为1从而达到对程序进行改动的目的。
+</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">debugserver有两个命令。
+ 1.启动进程,debugserver会启动进程，并且开启port端口，等待来自ip的LLDB接入。ip如果为*则代表任意ip
+ 1debugserver backend ip:port /path/to/excutable
+ 2.附加进程，附加进程是在进程已打开的情况下，可以执行以下命令。
+ 1debugserver ip:port -a &quot;processname&quot;
+1.4 LLDB &amp;&amp; debugserver配合使用假设我们要调试在iOS中要按下home键的处理。通过IDA我们知道按下home键的时候调用了 -[SpringBoard _menuButtonDown:] 这个方法，现在我们的需求是在menuButtonDown的方法下面打一个断点。
+(1)首先利用debugserver启动进程或者附加进程。系统的SpringBoard默认是启动的，所以不需要启动进程，使用附加进程命令即可。SSH到iOS中，然后附加到SpringBoard进程(以下命令开启了1234接口并且等待来自任意ip的LLDB接入)
+1234567Last login: Sun Apr  8 11:04:23 on ttys016MacBookPro:~ lemon$ ssh root@192.168.2.154lemons-iPhone5S:~ root# debugserver *:1234 -a &quot;SpringBoard&quot;debugserver-@(#)PROGRAM:debugserver  PROJECT:debugserver-340.3.124 for arm64.Attaching to process SpringBoard...Listening to port 1234 for a connection from *...
+(2)在OSX的terminal中启动LLDB，然后连接远程1234端口
+1234567891011121314MacBookPro:~ lemon$ lldb(lldb) process connect connect://192.168.2.154:1234Process 2148 stopped* thread #1, queue = &#39;com.apple.main-thread&#39;, stop reason = signal SIGSTOP    frame #0: 0x000000018208cfd8 libsystem_kernel.dylib`mach_msg_trap + 8libsystem_kernel.dylib`mach_msg_trap:-&gt;  0x18208cfd8 &lt;+8&gt;: ret    libsystem_kernel.dylib`mach_msg_overwrite_trap:    0x18208cfdc &lt;+0&gt;: mov    x16, #-0x20    0x18208cfe0 &lt;+4&gt;: svc    #0x80    0x18208cfe4 &lt;+8&gt;: ret    Target 0: (SpringBoard) stopped.(lldb)
+(3)通过以上两步我们已经可以在电脑的终端利用LLDB调试APP了。现在在终端输入 image list -o -f 可以看到当前所有iOS中启动的所有的进程模块。
+12345[(lldb) image list -o -f[  0] 0x0000000000040000 /Users/lemon/Library/Developer/Xcode/iOS DeviceSupport/9.3.1 (13E238)/Symbols/usr/lib/dyld[  1] 0x00000000000dc000 /System/Library/CoreServices/SpringBoard.app/SpringBoard(0x00000001000dc000)[  2] 0x0000000100988000 /Library/MobileSubstrate/MobileSubstrate.dylib(0x0000000100988000)[  3] 0x0000000001acc000 /Users/lemon/Library/Developer/Xcode/iOS DeviceSupport/9.3.1 (13E238)/Symbols/System/Library/PrivateFrameworks/StoreServices.framework/StoreServices
+(4)通过3中的信息我们发现了Spring的偏移是0x00000000000dc000，接下来我们需要用ida查看menuButtonDown这个函数在模块中的地址是多少。
+123456789                     -[SpringBoard _menuButtonDown:]:0000000100016fe8         stp        x28, x27, [sp, #0xffffffa0]!                ; Objective C Implementation defined at 0x1006a4550 (instance)0000000100016fec         stp        x26, x25, [sp, #0x10]0000000100016ff0         stp        x24, x23, [sp, #0x20]0000000100016ff4         stp        x22, x21, [sp, #0x30]0000000100016ff8         stp        x20, x19, [sp, #0x40]0000000100016ffc         stp        x29, x30, [sp, #0x50]0000000100017000         add        x29, sp, #0x500000000100017004         sub        sp, sp, #0x60
+通过上面的信息可以看到，该函数的第一条指令的地址是0000000100016fe8，所以该函数偏移后的地址是：原地址+偏移 =》0x00000000000dc000 +   0000000100016fe8 = 0x1000F2FE8
+(5)在偏移后的地址出打断点
+123(lldb) br s -a 0x1000F2FE8Breakpoint 1: where = SpringBoard`_mh_execute_header + 71804, address = 0x00000001000f2fe8(lldb)
+(6)在打完断点之后，可以按下home键，这个时候程序就会停在断点处，可以用1.5里面的命令进行调试等等
+1.5 LLDB命令解析(1) b NSog // 在函数的起始位置设置断点
+(2) br s -a address //在地址处设置断点
+(3) br s -a ‘address + offsetAddress’ //在地址处设置断点
+(4) br dis //禁用所有的断点
+(5) br dis 6 //禁用序号为6的断点
+(6) br del //删除所有断点
+(7) br del 6 //删除序号为6的断点
+(8) br en //启用所有断点
+(9) br en 6 //启用序号为6的断点
+(10)br com add 1 //当序号为1的断点执行的时候，可以执行预先设置的指令。当执行了这条指令之后，llDB会要求你输入一些指令，并且以DONE结束，当程序停在序号为1的断点时，就会执行这些预先设定的指令。
+(11)p $R1 //打印R1的值
+(12)p/x $sp //打印SP的地址，以16进制输出
+(13)x/10 $sp //打印sp的地址，以10进制输出
+(14)nexti 和 stepi //nexti不进入函数体，stepi进入函数体，nexti可以简写成ni,setpi可以简写成si。
+(15)register write r0 1 //用于给指定的寄存器r0赋值为1从而达到对程序进行改动的目的。
+</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-LLDB-amp-amp-debugserver配合使用"><span class="nav-number">6.</span> <span class="nav-text">1.4 LLDB &amp;&amp; debugserver配合使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">6.1.</span> <span class="nav-text">假设我们要调试在iOS中要按下home键的处理。通过IDA我们知道按下home键的时候调用了 -[SpringBoard _menuButtonDown:] 这个方法，现在我们的需求是在menuButtonDown的方法下面打一个断点。
+(1)首先利用debugserver启动进程或者附加进程。系统的SpringBoard默认是启动的，所以不需要启动进程，使用附加进程命令即可。SSH到iOS中，然后附加到SpringBoard进程(以下命令开启了1234接口并且等待来自任意ip的LLDB接入)
+1234567Last login: Sun Apr  8 11:04:23 on ttys016MacBookPro:~ lemon$ ssh root@192.168.2.154lemons-iPhone5S:~ root# debugserver *:1234 -a &quot;SpringBoard&quot;debugserver-@(#)PROGRAM:debugserver  PROJECT:debugserver-340.3.124 for arm64.Attaching to process SpringBoard...Listening to port 1234 for a connection from *...
+(2)在OSX的terminal中启动LLDB，然后连接远程1234端口
+1234567891011121314MacBookPro:~ lemon$ lldb(lldb) process connect connect://192.168.2.154:1234Process 2148 stopped* thread #1, queue = &#39;com.apple.main-thread&#39;, stop reason = signal SIGSTOP    frame #0: 0x000000018208cfd8 libsystem_kernel.dylib`mach_msg_trap + 8libsystem_kernel.dylib`mach_msg_trap:-&gt;  0x18208cfd8 &lt;+8&gt;: ret    libsystem_kernel.dylib`mach_msg_overwrite_trap:    0x18208cfdc &lt;+0&gt;: mov    x16, #-0x20    0x18208cfe0 &lt;+4&gt;: svc    #0x80    0x18208cfe4 &lt;+8&gt;: ret    Target 0: (SpringBoard) stopped.(lldb)
+(3)通过以上两步我们已经可以在电脑的终端利用LLDB调试APP了。现在在终端输入 image list -o -f 可以看到当前所有iOS中启动的所有的进程模块。
+12345[(lldb) image list -o -f[  0] 0x0000000000040000 /Users/lemon/Library/Developer/Xcode/iOS DeviceSupport/9.3.1 (13E238)/Symbols/usr/lib/dyld[  1] 0x00000000000dc000 /System/Library/CoreServices/SpringBoard.app/SpringBoard(0x00000001000dc000)[  2] 0x0000000100988000 /Library/MobileSubstrate/MobileSubstrate.dylib(0x0000000100988000)[  3] 0x0000000001acc000 /Users/lemon/Library/Developer/Xcode/iOS DeviceSupport/9.3.1 (13E238)/Symbols/System/Library/PrivateFrameworks/StoreServices.framework/StoreServices
+(4)通过3中的信息我们发现了Spring的偏移是0x00000000000dc000，接下来我们需要用ida查看menuButtonDown这个函数在模块中的地址是多少。
+123456789                     -[SpringBoard _menuButtonDown:]:0000000100016fe8         stp        x28, x27, [sp, #0xffffffa0]!                ; Objective C Implementation defined at 0x1006a4550 (instance)0000000100016fec         stp        x26, x25, [sp, #0x10]0000000100016ff0         stp        x24, x23, [sp, #0x20]0000000100016ff4         stp        x22, x21, [sp, #0x30]0000000100016ff8         stp        x20, x19, [sp, #0x40]0000000100016ffc         stp        x29, x30, [sp, #0x50]0000000100017000         add        x29, sp, #0x500000000100017004         sub        sp, sp, #0x60
+通过上面的信息可以看到，该函数的第一条指令的地址是0000000100016fe8，所以该函数偏移后的地址是：原地址+偏移 =》0x00000000000dc000 +   0000000100016fe8 = 0x1000F2FE8
+(5)在偏移后的地址出打断点
+123(lldb) br s -a 0x1000F2FE8Breakpoint 1: where = SpringBoard`_mh_execute_header + 71804, address = 0x00000001000f2fe8(lldb)
+(6)在打完断点之后，可以按下home键，这个时候程序就会停在断点处，可以用1.5里面的命令进行调试等等
+1.5 LLDB命令解析(1) b NSog // 在函数的起始位置设置断点
+(2) br s -a address //在地址处设置断点
+(3) br s -a ‘address + offsetAddress’ //在地址处设置断点
+(4) br dis //禁用所有的断点
+(5) br dis 6 //禁用序号为6的断点
+(6) br del //删除所有断点
+(7) br del 6 //删除序号为6的断点
+(8) br en //启用所有断点
+(9) br en 6 //启用序号为6的断点
+(10)br com add 1 //当序号为1的断点执行的时候，可以执行预先设置的指令。当执行了这条指令之后，llDB会要求你输入一些指令，并且以DONE结束，当程序停在序号为1的断点时，就会执行这些预先设定的指令。
+(11)p $R1 //打印R1的值
+(12)p/x $sp //打印SP的地址，以16进制输出
+(13)x/10 $sp //打印sp的地址，以10进制输出
+(14)nexti 和 stepi //nexti不进入函数体，stepi进入函数体，nexti可以简写成ni,setpi可以简写成si。
+(15)register write r0 1 //用于给指定的寄存器r0赋值为1从而达到对程序进行改动的目的。
+</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-LLDB命令解析"><span class="nav-number">7.</span> <span class="nav-text">1.5 LLDB命令解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undefined"><span class="nav-number">7.1.</span> <span class="nav-text">(1) b NSog // 在函数的起始位置设置断点
+(2) br s -a address //在地址处设置断点
+(3) br s -a ‘address + offsetAddress’ //在地址处设置断点
+(4) br dis //禁用所有的断点
+(5) br dis 6 //禁用序号为6的断点
+(6) br del //删除所有断点
+(7) br del 6 //删除序号为6的断点
+(8) br en //启用所有断点
+(9) br en 6 //启用序号为6的断点
+(10)br com add 1 //当序号为1的断点执行的时候，可以执行预先设置的指令。当执行了这条指令之后，llDB会要求你输入一些指令，并且以DONE结束，当程序停在序号为1的断点时，就会执行这些预先设定的指令。
+(11)p $R1 //打印R1的值
+(12)p/x $sp //打印SP的地址，以16进制输出
+(13)x/10 $sp //打印sp的地址，以10进制输出
+(14)nexti 和 stepi //nexti不进入函数体，stepi进入函数体，nexti可以简写成ni,setpi可以简写成si。
+(15)register write r0 1 //用于给指定的寄存器r0赋值为1从而达到对程序进行改动的目的。
+</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lemon</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
