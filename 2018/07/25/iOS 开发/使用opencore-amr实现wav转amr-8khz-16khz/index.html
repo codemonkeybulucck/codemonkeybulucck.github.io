@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="AMR,wav,音频开发," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="由于公司正在做声纹方面的开发，所以需要对语音数据做压缩，目前想到了三种压缩方式，1是AMR，2是Speex,3是Opus,这里先说第一种方式，在iOS4.0之前是可以进行amr格式的录音的，后来苹果取消了这个声音格式，但是可以使用opencore-amr来将wav格式转换为amr格式。">
+<meta name="keywords" content="AMR,wav,音频开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用opencore_amr实现wav转amr(8khz,16khz)">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/index.html">
+<meta property="og:site_name" content="Lemon&#39;s blog">
+<meta property="og:description" content="由于公司正在做声纹方面的开发，所以需要对语音数据做压缩，目前想到了三种压缩方式，1是AMR，2是Speex,3是Opus,这里先说第一种方式，在iOS4.0之前是可以进行amr格式的录音的，后来苹果取消了这个声音格式，但是可以使用opencore-amr来将wav格式转换为amr格式。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-25T03:29:56.379Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用opencore_amr实现wav转amr(8khz,16khz)">
+<meta name="twitter:description" content="由于公司正在做声纹方面的开发，所以需要对语音数据做压缩，目前想到了三种压缩方式，1是AMR，2是Speex,3是Opus,这里先说第一种方式，在iOS4.0之前是可以进行amr格式的录音的，后来苹果取消了这个声音格式，但是可以使用opencore-amr来将wav格式转换为amr格式。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/"/>
+
+
+
+
+
+  <title>使用opencore_amr实现wav转amr(8khz,16khz) | Lemon's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lemon's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Talk is cheap show me the code</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-家">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">使用opencore_amr实现wav转amr(8khz,16khz)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T11:28:16+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  967
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>由于公司正在做声纹方面的开发，所以需要对语音数据做压缩，目前想到了三种压缩方式，1是AMR，2是Speex,3是Opus,这里先说第一种方式，在iOS4.0之前是可以进行amr格式的录音的，后来苹果取消了这个声音格式，但是可以使用opencore-amr来将wav格式转换为amr格式。</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p>目前网上的例子大多数都是8Khz采样率的wav文件转AMR,具体可以参照<a href="http://my.oschina.net/jeans/blog/69937" target="_blank" rel="noopener">iOS音频格式之AMR和WAV互转(更新支持64位)</a>，这里也要感谢这篇博文的作者黄俊鹏，他给我提供了帮助我才找到了方法。但是我们公司由于对于声音采集样本的要求比较高，所以我们要使用16Khz的采样率，那么问题就出现了，在opencore-amr中并没有提供amr-wb的encode方法，8kHZ使用的opencore-amrnb.a的静态库，其中提供了encode和decode的方法，但是对于16Khz使用的是opencore-amrwb的静态库，其中里面只提供了decode的方法，后来通过其他资料我我才明白encode在另外一个项目vo-amrwbenc里面，如果要使用的话必须要单独编译这个项目才可以，项目下载可以看<a href="https://sourceforge.net/projects/opencore-amr/files/?source=navbar" target="_blank" rel="noopener">opencore-amr</a>，所以如果需要将16Khz wav文件转为amr文件，只需要编译这个库然后使用就可以了，如果要解码那么还是需要使用原来的opencore-amr库。</p>
+</blockquote>
+<p> #下面就可以编译vo-amrwebenc</p>
+<h2 id="1-首先新建一个文件夹，将下载到的vo-amrwbenc-0-1-3-tar-gz压缩包放到里面，然后进入这个文件夹，在里面创建build-sh文件-将以下脚本粘贴到文件里面"><a href="#1-首先新建一个文件夹，将下载到的vo-amrwbenc-0-1-3-tar-gz压缩包放到里面，然后进入这个文件夹，在里面创建build-sh文件-将以下脚本粘贴到文件里面" class="headerlink" title="1.首先新建一个文件夹，将下载到的vo-amrwbenc-0.1.3.tar.gz压缩包放到里面，然后进入这个文件夹，在里面创建build.sh文件,将以下脚本粘贴到文件里面"></a>1.首先新建一个文件夹，将下载到的vo-amrwbenc-0.1.3.tar.gz压缩包放到里面，然后进入这个文件夹，在里面创建build.sh文件,将以下脚本粘贴到文件里面</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">set -xe</span><br><span class="line"></span><br><span class="line">VERSION=&quot;0.1.3&quot;</span><br><span class="line"></span><br><span class="line">LIBSRCNAME=&quot;vo-amrwbenc&quot;</span><br><span class="line"></span><br><span class="line">CURRENTPATH=`pwd`</span><br><span class="line"></span><br><span class="line">mkdir -p &quot;$&#123;CURRENTPATH&#125;/src&quot;</span><br><span class="line"></span><br><span class="line">tar zxvf $&#123;LIBSRCNAME&#125;-$&#123;VERSION&#125;.tar.gz -C &quot;$&#123;CURRENTPATH&#125;/src&quot;</span><br><span class="line"></span><br><span class="line">cd &quot;$&#123;CURRENTPATH&#125;/src/$&#123;LIBSRCNAME&#125;-$&#123;VERSION&#125;&quot;</span><br><span class="line"></span><br><span class="line"># 设置环境变量并创建lib-ios文件夹，后续生成的.a类库都会放在这个文件夹里边</span><br><span class="line"></span><br><span class="line">DEST=&quot;$&#123;CURRENTPATH&#125;/lib-ios&quot;</span><br><span class="line"></span><br><span class="line">mkdir -p &quot;$&#123;DEST&#125;&quot;</span><br><span class="line"></span><br><span class="line">ARCHS=&quot;armv7 armv7s arm64 i386 x86_64&quot;</span><br><span class="line"></span><br><span class="line">LIBS=&quot;libvo-amrwbenc.a&quot;</span><br><span class="line"></span><br><span class="line">for arch in $ARCHS; do</span><br><span class="line"></span><br><span class="line">case $arch in arm*)</span><br><span class="line"></span><br><span class="line">IOSV=&quot;-miphoneos-version-min=7.0&quot;</span><br><span class="line"></span><br><span class="line">if [ $arch == &quot;arm64&quot; ]</span><br><span class="line"></span><br><span class="line">then</span><br><span class="line"></span><br><span class="line">IOSV=&quot;-miphoneos-version-min=7.0&quot;</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;Building for iOS $arch ****************&quot;</span><br><span class="line"></span><br><span class="line"># 编译 $arch 环境的类库（amr类型类型）</span><br><span class="line"></span><br><span class="line">SDKROOT=&quot;$(xcrun --sdk iphoneos --show-sdk-path)&quot;</span><br><span class="line"></span><br><span class="line">CC=&quot;$(xcrun --sdk iphoneos -f clang)&quot;</span><br><span class="line"></span><br><span class="line">CXX=&quot;$(xcrun --sdk iphoneos -f clang++)&quot;</span><br><span class="line"></span><br><span class="line">CPP=&quot;$(xcrun -sdk iphonesimulator -f clang++)&quot;</span><br><span class="line"></span><br><span class="line">CFLAGS=&quot;-isysroot $SDKROOT -arch $arch $IOSV -isystem $SDKROOT/usr/include -fembed-bitcode&quot;</span><br><span class="line"></span><br><span class="line">CXXFLAGS=$CFLAGS</span><br><span class="line"></span><br><span class="line">CPPFLAGS=$CFLAGS</span><br><span class="line"></span><br><span class="line">export CC CXX CFLAGS CXXFLAGS CPPFLAGS</span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line"></span><br><span class="line">--host=arm-apple-darwin \</span><br><span class="line"></span><br><span class="line">--prefix=$DEST \</span><br><span class="line"></span><br><span class="line">--disable-shared --enable-static</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">*)</span><br><span class="line"></span><br><span class="line">IOSV=&quot;-mios-simulator-version-min=7.0&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;Building for iOS $arch*****************&quot;</span><br><span class="line"></span><br><span class="line">SDKROOT=`xcodebuild -version -sdk iphonesimulator Path`</span><br><span class="line"></span><br><span class="line">CC=&quot;$(xcrun -sdk iphoneos -f clang)&quot;</span><br><span class="line"></span><br><span class="line">CXX=&quot;$(xcrun -sdk iphonesimulator -f clang++)&quot;</span><br><span class="line"></span><br><span class="line">CPP=&quot;$(xcrun -sdk iphonesimulator -f clang++)&quot;</span><br><span class="line"></span><br><span class="line">CFLAGS=&quot;-isysroot $SDKROOT -arch $arch $IOSV -isystem $SDKROOT/usr/include -fembed-bitcode&quot;</span><br><span class="line"></span><br><span class="line">CXXFLAGS=$CFLAGS</span><br><span class="line"></span><br><span class="line">CPPFLAGS=$CFLAGS</span><br><span class="line"></span><br><span class="line">export CC CXX CFLAGS CXXFLAGS CPPFLAGS</span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line"></span><br><span class="line">--prefix=$DEST \</span><br><span class="line"></span><br><span class="line">--disable-shared</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">make &gt; /dev/null</span><br><span class="line"></span><br><span class="line">make install     </span><br><span class="line"></span><br><span class="line">make clean   </span><br><span class="line"></span><br><span class="line">for i in $LIBS; do</span><br><span class="line"></span><br><span class="line">mv $DEST/lib/$i $DEST/lib/$i.$arch</span><br><span class="line"></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">for i in $LIBS; do</span><br><span class="line"></span><br><span class="line">input=&quot;&quot;</span><br><span class="line"></span><br><span class="line">for arch in $ARCHS; do</span><br><span class="line"></span><br><span class="line">input=&quot;$input $DEST/lib/$i.$arch&quot;</span><br><span class="line"></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">lipo -create -output $DEST/lib/$i $input</span><br><span class="line"></span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>##2.修改build.sh的权限，打开终端，cd到新建的文件夹，使用命令 chmod  777 build.sh 修改权限。</p>
+<p>##3.修改完成之后在终端执行 ./build.sh 就会在vo-amrwbenc里面生成一个lib-ios文件夹，里面就包含了libvo-amrwbenc.a的静态库和enc_if_h的头文件。</p>
+<p>最后我已经将编译好的项目放到github上面</p>
+<p><a href="https://github.com/codemonkeybulucck/opencore-vo-amrwbenc-iOS" target="_blank" rel="noopener">vo-amrwbenc编译</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AMR/" rel="tag"># AMR</a>
+          
+            <a href="/tags/wav/" rel="tag"># wav</a>
+          
+            <a href="/tags/音频开发/" rel="tag"># 音频开发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/25/其他/使用hexo在github上搭建自己的博客/" rel="next" title="使用hexo在github上搭建自己的博客">
+                <i class="fa fa-chevron-left"></i> 使用hexo在github上搭建自己的博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/25/iOS 开发/iOS使用AMR进行编码和解码/" rel="prev" title="iOS使用AMR进行编码和解码">
+                iOS使用AMR进行编码和解码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg"
+                alt="lemon" />
+            
+              <p class="site-author-name" itemprop="name">lemon</p>
+              <p class="site-description motion-element" itemprop="description">iOS Developer | 拥抱变化 | 🍋😊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/codemonkeybulucck" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:codebulucck@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-首先新建一个文件夹，将下载到的vo-amrwbenc-0-1-3-tar-gz压缩包放到里面，然后进入这个文件夹，在里面创建build-sh文件-将以下脚本粘贴到文件里面"><span class="nav-number">1.</span> <span class="nav-text">1.首先新建一个文件夹，将下载到的vo-amrwbenc-0.1.3.tar.gz压缩包放到里面，然后进入这个文件夹，在里面创建build.sh文件,将以下脚本粘贴到文件里面</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lemon</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://lemon2well.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/';
+          this.page.identifier = '2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/';
+          this.page.title = '使用opencore_amr实现wav转amr(8khz,16khz)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lemon2well.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

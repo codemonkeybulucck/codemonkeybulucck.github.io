@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="反调试," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="0x01 反调试主要分为两种，第一种阻止调试器附加，第二种是检测是否有调试器存在">
+<meta name="keywords" content="反调试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS防止被逆向调试">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/iOS 开发/iOS防止被逆向调试/index.html">
+<meta property="og:site_name" content="Lemon&#39;s blog">
+<meta property="og:description" content="0x01 反调试主要分为两种，第一种阻止调试器附加，第二种是检测是否有调试器存在">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-25T06:51:04.398Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS防止被逆向调试">
+<meta name="twitter:description" content="0x01 反调试主要分为两种，第一种阻止调试器附加，第二种是检测是否有调试器存在">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/iOS 开发/iOS防止被逆向调试/"/>
+
+
+
+
+
+  <title>iOS防止被逆向调试 | Lemon's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lemon's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Talk is cheap show me the code</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-家">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/iOS 开发/iOS防止被逆向调试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS防止被逆向调试</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T14:50:23+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/25/iOS 开发/iOS防止被逆向调试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/25/iOS 开发/iOS防止被逆向调试/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,052
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><blockquote>
+<p>反调试主要分为两种，第一种阻止调试器附加，第二种是检测是否有调试器存在</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>第一种方法：</p>
+<h3 id="0x01-ptrace"><a href="#0x01-ptrace" class="headerlink" title="0x01 ptrace"></a>0x01 ptrace</h3><blockquote>
+<p>ptrace是系统用来对运行中的进程进行调试和跟踪的工具，通过ptrace，可以对另一个进程实现调试跟踪。但是里面提供了一个非常有用的参数，就是PT_DENY_ATTACH，const值是31，这个参数用户告诉系统阻止调试器附加。<br>在main.m里面加入以下代码：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;UIKit/UIKit.h&gt;</span><br><span class="line">#import &quot;AppDelegate.h&quot;</span><br><span class="line">#import &lt;dlfcn.h&gt;</span><br><span class="line">#import &lt;sys/types.h&gt;</span><br><span class="line"></span><br><span class="line">typedef int  (*ptrace_ptr_t)(int _request,pid_t pid,caddr_t _addr,int _data);</span><br><span class="line">#ifndef PT_DENY_ATTACH</span><br><span class="line">#define PT_DENY_ATTACH 31</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main(int argc, char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">       // ptrace(PT_DENY_ATTACH,0,0,0); //系统函数并没有暴露出此方法所以不能直接通过此方式调用</span><br><span class="line">        void *handle = dlopen(0, RTLD_NOW|RTLD_GLOBAL);</span><br><span class="line">        ptrace_ptr_t ptrace_ptr = (ptrace_ptr_t)dlsym(handle, &quot;ptrace&quot;);</span><br><span class="line">        ptrace_ptr(PT_DENY_ATTACH,0,0,0);</span><br><span class="line">        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在上面的代码中，本来是直接调用上面被注释的那一行代码就可以了，不过由于不是公开的函数所以没法直接调用。所以我们通过dlopen的方式，当path 参数为0是,他会自动查找 $LD_LIBRARY_PATH,$DYLD_LIBRARY_PATH, $DYLD_FALLBACK_LIBRARY_PATH 和 当前工作目录中的动态链接库，通过句柄找到对应的ptarce对应的地址，然后传入PT_DENY_ATTACH。</p>
+</blockquote>
+<h3 id="0x02-syscall"><a href="#0x02-syscall" class="headerlink" title="0x02 syscall"></a>0x02 syscall</h3><blockquote>
+<p>另外一种方式可以使用syscall的方式来调用ptrace，syscall是系统提供的一个系统调用函数，因为上面的调用方式会容易被反反调试，通过NSFindSymbol找到_ptrace然后hook对应的函数，所以可以最好是通过syscall来反调试<br>在Kernel Syscalls里面找到<a href="https://www.theiphonewiki.com/wiki/Kernel_Syscalls" target="_blank" rel="noopener">ptrace</a>对应的const。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">$ joker -u ~/Documents/projects/iOS.6.0.iPod4.kernel </span><br><span class="line">This is an ARM binary. Applying iOS kernel signatures</span><br><span class="line">Entry point is 0x80085084....This appears to be XNU 2107.2.33</span><br><span class="line">Syscall names are @2a70f0</span><br><span class="line">Sysent offset in file/memory (for patching purposes): 0x2ef0c0/0x802f00c0</span><br><span class="line"></span><br><span class="line">Suppressing enosys (0x800b3429)  T = Thumb</span><br><span class="line">1. exit                  801d4a74 T</span><br><span class="line">2. fork                  801d7980 T</span><br><span class="line">3. read                  801eb584 T</span><br><span class="line">4. write                 801eb958 T</span><br><span class="line">5. open                  800b13a4 T</span><br><span class="line">6. close                 801ccab4 T</span><br><span class="line">7. wait4                 801d56bc T</span><br><span class="line">9. link                  800b18e8 T</span><br><span class="line">10. unlink               800b1ff0 T</span><br><span class="line">12. chdir                800b0c60 T</span><br><span class="line">13. fchdir               800b0af0 T</span><br><span class="line">14. mknod                800b14bc T</span><br><span class="line">15. chmod                800b2b40 T</span><br><span class="line">16. chown                800b2c9c T</span><br><span class="line">18. getfsstat            800b088c T</span><br><span class="line">20. getpid               801dc20c T</span><br><span class="line">23. setuid               801dc4c0 T</span><br><span class="line">24. getuid               801dc290 T</span><br><span class="line">25. geteuid              801dc2a0 T</span><br><span class="line">26. ptrace               801e812c T</span><br><span class="line">27. recvmsg              8020a8fc T</span><br><span class="line">28. sendmsg              8020a444 T</span><br><span class="line">29. recvfrom             8020a528 T</span><br><span class="line">30. accept               80209dfc T</span><br><span class="line">31. getpeername          8020abc8 T</span><br><span class="line">32. getsockname          8020ab18 T</span><br><span class="line">33. access               800b24ac T</span><br><span class="line">34. chflags              800b2928 T</span><br><span class="line">35. fchflags             800b29f0 T</span><br><span class="line">36. sync                 800b0320 T</span><br><span class="line">37. kill                 801dfdcc T</span><br><span class="line">39. getppid              801dc214 T</span><br><span class="line">41. dup                  801cab04 T</span><br><span class="line">42. pipe                 801edbe4 T</span><br><span class="line">43. getegid              801dc318 T</span><br><span class="line">46. sigaction            801deee8 T</span><br><span class="line">47. getgid               801dc308 T</span><br><span class="line">48. sigprocmask          801df42c T</span><br><span class="line">49. getlogin             801dd0e8 T</span><br><span class="line">50. setlogin             801dd160 T</span><br><span class="line">51. acct                 801c54ec T</span><br><span class="line">52. sigpending           801df5d0 T</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意一下代码中的26就是ptrace的const。<br>综上所述：调用syscall(26,31,0,0,0)就可以达到反调试的目的。</p>
+</blockquote>
+<h3 id="0x03-sysctl"><a href="#0x03-sysctl" class="headerlink" title="0x03 sysctl"></a>0x03 sysctl</h3><blockquote>
+<p>可以通过sysctl查看内核进程状态标志位，如果一个进程在调试状态，会有一个标志位（info.kp_proc.p_flag）来标识当前是否正在调试。<br>代码如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">BOOL existDebugger()&#123;</span><br><span class="line">    int name[4];//指定查询信息的数组</span><br><span class="line">    struct kinfo_proc info;//查询的返回结果</span><br><span class="line">    size_t info_size = sizeof(info);</span><br><span class="line">    info.kp_proc.p_flag = 0;</span><br><span class="line">    </span><br><span class="line">    name[0] = CTL_KERN;</span><br><span class="line">    name[1] = KERN_PROC;</span><br><span class="line">    name[2] = KERN_PROC_PID;</span><br><span class="line">    name[3] = getpid();</span><br><span class="line">    if (sysctl(name, 4, &amp;info, &amp;info_size, NULL, 0) == -1) &#123;</span><br><span class="line">        NSLog(@&quot;sysctl error ...&quot;);</span><br><span class="line">        return NO;</span><br><span class="line">    &#125;</span><br><span class="line">    return ((info.kp_proc.p_flag &amp; P_TRACED) != 0);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以定时执行以上代码，当检测到程序正在被调试，可以调用exit(0)来让程序奔溃或者做其他的操作</p>
+</blockquote>
+<h3 id="0x04"><a href="#0x04" class="headerlink" title="0x04"></a>0x04</h3><blockquote>
+<p>syscall可以通过软中断实现从用户态切换到系统内核态的转换，同时可以通过arm 汇编实现以上功能。通过asm volatile内联汇编，实际上也是调用了ptrace。<br>代码如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#ifdef __arm__</span><br><span class="line">        asm volatile(</span><br><span class="line">                     &quot;mov r0,#31\n&quot;</span><br><span class="line">                     &quot;mov r1,#0\n&quot;</span><br><span class="line">                     &quot;mov r2,#0\n&quot;</span><br><span class="line">                     &quot;mov r12,#26\n&quot;</span><br><span class="line">                     &quot;svc #80\n&quot;</span><br><span class="line"></span><br><span class="line">                     );</span><br><span class="line">#endif</span><br><span class="line">#ifdef __arm64__</span><br><span class="line">        asm volatile(</span><br><span class="line">                     &quot;mov x0,#26\n&quot;</span><br><span class="line">                     &quot;mov x1,#31\n&quot;</span><br><span class="line">                     &quot;mov x2,#0\n&quot;</span><br><span class="line">                     &quot;mov x3,#0\n&quot;</span><br><span class="line">                     &quot;mov x16,#0\n&quot;</span><br><span class="line">                     &quot;svc #128\n&quot;</span><br><span class="line">                     );</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/反调试/" rel="tag"># 反调试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/25/iOS 开发/iOS字符串加密以及静态混淆/" rel="next" title="iOS字符串加密以及静态混淆">
+                <i class="fa fa-chevron-left"></i> iOS字符串加密以及静态混淆
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/29/算法/字符串反转算法/" rel="prev" title="字符串反转算法">
+                字符串反转算法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg"
+                alt="lemon" />
+            
+              <p class="site-author-name" itemprop="name">lemon</p>
+              <p class="site-description motion-element" itemprop="description">iOS Developer | 拥抱变化 | 🍋😊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/codemonkeybulucck" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:codebulucck@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01"><span class="nav-number">1.</span> <span class="nav-text">0x01</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02"><span class="nav-number">2.</span> <span class="nav-text">0x02</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-ptrace"><span class="nav-number">2.1.</span> <span class="nav-text">0x01 ptrace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-syscall"><span class="nav-number">2.2.</span> <span class="nav-text">0x02 syscall</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-sysctl"><span class="nav-number">2.3.</span> <span class="nav-text">0x03 sysctl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04"><span class="nav-number">2.4.</span> <span class="nav-text">0x04</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lemon</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://lemon2well.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/07/25/iOS 开发/iOS防止被逆向调试/';
+          this.page.identifier = '2018/07/25/iOS 开发/iOS防止被逆向调试/';
+          this.page.title = 'iOS防止被逆向调试';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lemon2well.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

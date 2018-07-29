@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS 国际化," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在开发中我们的APP可能会有海外的版本，可能APP需要匹配英语，俄语，日语等等，这个时候就要做国际化的匹配处理，但是国际化适配也分两种情况，一种是根据iPhone系统语言自动切换界面语言，另外一种是在APP内选择语言，直接刷新APP的界面。下面我会分别介绍这两种情况。Demo在这里">
+<meta name="keywords" content="iOS 国际化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS适配国际化(跟随系统切换和应用内切换)">
+<meta property="og:url" content="http://yoursite.com/2018/07/25/iOS 开发/iOS适配国际化-跟随系统切换和应用内切换/index.html">
+<meta property="og:site_name" content="Lemon&#39;s blog">
+<meta property="og:description" content="在开发中我们的APP可能会有海外的版本，可能APP需要匹配英语，俄语，日语等等，这个时候就要做国际化的匹配处理，但是国际化适配也分两种情况，一种是根据iPhone系统语言自动切换界面语言，另外一种是在APP内选择语言，直接刷新APP的界面。下面我会分别介绍这两种情况。Demo在这里">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2269918-7681990a7fc5939d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2269918-64952a4b48db1030.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2269918-cd15913998ecf15b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2269918-7681990a7fc5939d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-07-25T06:25:56.752Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS适配国际化(跟随系统切换和应用内切换)">
+<meta name="twitter:description" content="在开发中我们的APP可能会有海外的版本，可能APP需要匹配英语，俄语，日语等等，这个时候就要做国际化的匹配处理，但是国际化适配也分两种情况，一种是根据iPhone系统语言自动切换界面语言，另外一种是在APP内选择语言，直接刷新APP的界面。下面我会分别介绍这两种情况。Demo在这里">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2269918-7681990a7fc5939d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/25/iOS 开发/iOS适配国际化-跟随系统切换和应用内切换/"/>
+
+
+
+
+
+  <title>iOS适配国际化(跟随系统切换和应用内切换) | Lemon's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lemon's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Talk is cheap show me the code</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-家">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/iOS 开发/iOS适配国际化-跟随系统切换和应用内切换/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS适配国际化(跟随系统切换和应用内切换)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T14:15:14+08:00">
+                2018-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/25/iOS 开发/iOS适配国际化-跟随系统切换和应用内切换/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/25/iOS 开发/iOS适配国际化-跟随系统切换和应用内切换/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  895
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>在开发中我们的APP可能会有海外的版本，可能APP需要匹配英语，俄语，日语等等，这个时候就要做国际化的匹配处理，但是国际化适配也分两种情况，一种是根据iPhone系统语言自动切换界面语言，另外一种是在APP内选择语言，直接刷新APP的界面。下面我会分别介绍这两种情况。<a href="https://github.com/codemonkeybulucck/LocalizableDemo.git" target="_blank" rel="noopener">Demo在这里</a></p>
+</blockquote>
+<a id="more"></a>
+<h2 id="第一种情况，比较简单的跟随系统语言自动切换。这种情况主要使用的是系统提供给我们的一个宏"><a href="#第一种情况，比较简单的跟随系统语言自动切换。这种情况主要使用的是系统提供给我们的一个宏" class="headerlink" title="第一种情况，比较简单的跟随系统语言自动切换。这种情况主要使用的是系统提供给我们的一个宏"></a>第一种情况，比较简单的跟随系统语言自动切换。这种情况主要使用的是系统提供给我们的一个宏</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define NSLocalizedString(key, comment) \</span><br><span class="line">	    [NSBundle.mainBundle localizedStringForKey:(key) value:@&quot;&quot; table:nil]</span><br></pre></td></tr></table></figure>
+<p>key的作用是去localizable.strings文件里面根据这个key去匹配文本内容，然后返回。如果用了这个宏，因为实际上调用的是 <code>[NSBundle.mainBundle localizedStringForKey:(key) value:@&quot;&quot; table:nil]</code> 这个方法，table为nil代表默认去Localizable.strings里面找，所以当创建strings文件的时候命名必须为Localizable,如果strings命名为其他名字，那么要用 <code>#define NSLocalizedStringFromTable(key, tbl, comment)</code>指定table的名字为strings的文件名字。<br>以上是基本的介绍。</p>
+<h3 id="下面开始说说开发步骤："><a href="#下面开始说说开发步骤：" class="headerlink" title="下面开始说说开发步骤："></a>下面开始说说开发步骤：</h3><p>1.首先需要在项目中增加需要匹配的语言</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2269918-7681990a7fc5939d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WX20170608-104014.png"></p>
+<p>如我需要匹配的语言是简体中文和英语。<br>2.创建Localizable.strings文件</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2269918-64952a4b48db1030.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WX20170608-104053.png"><br>创建完成后点击该文件，然后在右侧面板的点击Localization 选择English和Chinese，然后就会生成以下两个文件<br><img src="http://upload-images.jianshu.io/upload_images/2269918-cd15913998ecf15b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WX20170608-104133.png"></p>
+<h3 id="Localizable-strings-English-代表当系统语言是中文的时候，会来到这个文件根据key匹配text"><a href="#Localizable-strings-English-代表当系统语言是中文的时候，会来到这个文件根据key匹配text" class="headerlink" title="Localizable.strings(English)代表当系统语言是中文的时候，会来到这个文件根据key匹配text"></a>Localizable.strings(English)代表当系统语言是中文的时候，会来到这个文件根据key匹配text</h3><h4 id="Localizable-strings-Simplified-代表当系统语言是英文的时候，会来到这个文件根据key匹配text。"><a href="#Localizable-strings-Simplified-代表当系统语言是英文的时候，会来到这个文件根据key匹配text。" class="headerlink" title="Localizable.strings(Simplified)代表当系统语言是英文的时候，会来到这个文件根据key匹配text。"></a>Localizable.strings(Simplified)代表当系统语言是英文的时候，会来到这个文件根据key匹配text。</h4><p>以下是两个文件的内容：</p>
+<h3 id="Localizable-strings-English"><a href="#Localizable-strings-English" class="headerlink" title="Localizable.strings(English)"></a>Localizable.strings(English)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;LoginButtonText&quot;=&quot;Login&quot;;</span><br><span class="line">&quot;LabelText&quot;=&quot;The language of System is English now&quot;;</span><br></pre></td></tr></table></figure>
+<h3 id="Localizable-strings-Chinese-simplified"><a href="#Localizable-strings-Chinese-simplified" class="headerlink" title="Localizable.strings(Chinese(simplified))"></a>Localizable.strings(Chinese(simplified))</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;LoginButtonText&quot;=&quot;登陆&quot;;</span><br><span class="line">&quot;LabelText&quot;=&quot;现在系统的语言是中文&quot;;</span><br></pre></td></tr></table></figure>
+<p>3.使用NSLocalizedString(key,comment) 宏来赋值<br>在前面已经说了这个宏的作用了，在我的demo中我给button和label设置text。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[button setTitle:NSLocalizedString(@&quot;LoginButtonText&quot;, @&quot;&quot;) forState:UIControlStateNormal];</span><br><span class="line">    label.text = NSLocalizedString(@&quot;LabelText&quot;, @&quot;&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>最后去设置里面切换语言就能看到效果。</p>
+<h2 id="第二种情况，像微博或者微信可以在应用的语言设置里面直接设置本APP的语言，这种设置不会影响其他APP，只是本APP的一种行为，主要是利用NSUserDefault来保存本地自定的语言的值，如en-zh-hans等，然后通过读取这个值来加载对应的lproj文件，然后再生成对应的bundle，每个bundle下面就会放着每个table的stings文件。"><a href="#第二种情况，像微博或者微信可以在应用的语言设置里面直接设置本APP的语言，这种设置不会影响其他APP，只是本APP的一种行为，主要是利用NSUserDefault来保存本地自定的语言的值，如en-zh-hans等，然后通过读取这个值来加载对应的lproj文件，然后再生成对应的bundle，每个bundle下面就会放着每个table的stings文件。" class="headerlink" title="第二种情况，像微博或者微信可以在应用的语言设置里面直接设置本APP的语言，这种设置不会影响其他APP，只是本APP的一种行为，主要是利用NSUserDefault来保存本地自定的语言的值，如en,zh-hans等，然后通过读取这个值来加载对应的lproj文件，然后再生成对应的bundle，每个bundle下面就会放着每个table的stings文件。"></a>第二种情况，像微博或者微信可以在应用的语言设置里面直接设置本APP的语言，这种设置不会影响其他APP，只是本APP的一种行为，主要是利用NSUserDefault来保存本地自定的语言的值，如en,zh-hans等，然后通过读取这个值来加载对应的lproj文件，然后再生成对应的bundle，每个bundle下面就会放着每个table的stings文件。</h2><h3 id="话不多说，以下是开发步骤："><a href="#话不多说，以下是开发步骤：" class="headerlink" title="话不多说，以下是开发步骤："></a>话不多说，以下是开发步骤：</h3><p>1.和第一种情况一样，首先需要在项目中增加需要匹配的语言<br><img src="http://upload-images.jianshu.io/upload_images/2269918-7681990a7fc5939d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="WX20170608-104014.png"></p>
+<p>2.创建.strings文件，这里和第一种情况不太一样的是，这里你可以任意指定一个名字，如FirstTabBarItem.strings 来放置tabbar的第一个item的多语言文件，SecondTabBarItem.strings 来放置tabbar的第二个item的多语言文件，这里可以灵活处理。创建完strings文件之后，还是和之前一样点击Localization。然后选择你要适配的语言，生成文件。</p>
+<p>3.第三步创建一个LocalizableHelper 的类，这个类的作用是提供一个让外界根据key和table来获取文本的宏，当设置成功之后就会发出一个通知，接受者只需要监听这个通知然后更新必要界面就可以了。具体请看<a href="https://github.com/codemonkeybulucck/LocalizableDemo.git" target="_blank" rel="noopener">demo</a>，里面已经写了所有步骤的注释。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS-国际化/" rel="tag"># iOS 国际化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/25/iOS 开发/iOS-SDK利用Aggregate打包动态库和静态库/" rel="next" title="iOS SDK利用Aggregate打包动态库和静态库">
+                <i class="fa fa-chevron-left"></i> iOS SDK利用Aggregate打包动态库和静态库
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/25/iOS 逆向/logos基础语法/" rel="prev" title="logos基础语法">
+                logos基础语法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg"
+                alt="lemon" />
+            
+              <p class="site-author-name" itemprop="name">lemon</p>
+              <p class="site-description motion-element" itemprop="description">iOS Developer | 拥抱变化 | 🍋😊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/codemonkeybulucck" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:codebulucck@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一种情况，比较简单的跟随系统语言自动切换。这种情况主要使用的是系统提供给我们的一个宏"><span class="nav-number">1.</span> <span class="nav-text">第一种情况，比较简单的跟随系统语言自动切换。这种情况主要使用的是系统提供给我们的一个宏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下面开始说说开发步骤："><span class="nav-number">1.1.</span> <span class="nav-text">下面开始说说开发步骤：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Localizable-strings-English-代表当系统语言是中文的时候，会来到这个文件根据key匹配text"><span class="nav-number">1.2.</span> <span class="nav-text">Localizable.strings(English)代表当系统语言是中文的时候，会来到这个文件根据key匹配text</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Localizable-strings-Simplified-代表当系统语言是英文的时候，会来到这个文件根据key匹配text。"><span class="nav-number">1.2.1.</span> <span class="nav-text">Localizable.strings(Simplified)代表当系统语言是英文的时候，会来到这个文件根据key匹配text。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Localizable-strings-English"><span class="nav-number">1.3.</span> <span class="nav-text">Localizable.strings(English)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Localizable-strings-Chinese-simplified"><span class="nav-number">1.4.</span> <span class="nav-text">Localizable.strings(Chinese(simplified))</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二种情况，像微博或者微信可以在应用的语言设置里面直接设置本APP的语言，这种设置不会影响其他APP，只是本APP的一种行为，主要是利用NSUserDefault来保存本地自定的语言的值，如en-zh-hans等，然后通过读取这个值来加载对应的lproj文件，然后再生成对应的bundle，每个bundle下面就会放着每个table的stings文件。"><span class="nav-number">2.</span> <span class="nav-text">第二种情况，像微博或者微信可以在应用的语言设置里面直接设置本APP的语言，这种设置不会影响其他APP，只是本APP的一种行为，主要是利用NSUserDefault来保存本地自定的语言的值，如en,zh-hans等，然后通过读取这个值来加载对应的lproj文件，然后再生成对应的bundle，每个bundle下面就会放着每个table的stings文件。</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#话不多说，以下是开发步骤："><span class="nav-number">2.1.</span> <span class="nav-text">话不多说，以下是开发步骤：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lemon</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://lemon2well.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/07/25/iOS 开发/iOS适配国际化-跟随系统切换和应用内切换/';
+          this.page.identifier = '2018/07/25/iOS 开发/iOS适配国际化-跟随系统切换和应用内切换/';
+          this.page.title = 'iOS适配国际化(跟随系统切换和应用内切换)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lemon2well.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
