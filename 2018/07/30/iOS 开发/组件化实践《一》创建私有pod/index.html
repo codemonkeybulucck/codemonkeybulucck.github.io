@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="cocoapods," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="0x01 前言本次组件化实践的方式来自于casaty组件化方案，该方案是基于target-action模式和Mediator模式，通过Mediator利用runtime的机制来调用对应的target-action。并且在上层通过category的方式暴露对外调用的接口，这样调用者在调用的时候就知道需要传递哪些参数。">
+<meta name="keywords" content="cocoapods">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 组件化实践《一》创建私有pod">
+<meta property="og:url" content="http://yoursite.com/2018/07/30/iOS 开发/组件化实践《一》创建私有pod/index.html">
+<meta property="og:site_name" content="Lemon&#39;s blog">
+<meta property="og:description" content="0x01 前言本次组件化实践的方式来自于casaty组件化方案，该方案是基于target-action模式和Mediator模式，通过Mediator利用runtime的机制来调用对应的target-action。并且在上层通过category的方式暴露对外调用的接口，这样调用者在调用的时候就知道需要传递哪些参数。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/WX20180730-160336@2x.png">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15329320727207.jpg">
+<meta property="og:updated_time" content="2018-07-30T08:09:31.242Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 组件化实践《一》创建私有pod">
+<meta name="twitter:description" content="0x01 前言本次组件化实践的方式来自于casaty组件化方案，该方案是基于target-action模式和Mediator模式，通过Mediator利用runtime的机制来调用对应的target-action。并且在上层通过category的方式暴露对外调用的接口，这样调用者在调用的时候就知道需要传递哪些参数。">
+<meta name="twitter:image" content="http://pcd17v2u0.bkt.clouddn.com/WX20180730-160336@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/30/iOS 开发/组件化实践《一》创建私有pod/"/>
+
+
+
+
+
+  <title>iOS 组件化实践《一》创建私有pod | Lemon's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lemon's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Talk is cheap show me the code</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-家">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/30/iOS 开发/组件化实践《一》创建私有pod/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS 组件化实践《一》创建私有pod</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-30T11:41:12+08:00">
+                2018-07-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/30/iOS 开发/组件化实践《一》创建私有pod/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/30/iOS 开发/组件化实践《一》创建私有pod/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,466
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h2><p>本次组件化实践的方式来自于<a href="https://casatwy.com/iOS-Modulization.html" target="_blank" rel="noopener">casaty组件化方案</a>，该方案是基于target-action模式和Mediator模式，通过Mediator利用runtime的机制来调用对应的target-action。并且在上层通过category的方式暴露对外调用的接口，这样调用者在调用的时候就知道需要传递哪些参数。</p>
+<a id="more"></a>
+<p>具体的调用方式就是：<br><img src="http://pcd17v2u0.bkt.clouddn.com/WX20180730-160336@2x.png" alt="WX20180730-160336@2x"></p>
+<blockquote>
+<p>实际上是可以不使用category的形式而是直接调用CTMediactor的<code>- (id)performTarget:(NSString *)targetName action:(NSString *)actionName params:(NSDictionary *)params shouldCacheTarget:(BOOL)shouldCacheTarget</code> 方法直接调用对应target的action，但是那样对于调用方来说极其不友好，最直观的感受就是不知道params应该传哪些参数。</p>
+</blockquote>
+<blockquote>
+<p>利用catogory的方式暴露方法的好处在于<br>1、一个组件对应一个category，每个category提供了组件所有的调用方法，调用方直接调用，可以直观的看到需要传递哪些参数。<br>2、提供统一的调用入口，所有的组件的被调用都是通过category<br>3、可以做异常处理，将参数的校验提前，并且可以做请求转发。</p>
+</blockquote>
+<h2 id="0x02-组件化实践"><a href="#0x02-组件化实践" class="headerlink" title="0x02 组件化实践"></a>0x02 组件化实践</h2><p>在简单的介绍了组件化的实际逻辑之后下面开始真正的开始动手实现组件化实践流程。</p>
+<blockquote>
+<p>一个私有pod的创建具体分为以下几步：</p>
+</blockquote>
+<ol>
+<li>创建工程</li>
+<li>创建私有库，修改podSpec文件，将本地代码库和远程代码库关联起来，上传代码到远程仓库。</li>
+<li>创建远程索引库和本地索引库，也就是用于放置podspec的地方，每个podspec文件可以索引到我们远程不同的代码私有库</li>
+<li>本地测试podspec文件是否可用</li>
+<li>向索引库Spec Repo中提交podspec</li>
+<li>测试Spec Repo中的的 podspec 是否可用</li>
+</ol>
+<p>1、 首先到github里面创建一个空的工程，例如我要创建一个FirstViewController<br><img src="http://pcd17v2u0.bkt.clouddn.com/15329320727207.jpg" alt=""></p>
+<hr>
+<p>2、 创建私有库，终端运行<code>pod lib create FirstViewController</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">Lemons-MacBookPro:Module lemon$ pod lib create FirstViewController</span><br><span class="line">Cloning `https://github.com/CocoaPods/pod-template.git` into `FirstViewController`.</span><br><span class="line">Configuring FirstViewController template.</span><br><span class="line"></span><br><span class="line">------------------------------</span><br><span class="line"></span><br><span class="line">To get you started we need to ask a few questions, this should only take a minute.</span><br><span class="line"></span><br><span class="line">If this is your first time we recommend running through with the guide:</span><br><span class="line"> - https://guides.cocoapods.org/making/using-pod-lib-create.html</span><br><span class="line"> ( hold cmd and click links to open in a browser. )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">What platform do you want to use?? [ iOS / macOS ]</span><br><span class="line"> &gt; iOS //pod平台</span><br><span class="line"></span><br><span class="line">What language do you want to use?? [ Swift / ObjC ]</span><br><span class="line"> &gt; ObjC //pod语言</span><br><span class="line"></span><br><span class="line">Would you like to include a demo application with your library? [ Yes / No ]</span><br><span class="line"> &gt; No //是否需要提供demo</span><br><span class="line"></span><br><span class="line">Which testing frameworks will you use? [ Specta / Kiwi / None ]</span><br><span class="line"> &gt; None //测试框架</span><br><span class="line"></span><br><span class="line">Would you like to do view based testing? [ Yes / No ]</span><br><span class="line"> &gt; No //是否需要测试视图</span><br><span class="line"></span><br><span class="line">What is your class prefix?</span><br><span class="line"> &gt; LM //demo类前缀</span><br><span class="line"></span><br><span class="line">Running pod install on your new library.</span><br><span class="line"></span><br><span class="line">Analyzing dependencies</span><br><span class="line">Fetching podspec for `FirstViewController` from `../`</span><br><span class="line">Downloading dependencies</span><br><span class="line">Installing FirstViewController (0.1.0)</span><br><span class="line">Generating Pods project</span><br><span class="line">Integrating client project</span><br></pre></td></tr></table></figure>
+<p>上述命令执行完成之后会本地帮我们生成一个pod的模板文件，我们在这里首先需要改动的就是FirstViewController.podspec文件，用xcode打开该文件。<br>目前我们需要注意下面几处地方：</p>
+<ul>
+<li><code>s.version          = &#39;1.0.0&#39;</code>    //pod的版本，后面将podSpec文件提交到私有repo的时候会验证远程的仓库中是否已经存在对应的tag，所以这个要与后面提交代码的时候的tag相同,我们先修改为1.0.0，可以按照你们自己的标准修改。</li>
+<li><code>s.homepage         = &#39;https://github.com/codemonkeybulucck/FirstViewController&#39;</code>  //homepage这里填写在第一步中再github创建的远程仓库的地址即可。</li>
+<li><p><code>s.source           = { :git =&gt; &#39;https://github.com/codemonkeybulucck/FirstViewController.git&#39;, :tag =&gt; s.version.to_s }</code>  //这里填写远程仓库的地址，记得后面要加上.git的后缀</p>
+</li>
+<li><p><code>s.ios.deployment_target = &#39;8.0&#39;</code> //该pod的最低运行环境</p>
+</li>
+<li><p><code>s.source_files = &#39;FirstViewController/Classes/**/*&#39;</code> //pod中源代码的路径，后面会将实际的代码放在Classes文件夹下面</p>
+</li>
+</ul>
+<p>一些其他设置的说明：</p>
+<p>  s.summary          = ‘A short description of FirstViewController.’  //pod的简述<br>  s.description      = &lt;&lt;-DESC //具体描述<br> s.license          = { :type =&gt; ‘MIT’, :file =&gt; ‘LICENSE’ } //许可证<br>  s.author           = { <a href="mailto:&#39;545390087@qq.com" target="_blank" rel="noopener">&#39;545390087@qq.com</a>‘ =&gt; <a href="mailto:&#39;codebulucck@163.com" target="_blank" rel="noopener">&#39;codebulucck@163.com</a>‘ } //作者信息<br> s.dependency ‘AFNetworking’, ‘~&gt; 2.3’ //依赖库，如果该pod依赖其他pod，可以在此处加上。</p>
+<p>完成podspec文件修改之后我们可以将对应的组件代码放到Classes文件夹路径下面。下面将本地代码库和远程代码库关联起来，然后将本地代码推送到远程仓库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">Lemons-MacBookPro:FirstViewController lemon$ git remote add origin https://github.com/codemonkeybulucck/FirstViewController.git</span><br><span class="line">Lemons-MacBookPro:FirstViewController lemon$ git add .</span><br><span class="line">Lemons-MacBookPro:FirstViewController lemon$ git commit -m &quot;初始化&quot;</span><br><span class="line">[master 8ac032c] 初始化</span><br><span class="line"> 25 files changed, 1209 insertions(+)</span><br><span class="line"> create mode 100644 Example/FirstViewController.xcworkspace/contents.xcworkspacedata</span><br><span class="line"> create mode 100644 Example/FirstViewController.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist</span><br><span class="line"> create mode 100644 Example/Podfile.lock</span><br><span class="line"> create mode 100644 Example/Pods/Local Podspecs/FirstViewController.podspec.json</span><br><span class="line"> create mode 100644 Example/Pods/Manifest.lock</span><br><span class="line"> create mode 100644 Example/Pods/Pods.xcodeproj/project.pbxproj</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/FirstViewController/FirstViewController-dummy.m</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/FirstViewController/FirstViewController-prefix.pch</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/FirstViewController/FirstViewController-umbrella.h</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/FirstViewController/FirstViewController.modulemap</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/FirstViewController/FirstViewController.xcconfig</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/FirstViewController/Info.plist</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/Pods-FirstViewController_Tests/Info.plist</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/Pods-FirstViewController_Tests/Pods-FirstViewController_Tests-acknowledgements.markdown</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/Pods-FirstViewController_Tests/Pods-FirstViewController_Tests-acknowledgements.plist</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/Pods-FirstViewController_Tests/Pods-FirstViewController_Tests-dummy.m</span><br><span class="line"> create mode 100755 Example/Pods/Target Support Files/Pods-FirstViewController_Tests/Pods-FirstViewController_Tests-frameworks.sh</span><br><span class="line"> create mode 100755 Example/Pods/Target Support Files/Pods-FirstViewController_Tests/Pods-FirstViewController_Tests-resources.sh</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/Pods-FirstViewController_Tests/Pods-FirstViewController_Tests-umbrella.h</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/Pods-FirstViewController_Tests/Pods-FirstViewController_Tests.debug.xcconfig</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/Pods-FirstViewController_Tests/Pods-FirstViewController_Tests.modulemap</span><br><span class="line"> create mode 100644 Example/Pods/Target Support Files/Pods-FirstViewController_Tests/Pods-FirstViewController_Tests.release.xcconfig</span><br><span class="line"> create mode 100644 FirstViewController/Classes/FirstViewController.h</span><br><span class="line"> create mode 100644 FirstViewController/Classes/FirstViewController.m</span><br><span class="line"> delete mode 100644 FirstViewController/Classes/ReplaceMe.m</span><br><span class="line">Lemons-MacBookPro:FirstViewController lemon$ git push origin master</span><br><span class="line">Counting objects: 62, done.</span><br><span class="line">Delta compression using up to 4 threads.</span><br><span class="line">Compressing objects: 100% (55/55), done.</span><br><span class="line">Writing objects: 100% (62/62), 23.04 KiB | 2.56 MiB/s, done.</span><br><span class="line">Total 62 (delta 10), reused 0 (delta 0)</span><br><span class="line">remote: Resolving deltas: 100% (10/10), done.</span><br><span class="line">To https://github.com/codemonkeybulucck/FirstViewController.git</span><br><span class="line"> * [new branch]      master -&gt; master</span><br></pre></td></tr></table></figure>
+<hr>
+<p>3、 创建远程索引库和本地索引库，同样在github创建一个新的仓库，仓库的名字叫做LMSpec，这个仓库是pod的索引库，也就是后面如果要引用组件pod的话只要引入这个LMSpec就能从里面找到对应的组件。<br>    创建完远程仓库之后我们创建一个本地索引库，并且将本地索引库和远程仓库连接起来。<br>    <code>pod repo add LMSpec https://github.com/codemonkeybulucck/LMSpec.git</code> 执行完这条命令之后，去到 <code>~/.cocoapods/repo</code>路径下就能看到有一个master和LMSpec，master是公有cocoapod的索引库，LMSpec就是我们自己新建的索引库。到此我们已经创建好代码库以及索引库了。</p>
+<hr>
+<p>4、本地测试podspec文件是否可用 本地测试podspec文件是否可用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Lemons-MacBookPro:FirstViewController lemon$ pod lib lint</span><br><span class="line"></span><br><span class="line"> -&gt; FirstViewController (1.0.0)</span><br><span class="line">    - WARN  | summary: The summary is not meaningful.</span><br><span class="line"></span><br><span class="line">[!] FirstViewController did not pass validation, due to 1 warning (but you can use `--allow-warnings` to ignore it).</span><br><span class="line">You can use the `--no-clean` option to inspect any issue.</span><br></pre></td></tr></table></figure>
+<p>上述验证表明我们本地验证已经没有错误了，但是有一个警告，我们可以使用<br><code>pod lib lint --allow-warnings</code>来忽略警告。如果我们使用<code>pod spec lint</code>来验证的话，记得要先本地代码库打tag然后将tag推动到远程仓库才能通过验证，因为该命令是同时验证本地和远程仓库，因为我们还没有打tag推送到远程仓库，所以我们先用<code>pod lib lint</code>来验证。</p>
+<hr>
+<p>5、 向索引库Spec Repo中提交podspec<br>  在第四步中我们已经验证我们的podspec文件没有问题了，但是我们现在还不能推送到索引库，因为我们还没有打tag，这个tag应该是与podspec文件里面的version一致，不一致的话远程验证的时候是通不过验证的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Lemons-MacBookPro:FirstViewController lemon$ git tag -a 1.0.0 -m &quot;第一个版本pod&quot;</span><br><span class="line">Lemons-MacBookPro:FirstViewController lemon$ git push origin master 1.0.0</span><br><span class="line">Counting objects: 1, done.</span><br><span class="line">Writing objects: 100% (1/1), 183 bytes | 183.00 KiB/s, done.</span><br><span class="line">Total 1 (delta 0), reused 0 (delta 0)</span><br><span class="line">To https://github.com/codemonkeybulucck/FirstViewController.git</span><br><span class="line"> * [new tag]         1.0.0 -&gt; 1.0.0</span><br></pre></td></tr></table></figure>
+<p>完成上述步骤后我们需要将podspec提交到索引库中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Lemons-MacBookPro:FirstViewController lemon$ pod repo push LMSpec FirstViewController.podspec --allow-warnings</span><br><span class="line"></span><br><span class="line">Validating spec</span><br><span class="line"> -&gt; FirstViewController (1.0.0)</span><br><span class="line">    - WARN  | summary: The summary is not meaningful.</span><br><span class="line"></span><br><span class="line">Updating the `LMSpec&apos; repo</span><br><span class="line"></span><br><span class="line">Already up to date.</span><br><span class="line"></span><br><span class="line">Adding the spec to the `LMSpec&apos; repo</span><br><span class="line"></span><br><span class="line"> - [Add] FirstViewController (1.0.0)</span><br><span class="line"></span><br><span class="line">Pushing the `LMSpec&apos; repo</span><br></pre></td></tr></table></figure>
+<p>至此为止我们已经将podspec文件推送到本地LMSpec和远程LMSpec里面了，可以到 <code>~/.cocoapods/repo/LMSpec</code>文件夹下看有没有对应FirstViewControll文件夹。该文件夹下会有一个1.0.0的文件夹，也就是我们刚刚打的tag的数值。后续如果修改代码需要重新打tag,然后到时这里也会出现新的版本的代码。<br><strong>注</strong> 如果该私有库里面引用了其他的私有库，也就是podspec文件中s.dependency引用了其他私有库的信息，需要指定私有库的位置，那么推送命令将变为</p>
+<p><code>pod repo push LMSpec FirstViewController.podspec --allow-warnings --sources=https://github.com/codemonkeybulucck/LMSpec,master</code> </p>
+<hr>
+<p>6、 测试Spec Repo中的的 podspec 是否可用<br>创建一个ModuleTest的工程，进入到工程里面先执行 <code>pod init</code> ，然后编辑podfile文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">source &apos;https://github.com/codemonkeybulucck/LMSpec&apos;</span><br><span class="line">source &apos;https://github.com/CocoaPods/Specs.git&apos;</span><br><span class="line"></span><br><span class="line">target &apos;moduleTest&apos; do</span><br><span class="line">  # Uncomment the next line if you&apos;re using Swift or would like to use dynamic frameworks</span><br><span class="line">  # use_frameworks!</span><br><span class="line">  pod &apos;FirstViewController&apos;</span><br><span class="line">  # Pods for moduleTest</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>执行<code>pod install</code>如果没出错就代表私有库已经添加成功。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cocoapods/" rel="tag"># cocoapods</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/29/算法/两数之和/" rel="next" title="两数之和">
+                <i class="fa fa-chevron-left"></i> 两数之和
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg"
+                alt="lemon" />
+            
+              <p class="site-author-name" itemprop="name">lemon</p>
+              <p class="site-description motion-element" itemprop="description">iOS Developer | 拥抱变化 | 🍋😊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/codemonkeybulucck" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:codebulucck@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-前言"><span class="nav-number">1.</span> <span class="nav-text">0x01 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-组件化实践"><span class="nav-number">2.</span> <span class="nav-text">0x02 组件化实践</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lemon</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://lemon2well.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/07/30/iOS 开发/组件化实践《一》创建私有pod/';
+          this.page.identifier = '2018/07/30/iOS 开发/组件化实践《一》创建私有pod/';
+          this.page.title = 'iOS 组件化实践《一》创建私有pod';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lemon2well.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
