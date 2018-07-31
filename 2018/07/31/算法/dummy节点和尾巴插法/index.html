@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="链表结构," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="1前言在iOS系统中，存在着这么一个文件夹，/System/Library/Caches/com.apple.dyld，这个文件夹里面放着的是什么文件呢，在我的iphone5s中，两个文件dyld_shared_cache_armv7s和dyly_shared_arm64，这两个文件分别代表两个arm架构，一个是armv7s一个是arm64。">
+<meta name="description" content="给出一个链表和一个数X，要求将链表中所有小于X的值放到左边，等于或者大于X的值放到右边，并且原链表的节点顺序不变。 示例：假设： 1-&amp;gt;7-&amp;gt;3-&amp;gt;5-&amp;gt;2-&amp;gt;8-&amp;gt;4，给定x=4那么变换后的节点为： 1-&amp;gt;3-&amp;gt;2-&amp;gt;7-&amp;gt;5-&amp;gt;8-&amp;gt;4">
+<meta name="keywords" content="链表结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="导出iOS真机缓存的dyld_shared_cache_arm64文件">
-<meta property="og:url" content="http://yoursite.com/2018/07/25/iOS 逆向/导出iOS真机缓存的dyld-shared-cache-arm64文件/index.html">
+<meta property="og:title" content="dummy节点和尾巴插法">
+<meta property="og:url" content="http://yoursite.com/2018/07/31/算法/dummy节点和尾巴插法/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="1前言在iOS系统中，存在着这么一个文件夹，/System/Library/Caches/com.apple.dyld，这个文件夹里面放着的是什么文件呢，在我的iphone5s中，两个文件dyld_shared_cache_armv7s和dyly_shared_arm64，这两个文件分别代表两个arm架构，一个是armv7s一个是arm64。">
+<meta property="og:description" content="给出一个链表和一个数X，要求将链表中所有小于X的值放到左边，等于或者大于X的值放到右边，并且原链表的节点顺序不变。 示例：假设： 1-&amp;gt;7-&amp;gt;3-&amp;gt;5-&amp;gt;2-&amp;gt;8-&amp;gt;4，给定x=4那么变换后的节点为： 1-&amp;gt;3-&amp;gt;2-&amp;gt;7-&amp;gt;5-&amp;gt;8-&amp;gt;4">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-25T06:38:18.822Z">
+<meta property="og:updated_time" content="2018-07-31T15:36:54.856Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="导出iOS真机缓存的dyld_shared_cache_arm64文件">
-<meta name="twitter:description" content="1前言在iOS系统中，存在着这么一个文件夹，/System/Library/Caches/com.apple.dyld，这个文件夹里面放着的是什么文件呢，在我的iphone5s中，两个文件dyld_shared_cache_armv7s和dyly_shared_arm64，这两个文件分别代表两个arm架构，一个是armv7s一个是arm64。">
+<meta name="twitter:title" content="dummy节点和尾巴插法">
+<meta name="twitter:description" content="给出一个链表和一个数X，要求将链表中所有小于X的值放到左边，等于或者大于X的值放到右边，并且原链表的节点顺序不变。 示例：假设： 1-&amp;gt;7-&amp;gt;3-&amp;gt;5-&amp;gt;2-&amp;gt;8-&amp;gt;4，给定x=4那么变换后的节点为： 1-&amp;gt;3-&amp;gt;2-&amp;gt;7-&amp;gt;5-&amp;gt;8-&amp;gt;4">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/25/iOS 逆向/导出iOS真机缓存的dyld-shared-cache-arm64文件/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/31/算法/dummy节点和尾巴插法/"/>
 
 
 
 
 
-  <title>导出iOS真机缓存的dyld_shared_cache_arm64文件 | Lemon's blog</title>
+  <title>dummy节点和尾巴插法 | Lemon's blog</title>
   
 
 
@@ -252,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/iOS 逆向/导出iOS真机缓存的dyld-shared-cache-arm64文件/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/31/算法/dummy节点和尾巴插法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -269,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">导出iOS真机缓存的dyld_shared_cache_arm64文件</h1>
+          <h1 class="post-title" itemprop="name headline">dummy节点和尾巴插法</h1>
         
 
         <div class="post-meta">
@@ -281,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T14:37:48+08:00">
-                2018-07-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-31T23:35:01+08:00">
+                2018-07-31
               </time>
             
 
@@ -304,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS-逆向/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS 逆向</span>
+                  <a href="/categories/常见算法/" itemprop="url" rel="index">
+                    <span itemprop="name">常见算法</span>
                   </a>
                 </span>
 
@@ -322,9 +323,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/25/iOS 逆向/导出iOS真机缓存的dyld-shared-cache-arm64文件/#comments" itemprop="discussionUrl">
+                <a href="/2018/07/31/算法/dummy节点和尾巴插法/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/25/iOS 逆向/导出iOS真机缓存的dyld-shared-cache-arm64文件/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/07/31/算法/dummy节点和尾巴插法/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -346,7 +347,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  708
+                  338
                 </span>
               
 
@@ -362,7 +363,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  2
                 </span>
               
             </div>
@@ -383,23 +384,15 @@
       
 
       
-        <h3 id="1前言"><a href="#1前言" class="headerlink" title="1前言"></a>1前言</h3><p>在iOS系统中，存在着这么一个文件夹，/System/Library/Caches/com.apple.dyld，这个文件夹里面放着的是什么文件呢，在我的iphone5s中，两个文件dyld_shared_cache_armv7s和dyly_shared_arm64，这两个文件分别代表两个arm架构，一个是armv7s一个是arm64。</p>
+        <p>给出一个链表和一个数X，要求将链表中所有小于X的值放到左边，等于或者大于X的值放到右边，并且原链表的节点顺序不变。</p>
+<p>示例：<br>假设： 1-&gt;7-&gt;3-&gt;5-&gt;2-&gt;8-&gt;4，给定x=4<br>那么变换后的节点为： 1-&gt;3-&gt;2-&gt;7-&gt;5-&gt;8-&gt;4</p>
 <a id="more"></a>
-<p>顾名思义，这两个都是缓存文件，里面放着的都是各种系统所可能用到的动态库。如Foundation.framework,Security.framework等等。在/System/Library/Frameworks/这个路径下面所有的动态库只放了一些配置文件，而真正的执行文件就在上面说的缓存文件里面。因为几乎所有的iOS程序都会用到系统库，当程序运行的时候会使用dyld(位于/usr/lib/dylb)程序进行连接，另一方面，由于每个iOS程序都会连接很多的动态库，如果需要一个一个连接会很耗时，如果把它们放在一个地方打包好，等到运行的时候全部连接岂不美滋滋，基于这些原因，就有了dyld_shared_cache_armv7s和dyld_shared_cache_armv64两个缓存文件（有些设备有可能还会有dyld_shared_cache_armv7）。</p>
-<h4 id="2工具"><a href="#2工具" class="headerlink" title="2工具"></a>2工具</h4><p>上面我已经解释了为什么会存在这两个文件以及这两个文件的作用，在iOS逆向中，我们常常需要查看某一个系统类的实现，这个时候就要去对应的系统库里面查看，这些系统库就放在对应的缓存文件里面了。但是这些文件是经过处理的，不可以直接查看，所以需要用到一些工具来查看。这里介绍两个工具，一个是<a href="https://github.com/kennytm/Miscellaneous/downloads" target="_blank" rel="noopener">dyld_decache[v0.1c]</a> 另外一个是<a href="https://opensource.apple.com/source/dyld/dyld-195.6/launch-cache/dsc_extractor.cpp" target="_blank" rel="noopener">dsc_extractor</a>，<a href="https://www.jianshu.com/p/a7b1fed0359f" target="_blank" rel="noopener">编译方法</a> 。这两个工具的不同之处是，第一个工具是不可以用来解析arm64指令集的缓存文件的，而dsc_extractor是可以用来解析arm64指令集的缓存文件的，现在基本上大家用的都是arm64位指令集的设备了。（iPhone5s以上都是arm64位结构）</p>
-<h4 id="3还原"><a href="#3还原" class="headerlink" title="3还原"></a>3还原</h4><p>通过2中的dyld_decache[v0.1c]工具和dsc_extractor我们可以还原出<br>dyld_shared_cache_armX缓存文件中隐藏的framework。下面是语法</p>
-<p>#####3.1 dsc_extractor<br>usage: dsc_extractor <path-to-cache-file> <path-to-device-dir></path-to-device-dir></path-to-cache-file></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">usage: dsc_extractor 你要解析的arm64的缓存文件路径 保存的路径</span><br></pre></td></tr></table></figure>
-<p>解析过程中会出现类似于<br>0/969</p>
-<p>1/969</p>
-<p>2/969</p>
-<p>3/969</p>
-<p>4/969</p>
-<p>5/969</p>
-<p>…..</p>
-<p>这样的文字。</p>
-<h5 id="3-2-dyld-decache-v0-1c"><a href="#3-2-dyld-decache-v0-1c" class="headerlink" title="3.2 dyld_decache[v0.1c]"></a>3.2 dyld_decache[v0.1c]</h5><p>dyld_decache[v0.1c] -o 要保存的路径   你要解析的缓存文件路径</p>
-<p>解析完成后会出现两个文件加，一个是system,另外一个usr，如无意外，所有的动态库都会在里面，接下来尽情的蹂躏他们吧。不过记得在开始这一切之前，要将iphone里面的dyld_shared_cache_arm64文件拷贝一份到OSX上面去操作。</p>
+<blockquote>
+<p>思路：<br>我们先把题目简单化，我们可以先找出链表中小于X的节点放到一个新的链表里面<br>然后再找出等于或者大于X的节点放到另外一个条链表<br>最后将第一条链表的next指向第二条链表的头结点，这样就完成了题目的要求。</p>
+</blockquote>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">class ListNode &#123;</span><br><span class="line">      public var val: Int</span><br><span class="line">      public var next: ListNode?</span><br><span class="line">      public init(_ val: Int) &#123;</span><br><span class="line">          self.val = val</span><br><span class="line">          self.next = nil</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">class NewSoluction &#123;</span><br><span class="line">    func getNewList(_ l1:ListNode?,x:Int)-&gt;ListNode?&#123;</span><br><span class="line">        let headDummy = ListNode(0), tailDummy = ListNode(0)</span><br><span class="line">        var head = headDummy,tail = tailDummy</span><br><span class="line">        var node = l1</span><br><span class="line">        while node != nil &#123;</span><br><span class="line">            if node!.val &lt; x &#123;</span><br><span class="line">                head.next = node!</span><br><span class="line">                head = node!</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                tail.next = node!</span><br><span class="line">                tail = node!;</span><br><span class="line">            &#125;</span><br><span class="line">            node = node!.next</span><br><span class="line">        &#125;</span><br><span class="line">        tail.next = nil;</span><br><span class="line">        //头链加上尾链</span><br><span class="line">        head.next = tailDummy.next</span><br><span class="line">        return headDummy.next</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：tail.next = nil 是为了防止形成环，因为<code>tail.next = node ! ,tail = node</code>这一句实际上是形成了环，所以需要将tail.next置空来打破环</strong></p>
 
       
     </div>
@@ -415,6 +408,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/链表结构/" rel="tag"># 链表结构</a>
+          
+        </div>
+      
 
       
       
@@ -424,8 +423,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/" rel="next" title="dsc_extractor的编译和使用">
-                <i class="fa fa-chevron-left"></i> dsc_extractor的编译和使用
+              <a href="/2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/" rel="next" title="iOS 组件化实践《二》基于现有项目拆分组件化实践">
+                <i class="fa fa-chevron-left"></i> iOS 组件化实践《二》基于现有项目拆分组件化实践
               </a>
             
           </div>
@@ -433,10 +432,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/25/iOS 逆向/通过theos提供的logify来为类的所有方法添加追踪日志/" rel="prev" title="通过theos提供的logify来为类的所有方法添加追踪日志">
-                通过theos提供的logify来为类的所有方法添加追踪日志 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -498,17 +493,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -588,22 +574,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1前言"><span class="nav-number">1.</span> <span class="nav-text">1前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2工具"><span class="nav-number">1.1.</span> <span class="nav-text">2工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3还原"><span class="nav-number">1.2.</span> <span class="nav-text">3还原</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-dyld-decache-v0-1c"><span class="nav-number">1.2.1.</span> <span class="nav-text">3.2 dyld_decache[v0.1c]</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -768,9 +738,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/07/25/iOS 逆向/导出iOS真机缓存的dyld-shared-cache-arm64文件/';
-          this.page.identifier = '2018/07/25/iOS 逆向/导出iOS真机缓存的dyld-shared-cache-arm64文件/';
-          this.page.title = '导出iOS真机缓存的dyld_shared_cache_arm64文件';
+          this.page.url = 'http://yoursite.com/2018/07/31/算法/dummy节点和尾巴插法/';
+          this.page.identifier = '2018/07/31/算法/dummy节点和尾巴插法/';
+          this.page.title = 'dummy节点和尾巴插法';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lemon2well.disqus.com/embed.js';
