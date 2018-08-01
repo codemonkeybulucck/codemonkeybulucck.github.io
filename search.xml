@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[快行指针]]></title>
+    <url>%2F2018%2F08%2F01%2F%E7%AE%97%E6%B3%95%2F%E5%BF%AB%E8%A1%8C%E6%8C%87%E9%92%88%2F</url>
+    <content type="text"><![CDATA[快行指针的定义就是有两个指针访问链表，但是一个指针的速度比另外一个快，或者说一个指针在前，一个在后。 根据这个特性我们可以用来检测一个链表中是否有环。 假设：一个指针的速度是另外一个指针的两倍，它们同时开始访问同一个链表，如果链表有环的情况下，那么快行指针总会追上慢行指针，也就是总有一个时刻快行指针和慢行指针指向同一个节点，当慢行指针跑一圈的时候，快行指针此时刚好跑了两圈。以下是具体算法： 12345678910111213141516171819202122232425262728293031323334class ListNode:Equatable &#123;//遵守Equatable协议 static func == (lhs: ListNode, rhs: ListNode) -&gt; Bool &#123; if lhs.val == rhs.val &amp;&amp; lhs.next == rhs.next&#123; return true &#125;else&#123; return false &#125; &#125; public var val: Int public var next: ListNode? public init(_ val: Int) &#123; self.val = val self.next = nil &#125; &#125;class quickSolution &#123; func checkCycle(_ l1:ListNode?)-&gt;Bool&#123; guard let l1 = l1 else&#123; return false &#125; var slowNode:ListNode? = l1,fastNode:ListNode? = l1 while fastNode != nil &amp;&amp; fastNode?.next != nil &#123; slowNode = slowNode?.next fastNode = fastNode?.next!.next if slowNode == fastNode &#123; return true &#125; &#125; return false &#125;&#125; 另外，我们依然可以用这个方法来解决另外一个问题。删除链表中的第n个节点，例如：1-&gt;3-&gt;6-&gt;5-&gt;2 ，这里要删除倒数第2个节点。那么删除后的链表为： 1-&gt;3-&gt;6-&gt;2。 思路：假设快行指针从一开始就比慢行指针快n个节点，然后他们以相同的速度前进，当快行指针走到链表的最后一个节点的时候，慢行指针的当前节点的下一个节点就是我们要删除的节点。 代码如下： 123456789101112131415161718192021222324252627class DeleteSolution &#123; func deleteNode(_ l1:ListNode?,n:Int)-&gt;ListNode?&#123; guard let l1 = l1 else&#123; return nil &#125; let dummy = ListNode(0) dummy.next = l1 var slowNode:ListNode? = dummy var fastNode:ListNode? = dummy //设置快行指针比慢行指针快n个节点 for _ in 0 ..&lt; n &#123; if fastNode == nil &#123; break &#125; fastNode = fastNode?.next &#125; //同时移动两个指针 while fastNode != nil &amp;&amp; fastNode?.next != nil &#123; slowNode = slowNode?.next fastNode = fastNode?.next &#125; //删除需要删除的节点 slowNode?.next = slowNode?.next?.next return dummy.next &#125;&#125;]]></content>
+      <categories>
+        <category>常见算法</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[dummy节点和尾巴插法]]></title>
     <url>%2F2018%2F07%2F31%2F%E7%AE%97%E6%B3%95%2Fdummy%E8%8A%82%E7%82%B9%E5%92%8C%E5%B0%BE%E5%B7%B4%E6%8F%92%E6%B3%95%2F</url>
     <content type="text"><![CDATA[给出一个链表和一个数X，要求将链表中所有小于X的值放到左边，等于或者大于X的值放到右边，并且原链表的节点顺序不变。 示例：假设： 1-&gt;7-&gt;3-&gt;5-&gt;2-&gt;8-&gt;4，给定x=4那么变换后的节点为： 1-&gt;3-&gt;2-&gt;7-&gt;5-&gt;8-&gt;4 思路：我们先把题目简单化，我们可以先找出链表中小于X的节点放到一个新的链表里面然后再找出等于或者大于X的节点放到另外一个条链表最后将第一条链表的next指向第二条链表的头结点，这样就完成了题目的要求。 代码如下： 123456789101112131415161718192021222324252627282930class ListNode &#123; public var val: Int public var next: ListNode? public init(_ val: Int) &#123; self.val = val self.next = nil &#125; &#125;class NewSoluction &#123; func getNewList(_ l1:ListNode?,x:Int)-&gt;ListNode?&#123; let headDummy = ListNode(0), tailDummy = ListNode(0) var head = headDummy,tail = tailDummy var node = l1 while node != nil &#123; if node!.val &lt; x &#123; head.next = node! head = node! &#125;else&#123; tail.next = node! tail = node!; &#125; node = node!.next &#125; tail.next = nil; //头链加上尾链 head.next = tailDummy.next return headDummy.next &#125;&#125; 注意：tail.next = nil 是为了防止形成环，因为tail.next = node ! ,tail = node这一句实际上是形成了环，所以需要将tail.next置空来打破环]]></content>
