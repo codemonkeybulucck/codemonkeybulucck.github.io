@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="AMR,wav,音频开发," />
+  <meta name="keywords" content="去model," />
 
 
 
@@ -81,18 +81,20 @@
 
 
 
-<meta name="description" content="由于公司正在做声纹方面的开发，所以需要对语音数据做压缩，目前想到了三种压缩方式，1是AMR，2是Speex,3是Opus,这里先说第一种方式，在iOS4.0之前是可以进行amr格式的录音的，后来苹果取消了这个声音格式，但是可以使用opencore-amr来将wav格式转换为amr格式。">
-<meta name="keywords" content="AMR,wav,音频开发">
+<meta name="description" content="前言偶然在网上看到casa的网络层设计方案，在以前的iOS开发中，用的最多的就是集约型的网络请求+去Model的形式，然而在看完这篇文章之后我觉得好像发现了新大陆，原来还可以这么玩。">
+<meta name="keywords" content="去model">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用opencore_amr实现wav转amr(8khz,16khz)">
-<meta property="og:url" content="http://yoursite.com/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/index.html">
+<meta property="og:title" content="网络层设计方案以及去Model化实践">
+<meta property="og:url" content="http://yoursite.com/2018/08/02/iOS 开发/网络层设计方案以及去Model化实践/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="由于公司正在做声纹方面的开发，所以需要对语音数据做压缩，目前想到了三种压缩方式，1是AMR，2是Speex,3是Opus,这里先说第一种方式，在iOS4.0之前是可以进行amr格式的录音的，后来苹果取消了这个声音格式，但是可以使用opencore-amr来将wav格式转换为amr格式。">
+<meta property="og:description" content="前言偶然在网上看到casa的网络层设计方案，在以前的iOS开发中，用的最多的就是集约型的网络请求+去Model的形式，然而在看完这篇文章之后我觉得好像发现了新大陆，原来还可以这么玩。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-25T03:29:56.379Z">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15331959524160.jpg">
+<meta property="og:updated_time" content="2018-08-02T09:32:52.119Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用opencore_amr实现wav转amr(8khz,16khz)">
-<meta name="twitter:description" content="由于公司正在做声纹方面的开发，所以需要对语音数据做压缩，目前想到了三种压缩方式，1是AMR，2是Speex,3是Opus,这里先说第一种方式，在iOS4.0之前是可以进行amr格式的录音的，后来苹果取消了这个声音格式，但是可以使用opencore-amr来将wav格式转换为amr格式。">
+<meta name="twitter:title" content="网络层设计方案以及去Model化实践">
+<meta name="twitter:description" content="前言偶然在网上看到casa的网络层设计方案，在以前的iOS开发中，用的最多的就是集约型的网络请求+去Model的形式，然而在看完这篇文章之后我觉得好像发现了新大陆，原来还可以这么玩。">
+<meta name="twitter:image" content="http://pcd17v2u0.bkt.clouddn.com/15331959524160.jpg">
 
 
 
@@ -122,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/02/iOS 开发/网络层设计方案以及去Model化实践/"/>
 
 
 
 
 
-  <title>使用opencore_amr实现wav转amr(8khz,16khz) | Lemon's blog</title>
+  <title>网络层设计方案以及去Model化实践 | Lemon's blog</title>
   
 
 
@@ -289,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/02/iOS 开发/网络层设计方案以及去Model化实践/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -306,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">使用opencore_amr实现wav转amr(8khz,16khz)</h1>
+          <h1 class="post-title" itemprop="name headline">网络层设计方案以及去Model化实践</h1>
         
 
         <div class="post-meta">
@@ -318,8 +320,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T11:28:16+08:00">
-                2018-07-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-02T17:30:30+08:00">
+                2018-08-02
               </time>
             
 
@@ -359,9 +361,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/02/iOS 开发/网络层设计方案以及去Model化实践/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/02/iOS 开发/网络层设计方案以及去Model化实践/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -383,7 +385,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  967
+                  1,707
                 </span>
               
 
@@ -399,7 +401,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  7
                 </span>
               
             </div>
@@ -420,19 +422,69 @@
       
 
       
-        <blockquote>
-<p>由于公司正在做声纹方面的开发，所以需要对语音数据做压缩，目前想到了三种压缩方式，1是AMR，2是Speex,3是Opus,这里先说第一种方式，在iOS4.0之前是可以进行amr格式的录音的，后来苹果取消了这个声音格式，但是可以使用opencore-amr来将wav格式转换为amr格式。</p>
-</blockquote>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>偶然在网上看到<a href="https://casatwy.com/iosying-yong-jia-gou-tan-wang-luo-ceng-she-ji-fang-an.html" target="_blank" rel="noopener">casa的网络层设计方案</a>，在以前的iOS开发中，用的最多的就是集约型的网络请求+去Model的形式，然而在看完这篇文章之后我觉得好像发现了新大陆，原来还可以这么玩。</p>
 <a id="more"></a>
 <blockquote>
-<p>目前网上的例子大多数都是8Khz采样率的wav文件转AMR,具体可以参照<a href="http://my.oschina.net/jeans/blog/69937" target="_blank" rel="noopener">iOS音频格式之AMR和WAV互转(更新支持64位)</a>，这里也要感谢这篇博文的作者黄俊鹏，他给我提供了帮助我才找到了方法。但是我们公司由于对于声音采集样本的要求比较高，所以我们要使用16Khz的采样率，那么问题就出现了，在opencore-amr中并没有提供amr-wb的encode方法，8kHZ使用的opencore-amrnb.a的静态库，其中提供了encode和decode的方法，但是对于16Khz使用的是opencore-amrwb的静态库，其中里面只提供了decode的方法，后来通过其他资料我我才明白encode在另外一个项目vo-amrwbenc里面，如果要使用的话必须要单独编译这个项目才可以，项目下载可以看<a href="https://sourceforge.net/projects/opencore-amr/files/?source=navbar" target="_blank" rel="noopener">opencore-amr</a>，所以如果需要将16Khz wav文件转为amr文件，只需要编译这个库然后使用就可以了，如果要解码那么还是需要使用原来的opencore-amr库。</p>
+<ol>
+<li>此网络层设计方案最大的好处就是解耦，每个API都有特定的APIManager管理，可以方便的缓存数据以及取消网络请求。</li>
+<li>在集约型网络基础上封装了散约型的API，参数以及请求以及处理请求数据全部封装到该APIManager方法里面。</li>
+<li>通过Delegate的方法回调，更好的方便调试以及释放对象。如果以block来调用的话首先不方便调试，其次会延长对象的生命周期，对象需要必须等到网络请求回来之后才能释放。</li>
+<li>提供一个BaseAPIManager，然后通过IOP的方式约束子类必须要遵循APIRequestProtocol，通过实现该协议的方式来提供给API参数，这样父类就不用提供空载函数。 该父类还提供一个代理，该代理用于返回数据。</li>
+<li>最后是去Model化的设计，APIRequestProtocol 提供了一个<code>-(id)fetchDataWithReformer:(id&lt;ReformerProtocol&gt;)reformer;</code>协议方法，在该方法里面可以会传入一个遵守ReformProtocol协议的reformer，到时reformer就可以自定义处理数据的方法，返回特定的数据</li>
+<li>ReformProtocol有一个<code>- (id)reformDataWith:(LMBaseAPIManager*)apiManager;</code>的协议方法，里面可以根据apiManager做判断，然后返回不同的数据，也就是说，一个reformer可以对应多个apiManager。</li>
+</ol>
 </blockquote>
-<p> #下面就可以编译vo-amrwebenc</p>
-<h2 id="1-首先新建一个文件夹，将下载到的vo-amrwbenc-0-1-3-tar-gz压缩包放到里面，然后进入这个文件夹，在里面创建build-sh文件-将以下脚本粘贴到文件里面"><a href="#1-首先新建一个文件夹，将下载到的vo-amrwbenc-0-1-3-tar-gz压缩包放到里面，然后进入这个文件夹，在里面创建build-sh文件-将以下脚本粘贴到文件里面" class="headerlink" title="1.首先新建一个文件夹，将下载到的vo-amrwbenc-0.1.3.tar.gz压缩包放到里面，然后进入这个文件夹，在里面创建build.sh文件,将以下脚本粘贴到文件里面"></a>1.首先新建一个文件夹，将下载到的vo-amrwbenc-0.1.3.tar.gz压缩包放到里面，然后进入这个文件夹，在里面创建build.sh文件,将以下脚本粘贴到文件里面</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">set -xe</span><br><span class="line"></span><br><span class="line">VERSION=&quot;0.1.3&quot;</span><br><span class="line"></span><br><span class="line">LIBSRCNAME=&quot;vo-amrwbenc&quot;</span><br><span class="line"></span><br><span class="line">CURRENTPATH=`pwd`</span><br><span class="line"></span><br><span class="line">mkdir -p &quot;$&#123;CURRENTPATH&#125;/src&quot;</span><br><span class="line"></span><br><span class="line">tar zxvf $&#123;LIBSRCNAME&#125;-$&#123;VERSION&#125;.tar.gz -C &quot;$&#123;CURRENTPATH&#125;/src&quot;</span><br><span class="line"></span><br><span class="line">cd &quot;$&#123;CURRENTPATH&#125;/src/$&#123;LIBSRCNAME&#125;-$&#123;VERSION&#125;&quot;</span><br><span class="line"></span><br><span class="line"># 设置环境变量并创建lib-ios文件夹，后续生成的.a类库都会放在这个文件夹里边</span><br><span class="line"></span><br><span class="line">DEST=&quot;$&#123;CURRENTPATH&#125;/lib-ios&quot;</span><br><span class="line"></span><br><span class="line">mkdir -p &quot;$&#123;DEST&#125;&quot;</span><br><span class="line"></span><br><span class="line">ARCHS=&quot;armv7 armv7s arm64 i386 x86_64&quot;</span><br><span class="line"></span><br><span class="line">LIBS=&quot;libvo-amrwbenc.a&quot;</span><br><span class="line"></span><br><span class="line">for arch in $ARCHS; do</span><br><span class="line"></span><br><span class="line">case $arch in arm*)</span><br><span class="line"></span><br><span class="line">IOSV=&quot;-miphoneos-version-min=7.0&quot;</span><br><span class="line"></span><br><span class="line">if [ $arch == &quot;arm64&quot; ]</span><br><span class="line"></span><br><span class="line">then</span><br><span class="line"></span><br><span class="line">IOSV=&quot;-miphoneos-version-min=7.0&quot;</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;Building for iOS $arch ****************&quot;</span><br><span class="line"></span><br><span class="line"># 编译 $arch 环境的类库（amr类型类型）</span><br><span class="line"></span><br><span class="line">SDKROOT=&quot;$(xcrun --sdk iphoneos --show-sdk-path)&quot;</span><br><span class="line"></span><br><span class="line">CC=&quot;$(xcrun --sdk iphoneos -f clang)&quot;</span><br><span class="line"></span><br><span class="line">CXX=&quot;$(xcrun --sdk iphoneos -f clang++)&quot;</span><br><span class="line"></span><br><span class="line">CPP=&quot;$(xcrun -sdk iphonesimulator -f clang++)&quot;</span><br><span class="line"></span><br><span class="line">CFLAGS=&quot;-isysroot $SDKROOT -arch $arch $IOSV -isystem $SDKROOT/usr/include -fembed-bitcode&quot;</span><br><span class="line"></span><br><span class="line">CXXFLAGS=$CFLAGS</span><br><span class="line"></span><br><span class="line">CPPFLAGS=$CFLAGS</span><br><span class="line"></span><br><span class="line">export CC CXX CFLAGS CXXFLAGS CPPFLAGS</span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line"></span><br><span class="line">--host=arm-apple-darwin \</span><br><span class="line"></span><br><span class="line">--prefix=$DEST \</span><br><span class="line"></span><br><span class="line">--disable-shared --enable-static</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">*)</span><br><span class="line"></span><br><span class="line">IOSV=&quot;-mios-simulator-version-min=7.0&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;Building for iOS $arch*****************&quot;</span><br><span class="line"></span><br><span class="line">SDKROOT=`xcodebuild -version -sdk iphonesimulator Path`</span><br><span class="line"></span><br><span class="line">CC=&quot;$(xcrun -sdk iphoneos -f clang)&quot;</span><br><span class="line"></span><br><span class="line">CXX=&quot;$(xcrun -sdk iphonesimulator -f clang++)&quot;</span><br><span class="line"></span><br><span class="line">CPP=&quot;$(xcrun -sdk iphonesimulator -f clang++)&quot;</span><br><span class="line"></span><br><span class="line">CFLAGS=&quot;-isysroot $SDKROOT -arch $arch $IOSV -isystem $SDKROOT/usr/include -fembed-bitcode&quot;</span><br><span class="line"></span><br><span class="line">CXXFLAGS=$CFLAGS</span><br><span class="line"></span><br><span class="line">CPPFLAGS=$CFLAGS</span><br><span class="line"></span><br><span class="line">export CC CXX CFLAGS CXXFLAGS CPPFLAGS</span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line"></span><br><span class="line">--prefix=$DEST \</span><br><span class="line"></span><br><span class="line">--disable-shared</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">make &gt; /dev/null</span><br><span class="line"></span><br><span class="line">make install     </span><br><span class="line"></span><br><span class="line">make clean   </span><br><span class="line"></span><br><span class="line">for i in $LIBS; do</span><br><span class="line"></span><br><span class="line">mv $DEST/lib/$i $DEST/lib/$i.$arch</span><br><span class="line"></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">for i in $LIBS; do</span><br><span class="line"></span><br><span class="line">input=&quot;&quot;</span><br><span class="line"></span><br><span class="line">for arch in $ARCHS; do</span><br><span class="line"></span><br><span class="line">input=&quot;$input $DEST/lib/$i.$arch&quot;</span><br><span class="line"></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">lipo -create -output $DEST/lib/$i $input</span><br><span class="line"></span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-<p>##2.修改build.sh的权限，打开终端，cd到新建的文件夹，使用命令 chmod  777 build.sh 修改权限。</p>
-<p>##3.修改完成之后在终端执行 ./build.sh 就会在vo-amrwbenc里面生成一个lib-ios文件夹，里面就包含了libvo-amrwbenc.a的静态库和enc_if_h的头文件。</p>
-<p>最后我已经将编译好的项目放到github上面</p>
-<p><a href="https://github.com/codemonkeybulucck/opencore-vo-amrwbenc-iOS" target="_blank" rel="noopener">vo-amrwbenc编译</a></p>
+<p>具体的原理和好处在case的文章里面已经说得很清楚了</p>
+<h2 id="项目结构："><a href="#项目结构：" class="headerlink" title="项目结构："></a>项目结构：</h2><p><img src="http://pcd17v2u0.bkt.clouddn.com/15331959524160.jpg" alt=""></p>
+<ul>
+<li>LMNetwork是具体的网络出口类，里面提供了集约化的网络请求方法，通过block返回数据。</li>
+<li><p>LMBaseAPIManager是网络请求基类，里面有一个遵循了APIRequestProtocol协议的request，这个协议提供了网络请求参数的的方法和处理网络请求结果的方法。发送网络请求的时候会通过这个request获取必要的参数，以及返回数据的时候通过这个类处理数据。</p>
+<p>该类还提供了一个遵循了APIResponseProtocol的代理对象，当网络返回数据的时候会调用该协议方法，该协议方法返回一个遵循APIRequestProtocol的request，调用方需要调用<code>fetchDataWithReformer:</code>方法，并且传入一个reformer，然后在该方法的实现里面就可以将apiManager传给reformer，reformer可以根据不同apiManager做不同的数据返回了。</p>
+<p>LMBaseAPIManager还提供了两个属性，一个responseData和error，网络请求结果和错误都会放到这里面，到时将apiManager传到reformer的时候，通过这两个属性可以取出数据。</p>
+<p>LMBaseAPIManager还可以提供一个isCache的方法，可以自己设置缓存策略。</p>
+<p>总的来说，LMBaseAPIManager需要派生一个子类，然后子类需要实现apiRequestProtocol方法，提供网络必要的参数。调用<code>startRequest</code>方法之后调用LMNetwork发送网络请求。当网络请求回来之后，通过代理回调结果，并且将apiManager返回，调用方收到回调时候，传入reformer对数据进行处理。</p>
+</li>
+</ul>
+<ul>
+<li><p>LMReformerProtocol是一个协议，里面有一个协议方法<code>- (id)reformDataWith:(LMBaseAPIManager*)apiManager;</code>该方法用来处理返回数据。</p>
+</li>
+<li><p>LMProductionAPIManager是LMBaseAPIManagerd的派生类，里面提供了apiRequestProtocol协议方法的实现。</p>
+</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>以上已经将框架介绍清楚了，下面是代码实现：</p>
+<ol>
+<li>首先初始化productionAPIManager并且设计代理。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (LMProductionAPIManager *)productionAPIManager&#123;</span><br><span class="line">    if(!_productionAPIManager)&#123;</span><br><span class="line">        _productionAPIManager = [[LMProductionAPIManager alloc]init];</span><br><span class="line">        _productionAPIManager.response = self;</span><br><span class="line">    &#125;</span><br><span class="line">    return _productionAPIManager;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于LMProductionAPIManager是LMBaseAPIManagerd的子类，因此会调用父类的init方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)init&#123;</span><br><span class="line">    if (self = [super init]) &#123;</span><br><span class="line">        if ([self conformsToProtocol:@protocol(APIRequestProtocol)]) &#123;</span><br><span class="line">            self.request = (id&lt;APIRequestProtocol&gt;)self;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            NSAssert(NO, @&quot;子类必须要遵循APIRequestProtocol协议&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于子类遵循了 <code>@interface LMProductionAPIManager: LMBaseAPIManager&lt;APIRequestProtocol&gt;</code> APIRequestProtocol协议，因为该类内部有一个request的属性指向该对象。而该对象是遵循了上述的协议，所以要实现上述协议里面的方法，接下来看看LMProductionAPIManager里面的实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@implementation LMProductionAPIManager</span><br><span class="line">- (NSString *)apiRequestName&#123;</span><br><span class="line">    return  @&quot;http://120.197.235.101:8080/apk/iosPagingQuery?pageNo=1&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (NSString *)apiRequestMethod&#123;</span><br><span class="line">    return GET;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSDictionary *)apiRequestParameters&#123;</span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (id)fetchDataWithReformer:(id&lt;ReformerProtocol&gt;)reformer&#123;</span><br><span class="line">    if (reformer == nil) &#123;</span><br><span class="line">        return self.responseData;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return [reformer reformDataWith:self];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该对象内部提供了url以及get方法和参数，还提供处理返回数据的实现。</p>
+<ol start="2">
+<li><p>接下来调用 <code>[self.productionAPIManager startRequest];</code>方法，看看该方法内部会做什么：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">   - (void)startRequest&#123;</span><br><span class="line">    [[LMNetwork sharedInstance]requestMethod:[self.request apiRequestMethod] url:[self.request apiRequestName] parameters:[self.request apiRequestParameters] finishBlock:^(id data, NSError *error) &#123;</span><br><span class="line">        if (error) &#123;</span><br><span class="line">            self.responseError = error;</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">         self.responseData = data;</span><br><span class="line">         &#125;</span><br><span class="line">        if ([self.response respondsToSelector:@selector(apiResponseSuccess:)]) &#123;</span><br><span class="line">            [self.response apiResponseSuccess:self.request];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>该方法会发送网络请求并且将请求后的数据复制给当前对象的相关属性，然后通过代理回到结果，并且将当前请求对象返回。</p>
+<ol start="3">
+<li><p>调用方收到代理之后进行处理 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)apiResponseSuccess:(id&lt;APIRequestProtocol&gt;)request&#123;</span><br><span class="line">    [MBProgressHUD hideHUD];</span><br><span class="line">    self.productionArr =  [request fetchDataWithReformer:[LMProductReformer new]];</span><br><span class="line">    [self.tableView reloadData];</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>收到回调之后首先对初始化一个LMProductionReform对象，该对象遵循了LMReformerProtocol协议，待会再来看里面的实现。</p>
+<p>然后调用request的协议方法 <code>fetchDataWithReformer</code>该方法的实现在第一点已经提到了，该方法内部会看一下有没有传reformer进来，如果没有的话直接返回未经处理的对象，如果有的话那就调用reformer的LMReformerProtocol协议方法。</p>
+<p>接下来来看<code>LMReformerProtocol</code>方法的实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">   - (id)reformDataWith:(LMBaseAPIManager *)apiManager&#123;</span><br><span class="line">    //这里根据不同的APIManager返回相应的数据</span><br><span class="line">    if ([apiManager isKindOfClass: [LMProductionAPIManager class]]) &#123;</span><br><span class="line">        NSDictionary *dict = apiManager.responseData;</span><br><span class="line">        NSArray *list = dict[@&quot;list&quot;];</span><br><span class="line">        NSMutableArray *mArr = [NSMutableArray arrayWithCapacity:list.count];</span><br><span class="line">        for (NSDictionary *dict in list) &#123;</span><br><span class="line">            NSDictionary *infoDict = @&#123;kLMProductionVer:dict[@&quot;ver&quot;],kLMProductionVerDesc:dict[@&quot;verDesc&quot;]&#125;;</span><br><span class="line">            [mArr addObject:infoDict];</span><br><span class="line">        &#125;</span><br><span class="line">        return mArr;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return  nil;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>reform在这里根据不同的APIManager进行不同的解析，返回不同的数据。</p>
+<p>到这里，整个网络和去model的设计就完成了。每个API都应该对应一个APIManager，但是可以使用同一个reformer，然后reformer对apimanager做判断从而返回不同的数据。</p>
+<p>值得注意的是：由于我们用字典的形式来存储数据，所以肯定会有hardcode，我们可以定义一个头文件了里面包含所有我们用到的字符串常量，然后在reformer的实现文件里面给这些常量赋值。<br>如在<code>LMProductReformKeys.h</code>中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">extern NSString *const kLMProductionVer;</span><br><span class="line">extern NSString *const kLMProductionVerDesc;</span><br></pre></td></tr></table></figure>
+<p>在<code>LMProductReformer.m</code>中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NSString * const kLMProductionVer = @&quot;productionVer&quot;;</span><br><span class="line">NSString * const kLMProductionVerDesc = @&quot;productionVerDesc&quot;;</span><br></pre></td></tr></table></figure>
+<p>这样只要引入LMProductReformer.h都可以使用该常量。</p>
+<p>完整的<a href="https://github.com/codemonkeybulucck/NoModelExample.git" target="_blank" rel="noopener">demo</a></p>
+<p>以上。</p>
 
       
     </div>
@@ -461,11 +513,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/AMR/" rel="tag"># AMR</a>
-          
-            <a href="/tags/wav/" rel="tag"># wav</a>
-          
-            <a href="/tags/音频开发/" rel="tag"># 音频开发</a>
+            <a href="/tags/去model/" rel="tag"># 去model</a>
           
         </div>
       
@@ -478,8 +526,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/25/其他/使用hexo在github上搭建自己的博客/" rel="next" title="使用hexo在github上搭建自己的博客">
-                <i class="fa fa-chevron-left"></i> 使用hexo在github上搭建自己的博客
+              <a href="/2018/08/01/算法/快行指针/" rel="next" title="快行指针">
+                <i class="fa fa-chevron-left"></i> 快行指针
               </a>
             
           </div>
@@ -487,10 +535,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/25/iOS 开发/iOS使用AMR进行编码和解码/" rel="prev" title="iOS使用AMR进行编码和解码">
-                iOS使用AMR进行编码和解码 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -659,7 +703,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-首先新建一个文件夹，将下载到的vo-amrwbenc-0-1-3-tar-gz压缩包放到里面，然后进入这个文件夹，在里面创建build-sh文件-将以下脚本粘贴到文件里面"><span class="nav-number">1.</span> <span class="nav-text">1.首先新建一个文件夹，将下载到的vo-amrwbenc-0.1.3.tar.gz压缩包放到里面，然后进入这个文件夹，在里面创建build.sh文件,将以下脚本粘贴到文件里面</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目结构："><span class="nav-number">2.</span> <span class="nav-text">项目结构：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
             
 
           </div>
@@ -823,9 +867,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/';
-          this.page.identifier = '2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/';
-          this.page.title = '使用opencore_amr实现wav转amr(8khz,16khz)';
+          this.page.url = 'http://yoursite.com/2018/08/02/iOS 开发/网络层设计方案以及去Model化实践/';
+          this.page.identifier = '2018/08/02/iOS 开发/网络层设计方案以及去Model化实践/';
+          this.page.title = '网络层设计方案以及去Model化实践';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lemon2well.disqus.com/embed.js';
