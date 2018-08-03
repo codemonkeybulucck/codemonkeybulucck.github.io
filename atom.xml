@@ -5,9 +5,9 @@
   <subtitle>Talk is cheap show me the code</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://lemon2well.top/"/>
   <updated>2018-08-03T02:46:05.639Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://lemon2well.top/</id>
   
   <author>
     <name>lemon</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>用队列实现栈和用栈实现队列</title>
-    <link href="http://yoursite.com/2018/08/03/%E7%AE%97%E6%B3%95/%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88%E5%92%8C%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/"/>
-    <id>http://yoursite.com/2018/08/03/算法/用队列实现栈和用栈实现队列/</id>
+    <link href="http://lemon2well.top/2018/08/03/%E7%AE%97%E6%B3%95/%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88%E5%92%8C%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/"/>
+    <id>http://lemon2well.top/2018/08/03/算法/用队列实现栈和用栈实现队列/</id>
     <published>2018-08-03T02:44:23.000Z</published>
     <updated>2018-08-03T02:46:05.639Z</updated>
     
@@ -31,15 +31,15 @@
     
     </summary>
     
-      <category term="常见算法" scheme="http://yoursite.com/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
+      <category term="常见算法" scheme="http://lemon2well.top/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
     
     
   </entry>
   
   <entry>
     <title>swift实现栈和队列</title>
-    <link href="http://yoursite.com/2018/08/02/%E7%AE%97%E6%B3%95/swift%E5%AE%9E%E7%8E%B0%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/"/>
-    <id>http://yoursite.com/2018/08/02/算法/swift实现栈和队列/</id>
+    <link href="http://lemon2well.top/2018/08/02/%E7%AE%97%E6%B3%95/swift%E5%AE%9E%E7%8E%B0%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/"/>
+    <id>http://lemon2well.top/2018/08/02/算法/swift实现栈和队列/</id>
     <published>2018-08-02T15:58:37.000Z</published>
     <updated>2018-08-02T16:00:14.923Z</updated>
     
@@ -53,19 +53,19 @@
     
     </summary>
     
-      <category term="常见算法" scheme="http://yoursite.com/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
+      <category term="常见算法" scheme="http://lemon2well.top/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="栈" scheme="http://yoursite.com/tags/%E6%A0%88/"/>
+      <category term="栈" scheme="http://lemon2well.top/tags/%E6%A0%88/"/>
     
-      <category term="队列" scheme="http://yoursite.com/tags/%E9%98%9F%E5%88%97/"/>
+      <category term="队列" scheme="http://lemon2well.top/tags/%E9%98%9F%E5%88%97/"/>
     
   </entry>
   
   <entry>
     <title>网络层设计方案以及去Model化实践</title>
-    <link href="http://yoursite.com/2018/08/02/iOS%20%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C%E5%B1%82%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%E4%BB%A5%E5%8F%8A%E5%8E%BBModel%E5%8C%96%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://yoursite.com/2018/08/02/iOS 开发/网络层设计方案以及去Model化实践/</id>
+    <link href="http://lemon2well.top/2018/08/02/iOS%20%E5%BC%80%E5%8F%91/%E7%BD%91%E7%BB%9C%E5%B1%82%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88%E4%BB%A5%E5%8F%8A%E5%8E%BBModel%E5%8C%96%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://lemon2well.top/2018/08/02/iOS 开发/网络层设计方案以及去Model化实践/</id>
     <published>2018-08-02T09:30:30.000Z</published>
     <updated>2018-08-02T09:32:52.119Z</updated>
     
@@ -77,17 +77,17 @@
     
     </summary>
     
-      <category term="iOS 开发" scheme="http://yoursite.com/categories/iOS-%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS 开发" scheme="http://lemon2well.top/categories/iOS-%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="去model" scheme="http://yoursite.com/tags/%E5%8E%BBmodel/"/>
+      <category term="去model" scheme="http://lemon2well.top/tags/%E5%8E%BBmodel/"/>
     
   </entry>
   
   <entry>
     <title>快行指针</title>
-    <link href="http://yoursite.com/2018/08/01/%E7%AE%97%E6%B3%95/%E5%BF%AB%E8%A1%8C%E6%8C%87%E9%92%88/"/>
-    <id>http://yoursite.com/2018/08/01/算法/快行指针/</id>
+    <link href="http://lemon2well.top/2018/08/01/%E7%AE%97%E6%B3%95/%E5%BF%AB%E8%A1%8C%E6%8C%87%E9%92%88/"/>
+    <id>http://lemon2well.top/2018/08/01/算法/快行指针/</id>
     <published>2018-08-01T15:11:07.000Z</published>
     <updated>2018-08-01T15:12:02.824Z</updated>
     
@@ -102,17 +102,17 @@
     
     </summary>
     
-      <category term="常见算法" scheme="http://yoursite.com/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
+      <category term="常见算法" scheme="http://lemon2well.top/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="链表" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8/"/>
+      <category term="链表" scheme="http://lemon2well.top/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
   <entry>
     <title>dummy节点和尾巴插法</title>
-    <link href="http://yoursite.com/2018/07/31/%E7%AE%97%E6%B3%95/dummy%E8%8A%82%E7%82%B9%E5%92%8C%E5%B0%BE%E5%B7%B4%E6%8F%92%E6%B3%95/"/>
-    <id>http://yoursite.com/2018/07/31/算法/dummy节点和尾巴插法/</id>
+    <link href="http://lemon2well.top/2018/07/31/%E7%AE%97%E6%B3%95/dummy%E8%8A%82%E7%82%B9%E5%92%8C%E5%B0%BE%E5%B7%B4%E6%8F%92%E6%B3%95/"/>
+    <id>http://lemon2well.top/2018/07/31/算法/dummy节点和尾巴插法/</id>
     <published>2018-07-31T15:35:01.000Z</published>
     <updated>2018-07-31T15:36:54.856Z</updated>
     
@@ -125,43 +125,43 @@
     
     </summary>
     
-      <category term="常见算法" scheme="http://yoursite.com/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
+      <category term="常见算法" scheme="http://lemon2well.top/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="链表结构" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8%E7%BB%93%E6%9E%84/"/>
+      <category term="链表结构" scheme="http://lemon2well.top/tags/%E9%93%BE%E8%A1%A8%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   
   <entry>
     <title>iOS 组件化实践《二》基于现有项目拆分组件化实践</title>
-    <link href="http://yoursite.com/2018/07/31/iOS%20%E5%BC%80%E5%8F%91/%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E8%B7%B5%E3%80%8A%E4%BA%8C%E3%80%8B-%E5%9F%BA%E4%BA%8E%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE%E6%8B%86%E5%88%86%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://yoursite.com/2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/</id>
+    <link href="http://lemon2well.top/2018/07/31/iOS%20%E5%BC%80%E5%8F%91/%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E8%B7%B5%E3%80%8A%E4%BA%8C%E3%80%8B-%E5%9F%BA%E4%BA%8E%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE%E6%8B%86%E5%88%86%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://lemon2well.top/2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/</id>
     <published>2018-07-31T08:41:12.000Z</published>
     <updated>2018-07-31T08:45:00.357Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h2><blockquote><p>在<a href="http://lemon2well.top/2018/07/30/iOS%20开发/组件化实践《一》创建私有pod/" target="_blank" rel="noopener">第一篇</a>介绍中已经介绍了如果发布一个私有pod，下面将会介绍如何基于一个现有的项目拆分成组件化形式的项目。<br>假设我们现有的项目是有一个AViewController,还有一个BViewController，目前的功能是点击rootViewController页面的按钮会push到AviewController，然后点击AviewController的一个按钮会跳转到BViewController。这里是未拆分的<a href="https://github.com/codemonkeybulucck/TestModule" target="_blank" rel="noopener">demo</a></p></blockquote><a id="more"></a><h2 id="0x02-拆分组件"><a href="#0x02-拆分组件" class="headerlink" title="0x02 拆分组件"></a>0x02 拆分组件</h2><blockquote><p>现在我们要拆分AViewController和BViewController,将他们拆分成两个组件，并且按照Target-Action的形式提供对外的接口，通过中间件去调用Target对应的Action，在最上层是中间件的分类，给调用方提供具体且便利的方法和接口。</p></blockquote><h3 id="0x02-1-分析如何拆分AViewController"><a href="#0x02-1-分析如何拆分AViewController" class="headerlink" title="0x02.1 分析如何拆分AViewController"></a>0x02.1 分析如何拆分AViewController</h3><ol><li><p>首先AViewController，现在AViewController需要外部传一个NSString类型的参数进去，然后返回一个AViewController的对象。这个时候应该创建一个Target_AViewController的类，然后对外一个<code>Action_fectchAViewController:</code>的方法，这个方法需要接收一个字典类型的参数，到时我们会从这个字典中取出key为navTitle的值来作为AViewController的参数。以下是该方法的实现：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   - (UIViewController*)Action_fetchAViewController:(NSDictionary*)params&#123;</span><br><span class="line">    AViewController *aViewControlelr = [[AViewController alloc]init];</span><br><span class="line">    NSString *title = params[@&quot;navTitle&quot;];</span><br><span class="line">    aViewControlelr.navTitle = title;</span><br><span class="line">    return aViewControlelr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol><ol start="2"><li><p>然后我们要创建CTMediator的分类<code>CTMediator+ModuleAActions</code>，这个分类方法对外提供了一个<code>fetchAViewController</code>的方法，到时调用方调用此方法即可获取到一个AViewController的实例，而不用自己去初始化AViewController。</p></li><li><p>那么上面那个分类具体做了什么操作呢，该方法会传一个“AViewController”和“fetchAViewController”来表明需要调用Target_AViewController的Action_fetchAViewller方法，也就是我们刚刚提供的Target_Action。本来调用方是不用通过类别来调用组件Target_Action的，因为可以通过CTMediator的<code>perform Target: action: params:</code>来直接调用。但是那样非常不友好以及不统一。<br>加上了该分类之后，可以做更多的容错处理以及有一个容易的入口。</p></li><li><p>所以在后面做成pod的时候，category是一个pod，它只依赖于CTMediator，调用方法是通过CTMediator通过runtime来找到Target_Action来调用。所以另外一个pod就是AViewController+Target_AViewController。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   - (UIViewController*)fetchAViewController&#123;</span><br><span class="line">    UIViewController *vc = [self performTarget:@&quot;AViewController&quot; action:@&quot;fetchAViewController&quot; params:@&#123;@&quot;navTitle&quot;:@&quot;This is A ViewController&quot;&#125; shouldCacheTarget:NO];</span><br><span class="line">    if ([vc isKindOfClass:[UIViewController class]]) &#123;</span><br><span class="line">        return vc;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return [[UIViewController alloc]init];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol><p><strong>以上提到的pod：</strong><br><a href="https://github.com/codemonkeybulucck/AViewControllerCategory" target="_blank" rel="noopener">CategoryAViewController</a><br><a href="https://github.com/codemonkeybulucck/LMAViewController" target="_blank" rel="noopener">AviewControllerPod</a><br><a href="https://github.com/casatwy/CTMediator" target="_blank" rel="noopener">CTMediactor</a></p><h3 id="0x02-2-创建BViewController的category和Target-Action的pod"><a href="#0x02-2-创建BViewController的category和Target-Action的pod" class="headerlink" title="0x02.2 创建BViewController的category和Target_Action的pod"></a>0x02.2 创建BViewController的category和Target_Action的pod</h3><p>1、为什么需要先创建BViewController组件，因为AViewController会依赖于BViewController，所以我们先创建BViewController组件。</p><p>2、首先我们先创建BViewController私有pod，按照我的<a href="http://lemon2well.top/2018/07/30/iOS%20开发/组件化实践《一》创建私有pod/" target="_blank" rel="noopener">组件化实践《一》</a>创建好<a href="https://github.com/codemonkeybulucck/BViewController" target="_blank" rel="noopener">BViewController</a>的pod，这个pod不用依赖于任何其他组件，所以应该没啥困难。</p><p>3、接下来我们需要创建<a href="https://github.com/codemonkeybulucck/BCategory" target="_blank" rel="noopener">BViewControllerCategory</a>，这里有一点要注意的是在podspec文件的最下面需要加入<code>s.dependency &#39;CTMediator&#39;</code>，因为里面需要用到CTMediator的perform方法去调用到对应的组件。因为CTMediator已经发布到cocoapods所以可以直接用，如果这里的依赖是你自己改动之后的私有Mediator，记得在pod spec lint 的时候要加上<code>--sources=yourgithub/spec,master</code>将源改成你自己的私有索引库的地址，不然默认是从公有索引库里面找不到对应的Mediator。待会在AViewController调用B的时候会用到这个命令。</p><h3 id="0x02-3-创建AViewController的category和Target-Action的pod"><a href="#0x02-3-创建AViewController的category和Target-Action的pod" class="headerlink" title="0x02.3 创建AViewController的category和Target_Action的pod"></a>0x02.3 创建AViewController的category和Target_Action的pod</h3><p>1、方法同上，首先创建AViewController的<a href="https://github.com/codemonkeybulucck/AViewControllerCategory" target="_blank" rel="noopener">Category</a>组件，这里只需要注意在podspec文件的最下面需要加入<code>s.dependency &#39;CTMediator&#39;</code>。<br>2、 然后我们创建<a href="https://github.com/codemonkeybulucck/LMAViewController" target="_blank" rel="noopener">AViewController</a>私有pod，由于在AViewController里面我们有个按钮点击之后会push到BViewController，那必然要引入BViewController，但是在组件中不会直接引入BViewController，我们通过引入BViewControllerCategory来让程序编译的时候不要报错就行。podspec文件要加入<code>s.dependency &#39;BCategory&#39;</code>。</p><p>3、 验证，因为第二部中我们的私有工程依赖了另外一个私有工程，这个时候的<code>pod spec lint</code>和 <code>pod repo push</code>命令都要加上 <code>--source</code>说明</p><p><strong>注意：组件间的调用依然是利用Target对应的分类来调用。记住分类是统一的入口，组件里面的代码不会依赖于另外一个组件，而是依赖于对应的分类组件或者CTMediator，然后所有依赖的pod都要写到主工程的podfile里面</strong></p><h2 id="0x03-引用组件"><a href="#0x03-引用组件" class="headerlink" title="0x03 引用组件"></a>0x03 引用组件</h2><p>我们将AViewController和BViewController拆分后，我们创建一个demo来测试一下刚刚拆分的组件。创建一个OC项目，在项目的跟目录下执行<code>pod init</code>，然后在podfile文件里面写入以下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">source &apos;https://github.com/codemonkeybulucck/LMSpec&apos;</span><br><span class="line">source &apos;https://github.com/CocoaPods/Specs.git&apos;</span><br><span class="line"></span><br><span class="line">target &apos;moduleTest&apos; do</span><br><span class="line">  # Uncomment the next line if you&apos;re using Swift or would like to use dynamic frameworks</span><br><span class="line">  # use_frameworks!</span><br><span class="line">  pod &apos;ACategory&apos;</span><br><span class="line">  pod &apos;AViewController&apos;,&apos;~&gt;0.1.1&apos;</span><br><span class="line">  pod &apos;BViewController&apos;</span><br><span class="line">  # Pods for moduleTest</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure><p>完成后执行 <code>pod install</code>，成功之后再<code>#import &quot;CTMediator+ModuleAActions.h&quot;</code> 然后调用方式就变成了<br><code>UIViewController *vc = [[CTMediator sharedInstance] fetchAViewController];</code></p><h2 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h2><p>组件化最核心的思想就是解耦，将庞大的项目抽丝剥茧，分离成互相独立的一个一个模块，每个模块都是可复用的。上述的方案其实已经做到了解耦，调用者只需要用到中间件的分类的方法接口而不需要引入实际的组件的类。<br>但是在分类里面有一个弊端就是：动态调用方法的时候需要硬编码也就是，这样容错率就很低，不过幸好这个东西是在分类中，在开发的过程中就可以发现的问题。<br>另外一个方面也不是所有的项目都适合用组件化，只有当项目规模扩大到一定的程度，并且人员众多的情况下用组件化的便捷性才体现出来。所以很多时候我们讨论架构或者讨论一种新的技术，并不是它就是最好的，没有什么东西是最好的，只有最合适的，因地制宜。</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h2><blockquote><p>在<a href="http://lemon2well.top/2018/07/30/iOS%20开发/组件化实践《一》创建私有pod/">第一篇</a>介绍中已经介绍了如果发布一个私有pod，下面将会介绍如何基于一个现有的项目拆分成组件化形式的项目。<br>假设我们现有的项目是有一个AViewController,还有一个BViewController，目前的功能是点击rootViewController页面的按钮会push到AviewController，然后点击AviewController的一个按钮会跳转到BViewController。这里是未拆分的<a href="https://github.com/codemonkeybulucck/TestModule" target="_blank" rel="noopener">demo</a></p></blockquote><a id="more"></a><h2 id="0x02-拆分组件"><a href="#0x02-拆分组件" class="headerlink" title="0x02 拆分组件"></a>0x02 拆分组件</h2><blockquote><p>现在我们要拆分AViewController和BViewController,将他们拆分成两个组件，并且按照Target-Action的形式提供对外的接口，通过中间件去调用Target对应的Action，在最上层是中间件的分类，给调用方提供具体且便利的方法和接口。</p></blockquote><h3 id="0x02-1-分析如何拆分AViewController"><a href="#0x02-1-分析如何拆分AViewController" class="headerlink" title="0x02.1 分析如何拆分AViewController"></a>0x02.1 分析如何拆分AViewController</h3><ol><li><p>首先AViewController，现在AViewController需要外部传一个NSString类型的参数进去，然后返回一个AViewController的对象。这个时候应该创建一个Target_AViewController的类，然后对外一个<code>Action_fectchAViewController:</code>的方法，这个方法需要接收一个字典类型的参数，到时我们会从这个字典中取出key为navTitle的值来作为AViewController的参数。以下是该方法的实现：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   - (UIViewController*)Action_fetchAViewController:(NSDictionary*)params&#123;</span><br><span class="line">    AViewController *aViewControlelr = [[AViewController alloc]init];</span><br><span class="line">    NSString *title = params[@&quot;navTitle&quot;];</span><br><span class="line">    aViewControlelr.navTitle = title;</span><br><span class="line">    return aViewControlelr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol><ol start="2"><li><p>然后我们要创建CTMediator的分类<code>CTMediator+ModuleAActions</code>，这个分类方法对外提供了一个<code>fetchAViewController</code>的方法，到时调用方调用此方法即可获取到一个AViewController的实例，而不用自己去初始化AViewController。</p></li><li><p>那么上面那个分类具体做了什么操作呢，该方法会传一个“AViewController”和“fetchAViewController”来表明需要调用Target_AViewController的Action_fetchAViewller方法，也就是我们刚刚提供的Target_Action。本来调用方是不用通过类别来调用组件Target_Action的，因为可以通过CTMediator的<code>perform Target: action: params:</code>来直接调用。但是那样非常不友好以及不统一。<br>加上了该分类之后，可以做更多的容错处理以及有一个容易的入口。</p></li><li><p>所以在后面做成pod的时候，category是一个pod，它只依赖于CTMediator，调用方法是通过CTMediator通过runtime来找到Target_Action来调用。所以另外一个pod就是AViewController+Target_AViewController。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   - (UIViewController*)fetchAViewController&#123;</span><br><span class="line">    UIViewController *vc = [self performTarget:@&quot;AViewController&quot; action:@&quot;fetchAViewController&quot; params:@&#123;@&quot;navTitle&quot;:@&quot;This is A ViewController&quot;&#125; shouldCacheTarget:NO];</span><br><span class="line">    if ([vc isKindOfClass:[UIViewController class]]) &#123;</span><br><span class="line">        return vc;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return [[UIViewController alloc]init];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol><p><strong>以上提到的pod：</strong><br><a href="https://github.com/codemonkeybulucck/AViewControllerCategory" target="_blank" rel="noopener">CategoryAViewController</a><br><a href="https://github.com/codemonkeybulucck/LMAViewController" target="_blank" rel="noopener">AviewControllerPod</a><br><a href="https://github.com/casatwy/CTMediator" target="_blank" rel="noopener">CTMediactor</a></p><h3 id="0x02-2-创建BViewController的category和Target-Action的pod"><a href="#0x02-2-创建BViewController的category和Target-Action的pod" class="headerlink" title="0x02.2 创建BViewController的category和Target_Action的pod"></a>0x02.2 创建BViewController的category和Target_Action的pod</h3><p>1、为什么需要先创建BViewController组件，因为AViewController会依赖于BViewController，所以我们先创建BViewController组件。</p><p>2、首先我们先创建BViewController私有pod，按照我的<a href="http://lemon2well.top/2018/07/30/iOS%20开发/组件化实践《一》创建私有pod/">组件化实践《一》</a>创建好<a href="https://github.com/codemonkeybulucck/BViewController" target="_blank" rel="noopener">BViewController</a>的pod，这个pod不用依赖于任何其他组件，所以应该没啥困难。</p><p>3、接下来我们需要创建<a href="https://github.com/codemonkeybulucck/BCategory" target="_blank" rel="noopener">BViewControllerCategory</a>，这里有一点要注意的是在podspec文件的最下面需要加入<code>s.dependency &#39;CTMediator&#39;</code>，因为里面需要用到CTMediator的perform方法去调用到对应的组件。因为CTMediator已经发布到cocoapods所以可以直接用，如果这里的依赖是你自己改动之后的私有Mediator，记得在pod spec lint 的时候要加上<code>--sources=yourgithub/spec,master</code>将源改成你自己的私有索引库的地址，不然默认是从公有索引库里面找不到对应的Mediator。待会在AViewController调用B的时候会用到这个命令。</p><h3 id="0x02-3-创建AViewController的category和Target-Action的pod"><a href="#0x02-3-创建AViewController的category和Target-Action的pod" class="headerlink" title="0x02.3 创建AViewController的category和Target_Action的pod"></a>0x02.3 创建AViewController的category和Target_Action的pod</h3><p>1、方法同上，首先创建AViewController的<a href="https://github.com/codemonkeybulucck/AViewControllerCategory" target="_blank" rel="noopener">Category</a>组件，这里只需要注意在podspec文件的最下面需要加入<code>s.dependency &#39;CTMediator&#39;</code>。<br>2、 然后我们创建<a href="https://github.com/codemonkeybulucck/LMAViewController" target="_blank" rel="noopener">AViewController</a>私有pod，由于在AViewController里面我们有个按钮点击之后会push到BViewController，那必然要引入BViewController，但是在组件中不会直接引入BViewController，我们通过引入BViewControllerCategory来让程序编译的时候不要报错就行。podspec文件要加入<code>s.dependency &#39;BCategory&#39;</code>。</p><p>3、 验证，因为第二部中我们的私有工程依赖了另外一个私有工程，这个时候的<code>pod spec lint</code>和 <code>pod repo push</code>命令都要加上 <code>--source</code>说明</p><p><strong>注意：组件间的调用依然是利用Target对应的分类来调用。记住分类是统一的入口，组件里面的代码不会依赖于另外一个组件，而是依赖于对应的分类组件或者CTMediator，然后所有依赖的pod都要写到主工程的podfile里面</strong></p><h2 id="0x03-引用组件"><a href="#0x03-引用组件" class="headerlink" title="0x03 引用组件"></a>0x03 引用组件</h2><p>我们将AViewController和BViewController拆分后，我们创建一个demo来测试一下刚刚拆分的组件。创建一个OC项目，在项目的跟目录下执行<code>pod init</code>，然后在podfile文件里面写入以下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">source &apos;https://github.com/codemonkeybulucck/LMSpec&apos;</span><br><span class="line">source &apos;https://github.com/CocoaPods/Specs.git&apos;</span><br><span class="line"></span><br><span class="line">target &apos;moduleTest&apos; do</span><br><span class="line">  # Uncomment the next line if you&apos;re using Swift or would like to use dynamic frameworks</span><br><span class="line">  # use_frameworks!</span><br><span class="line">  pod &apos;ACategory&apos;</span><br><span class="line">  pod &apos;AViewController&apos;,&apos;~&gt;0.1.1&apos;</span><br><span class="line">  pod &apos;BViewController&apos;</span><br><span class="line">  # Pods for moduleTest</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure><p>完成后执行 <code>pod install</code>，成功之后再<code>#import &quot;CTMediator+ModuleAActions.h&quot;</code> 然后调用方式就变成了<br><code>UIViewController *vc = [[CTMediator sharedInstance] fetchAViewController];</code></p><h2 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h2><p>组件化最核心的思想就是解耦，将庞大的项目抽丝剥茧，分离成互相独立的一个一个模块，每个模块都是可复用的。上述的方案其实已经做到了解耦，调用者只需要用到中间件的分类的方法接口而不需要引入实际的组件的类。<br>但是在分类里面有一个弊端就是：动态调用方法的时候需要硬编码也就是，这样容错率就很低，不过幸好这个东西是在分类中，在开发的过程中就可以发现的问题。<br>另外一个方面也不是所有的项目都适合用组件化，只有当项目规模扩大到一定的程度，并且人员众多的情况下用组件化的便捷性才体现出来。所以很多时候我们讨论架构或者讨论一种新的技术，并不是它就是最好的，没有什么东西是最好的，只有最合适的，因地制宜。</p>]]></content>
     
     <summary type="html">
     
       &lt;h2 id=&quot;0x01-前言&quot;&gt;&lt;a href=&quot;#0x01-前言&quot; class=&quot;headerlink&quot; title=&quot;0x01 前言&quot;&gt;&lt;/a&gt;0x01 前言&lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;在&lt;a href=&quot;http://lemon2well.top/2018/07/30/iOS%20开发/组件化实践《一》创建私有pod/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;第一篇&lt;/a&gt;介绍中已经介绍了如果发布一个私有pod，下面将会介绍如何基于一个现有的项目拆分成组件化形式的项目。&lt;br&gt;假设我们现有的项目是有一个AViewController,还有一个BViewController，目前的功能是点击rootViewController页面的按钮会push到AviewController，然后点击AviewController的一个按钮会跳转到BViewController。这里是未拆分的&lt;a href=&quot;https://github.com/codemonkeybulucck/TestModule&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;demo&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在&lt;a href=&quot;http://lemon2well.top/2018/07/30/iOS%20开发/组件化实践《一》创建私有pod/&quot;&gt;第一篇&lt;/a&gt;介绍中已经介绍了如果发布一个私有pod，下面将会介绍如何基于一个现有的项目拆分成组件化形式的项目。&lt;br&gt;假设我们现有的项目是有一个AViewController,还有一个BViewController，目前的功能是点击rootViewController页面的按钮会push到AviewController，然后点击AviewController的一个按钮会跳转到BViewController。这里是未拆分的&lt;a href=&quot;https://github.com/codemonkeybulucck/TestModule&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;demo&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
     
-      <category term="iOS 开发" scheme="http://yoursite.com/categories/iOS-%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS 开发" scheme="http://lemon2well.top/categories/iOS-%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="cocoapods" scheme="http://yoursite.com/tags/cocoapods/"/>
+      <category term="cocoapods" scheme="http://lemon2well.top/tags/cocoapods/"/>
     
-      <category term="组件化" scheme="http://yoursite.com/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/"/>
+      <category term="组件化" scheme="http://lemon2well.top/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/"/>
     
   </entry>
   
   <entry>
     <title>无重复字符的最长子串</title>
-    <link href="http://yoursite.com/2018/07/31/%E7%AE%97%E6%B3%95/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/"/>
-    <id>http://yoursite.com/2018/07/31/算法/无重复字符的最长子串/</id>
+    <link href="http://lemon2well.top/2018/07/31/%E7%AE%97%E6%B3%95/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/"/>
+    <id>http://lemon2well.top/2018/07/31/算法/无重复字符的最长子串/</id>
     <published>2018-07-31T02:30:35.000Z</published>
     <updated>2018-07-31T02:31:33.020Z</updated>
     
@@ -177,15 +177,15 @@
     
     </summary>
     
-      <category term="常见算法" scheme="http://yoursite.com/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
+      <category term="常见算法" scheme="http://lemon2well.top/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
     
     
   </entry>
   
   <entry>
     <title>非空链表相加</title>
-    <link href="http://yoursite.com/2018/07/30/%E7%AE%97%E6%B3%95/%E9%9D%9E%E7%A9%BA%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%8A%A0/"/>
-    <id>http://yoursite.com/2018/07/30/算法/非空链表相加/</id>
+    <link href="http://lemon2well.top/2018/07/30/%E7%AE%97%E6%B3%95/%E9%9D%9E%E7%A9%BA%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%8A%A0/"/>
+    <id>http://lemon2well.top/2018/07/30/算法/非空链表相加/</id>
     <published>2018-07-30T09:12:45.000Z</published>
     <updated>2018-07-30T09:33:42.698Z</updated>
     
@@ -204,17 +204,17 @@
     
     </summary>
     
-      <category term="常见算法" scheme="http://yoursite.com/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
+      <category term="常见算法" scheme="http://lemon2well.top/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="链表" scheme="http://yoursite.com/tags/%E9%93%BE%E8%A1%A8/"/>
+      <category term="链表" scheme="http://lemon2well.top/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
   <entry>
     <title>iOS 组件化实践《一》创建私有pod</title>
-    <link href="http://yoursite.com/2018/07/30/iOS%20%E5%BC%80%E5%8F%91/%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E8%B7%B5%E3%80%8A%E4%B8%80%E3%80%8B%E5%88%9B%E5%BB%BA%E7%A7%81%E6%9C%89pod/"/>
-    <id>http://yoursite.com/2018/07/30/iOS 开发/组件化实践《一》创建私有pod/</id>
+    <link href="http://lemon2well.top/2018/07/30/iOS%20%E5%BC%80%E5%8F%91/%E7%BB%84%E4%BB%B6%E5%8C%96%E5%AE%9E%E8%B7%B5%E3%80%8A%E4%B8%80%E3%80%8B%E5%88%9B%E5%BB%BA%E7%A7%81%E6%9C%89pod/"/>
+    <id>http://lemon2well.top/2018/07/30/iOS 开发/组件化实践《一》创建私有pod/</id>
     <published>2018-07-30T03:41:12.000Z</published>
     <updated>2018-07-30T08:09:31.242Z</updated>
     
@@ -226,17 +226,17 @@
     
     </summary>
     
-      <category term="iOS 开发" scheme="http://yoursite.com/categories/iOS-%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS 开发" scheme="http://lemon2well.top/categories/iOS-%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="cocoapods" scheme="http://yoursite.com/tags/cocoapods/"/>
+      <category term="cocoapods" scheme="http://lemon2well.top/tags/cocoapods/"/>
     
   </entry>
   
   <entry>
     <title>两数之和</title>
-    <link href="http://yoursite.com/2018/07/29/%E7%AE%97%E6%B3%95/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
-    <id>http://yoursite.com/2018/07/29/算法/两数之和/</id>
+    <link href="http://lemon2well.top/2018/07/29/%E7%AE%97%E6%B3%95/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
+    <id>http://lemon2well.top/2018/07/29/算法/两数之和/</id>
     <published>2018-07-29T09:12:45.000Z</published>
     <updated>2018-07-29T09:13:15.756Z</updated>
     
@@ -251,15 +251,15 @@
     
     </summary>
     
-      <category term="常见算法" scheme="http://yoursite.com/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
+      <category term="常见算法" scheme="http://lemon2well.top/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
     
     
   </entry>
   
   <entry>
     <title>字符串反转算法</title>
-    <link href="http://yoursite.com/2018/07/29/%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC%E7%AE%97%E6%B3%95/"/>
-    <id>http://yoursite.com/2018/07/29/算法/字符串反转算法/</id>
+    <link href="http://lemon2well.top/2018/07/29/%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC%E7%AE%97%E6%B3%95/"/>
+    <id>http://lemon2well.top/2018/07/29/算法/字符串反转算法/</id>
     <published>2018-07-29T09:09:32.000Z</published>
     <updated>2018-07-29T09:11:45.515Z</updated>
     
@@ -274,17 +274,17 @@
     
     </summary>
     
-      <category term="常见算法" scheme="http://yoursite.com/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
+      <category term="常见算法" scheme="http://lemon2well.top/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="字符串反转" scheme="http://yoursite.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC/"/>
+      <category term="字符串反转" scheme="http://lemon2well.top/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC/"/>
     
   </entry>
   
   <entry>
     <title>iOS防止被逆向调试</title>
-    <link href="http://yoursite.com/2018/07/25/iOS%20%E5%BC%80%E5%8F%91/iOS%E9%98%B2%E6%AD%A2%E8%A2%AB%E9%80%86%E5%90%91%E8%B0%83%E8%AF%95/"/>
-    <id>http://yoursite.com/2018/07/25/iOS 开发/iOS防止被逆向调试/</id>
+    <link href="http://lemon2well.top/2018/07/25/iOS%20%E5%BC%80%E5%8F%91/iOS%E9%98%B2%E6%AD%A2%E8%A2%AB%E9%80%86%E5%90%91%E8%B0%83%E8%AF%95/"/>
+    <id>http://lemon2well.top/2018/07/25/iOS 开发/iOS防止被逆向调试/</id>
     <published>2018-07-25T06:50:23.000Z</published>
     <updated>2018-07-25T06:51:04.398Z</updated>
     
@@ -298,17 +298,17 @@
     
     </summary>
     
-      <category term="iOS 开发" scheme="http://yoursite.com/categories/iOS-%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS 开发" scheme="http://lemon2well.top/categories/iOS-%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="反调试" scheme="http://yoursite.com/tags/%E5%8F%8D%E8%B0%83%E8%AF%95/"/>
+      <category term="反调试" scheme="http://lemon2well.top/tags/%E5%8F%8D%E8%B0%83%E8%AF%95/"/>
     
   </entry>
   
   <entry>
     <title>iOS字符串加密以及静态混淆</title>
-    <link href="http://yoursite.com/2018/07/25/iOS%20%E5%BC%80%E5%8F%91/iOS%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8A%A0%E5%AF%86%E4%BB%A5%E5%8F%8A%E9%9D%99%E6%80%81%E6%B7%B7%E6%B7%86/"/>
-    <id>http://yoursite.com/2018/07/25/iOS 开发/iOS字符串加密以及静态混淆/</id>
+    <link href="http://lemon2well.top/2018/07/25/iOS%20%E5%BC%80%E5%8F%91/iOS%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8A%A0%E5%AF%86%E4%BB%A5%E5%8F%8A%E9%9D%99%E6%80%81%E6%B7%B7%E6%B7%86/"/>
+    <id>http://lemon2well.top/2018/07/25/iOS 开发/iOS字符串加密以及静态混淆/</id>
     <published>2018-07-25T06:48:36.000Z</published>
     <updated>2018-07-25T06:52:38.801Z</updated>
     
@@ -323,17 +323,17 @@
     
     </summary>
     
-      <category term="iOS 开发" scheme="http://yoursite.com/categories/iOS-%E5%BC%80%E5%8F%91/"/>
+      <category term="iOS 开发" scheme="http://lemon2well.top/categories/iOS-%E5%BC%80%E5%8F%91/"/>
     
     
-      <category term="代码混淆" scheme="http://yoursite.com/tags/%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/"/>
+      <category term="代码混淆" scheme="http://lemon2well.top/tags/%E4%BB%A3%E7%A0%81%E6%B7%B7%E6%B7%86/"/>
     
   </entry>
   
   <entry>
     <title>LLDB解密framework</title>
-    <link href="http://yoursite.com/2018/07/25/iOS%20%E9%80%86%E5%90%91/LLDB%E8%A7%A3%E5%AF%86framework/"/>
-    <id>http://yoursite.com/2018/07/25/iOS 逆向/LLDB解密framework/</id>
+    <link href="http://lemon2well.top/2018/07/25/iOS%20%E9%80%86%E5%90%91/LLDB%E8%A7%A3%E5%AF%86framework/"/>
+    <id>http://lemon2well.top/2018/07/25/iOS 逆向/LLDB解密framework/</id>
     <published>2018-07-25T06:47:11.000Z</published>
     <updated>2018-07-25T06:55:20.175Z</updated>
     
@@ -347,17 +347,17 @@
     
     </summary>
     
-      <category term="iOS 逆向" scheme="http://yoursite.com/categories/iOS-%E9%80%86%E5%90%91/"/>
+      <category term="iOS 逆向" scheme="http://lemon2well.top/categories/iOS-%E9%80%86%E5%90%91/"/>
     
     
-      <category term="LLDB" scheme="http://yoursite.com/tags/LLDB/"/>
+      <category term="LLDB" scheme="http://lemon2well.top/tags/LLDB/"/>
     
   </entry>
   
   <entry>
     <title>dumpdecrypted介绍及其使用</title>
-    <link href="http://yoursite.com/2018/07/25/iOS%20%E9%80%86%E5%90%91/dumpdecrypted%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/"/>
-    <id>http://yoursite.com/2018/07/25/iOS 逆向/dumpdecrypted介绍及其使用/</id>
+    <link href="http://lemon2well.top/2018/07/25/iOS%20%E9%80%86%E5%90%91/dumpdecrypted%E4%BB%8B%E7%BB%8D%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8/"/>
+    <id>http://lemon2well.top/2018/07/25/iOS 逆向/dumpdecrypted介绍及其使用/</id>
     <published>2018-07-25T06:45:16.000Z</published>
     <updated>2018-07-25T06:45:53.367Z</updated>
     
@@ -377,17 +377,17 @@
     
     </summary>
     
-      <category term="iOS 逆向" scheme="http://yoursite.com/categories/iOS-%E9%80%86%E5%90%91/"/>
+      <category term="iOS 逆向" scheme="http://lemon2well.top/categories/iOS-%E9%80%86%E5%90%91/"/>
     
     
-      <category term="dumpdecrypted" scheme="http://yoursite.com/tags/dumpdecrypted/"/>
+      <category term="dumpdecrypted" scheme="http://lemon2well.top/tags/dumpdecrypted/"/>
     
   </entry>
   
   <entry>
     <title>iOS 逆向常用工具</title>
-    <link href="http://yoursite.com/2018/07/25/iOS%20%E9%80%86%E5%90%91/iOS-%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/"/>
-    <id>http://yoursite.com/2018/07/25/iOS 逆向/iOS-逆向常用工具/</id>
+    <link href="http://lemon2well.top/2018/07/25/iOS%20%E9%80%86%E5%90%91/iOS-%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/"/>
+    <id>http://lemon2well.top/2018/07/25/iOS 逆向/iOS-逆向常用工具/</id>
     <published>2018-07-25T06:43:17.000Z</published>
     <updated>2018-07-25T06:46:09.499Z</updated>
     
@@ -422,15 +422,15 @@
     
     </summary>
     
-      <category term="iOS 逆向" scheme="http://yoursite.com/categories/iOS-%E9%80%86%E5%90%91/"/>
+      <category term="iOS 逆向" scheme="http://lemon2well.top/categories/iOS-%E9%80%86%E5%90%91/"/>
     
     
   </entry>
   
   <entry>
     <title>iOS 逆向常用命令</title>
-    <link href="http://yoursite.com/2018/07/25/iOS%20%E9%80%86%E5%90%91/iOS-%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
-    <id>http://yoursite.com/2018/07/25/iOS 逆向/iOS-逆向常用命令/</id>
+    <link href="http://lemon2well.top/2018/07/25/iOS%20%E9%80%86%E5%90%91/iOS-%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>http://lemon2well.top/2018/07/25/iOS 逆向/iOS-逆向常用命令/</id>
     <published>2018-07-25T06:42:03.000Z</published>
     <updated>2018-07-25T06:42:26.521Z</updated>
     
@@ -459,15 +459,15 @@
     
     </summary>
     
-      <category term="iOS 逆向" scheme="http://yoursite.com/categories/iOS-%E9%80%86%E5%90%91/"/>
+      <category term="iOS 逆向" scheme="http://lemon2well.top/categories/iOS-%E9%80%86%E5%90%91/"/>
     
     
   </entry>
   
   <entry>
     <title>通过theos提供的logify来为类的所有方法添加追踪日志</title>
-    <link href="http://yoursite.com/2018/07/25/iOS%20%E9%80%86%E5%90%91/%E9%80%9A%E8%BF%87theos%E6%8F%90%E4%BE%9B%E7%9A%84logify%E6%9D%A5%E4%B8%BA%E7%B1%BB%E7%9A%84%E6%89%80%E6%9C%89%E6%96%B9%E6%B3%95%E6%B7%BB%E5%8A%A0%E8%BF%BD%E8%B8%AA%E6%97%A5%E5%BF%97/"/>
-    <id>http://yoursite.com/2018/07/25/iOS 逆向/通过theos提供的logify来为类的所有方法添加追踪日志/</id>
+    <link href="http://lemon2well.top/2018/07/25/iOS%20%E9%80%86%E5%90%91/%E9%80%9A%E8%BF%87theos%E6%8F%90%E4%BE%9B%E7%9A%84logify%E6%9D%A5%E4%B8%BA%E7%B1%BB%E7%9A%84%E6%89%80%E6%9C%89%E6%96%B9%E6%B3%95%E6%B7%BB%E5%8A%A0%E8%BF%BD%E8%B8%AA%E6%97%A5%E5%BF%97/"/>
+    <id>http://lemon2well.top/2018/07/25/iOS 逆向/通过theos提供的logify来为类的所有方法添加追踪日志/</id>
     <published>2018-07-25T06:40:31.000Z</published>
     <updated>2018-07-25T06:41:07.874Z</updated>
     
@@ -480,17 +480,17 @@
     
     </summary>
     
-      <category term="iOS 逆向" scheme="http://yoursite.com/categories/iOS-%E9%80%86%E5%90%91/"/>
+      <category term="iOS 逆向" scheme="http://lemon2well.top/categories/iOS-%E9%80%86%E5%90%91/"/>
     
     
-      <category term="logify" scheme="http://yoursite.com/tags/logify/"/>
+      <category term="logify" scheme="http://lemon2well.top/tags/logify/"/>
     
   </entry>
   
   <entry>
     <title>导出iOS真机缓存的dyld_shared_cache_arm64文件</title>
-    <link href="http://yoursite.com/2018/07/25/iOS%20%E9%80%86%E5%90%91/%E5%AF%BC%E5%87%BAiOS%E7%9C%9F%E6%9C%BA%E7%BC%93%E5%AD%98%E7%9A%84dyld-shared-cache-arm64%E6%96%87%E4%BB%B6/"/>
-    <id>http://yoursite.com/2018/07/25/iOS 逆向/导出iOS真机缓存的dyld-shared-cache-arm64文件/</id>
+    <link href="http://lemon2well.top/2018/07/25/iOS%20%E9%80%86%E5%90%91/%E5%AF%BC%E5%87%BAiOS%E7%9C%9F%E6%9C%BA%E7%BC%93%E5%AD%98%E7%9A%84dyld-shared-cache-arm64%E6%96%87%E4%BB%B6/"/>
+    <id>http://lemon2well.top/2018/07/25/iOS 逆向/导出iOS真机缓存的dyld-shared-cache-arm64文件/</id>
     <published>2018-07-25T06:37:48.000Z</published>
     <updated>2018-07-25T06:38:18.822Z</updated>
     
@@ -502,15 +502,15 @@
     
     </summary>
     
-      <category term="iOS 逆向" scheme="http://yoursite.com/categories/iOS-%E9%80%86%E5%90%91/"/>
+      <category term="iOS 逆向" scheme="http://lemon2well.top/categories/iOS-%E9%80%86%E5%90%91/"/>
     
     
   </entry>
   
   <entry>
     <title>dsc_extractor的编译和使用</title>
-    <link href="http://yoursite.com/2018/07/25/iOS%20%E9%80%86%E5%90%91/dsc-extractor%E7%9A%84%E7%BC%96%E8%AF%91%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
-    <id>http://yoursite.com/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/</id>
+    <link href="http://lemon2well.top/2018/07/25/iOS%20%E9%80%86%E5%90%91/dsc-extractor%E7%9A%84%E7%BC%96%E8%AF%91%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
+    <id>http://lemon2well.top/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/</id>
     <published>2018-07-25T06:34:46.000Z</published>
     <updated>2018-07-25T06:35:19.999Z</updated>
     
@@ -522,10 +522,10 @@
     
     </summary>
     
-      <category term="iOS 逆向" scheme="http://yoursite.com/categories/iOS-%E9%80%86%E5%90%91/"/>
+      <category term="iOS 逆向" scheme="http://lemon2well.top/categories/iOS-%E9%80%86%E5%90%91/"/>
     
     
-      <category term="dsc-extractor" scheme="http://yoursite.com/tags/dsc-extractor/"/>
+      <category term="dsc-extractor" scheme="http://lemon2well.top/tags/dsc-extractor/"/>
     
   </entry>
   

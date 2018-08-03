@@ -85,7 +85,7 @@
 <meta name="keywords" content="cocoapods,组件化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 组件化实践《二》基于现有项目拆分组件化实践">
-<meta property="og:url" content="http://yoursite.com/2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/index.html">
+<meta property="og:url" content="http://lemon2well.top/2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
 <meta property="og:description" content="0x01 前言 在第一篇介绍中已经介绍了如果发布一个私有pod，下面将会介绍如何基于一个现有的项目拆分成组件化形式的项目。假设我们现有的项目是有一个AViewController,还有一个BViewController，目前的功能是点击rootViewController页面的按钮会push到AviewController，然后点击AviewController的一个按钮会跳转到BViewCont">
 <meta property="og:locale" content="zh-Hans">
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/"/>
+  <link rel="canonical" href="http://lemon2well.top/2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/"/>
 
 
 
@@ -289,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -421,7 +421,7 @@
 
       
         <h2 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h2><blockquote>
-<p>在<a href="http://lemon2well.top/2018/07/30/iOS%20开发/组件化实践《一》创建私有pod/" target="_blank" rel="noopener">第一篇</a>介绍中已经介绍了如果发布一个私有pod，下面将会介绍如何基于一个现有的项目拆分成组件化形式的项目。<br>假设我们现有的项目是有一个AViewController,还有一个BViewController，目前的功能是点击rootViewController页面的按钮会push到AviewController，然后点击AviewController的一个按钮会跳转到BViewController。这里是未拆分的<a href="https://github.com/codemonkeybulucck/TestModule" target="_blank" rel="noopener">demo</a></p>
+<p>在<a href="http://lemon2well.top/2018/07/30/iOS%20开发/组件化实践《一》创建私有pod/">第一篇</a>介绍中已经介绍了如果发布一个私有pod，下面将会介绍如何基于一个现有的项目拆分成组件化形式的项目。<br>假设我们现有的项目是有一个AViewController,还有一个BViewController，目前的功能是点击rootViewController页面的按钮会push到AviewController，然后点击AviewController的一个按钮会跳转到BViewController。这里是未拆分的<a href="https://github.com/codemonkeybulucck/TestModule" target="_blank" rel="noopener">demo</a></p>
 </blockquote>
 <a id="more"></a>
 <h2 id="0x02-拆分组件"><a href="#0x02-拆分组件" class="headerlink" title="0x02 拆分组件"></a>0x02 拆分组件</h2><blockquote>
@@ -443,7 +443,7 @@
 </ol>
 <p><strong>以上提到的pod：</strong><br><a href="https://github.com/codemonkeybulucck/AViewControllerCategory" target="_blank" rel="noopener">CategoryAViewController</a><br><a href="https://github.com/codemonkeybulucck/LMAViewController" target="_blank" rel="noopener">AviewControllerPod</a><br><a href="https://github.com/casatwy/CTMediator" target="_blank" rel="noopener">CTMediactor</a></p>
 <h3 id="0x02-2-创建BViewController的category和Target-Action的pod"><a href="#0x02-2-创建BViewController的category和Target-Action的pod" class="headerlink" title="0x02.2 创建BViewController的category和Target_Action的pod"></a>0x02.2 创建BViewController的category和Target_Action的pod</h3><p>1、为什么需要先创建BViewController组件，因为AViewController会依赖于BViewController，所以我们先创建BViewController组件。</p>
-<p>2、首先我们先创建BViewController私有pod，按照我的<a href="http://lemon2well.top/2018/07/30/iOS%20开发/组件化实践《一》创建私有pod/" target="_blank" rel="noopener">组件化实践《一》</a>创建好<a href="https://github.com/codemonkeybulucck/BViewController" target="_blank" rel="noopener">BViewController</a>的pod，这个pod不用依赖于任何其他组件，所以应该没啥困难。</p>
+<p>2、首先我们先创建BViewController私有pod，按照我的<a href="http://lemon2well.top/2018/07/30/iOS%20开发/组件化实践《一》创建私有pod/">组件化实践《一》</a>创建好<a href="https://github.com/codemonkeybulucck/BViewController" target="_blank" rel="noopener">BViewController</a>的pod，这个pod不用依赖于任何其他组件，所以应该没啥困难。</p>
 <p>3、接下来我们需要创建<a href="https://github.com/codemonkeybulucck/BCategory" target="_blank" rel="noopener">BViewControllerCategory</a>，这里有一点要注意的是在podspec文件的最下面需要加入<code>s.dependency &#39;CTMediator&#39;</code>，因为里面需要用到CTMediator的perform方法去调用到对应的组件。因为CTMediator已经发布到cocoapods所以可以直接用，如果这里的依赖是你自己改动之后的私有Mediator，记得在pod spec lint 的时候要加上<code>--sources=yourgithub/spec,master</code>将源改成你自己的私有索引库的地址，不然默认是从公有索引库里面找不到对应的Mediator。待会在AViewController调用B的时候会用到这个命令。</p>
 <h3 id="0x02-3-创建AViewController的category和Target-Action的pod"><a href="#0x02-3-创建AViewController的category和Target-Action的pod" class="headerlink" title="0x02.3 创建AViewController的category和Target_Action的pod"></a>0x02.3 创建AViewController的category和Target_Action的pod</h3><p>1、方法同上，首先创建AViewController的<a href="https://github.com/codemonkeybulucck/AViewControllerCategory" target="_blank" rel="noopener">Category</a>组件，这里只需要注意在podspec文件的最下面需要加入<code>s.dependency &#39;CTMediator&#39;</code>。<br>2、 然后我们创建<a href="https://github.com/codemonkeybulucck/LMAViewController" target="_blank" rel="noopener">AViewController</a>私有pod，由于在AViewController里面我们有个按钮点击之后会push到BViewController，那必然要引入BViewController，但是在组件中不会直接引入BViewController，我们通过引入BViewControllerCategory来让程序编译的时候不要报错就行。podspec文件要加入<code>s.dependency &#39;BCategory&#39;</code>。</p>
 <p>3、 验证，因为第二部中我们的私有工程依赖了另外一个私有工程，这个时候的<code>pod spec lint</code>和 <code>pod repo push</code>命令都要加上 <code>--source</code>说明</p>
@@ -840,7 +840,7 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/';
+          this.page.url = 'http://lemon2well.top/2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/';
           this.page.identifier = '2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/';
           this.page.title = 'iOS 组件化实践《二》基于现有项目拆分组件化实践';
         };
