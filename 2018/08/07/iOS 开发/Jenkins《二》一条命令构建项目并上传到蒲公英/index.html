@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="jenkins,蒲公英," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lemon's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="在第一篇Jenkins的搭建中我们已经把本地jenkins环境都搭建好了，接下来我们通过jenkins构建一个ipa并且上传到蒲公英。  创建任务1.首先选择左侧的新建任务，然后下面是构建该工程的基本信息">
+<meta name="keywords" content="jenkins,蒲公英">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins《二》一条命令构建项目并上传到蒲公英">
+<meta property="og:url" content="http://lemon2well.top/2018/08/07/iOS 开发/Jenkins《二》一条命令构建项目并上传到蒲公英/index.html">
+<meta property="og:site_name" content="Lemon&#39;s blog">
+<meta property="og:description" content="在第一篇Jenkins的搭建中我们已经把本地jenkins环境都搭建好了，接下来我们通过jenkins构建一个ipa并且上传到蒲公英。  创建任务1.首先选择左侧的新建任务，然后下面是构建该工程的基本信息">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15336240434000.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15336241947095.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15336242653880.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15336242294039.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15336265635081.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15336269763882.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15336275407363.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15336251729871.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15336256611678.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15336535463602.jpg">
+<meta property="og:updated_time" content="2018-08-07T15:20:17.607Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jenkins《二》一条命令构建项目并上传到蒲公英">
+<meta name="twitter:description" content="在第一篇Jenkins的搭建中我们已经把本地jenkins环境都搭建好了，接下来我们通过jenkins构建一个ipa并且上传到蒲公英。  创建任务1.首先选择左侧的新建任务，然后下面是构建该工程的基本信息">
+<meta name="twitter:image" content="http://pcd17v2u0.bkt.clouddn.com/15336240434000.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lemon2well.top/2018/08/07/iOS 开发/Jenkins《二》一条命令构建项目并上传到蒲公英/"/>
+
+
+
+
+
+  <title>Jenkins《二》一条命令构建项目并上传到蒲公英 | Lemon's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lemon's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Talk is cheap show me the code</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-家">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/07/iOS 开发/Jenkins《二》一条命令构建项目并上传到蒲公英/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Jenkins《二》一条命令构建项目并上传到蒲公英</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T23:18:25+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/07/iOS 开发/Jenkins《二》一条命令构建项目并上传到蒲公英/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/07/iOS 开发/Jenkins《二》一条命令构建项目并上传到蒲公英/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,555
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>在第一篇Jenkins的搭建中我们已经把本地jenkins环境都搭建好了，接下来我们通过jenkins构建一个ipa并且上传到蒲公英。</p>
+</blockquote>
+<h2 id="创建任务"><a href="#创建任务" class="headerlink" title="创建任务"></a>创建任务</h2><p>1.首先选择左侧的新建任务，然后下面是构建该工程的基本信息</p>
+<p><img src="http://pcd17v2u0.bkt.clouddn.com/15336240434000.jpg" alt=""></p>
+<p><img src="http://pcd17v2u0.bkt.clouddn.com/15336241947095.jpg" alt=""></p>
+<a id="more"></a>
+<h2 id="填写源码地址"><a href="#填写源码地址" class="headerlink" title="填写源码地址"></a>填写源码地址</h2><ol start="2">
+<li>下面填写github或者gitLab的源码的地址，并且需要配置对应的Credentials，这里相当是授权。等到构建的时候jenkins会从对应的git上面拉去代码开始构建。</li>
+</ol>
+<p><img src="http://pcd17v2u0.bkt.clouddn.com/15336242653880.jpg" alt=""></p>
+<p>填完源码的网址之后需要填写git的账号密码或者输入对应的私钥。点击Add然后会出现下面的界面</p>
+<p><img src="http://pcd17v2u0.bkt.clouddn.com/15336242294039.jpg" alt=""></p>
+<blockquote>
+<p>如果你的git已经配置了ssh那么可以选择SSH username and private key， 然后到你的/Users/用户名/.ssh/id_rsa 将这个私钥文件里面的所有内容复制到privatekey (enter directly)上面去。<br>否则可以按照上图那样，选择username with password，然后输入用户名和密码</p>
+</blockquote>
+<h2 id="设置触发器（非必要）"><a href="#设置触发器（非必要）" class="headerlink" title="设置触发器（非必要）"></a>设置触发器（非必要）</h2><ol start="3">
+<li>构建触发器是与测试相关的操作，这里可以根据需求选择构建的触发时刻，例如选择第二个就是当代码仓库有push事件的时候，就会触发构建操作，然后构建一个版本并且通知测试去操作。因为我们是手动构建，所以这里先不管这个。<br><img src="http://pcd17v2u0.bkt.clouddn.com/15336265635081.jpg" alt=""></li>
+</ol>
+<h2 id="设置签名和证书"><a href="#设置签名和证书" class="headerlink" title="设置签名和证书"></a>设置签名和证书</h2><ol start="4">
+<li>接下我们需要设置签名文件和证书。<br>首先保存我们原先的设置，然后回到首页，选择系统管理-&gt;Keychains and Provisioning Profiles Management 点击选取文件，然后选择login.keychain文件和 provisioning file 上传。<br><img src="http://pcd17v2u0.bkt.clouddn.com/15336269763882.jpg" alt=""></li>
+</ol>
+<p>填写本机密码，输入描述，然后选择Add Code Signing Identity 输入签名文件的名称，这里的名称可以到钥匙串找到对应的证书然后选择显示简介然后复制头部的文字。</p>
+<blockquote>
+<p>这个Keychain在/Users/管理员用户名/Library/keychains/login.keychain,当把这个Keychain设置好了之后，Jenkins会把这个Keychain拷贝到/Users/Shared/Jenkins/Library/keychains这里，(Library是隐藏文件)。Provisioning Profiles文件也直接拷贝到/Users/Shared/Jenkins/Library/MobileDevice文件目录下</p>
+</blockquote>
+<p><img src="http://pcd17v2u0.bkt.clouddn.com/15336275407363.jpg" alt=""></p>
+<p>上面的配置完成之后，回到任务的配置里面，选择对应的keyChain和provisioning file</p>
+<p><img src="http://pcd17v2u0.bkt.clouddn.com/15336251729871.jpg" alt=""></p>
+<h2 id="构建命令"><a href="#构建命令" class="headerlink" title="构建命令"></a>构建命令</h2><ol start="5">
+<li>上面已经将所有的设置都配置好了，接下来需要选择构建的方式，你可以选择通过xcode来构建，但是这里我们选择shell 并且也推荐通过shell来构建。选择执行shell，然后输入下面的代码，里面有些地方需要改成你自己的，根据实际情况改就可以了，不过一定要注意一点，jenkins那个编辑框极其不好用，我因为不小心输入了一个空格字符然后一直报 command not found ，搞到我一直以为是jenkins配置环境的问题。如果中间有构建错误，点击构建那个红点然后可以查看具体的控制台信息，根据错误提示来修改就好了</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># 工程名，记得改成你自己</span><br><span class="line">APP_NAME=&quot;TestUMCOpen&quot;</span><br><span class="line"># 证书</span><br><span class="line">CODE_SIGN_DISTRIBUTION=&quot;iPhone Distribution: XXXXXXXXXX&quot;</span><br><span class="line"># info.plist路径</span><br><span class="line">project_infoplist_path=&quot;./$&#123;APP_NAME&#125;/Info.plist&quot;</span><br><span class="line"></span><br><span class="line">#取版本号</span><br><span class="line">bundleShortVersion=$(/usr/libexec/PlistBuddy -c &quot;print CFBundleShortVersionString&quot; &quot;$&#123;project_infoplist_path&#125;&quot;)</span><br><span class="line"></span><br><span class="line">#取build值</span><br><span class="line">bundleVersion=$(/usr/libexec/PlistBuddy -c &quot;print CFBundleVersion&quot; &quot;$&#123;project_infoplist_path&#125;&quot;)</span><br><span class="line">DATE=&quot;$(date +%Y%m%d)&quot;</span><br><span class="line">IPAFOLDER=&quot;$&#123;APP_NAME&#125;_V$&#123;bundleShortVersion&#125;_$&#123;DATE&#125;&quot;</span><br><span class="line"></span><br><span class="line">#要上传的ipa文件路径</span><br><span class="line">ARCHIVE_PATH=&quot;$&#123;HOME&#125;/Desktop/archive&quot;</span><br><span class="line">IPA_PATH=&quot;$ARCHIVE_PATH/$&#123;IPAFOLDER&#125;/$&#123;APP_NAME&#125;.ipa&quot;</span><br><span class="line">PLIST_PATH=&quot;$ARCHIVE_PATH/ADHocExportOptions.plist&quot;</span><br><span class="line">echo $&#123;IPA_PATH&#125;</span><br><span class="line">echo $&#123;PLIST_PATH&#125;</span><br><span class="line"></span><br><span class="line">#下面两行是没有Cocopods的用法</span><br><span class="line"># 清除上次构建</span><br><span class="line">xcodebuild clean -project &quot;$&#123;APP_NAME&#125;.xcodeproj&quot; -scheme $&#123;APP_NAME&#125;   -configuration &apos;Release&apos;</span><br><span class="line"># 构建xcarchive文件</span><br><span class="line">xcodebuild archive -project &quot;$&#123;APP_NAME&#125;.xcodeproj&quot; -scheme $&#123;APP_NAME&#125; -archivePath &quot;$&#123;ARCHIVE_PATH&#125;/$&#123;APP_NAME&#125;.xcarchive&quot;</span><br><span class="line"></span><br><span class="line">#下面两行是有cocopods的用法</span><br><span class="line"># xcodebuild clean -workspace &quot;$&#123;APP_NAME&#125;.xcworkspace&quot; -scheme $&#123;APP_NAME&#125;   -configuration &apos;Release&apos;</span><br><span class="line"></span><br><span class="line"># xcodebuild archive -workspace &quot;$&#123;APP_NAME&#125;.xcworkspace&quot; -scheme $&#123;APP_NAME&#125; -archivePath &quot;$&#123;ARCHIVE_PATH&#125;/$&#123;APP_NAME&#125;.xcarchive&quot;</span><br><span class="line"></span><br><span class="line"># 导出ipa</span><br><span class="line">xcodebuild -exportArchive -archivePath &quot;$&#123;ARCHIVE_PATH&#125;/$&#123;APP_NAME&#125;.xcarchive&quot; -exportPath &quot;$ARCHIVE_PATH/$IPAFOLDER&quot; -exportOptionsPlist &quot;$PLIST_PATH&quot;</span><br></pre></td></tr></table></figure>
+<p><strong>这里有个地方需要注意一下，在xcode9之后，需要提供一个信息才能打包，我们可以通过xcode打包出来ipa文件然后复制那个ExportOption.plist文件就好了以下是我的文件的内容</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span><br><span class="line">&lt;plist version=&quot;1.0&quot;&gt;</span><br><span class="line">&lt;dict&gt;</span><br><span class="line">	&lt;key&gt;compileBitcode&lt;/key&gt;</span><br><span class="line">	&lt;false/&gt;</span><br><span class="line">	&lt;key&gt;method&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;enterprise&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;provisioningProfiles&lt;/key&gt;</span><br><span class="line">	&lt;dict&gt;</span><br><span class="line">		&lt;key&gt;your Bundle id&lt;/key&gt;</span><br><span class="line">		&lt;string&gt;证书的名字&lt;/string&gt;</span><br><span class="line">	&lt;/dict&gt;</span><br><span class="line">	&lt;key&gt;signingCertificate&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;iPhone Distribution&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;signingStyle&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;manual&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;stripSwiftSymbols&lt;/key&gt;</span><br><span class="line">	&lt;true/&gt;</span><br><span class="line">	&lt;key&gt;teamID&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;7LD5QKB26C&lt;/string&gt;</span><br><span class="line">	&lt;key&gt;thinning&lt;/key&gt;</span><br><span class="line">	&lt;string&gt;none&lt;/string&gt;</span><br><span class="line">&lt;/dict&gt;</span><br><span class="line">&lt;/plist&gt;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li><p>如果成功之后会在我们指定的文件里面生成下面的文件，除了那个ADHocExportOption.plist是我创建的，前天的文件都是jenkins构建的。<br><img src="http://pcd17v2u0.bkt.clouddn.com/15336256611678.jpg" alt=""></p>
+</li>
+<li><p>上传ipa到蒲公英</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#上传到蒲公英</span><br><span class="line">uKey=&quot;aec42b3cc32*******837cc7084a819c&quot;</span><br><span class="line">#蒲公英上的API Key</span><br><span class="line">apiKey=&quot;ba4e62***************8067a87315&quot;</span><br><span class="line">#要上传的ipa文件路径</span><br><span class="line">echo $IPA_PATH</span><br><span class="line"> </span><br><span class="line">#执行上传至蒲公英的命令</span><br><span class="line">echo &quot;++++++++++++++upload+++++++++++++&quot;</span><br><span class="line">curl -F &quot;file=@$&#123;IPA_PATH&#125;&quot; -F &quot;uKey=$&#123;uKey&#125;&quot; -F &quot;_api_key=$&#123;apiKey&#125;&quot; http://www.pgyer.com/apiv1/app/upload</span><br></pre></td></tr></table></figure>
+<h2 id="命令行构建"><a href="#命令行构建" class="headerlink" title="命令行构建"></a>命令行构建</h2><ol start="7">
+<li>至此我们已经完成手动构建项目了，接下来我们利用Jenkins命令行来完成一行命令构建版本<br>进入系统管理然后选择Jenkins命令行，下载最新的jenkins-cli.jar<br><img src="http://pcd17v2u0.bkt.clouddn.com/15336535463602.jpg" alt=""></li>
+</ol>
+<p>下载完成之后，如果直接运行上述命令行会提示没有权限，这个时候我们需要配置一下SSH。点击右上角的用户名，然后点击设置，找到SSH，然后将本地的公钥复制粘贴到上面，保存。</p>
+<p>下面是完整的命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line">add-job-to-view</span><br><span class="line">    Adds jobs to view.</span><br><span class="line">  build</span><br><span class="line">    Builds a job, and optionally waits until its completion.</span><br><span class="line">  cancel-quiet-down</span><br><span class="line">    Cancel the effect of the &quot;quiet-down&quot; command.</span><br><span class="line">  clear-queue</span><br><span class="line">    Clears the build queue.</span><br><span class="line">  connect-node</span><br><span class="line">    Reconnect to a node(s)</span><br><span class="line">  console</span><br><span class="line">    Retrieves console output of a build.</span><br><span class="line">  copy-job</span><br><span class="line">    Copies a job.</span><br><span class="line">  create-credentials-by-xml</span><br><span class="line">    Create Credential by XML</span><br><span class="line">  create-credentials-domain-by-xml</span><br><span class="line">    Create Credentials Domain by XML</span><br><span class="line">  create-job</span><br><span class="line">    Creates a new job by reading stdin as a configuration XML file.</span><br><span class="line">  create-node</span><br><span class="line">    Creates a new node by reading stdin as a XML configuration.</span><br><span class="line">  create-view</span><br><span class="line">    Creates a new view by reading stdin as a XML configuration.</span><br><span class="line">  delete-builds</span><br><span class="line">    Deletes build record(s).</span><br><span class="line">  delete-credentials</span><br><span class="line">    Delete a Credential</span><br><span class="line">  delete-credentials-domain</span><br><span class="line">    Delete a Credentials Domain</span><br><span class="line">  delete-job</span><br><span class="line">    Deletes job(s).</span><br><span class="line">  delete-node</span><br><span class="line">    Deletes node(s)</span><br><span class="line">  delete-view</span><br><span class="line">    Deletes view(s).</span><br><span class="line">  disable-job</span><br><span class="line">    禁用任务</span><br><span class="line">  disconnect-node</span><br><span class="line">    Disconnects from a node.</span><br><span class="line">  enable-job</span><br><span class="line">    启用任务</span><br><span class="line">  get-credentials-as-xml</span><br><span class="line">    Get a Credentials as XML (secrets redacted)</span><br><span class="line">  get-credentials-domain-as-xml</span><br><span class="line">    Get a Credentials Domain as XML</span><br><span class="line">  get-job</span><br><span class="line">    Dumps the job definition XML to stdout.</span><br><span class="line">  get-node</span><br><span class="line">    Dumps the node definition XML to stdout.</span><br><span class="line">  get-view</span><br><span class="line">    Dumps the view definition XML to stdout.</span><br><span class="line">  groovy</span><br><span class="line">    Executes the specified Groovy script.</span><br><span class="line">  groovysh</span><br><span class="line">    Runs an interactive groovy shell.</span><br><span class="line">  help</span><br><span class="line">    Lists all the available commands or a detailed description of single command.</span><br><span class="line">  import-credentials-as-xml</span><br><span class="line">    Import credentials as XML. The output of &quot;list-credentials-as-xml&quot; can be used as input here as is, the only needed change is to set the actual Secrets which are redacted in the output.</span><br><span class="line">  install-plugin</span><br><span class="line">    Installs a plugin either from a file, an URL, or from update center.</span><br><span class="line">  install-tool</span><br><span class="line">    Performs automatic tool installation, and print its location to stdout. Can be only called from inside a build. [deprecated]</span><br><span class="line">  keep-build</span><br><span class="line">    永久保留这次构建。</span><br><span class="line">  list-changes</span><br><span class="line">    Dumps the changelog for the specified build(s).</span><br><span class="line">  list-credentials</span><br><span class="line">    Lists the Credentials in a specific Store</span><br><span class="line">  list-credentials-as-xml</span><br><span class="line">    Export credentials as XML. The output of this command can be used as input for &quot;import-credentials-as-xml&quot; as is, the only needed change is to set the actual Secrets which are redacted in the output.</span><br><span class="line">  list-credentials-context-resolvers</span><br><span class="line">    List Credentials Context Resolvers</span><br><span class="line">  list-credentials-providers</span><br><span class="line">    List Credentials Providers</span><br><span class="line">  list-jobs</span><br><span class="line">    Lists all jobs in a specific view or item group.</span><br><span class="line">  list-plugins</span><br><span class="line">    Outputs a list of installed plugins.</span><br><span class="line">  login</span><br><span class="line">    Saves the current credentials to allow future commands to run without explicit credential information. [deprecated]</span><br><span class="line">  logout</span><br><span class="line">    Deletes the credentials stored with the login command. [deprecated]</span><br><span class="line">  mail</span><br><span class="line">    Reads stdin and sends that out as an e-mail.</span><br><span class="line">  offline-node</span><br><span class="line">    Stop using a node for performing builds temporarily, until the next &quot;online-node&quot; command.</span><br><span class="line">  online-node</span><br><span class="line">    Resume using a node for performing builds, to cancel out the earlier &quot;offline-node&quot; command.</span><br><span class="line">  quiet-down</span><br><span class="line">    Quiet down Jenkins, in preparation for a restart. Don’t start any builds.</span><br><span class="line">  reload-configuration</span><br><span class="line">    Discard all the loaded data in memory and reload everything from file system. Useful when you modified config files directly on disk.</span><br><span class="line">  reload-job</span><br><span class="line">    Reload job(s)</span><br><span class="line">  remove-job-from-view</span><br><span class="line">    Removes jobs from view.</span><br><span class="line">  restart</span><br><span class="line">    重新启动Jenkins</span><br><span class="line">  safe-restart</span><br><span class="line">    安全地重新启动Jenkins</span><br><span class="line">  safe-shutdown</span><br><span class="line">    Puts Jenkins into the quiet mode, wait for existing builds to be completed, and then shut down Jenkins.</span><br><span class="line">  session-id</span><br><span class="line">    Outputs the session ID, which changes every time Jenkins restarts.</span><br><span class="line">  set-build-description</span><br><span class="line">    Sets the description of a build.</span><br><span class="line">  set-build-display-name</span><br><span class="line">    Sets the displayName of a build.</span><br><span class="line">  set-build-parameter</span><br><span class="line">    Update/set the build parameter of the current build in progress. [deprecated]</span><br><span class="line">  set-build-result</span><br><span class="line">    Sets the result of the current build. Works only if invoked from within a build. [deprecated]</span><br><span class="line">  set-external-build-result</span><br><span class="line">    Set external monitor job result.</span><br><span class="line">  shutdown</span><br><span class="line">    立刻关闭Jenkins</span><br><span class="line">  update-credentials-by-xml</span><br><span class="line">    Update Credentials by XML</span><br><span class="line">  update-credentials-domain-by-xml</span><br><span class="line">    Update Credentials Domain by XML</span><br><span class="line">  update-job</span><br><span class="line">    Updates the job definition XML from stdin. The opposite of the get-job command.</span><br><span class="line">  update-node</span><br><span class="line">    Updates the node definition XML from stdin. The opposite of the get-node command.</span><br><span class="line">  update-view</span><br><span class="line">    Updates the view definition XML from stdin. The opposite of the get-view command.</span><br><span class="line">  version</span><br><span class="line">    Outputs the current version.</span><br><span class="line">  wait-node-offline</span><br><span class="line">    Wait for a node to become offline.</span><br><span class="line">  wait-node-online</span><br><span class="line">    Wait for a node to become online.</span><br><span class="line">  who-am-i</span><br><span class="line">    Reports your credential and permissions.</span><br></pre></td></tr></table></figure>
+<p>我们执行命令的格式是<br><code>java -jar jenkins-cli.jar -s http://localhost:8080/ -ssh -user username command</code><br>command 就是我们需要执行的命令，build是构建命令，下面的事情就很简单了。</p>
+<p><code>java -jar jenkins-cli.jar -s http://localhost:8080/ -ssh -user username build UMC10.1.0Demo</code><br><strong>UMC10.1.0Demo是我们一开始创建任务的时候的名字，这个时候就会自动构建版本并且上传蒲公英</strong><br>可以将上述命令放到.command文件里面，并且增加可执行权限，这样双击这个文件的时候就会触发构建。注意里面cli.jar的路径。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>综上所述：总的来说在我们jenkins已经安装好的情况下，我们需要做的就是构建任务，然后填写源码地址，设置构建策略，设置签名和证书，编写构建代码（包括上传蒲公英），编写shell。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------评论系统采用disqus，<i class="fa fa-paw"></i>如果看不到需要翻墙-------------</div>
+    
+</div>
+
+  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jenkins/" rel="tag"># jenkins</a>
+          
+            <a href="/tags/蒲公英/" rel="tag"># 蒲公英</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/03/算法/用队列实现栈和用栈实现队列/" rel="next" title="用队列实现栈和用栈实现队列">
+                <i class="fa fa-chevron-left"></i> 用队列实现栈和用栈实现队列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg"
+                alt="lemon" />
+            
+              <p class="site-author-name" itemprop="name">lemon</p>
+              <p class="site-description motion-element" itemprop="description">iOS Developer | 拥抱变化 | 🍋😊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/codemonkeybulucck" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:codebulucck@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建任务"><span class="nav-number">1.</span> <span class="nav-text">创建任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#填写源码地址"><span class="nav-number">2.</span> <span class="nav-text">填写源码地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置触发器（非必要）"><span class="nav-number">3.</span> <span class="nav-text">设置触发器（非必要）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置签名和证书"><span class="nav-number">4.</span> <span class="nav-text">设置签名和证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建命令"><span class="nav-number">5.</span> <span class="nav-text">构建命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行构建"><span class="nav-number">6.</span> <span class="nav-text">命令行构建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lemon</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://lemon2well.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://lemon2well.top/2018/08/07/iOS 开发/Jenkins《二》一条命令构建项目并上传到蒲公英/';
+          this.page.identifier = '2018/08/07/iOS 开发/Jenkins《二》一条命令构建项目并上传到蒲公英/';
+          this.page.title = 'Jenkins《二》一条命令构建项目并上传到蒲公英';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lemon2well.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
