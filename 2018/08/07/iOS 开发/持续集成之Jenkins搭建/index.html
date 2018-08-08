@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="jenkins," />
 
 
 
@@ -81,17 +81,24 @@
 
 
 
-<meta name="description" content="1. 查看信息相关 查看越狱设备所有的APP的BundleID （前提需要安装frida-iOS-dump）   MacBookPro:frida-ios-dump-master lemon$ ./dump.py -l   查看设备UDID (前提需要安装ideviceinstall)   MacBookPro:~ lemon$ idevice_id  -l   查看iPA是否已经砸壳 (如果返回">
+<meta name="description" content="前言对于一个APP来说，我相信我们开发最担心的就是出bug，只要是线上APP出bug，心里就慌得很，这是一件很严重的事情，还有可能让用户一气之下把你的APP删掉，从此再也不会出现在他的手机里面。 但是如果我们严格把控APP的质量，我们做到每天都构建一个版本并且测试，我们将这个APP上传到一个特定的测试系统，当有代码更新的时候或者每天设置一个时间去不断的跑测试，这样我们在开发阶段就发现很多问题。">
+<meta name="keywords" content="jenkins">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS 逆向常用命令">
-<meta property="og:url" content="http://lemon2well.top/2018/07/25/iOS 逆向/iOS-逆向常用命令/index.html">
+<meta property="og:title" content="持续集成之Jenkins搭建">
+<meta property="og:url" content="http://lemon2well.top/2018/08/07/iOS 开发/持续集成之Jenkins搭建/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="1. 查看信息相关 查看越狱设备所有的APP的BundleID （前提需要安装frida-iOS-dump）   MacBookPro:frida-ios-dump-master lemon$ ./dump.py -l   查看设备UDID (前提需要安装ideviceinstall)   MacBookPro:~ lemon$ idevice_id  -l   查看iPA是否已经砸壳 (如果返回">
+<meta property="og:description" content="前言对于一个APP来说，我相信我们开发最担心的就是出bug，只要是线上APP出bug，心里就慌得很，这是一件很严重的事情，还有可能让用户一气之下把你的APP删掉，从此再也不会出现在他的手机里面。 但是如果我们严格把控APP的质量，我们做到每天都构建一个版本并且测试，我们将这个APP上传到一个特定的测试系统，当有代码更新的时候或者每天设置一个时间去不断的跑测试，这样我们在开发阶段就发现很多问题。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-25T06:42:26.521Z">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15337123514685.png">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15337131168237.png">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15337133154570.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15337135245241.jpg">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15337147054369.jpg">
+<meta property="og:updated_time" content="2018-08-08T08:27:10.972Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 逆向常用命令">
-<meta name="twitter:description" content="1. 查看信息相关 查看越狱设备所有的APP的BundleID （前提需要安装frida-iOS-dump）   MacBookPro:frida-ios-dump-master lemon$ ./dump.py -l   查看设备UDID (前提需要安装ideviceinstall)   MacBookPro:~ lemon$ idevice_id  -l   查看iPA是否已经砸壳 (如果返回">
+<meta name="twitter:title" content="持续集成之Jenkins搭建">
+<meta name="twitter:description" content="前言对于一个APP来说，我相信我们开发最担心的就是出bug，只要是线上APP出bug，心里就慌得很，这是一件很严重的事情，还有可能让用户一气之下把你的APP删掉，从此再也不会出现在他的手机里面。 但是如果我们严格把控APP的质量，我们做到每天都构建一个版本并且测试，我们将这个APP上传到一个特定的测试系统，当有代码更新的时候或者每天设置一个时间去不断的跑测试，这样我们在开发阶段就发现很多问题。">
+<meta name="twitter:image" content="http://pcd17v2u0.bkt.clouddn.com/15337123514685.png">
 
 
 
@@ -121,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://lemon2well.top/2018/07/25/iOS 逆向/iOS-逆向常用命令/"/>
+  <link rel="canonical" href="http://lemon2well.top/2018/08/07/iOS 开发/持续集成之Jenkins搭建/"/>
 
 
 
 
 
-  <title>iOS 逆向常用命令 | Lemon's blog</title>
+  <title>持续集成之Jenkins搭建 | Lemon's blog</title>
   
 
 
@@ -288,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/07/25/iOS 逆向/iOS-逆向常用命令/">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/07/iOS 开发/持续集成之Jenkins搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -305,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS 逆向常用命令</h1>
+          <h1 class="post-title" itemprop="name headline">持续集成之Jenkins搭建</h1>
         
 
         <div class="post-meta">
@@ -317,8 +324,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T14:42:03+08:00">
-                2018-07-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T16:26:29+08:00">
+                2018-08-07
               </time>
             
 
@@ -340,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS-逆向/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS 逆向</span>
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
                   </a>
                 </span>
 
@@ -358,9 +365,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/25/iOS 逆向/iOS-逆向常用命令/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/07/iOS 开发/持续集成之Jenkins搭建/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/25/iOS 逆向/iOS-逆向常用命令/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/07/iOS 开发/持续集成之Jenkins搭建/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -382,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  595
+                  1,446
                 </span>
               
 
@@ -398,7 +405,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  5
                 </span>
               
             </div>
@@ -419,213 +426,45 @@
       
 
       
-        <h3 id="1-查看信息相关"><a href="#1-查看信息相关" class="headerlink" title="1. 查看信息相关"></a>1. 查看信息相关</h3><ul>
-<li>查看越狱设备所有的APP的BundleID （前提需要安装frida-iOS-dump）</li>
-</ul>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>对于一个APP来说，我相信我们开发最担心的就是出bug，只要是线上APP出bug，心里就慌得很，这是一件很严重的事情，还有可能让用户一气之下把你的APP删掉，从此再也不会出现在他的手机里面。</p>
+<p>但是如果我们严格把控APP的质量，我们做到每天都构建一个版本并且测试，我们将这个APP上传到一个特定的测试系统，当有代码更新的时候或者每天设置一个时间去不断的跑测试，这样我们在开发阶段就发现很多问题。</p>
 <blockquote>
-<p>MacBookPro:frida-ios-dump-master lemon$ ./dump.py -l</p>
-</blockquote>
-<ul>
-<li>查看设备UDID (前提需要安装ideviceinstall)</li>
-</ul>
-<blockquote>
-<p>MacBookPro:~ lemon$ idevice_id  -l</p>
-</blockquote>
-<ul>
-<li>查看iPA是否已经砸壳 (如果返回cryptid=0代表已砸壳，否则代表未砸壳)</li>
-</ul>
-<blockquote>
-<p>MacBookPro:~ lemon$ otool -l target.app/target | grep cryptid</p>
+<p>上面我们说的就是CI(Continuous Integration)持续集成+TDD(Test Driven Development)测试驱动开发。</p>
 </blockquote>
 <a id="more"></a>
-<ul>
-<li>查看设备日志</li>
-</ul>
+<h2 id="持续集成带来的好处"><a href="#持续集成带来的好处" class="headerlink" title="持续集成带来的好处"></a>持续集成带来的好处</h2><p>持续集成带来的好处是显而易见的</p>
+<ol>
+<li><p>减少风险。通过每天构建版本，在开发阶段就可以发现项目的缺陷，排除一些因为项目设置的低级错误而导致的bug，用同样的脚本和过程构建和测试软件，排除因代码外的其他因素。</p>
+</li>
+<li><p>减少重复的过程，提高效率。当项目变大之后，频繁的打包会很影响开发的效率，但是有了持续集成我们不用关心打包的过程，将重复的build,archive,code sign交给提供构建服务的机器去做，将时间放在更有意义的事情上面。</p>
+</li>
+<li><p>随时可部署。持续集成有一个好处就是我们每天都会做构建版本，可以交付部署上线，当我们无休止的讨论需求软件质量或者开发进度的时候，对于客户来说，不如一个可安装的软件包来得实际</p>
+</li>
+</ol>
+<h3 id="持续集成之Jenkins"><a href="#持续集成之Jenkins" class="headerlink" title="持续集成之Jenkins"></a>持续集成之Jenkins</h3><p>CI包括三个基本的元素，第一个是可自动构建版本的服务，第二个是代码仓库，第三个是搭建了服务的机器。</p>
 <blockquote>
-<p>MacBookPro:~ lemon$ idevicesyslog -u deviceudid</p>
+<p>可自动构建版本的服务目前有Jenkins和fastlane。<br>代码仓库也就是我们平时使用的github,gitlab等等<br>在iOS中机器必须是搭建OSX系统的机器，因为构建需要用到xcodeBuild命令，该命令由xcode提供，而xcode只能安装在OSX系统下面。</p>
 </blockquote>
-<ul>
-<li>给特定的设备安装程序</li>
-</ul>
-<blockquote>
-<p>MacBookPro:~ lemon$ ideviceinstaller -i target.ipa -u  deviceudid</p>
-</blockquote>
-<ul>
-<li>砸壳 (使用frida)</li>
-</ul>
-<blockquote>
-<p>MacBookPro:frida-ios-dump-master lemon$ ./dump.py BundleID</p>
-</blockquote>
-<ul>
-<li>class-dump头文件</li>
-</ul>
-<blockquote>
-<p>MacBookPro:~ lemon$ class-dump -s -S -H target.app/target -o /path/to/save/header</p>
-</blockquote>
-<ul>
-<li>查看动态库架构</li>
-</ul>
-<blockquote>
-<p>lipo -info</p>
-</blockquote>
-<ul>
-<li>ssh</li>
-</ul>
-<blockquote>
-<p>ssh root@deviceip</p>
-</blockquote>
-<ul>
-<li>查找进程</li>
-</ul>
-<blockquote>
-<p>ps aux | grep /App<br>ps -e | grep /Applications</p>
-</blockquote>
-<ul>
-<li>查找文件</li>
-</ul>
-<blockquote>
-<p>grep -r Header /System/Library/</p>
-</blockquote>
-<ul>
-<li>分离fat binary</li>
-</ul>
-<blockquote>
-<p>lipo -thin armv7 WeChat.decrypted -output WeChat_armv7.decrypted<br>lipo -thin arm64 xxx.decryptec -output xxx.arm64.decrypted</p>
-</blockquote>
-<h3 id="2-LLDB"><a href="#2-LLDB" class="headerlink" title="2. LLDB"></a>2. LLDB</h3><ul>
-<li>打印UI结构</li>
-</ul>
-<blockquote>
-<p>po [[[UIWindow keyWindow] rootViewController] _printHierarchy]    (iOS 8)<br>po [[UIWindow keyWindow] recursiveDescription]</p>
-</blockquote>
-<ul>
-<li>打印调用栈信息</li>
-</ul>
-<blockquote>
-<p>bt (backtrace)<br>bt all (all threads)</p>
-</blockquote>
-<ul>
-<li>objc_msgSend参数打印</li>
-</ul>
-<blockquote>
-<p>po $xo</p>
-</blockquote>
-<blockquote>
-<p>p (char*)$x1</p>
-</blockquote>
-<blockquote>
-<p>p (SEL)$x1</p>
-</blockquote>
-<ul>
-<li>返回地址</li>
-</ul>
-<blockquote>
-<p>p/x $lr</p>
-</blockquote>
-<ul>
-<li>增加断点</li>
-</ul>
-<blockquote>
-<p>b -a ox00002224</p>
-</blockquote>
-<ul>
-<li>列举模块</li>
-</ul>
-<blockquote>
-<p>image lisg -o -f </p>
-</blockquote>
-<ul>
-<li>lldb基础指令</li>
-</ul>
-<blockquote>
-<p>c<br>n<br>ni<br>br list<br>br del<br>br dis<br>br en</p>
-</blockquote>
-<ul>
-<li>远程调试</li>
-</ul>
-<blockquote>
-<p>debugserver *:1234 -a pid</p>
-</blockquote>
-<blockquote>
-<p>debugserver -x backboard *:1234 /var/mobile/Containers/Bundle/Application/9DB7CE45-3B4C-42A3-9D4D-49A3A5122903/AlipayWallet.app/AlipayWallet</p>
-</blockquote>
-<ul>
-<li>远程连接</li>
-</ul>
-<blockquote>
-<p>proces connect connect://192.168.2.154:1234</p>
-</blockquote>
-<ul>
-<li>lldb expr例子</li>
-</ul>
-<blockquote>
-<p>(lldb) expr char <em>$str = (char </em>)malloc(8)</p>
-<p>(lldb) expr (void)strcpy($str, “munkeys”)</p>
-<p>(lldb) expr $str[1] = ‘o’</p>
-<p>(char) $0 = ‘o’</p>
-<p>(lldb) p $str</p>
-<p>(char *) $str = 0x00007fd04a900040 “monkeys”</p>
-<p>(lldb) x/4c $str</p>
-<p>(lldb) x/1w <code>$str + 3</code></p>
-<p>(lldb) expr (void)free($str)</p>
-<p>(lldb) expr id $myView = (id)0x7f82b1d01fd0</p>
-<p>(lldb) expr (void)[$myView setBackgroundColor:[UIColor blueColor]]</p>
-<p>(lldb) expr (void)[CATransaction flush]</p>
-<p>(lldb) po [$myButton allTargets]</p>
-<p>(lldb) p (ptrdiff_t)ivar_getOffset((struct Ivar *)class_getInstanceVariable([MyView class], “_layer”))</p>
-</blockquote>
-<ul>
-<li>给断点增加命令</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(lldb) br command add 1</span><br><span class="line">Enter your debugger command(s).  Type &apos;DONE&apos; to end.</span><br><span class="line">&gt; register read $rdi </span><br><span class="line">&gt; c </span><br><span class="line">&gt; DONE</span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>修改寄存器的值</li>
-</ul>
-<blockquote>
-<p>register write x0 1</p>
-</blockquote>
-<h3 id="3-Cycript"><a href="#3-Cycript" class="headerlink" title="3. Cycript"></a>3. Cycript</h3><ul>
-<li>查看当前界面的元素层级结构</li>
-</ul>
-<blockquote>
-<p>cy# [[UIApp keyWindow]recursiveDescription].toString()</p>
-</blockquote>
-<ul>
-<li>查看当前keywindow的根控制器的所有subView</li>
-</ul>
-<blockquote>
-<p>cy# [[[UIApp keyWindow] rootViewController] _printHierarchy].toString()</p>
-</blockquote>
-<ul>
-<li>输出简单的视图信息</li>
-</ul>
-<blockquote>
-<p>cy# [[UIApp keyWindow] _autolayoutTrace].toString()</p>
-</blockquote>
-<ul>
-<li>查看一个实例的所有ivar</li>
-</ul>
-<blockquote>
-<p>cy# [choose(SBApplication)[0] _ivarDescription].toString()</p>
-</blockquote>
-<ul>
-<li>查看一个class的对象方法和类方法</li>
-</ul>
-<blockquote>
-<p>cy# [choose(SBApplicationController)[0] _methodDescription].toString()</p>
-</blockquote>
-<ul>
-<li>访问对象和实例</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cy# [#0xb226710 url]</span><br><span class="line">@&quot;ww4fd1rfRDShBo_4K6rqfwAAACMAAQED&quot;</span><br><span class="line"></span><br><span class="line">cy# c = #0x1752d8c0</span><br><span class="line">cy#&quot;&lt;FavAudioPlayerController: 0x1752d8c0; frame = (0 0; 290 60); autoresize = W; layer = &lt;CALayer: 0x172dc2b0&gt;&gt;&quot;</span><br><span class="line">cy# c-&gt;m_audioInfo</span><br><span class="line">cy#&quot;&lt;FavAudioInfo: 0x172b2a30&gt;&quot;</span><br><span class="line">cy# c-&gt;m_audioInfo.m_nsAudioPath</span><br></pre></td></tr></table></figure>
-<h3 id="4-ARM"><a href="#4-ARM" class="headerlink" title="4. ARM"></a>4. ARM</h3><h3 id="5-工具"><a href="#5-工具" class="headerlink" title="5. 工具"></a>5. 工具</h3><ul>
-<li><a href="https://github.com/stefanesser/dumpdecrypted" target="_blank" rel="noopener">dumpdecrypted</a></li>
-<li><a href="https://github.com/theos/theos" target="_blank" rel="noopener">theos</a></li>
-<li><a href="https://cgit.sukimashita.com/usbmuxd.git/" target="_blank" rel="noopener">usbmuxd</a> </li>
-<li><a href="https://github.com/AloneMonkey/frida-ios-dump" target="_blank" rel="noopener">frida-ios-dump</a></li>
-<li><a href="https://github.com/nygard/class-dump" target="_blank" rel="noopener">class-dummp</a></li>
-<li><a href="https://github.com/AloneMonkey/MonkeyDev" target="_blank" rel="noopener">MonkeyDev</a></li>
-</ul>
+<p>下面我们要说的就是可自动构建版本的服务，<a href="https://jenkins.io" target="_blank" rel="noopener">Jenkins</a>。</p>
+<p>Jenkins 是一个开源项目，提供了一种易于使用的持续集成系统，使开发者从繁杂的集成中解脱出来，专注于更为重要的业务逻辑实现上。同时 Jenkins 能实施监控集成中存在的错误，提供详细的日志文件和提醒功能，还能用图表的形式形象地展示项目构建的趋势和稳定性，构建完成之后通过脚本直接上传到分发平台或者测试平台。</p>
+<h2 id="Jenkins搭建"><a href="#Jenkins搭建" class="headerlink" title="Jenkins搭建"></a>Jenkins搭建</h2><p>jenkins有两种安装方式</p>
+<p>一种是通过在<a href="https://jenkins.io/download" target="_blank" rel="noopener">官网</a>下载pkg安装包的方式安装，图形化的安装界面直接跟着提示安装就好了。</p>
+<p>第二种是通过homebrew安装，不过在安装之前我们需要检测本地环境是否已经安装了java，可以使用<code>java -version</code>来查看当前的java版本，如果没有安装的java的话可以在<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">这里</a>安装java。<br>还要检测是否已经安装了homebrew,查看本机homebrew版本’brew -v’。</p>
+<p>如果java和homebrew都已经安装好，就可以开始安装jenkins了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install jenkins</span><br></pre></td></tr></table></figure>
+<p>当出现Jenkins is fully up and running之后，表明jenkins已经安装好了，如果没有自动打开<a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> ，可以到网页上面自行打开该外地址。</p>
+<p><img src="http://pcd17v2u0.bkt.clouddn.com/15337123514685.png" alt=""></p>
+<p>上面给了一个地址，提示你去那里找到初始化的密码。打开/User/Shared/Jenkins/Home/secrets/initialAdminPassword复制出密码。</p>
+<p>接下来会提示你安装一些插件，安装默认的插件即可，不过就算这里安装失败了也没关系，后面进到主界面还可以继续安装。</p>
+<p><img src="http://pcd17v2u0.bkt.clouddn.com/15337131168237.png" alt=""></p>
+<p>安装完插件之后会提示你创建一个jenkins用户。<br><img src="http://pcd17v2u0.bkt.clouddn.com/15337133154570.jpg" alt=""></p>
+<p>输入这些信息之后点击save And Finish安装的过程就算完成了。接下来可以进入到jenkins主界面了。</p>
+<p><img src="http://pcd17v2u0.bkt.clouddn.com/15337135245241.jpg" alt=""><br>我们主要关注一下面板左侧的选项，点击“系统管理”，然后找到“管理插件”<br>在“可选插件”中选中“GitLab Plugin”和“Gitlab Hook Plugin”这两项，然后安装。<br>安装Xcode插件<br>同安装GitLab插件的步骤一样，我们依次选择系统管理-&gt;管理插件，在“可选插件”中选中“Xcode integration”安装，安装完这个插件我们还需要安装一个“Keychains and Provisioning Profiles Management”插件。这个插件用于我们设置签名和证书。</p>
+<p>安装“Keychains and Provisioning Profiles Management”之后，我们去到系统管理-&gt;Keychains and Provisioning Profiles Management设置签名和证书。</p>
+<p><img src="http://pcd17v2u0.bkt.clouddn.com/15337147054369.jpg" alt=""></p>
+<p>这里需要选择 login.keychain ，在 /Users/用户名/Library/keychains/login.keychain 目录里。如果不能通过选择的话，可以把login.keychain拷贝到桌面，然后在选择上传。<br>Code Signing Identity，可以添加多项。进入钥匙串，选择开发者证书或发布证书，拷贝完全，粘贴至Jenkins的Code Signing Identity项。</p>
+<p>当把这个Keychain设置好了之后，Jenkins会把这个Keychain拷贝到/Users/Shared/Jenkins/Library/keychains这里，(Library是隐藏文件)。Provisioning Profiles文件也直接拷贝到/Users/Shared/Jenkins/Library/MobileDevice文件目录下</p>
+<p>到这里Jenkins的搭建就算完成了，下一篇文章我们将会使用jenkins创建一个任务，然后构造版本并且上传蒲公英，最终的目的都是通过一个脚本来完成上述的操作。</p>
 
       
     </div>
@@ -652,6 +491,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/jenkins/" rel="tag"># jenkins</a>
+          
+        </div>
+      
 
       
       
@@ -661,8 +506,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/25/iOS 逆向/通过theos提供的logify来为类的所有方法添加追踪日志/" rel="next" title="通过theos提供的logify来为类的所有方法添加追踪日志">
-                <i class="fa fa-chevron-left"></i> 通过theos提供的logify来为类的所有方法添加追踪日志
+              <a href="/2018/08/03/算法/用队列实现栈和用栈实现队列/" rel="next" title="用队列实现栈和用栈实现队列">
+                <i class="fa fa-chevron-left"></i> 用队列实现栈和用栈实现队列
               </a>
             
           </div>
@@ -671,8 +516,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/25/iOS 逆向/iOS-逆向常用工具/" rel="prev" title="iOS 逆向常用工具">
-                iOS 逆向常用工具 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/08/iOS 开发/持续集成之Jenkins构建项目并上传到蒲公英/" rel="prev" title="持续集成之Jenkins构建项目并上传到蒲公英">
+                持续集成之Jenkins构建项目并上传到蒲公英 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -842,7 +687,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-查看信息相关"><span class="nav-number">1.</span> <span class="nav-text">1. 查看信息相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-LLDB"><span class="nav-number">2.</span> <span class="nav-text">2. LLDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Cycript"><span class="nav-number">3.</span> <span class="nav-text">3. Cycript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-ARM"><span class="nav-number">4.</span> <span class="nav-text">4. ARM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-工具"><span class="nav-number">5.</span> <span class="nav-text">5. 工具</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持续集成带来的好处"><span class="nav-number">2.</span> <span class="nav-text">持续集成带来的好处</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#持续集成之Jenkins"><span class="nav-number">2.1.</span> <span class="nav-text">持续集成之Jenkins</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jenkins搭建"><span class="nav-number">3.</span> <span class="nav-text">Jenkins搭建</span></a></li></ol></div>
             
 
           </div>
@@ -1006,9 +851,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lemon2well.top/2018/07/25/iOS 逆向/iOS-逆向常用命令/';
-          this.page.identifier = '2018/07/25/iOS 逆向/iOS-逆向常用命令/';
-          this.page.title = 'iOS 逆向常用命令';
+          this.page.url = 'http://lemon2well.top/2018/08/07/iOS 开发/持续集成之Jenkins搭建/';
+          this.page.identifier = '2018/08/07/iOS 开发/持续集成之Jenkins搭建/';
+          this.page.title = '持续集成之Jenkins搭建';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lemon2well.disqus.com/embed.js';
