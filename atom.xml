@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lemon2well.top/"/>
-  <updated>2018-08-10T02:35:39.604Z</updated>
+  <updated>2018-08-10T09:59:57.944Z</updated>
   <id>http://lemon2well.top/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>细说HTTP与HTTPS</title>
+    <link href="http://lemon2well.top/2018/08/10/%E5%85%B6%E4%BB%96%E6%8A%80%E6%9C%AF/%E7%BB%86%E8%AF%B4HTTP%E4%B8%8EHTTPS/"/>
+    <id>http://lemon2well.top/2018/08/10/其他技术/细说HTTP与HTTPS/</id>
+    <published>2018-08-10T09:57:36.000Z</published>
+    <updated>2018-08-10T09:59:57.944Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>网上已经有很多关于HTTP与HTTPS的文章，为什么我还要写这篇文章呢，源于昨天有个iOS开发同学昨天在群里面提了一个问题，如果一个人下载了一个APP，该APP与服务器是HTTPS连接，他不会信任任何来源于不明身份的证书，然后连上了我的WIFI，我有没有办法去破解里面的通信内容?</p><p>接下来我们就带着这个疑问去寻找答案，并且给出我的答案。</p><h2 id="什么是HTTP"><a href="#什么是HTTP" class="headerlink" title="什么是HTTP"></a>什么是HTTP</h2><blockquote><p>HTTP(HyperText Transfer Protocol)超文本传输协议，HTTP是七层网络模型中作用在应用层的协议。</p></blockquote><a id="more"></a><h3 id="HTTP的缺点："><a href="#HTTP的缺点：" class="headerlink" title="HTTP的缺点："></a>HTTP的缺点：</h3><ol><li>窃听风险（eavesdropping）：第三方可以获知通信内容。</li><li>篡改风险（tampering）：第三方可以修改通信内容。</li><li>冒充风险（pretending）：第三方可以冒充他人身份参与通信。</li></ol><p>因为HTTP是明文传输内容的，所以只要攻击者通过劫持你的WIFI或者你连上了不安全的WIFI那么你所有的传输内容他都可以拿到，接下来就可以篡改里面的数据。基于以上的缺点就有了HTTPS，待会我们再来说这个事儿。</p><h3 id="HTTP的工作流程："><a href="#HTTP的工作流程：" class="headerlink" title="HTTP的工作流程："></a>HTTP的工作流程：</h3><p>相信大家都听说过TCP三次握手，HTTP就是通过TCP三次握手建立连接，值得一提的是HTTP/1.0版本是默认没有复用TCP连接的，每次发送数据都要建立一个连接(需要使用keep-alive来建立长连接)，这样导致了耗时以及占用资源非常严重，后来发布了HTTP/1.1，同一个TCP通道可以复用发送多个请求，但是在该通道里面所有的请求都是按照顺序来发送的发送的，容易导致阻塞。HTTP/2在1.1的基础上改进了，不止复用同一个TCP通道并且可以并发的处理多个请求。</p><p>TCP三次握手，依照惯例，先发一个图片，看图说话</p><p><img src="http://pcd17v2u0.bkt.clouddn.com/15338881870637.png" alt=""></p><p>下面来解释一下上面三次握手的作用：</p><p>第一次握手：客户端发送将SYN标志位设置为1，并且随机产生一个序列号值seq=J，发送给数据包给服务端后，自身状态变为SYN_SENT</p><p>第二次握手：服务端接收到数据包之后，将发送标志位SYN设置为1，ACK应答需要为J+1表，并且再发送一个随机序列号值seq=K然后发送到客户端</p><p>第三次握手：客户端检查ACK是否为J+1，如果是的话发送一个ACK包，ACK=k+!，服务端收到之后确定ack是否等于K+1，是的话连接建立</p><p>我们先来解释一下为什么需要三次握手：<br>第一次握手确认客户端是具有发送消息能力的，发送消息之后客户端出于SYN_SENT状态，第二次握手服务器确定了自己有接收消息的能力，但是还不知道有没有发送消息的能力，此时服务器出于SYN_RECV的状态，也就是半连接的状态，第三次握手确定了服务器有发送消息的能力，因为客户端收到了他的消息并且回应了。此时客户端和服务端都处于establish状态，连接已经建立，可以开始收发消息。</p><p>基于HTTP的确定，后面衍生出来了HTTPS，那接下来我们来讲讲HTTPS以及他们的区别</p><h2 id="什么是HTTPS"><a href="#什么是HTTPS" class="headerlink" title="什么是HTTPS"></a>什么是HTTPS</h2><blockquote><p>HTTPS（Hyper Text Transfer Protocol over Secure Socket Layer）顾名思义就是在HTTP的基础上加了SSL/TLS，以此来保证数据传输的安全性。</p></blockquote><h3 id="HTTPS的优点"><a href="#HTTPS的优点" class="headerlink" title="HTTPS的优点"></a>HTTPS的优点</h3><p>HTTPS 协议旨在解决以上三个风险，因此它可以：</p><ol><li>保证所有信息加密传输，无法被第三方窃取。</li><li>为信息添加校验机制，如果被第三方恶意破坏，可以检测出来。</li><li>配备身份证书，防止第三方伪装参与通信。</li></ol><h3 id="SSL-TLS"><a href="#SSL-TLS" class="headerlink" title="SSL/TLS"></a>SSL/TLS</h3><blockquote><p>SSL(Secure Sockets Layer)/TLS(transport Layer Security)安全套接层是保证HTTPS安全的协议，这个协议主要的思想是通过公钥加解密来实现数据传输安全。</p></blockquote><p>那么我们就面临着两个问题.<br>1.如何保证公钥不被篡改 </p><blockquote><p>我们通过权威机构申请证书，将自己的公钥包装到证书里面，只要证书是可信的，那么公钥就是可信的。</p></blockquote><p>2.每次都生成公钥，消耗的时间太长，如何减少消耗。</p><blockquote><p>使用对称加密来替换非对称加密，每一次对话，客户端和和服务端都生成一个对话秘钥，而这个对称秘钥使用服务端的公私钥来进行加解密，这样就减少了加密运算的消耗时间。</p></blockquote><p>SSL/TLS 握手的流程：</p><ol><li><p>首先客户端发起请求，这个时候客户端会向服务端提供一些信息，包括支持的加密的算法，支持协议的版本TLS,一个随机数（用于待会生成对称秘钥），支持的压缩算法</p></li><li><p>服务端收到请求之后，向客户端发出相应，该响应也包括一些信息，确认使用的加密算法，一个服务端生成的随机数（用于待会生成秘钥）,支持的协议的版本TLS，还有一个最重要的数字证书，该数字证书包含了服务器的域名，还有服务端的公钥，以及经过加密后的摘要，该摘要是通过一定的算法对域名以及公钥进行计算得来。然后使用CA的私钥对摘要进行加密，</p></li><li><p>客户端收到数据之后首先会验证该数字证书是不是权威机构申请的证书，或者证书中的域名与实际域名是否一致，证书是否已经过期，如果都不符合的话那么就会提示是否信任该未知来源证书警告。<br>这里会验证证书是否被篡改，因为本地系统会内置权威机构的公钥，所以可以使  用公钥对解密出证书里面的摘要，然后通过特定的算法对域名以及公钥进行计算得到一个本地摘要，再和服务端传过来的摘要进行对比是否一致，以此来判断证书是否被篡改。<br>如果校验了证书是没有问题，客户端会生成一个随机数，并且使用服务器的公钥进行加密，并且发送编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送。</p></li><li><p>服务端获取客户端的数据，然后使用自己的私钥机密客户端发过来的随机数。至此，一共有三个随机数。</p></li><li><p>客户端和服务端通过之前协议好的加密算法，使用前面生成的三个随机数生成一个真正的对称秘钥，该对称秘钥用于加密传输数据。</p></li></ol><p>简单点来说以上步骤就是：</p><ol><li>客户端发送请求</li><li>服务端返回证书，该证书包含服务端的公钥</li><li>客户端验证证书，并且生成对称秘钥，并且使用服务端的公钥加密该对称秘钥</li><li>服务端用私钥解密客户端的对称秘钥</li><li>发送内容通过对称秘钥来加密</li></ol><p>总结一下 HTTPS 协议是如何避免前文所说的三大风险的：<br>先用非对称加密传输密码，然后用这个密码对称加密数据，使得第三方无法获得通信内容<br>发送方将数据的哈希结果写到数据中，接收方解密后对比数据的哈希结果，如果不一致则说明被修改。由于传输数据加密，第三方无法修改哈希结果。<br>由权威机构颁发证书，再加上证书校验机制，避免第三方伪装参与通信。</p><h2 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h2><p>在我们抛砖引玉说了这么多HTTP与HTTPS的区别之后，我们得到了答案。</p><blockquote><p>如果一个人下载了一个APP，该APP与服务器是HTTPS连接，他不会信任任何来源于不明身份的证书，然后连上了我的WIFI，我有没有办法去破解里面的通信内容</p></blockquote><p><strong>答案就是不行</strong></p><p>我们想到的可以破解里面的通信内容也许就是希望能做一个中间人拦截，在服务端向客户端发送证书的时候拦截该证书，并且伪造一个和服务端域名相同并且替换将里面的公钥替换成自己的公钥，并且用自己的私钥进行签名。客户端收到伪造的证书之后，如果客户端的系统中有我们的公钥，那么就可以验证通过该中间人的证书，然后获取得到公钥，然后用该公钥对对称秘钥加密发送给服务端，此时中间件又可以拦截，并且使用自己的私钥解密出对称秘钥，然后中间人通过服务端的公钥对该秘钥进行加密，然后发送给服务端，这样中间人就拿到了对称秘钥信息，所以也可以窃取到里面的通信内容。</p><p>但是……….</p><p>前面的题目说了一个前提，不会信任任何来源于不明身份的证书，也就是说在中间人拦截了服务端的证书并且将伪造的证书发送给客户端之后，客户端并不会通过验证该证书，然后连接就到此中断了。。。。</p><h2 id="附加：HTTPS与HTTPS的区别"><a href="#附加：HTTPS与HTTPS的区别" class="headerlink" title="附加：HTTPS与HTTPS的区别"></a>附加：HTTPS与HTTPS的区别</h2><ol><li>HTTP是明文传输，HTTPS是加密传输</li><li>HTTP只有TCP三次握手，HTTPS是TCP三次握手+SSL/TLS</li><li>HTTP是使用80端口，HTTPS是使用443端口</li><li>HTTPS比HTTPS更加耗时</li><li>HTTPS需要到CA购买证书，需要一定的费用</li></ol><h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>1  <a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS协议运行机制的概述</a></p><ol start="2"><li><a href="http://www.ruanyifeng.com/blog/2014/09/illustration-ssl.html" target="_blank" rel="noopener">图解SSL/TLS协议</a></li><li><a href="http://skx926.com/2017/12/05/https/" target="_blank" rel="noopener">深入理解HTTPS</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;网上已经有很多关于HTTP与HTTPS的文章，为什么我还要写这篇文章呢，源于昨天有个iOS开发同学昨天在群里面提了一个问题，如果一个人下载了一个APP，该APP与服务器是HTTPS连接，他不会信任任何来源于不明身份的证书，然后连上了我的WIFI，我有没有办法去破解里面的通信内容?&lt;/p&gt;
+&lt;p&gt;接下来我们就带着这个疑问去寻找答案，并且给出我的答案。&lt;/p&gt;
+&lt;h2 id=&quot;什么是HTTP&quot;&gt;&lt;a href=&quot;#什么是HTTP&quot; class=&quot;headerlink&quot; title=&quot;什么是HTTP&quot;&gt;&lt;/a&gt;什么是HTTP&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;HTTP(HyperText Transfer Protocol)超文本传输协议，HTTP是七层网络模型中作用在应用层的协议。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="其他技术" scheme="http://lemon2well.top/categories/%E5%85%B6%E4%BB%96%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="http" scheme="http://lemon2well.top/tags/http/"/>
+    
+      <category term="https" scheme="http://lemon2well.top/tags/https/"/>
+    
+      <category term="SSL/TLS" scheme="http://lemon2well.top/tags/SSL-TLS/"/>
+    
+  </entry>
   
   <entry>
     <title>回文数</title>
@@ -496,43 +526,6 @@
 &lt;/ul&gt;
 &lt;blockquote&gt;
 &lt;p&gt;工作流软件，快速打开软件，添加自己的工作流。参见&lt;a href=&quot;https://bestswifter.gitbook.io/effectivemac/mac-gong-zuo-liu/alfred-jian-jie&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;bestswifter的博客&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="iOS 逆向" scheme="http://lemon2well.top/categories/iOS-%E9%80%86%E5%90%91/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>iOS 逆向常用命令</title>
-    <link href="http://lemon2well.top/2018/07/25/iOS%20%E9%80%86%E5%90%91/iOS-%E9%80%86%E5%90%91%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
-    <id>http://lemon2well.top/2018/07/25/iOS 逆向/iOS-逆向常用命令/</id>
-    <published>2018-07-25T06:42:03.000Z</published>
-    <updated>2018-07-25T06:42:26.521Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="1-查看信息相关"><a href="#1-查看信息相关" class="headerlink" title="1. 查看信息相关"></a>1. 查看信息相关</h3><ul><li>查看越狱设备所有的APP的BundleID （前提需要安装frida-iOS-dump）</li></ul><blockquote><p>MacBookPro:frida-ios-dump-master lemon$ ./dump.py -l</p></blockquote><ul><li>查看设备UDID (前提需要安装ideviceinstall)</li></ul><blockquote><p>MacBookPro:~ lemon$ idevice_id  -l</p></blockquote><ul><li>查看iPA是否已经砸壳 (如果返回cryptid=0代表已砸壳，否则代表未砸壳)</li></ul><blockquote><p>MacBookPro:~ lemon$ otool -l target.app/target | grep cryptid</p></blockquote><a id="more"></a><ul><li>查看设备日志</li></ul><blockquote><p>MacBookPro:~ lemon$ idevicesyslog -u deviceudid</p></blockquote><ul><li>给特定的设备安装程序</li></ul><blockquote><p>MacBookPro:~ lemon$ ideviceinstaller -i target.ipa -u  deviceudid</p></blockquote><ul><li>砸壳 (使用frida)</li></ul><blockquote><p>MacBookPro:frida-ios-dump-master lemon$ ./dump.py BundleID</p></blockquote><ul><li>class-dump头文件</li></ul><blockquote><p>MacBookPro:~ lemon$ class-dump -s -S -H target.app/target -o /path/to/save/header</p></blockquote><ul><li>查看动态库架构</li></ul><blockquote><p>lipo -info</p></blockquote><ul><li>ssh</li></ul><blockquote><p>ssh root@deviceip</p></blockquote><ul><li>查找进程</li></ul><blockquote><p>ps aux | grep /App<br>ps -e | grep /Applications</p></blockquote><ul><li>查找文件</li></ul><blockquote><p>grep -r Header /System/Library/</p></blockquote><ul><li>分离fat binary</li></ul><blockquote><p>lipo -thin armv7 WeChat.decrypted -output WeChat_armv7.decrypted<br>lipo -thin arm64 xxx.decryptec -output xxx.arm64.decrypted</p></blockquote><h3 id="2-LLDB"><a href="#2-LLDB" class="headerlink" title="2. LLDB"></a>2. LLDB</h3><ul><li>打印UI结构</li></ul><blockquote><p>po [[[UIWindow keyWindow] rootViewController] _printHierarchy]    (iOS 8)<br>po [[UIWindow keyWindow] recursiveDescription]</p></blockquote><ul><li>打印调用栈信息</li></ul><blockquote><p>bt (backtrace)<br>bt all (all threads)</p></blockquote><ul><li>objc_msgSend参数打印</li></ul><blockquote><p>po $xo</p></blockquote><blockquote><p>p (char*)$x1</p></blockquote><blockquote><p>p (SEL)$x1</p></blockquote><ul><li>返回地址</li></ul><blockquote><p>p/x $lr</p></blockquote><ul><li>增加断点</li></ul><blockquote><p>b -a ox00002224</p></blockquote><ul><li>列举模块</li></ul><blockquote><p>image lisg -o -f </p></blockquote><ul><li>lldb基础指令</li></ul><blockquote><p>c<br>n<br>ni<br>br list<br>br del<br>br dis<br>br en</p></blockquote><ul><li>远程调试</li></ul><blockquote><p>debugserver *:1234 -a pid</p></blockquote><blockquote><p>debugserver -x backboard *:1234 /var/mobile/Containers/Bundle/Application/9DB7CE45-3B4C-42A3-9D4D-49A3A5122903/AlipayWallet.app/AlipayWallet</p></blockquote><ul><li>远程连接</li></ul><blockquote><p>proces connect connect://192.168.2.154:1234</p></blockquote><ul><li>lldb expr例子</li></ul><blockquote><p>(lldb) expr char <em>$str = (char </em>)malloc(8)</p><p>(lldb) expr (void)strcpy($str, “munkeys”)</p><p>(lldb) expr $str[1] = ‘o’</p><p>(char) $0 = ‘o’</p><p>(lldb) p $str</p><p>(char *) $str = 0x00007fd04a900040 “monkeys”</p><p>(lldb) x/4c $str</p><p>(lldb) x/1w <code>$str + 3</code></p><p>(lldb) expr (void)free($str)</p><p>(lldb) expr id $myView = (id)0x7f82b1d01fd0</p><p>(lldb) expr (void)[$myView setBackgroundColor:[UIColor blueColor]]</p><p>(lldb) expr (void)[CATransaction flush]</p><p>(lldb) po [$myButton allTargets]</p><p>(lldb) p (ptrdiff_t)ivar_getOffset((struct Ivar *)class_getInstanceVariable([MyView class], “_layer”))</p></blockquote><ul><li>给断点增加命令</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(lldb) br command add 1</span><br><span class="line">Enter your debugger command(s).  Type &apos;DONE&apos; to end.</span><br><span class="line">&gt; register read $rdi </span><br><span class="line">&gt; c </span><br><span class="line">&gt; DONE</span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure><ul><li>修改寄存器的值</li></ul><blockquote><p>register write x0 1</p></blockquote><h3 id="3-Cycript"><a href="#3-Cycript" class="headerlink" title="3. Cycript"></a>3. Cycript</h3><ul><li>查看当前界面的元素层级结构</li></ul><blockquote><p>cy# [[UIApp keyWindow]recursiveDescription].toString()</p></blockquote><ul><li>查看当前keywindow的根控制器的所有subView</li></ul><blockquote><p>cy# [[[UIApp keyWindow] rootViewController] _printHierarchy].toString()</p></blockquote><ul><li>输出简单的视图信息</li></ul><blockquote><p>cy# [[UIApp keyWindow] _autolayoutTrace].toString()</p></blockquote><ul><li>查看一个实例的所有ivar</li></ul><blockquote><p>cy# [choose(SBApplication)[0] _ivarDescription].toString()</p></blockquote><ul><li>查看一个class的对象方法和类方法</li></ul><blockquote><p>cy# [choose(SBApplicationController)[0] _methodDescription].toString()</p></blockquote><ul><li>访问对象和实例</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cy# [#0xb226710 url]</span><br><span class="line">@&quot;ww4fd1rfRDShBo_4K6rqfwAAACMAAQED&quot;</span><br><span class="line"></span><br><span class="line">cy# c = #0x1752d8c0</span><br><span class="line">cy#&quot;&lt;FavAudioPlayerController: 0x1752d8c0; frame = (0 0; 290 60); autoresize = W; layer = &lt;CALayer: 0x172dc2b0&gt;&gt;&quot;</span><br><span class="line">cy# c-&gt;m_audioInfo</span><br><span class="line">cy#&quot;&lt;FavAudioInfo: 0x172b2a30&gt;&quot;</span><br><span class="line">cy# c-&gt;m_audioInfo.m_nsAudioPath</span><br></pre></td></tr></table></figure><h3 id="4-ARM"><a href="#4-ARM" class="headerlink" title="4. ARM"></a>4. ARM</h3><h3 id="5-工具"><a href="#5-工具" class="headerlink" title="5. 工具"></a>5. 工具</h3><ul><li><a href="https://github.com/stefanesser/dumpdecrypted" target="_blank" rel="noopener">dumpdecrypted</a></li><li><a href="https://github.com/theos/theos" target="_blank" rel="noopener">theos</a></li><li><a href="https://cgit.sukimashita.com/usbmuxd.git/" target="_blank" rel="noopener">usbmuxd</a> </li><li><a href="https://github.com/AloneMonkey/frida-ios-dump" target="_blank" rel="noopener">frida-ios-dump</a></li><li><a href="https://github.com/nygard/class-dump" target="_blank" rel="noopener">class-dummp</a></li><li><a href="https://github.com/AloneMonkey/MonkeyDev" target="_blank" rel="noopener">MonkeyDev</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;1-查看信息相关&quot;&gt;&lt;a href=&quot;#1-查看信息相关&quot; class=&quot;headerlink&quot; title=&quot;1. 查看信息相关&quot;&gt;&lt;/a&gt;1. 查看信息相关&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;查看越狱设备所有的APP的BundleID （前提需要安装frida-iOS-dump）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;MacBookPro:frida-ios-dump-master lemon$ ./dump.py -l&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;查看设备UDID (前提需要安装ideviceinstall)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;MacBookPro:~ lemon$ idevice_id  -l&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;查看iPA是否已经砸壳 (如果返回cryptid=0代表已砸壳，否则代表未砸壳)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;MacBookPro:~ lemon$ otool -l target.app/target | grep cryptid&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>

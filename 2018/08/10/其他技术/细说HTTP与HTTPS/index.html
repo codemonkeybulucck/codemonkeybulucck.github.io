@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="http,https,SSL/TLS," />
 
 
 
@@ -83,16 +83,20 @@
 
 
 
-<meta name="description" content="iOS Developer | 拥抱变化 | 🍋😊">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Lemon&#39;s blog">
-<meta property="og:url" content="http://lemon2well.top/tags/cocoapods/index.html">
+<meta name="description" content="前言网上已经有很多关于HTTP与HTTPS的文章，为什么我还要写这篇文章呢，源于昨天有个iOS开发同学昨天在群里面提了一个问题，如果一个人下载了一个APP，该APP与服务器是HTTPS连接，他不会信任任何来源于不明身份的证书，然后连上了我的WIFI，我有没有办法去破解里面的通信内容? 接下来我们就带着这个疑问去寻找答案，并且给出我的答案。 什么是HTTP HTTP(HyperText Transf">
+<meta name="keywords" content="http,https,SSL&#x2F;TLS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="细说HTTP与HTTPS">
+<meta property="og:url" content="http://lemon2well.top/2018/08/10/其他技术/细说HTTP与HTTPS/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="iOS Developer | 拥抱变化 | 🍋😊">
+<meta property="og:description" content="前言网上已经有很多关于HTTP与HTTPS的文章，为什么我还要写这篇文章呢，源于昨天有个iOS开发同学昨天在群里面提了一个问题，如果一个人下载了一个APP，该APP与服务器是HTTPS连接，他不会信任任何来源于不明身份的证书，然后连上了我的WIFI，我有没有办法去破解里面的通信内容? 接下来我们就带着这个疑问去寻找答案，并且给出我的答案。 什么是HTTP HTTP(HyperText Transf">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15338881870637.png">
+<meta property="og:updated_time" content="2018-08-10T09:59:57.944Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lemon&#39;s blog">
-<meta name="twitter:description" content="iOS Developer | 拥抱变化 | 🍋😊">
+<meta name="twitter:title" content="细说HTTP与HTTPS">
+<meta name="twitter:description" content="前言网上已经有很多关于HTTP与HTTPS的文章，为什么我还要写这篇文章呢，源于昨天有个iOS开发同学昨天在群里面提了一个问题，如果一个人下载了一个APP，该APP与服务器是HTTPS连接，他不会信任任何来源于不明身份的证书，然后连上了我的WIFI，我有没有办法去破解里面的通信内容? 接下来我们就带着这个疑问去寻找答案，并且给出我的答案。 什么是HTTP HTTP(HyperText Transf">
+<meta name="twitter:image" content="http://pcd17v2u0.bkt.clouddn.com/15338881870637.png">
 
 
 
@@ -122,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://lemon2well.top/tags/cocoapods/"/>
+  <link rel="canonical" href="http://lemon2well.top/2018/08/10/其他技术/细说HTTP与HTTPS/"/>
 
 
 
 
 
-  <title>标签: cocoapods | Lemon's blog</title>
+  <title>细说HTTP与HTTPS | Lemon's blog</title>
   
 
 
@@ -147,7 +151,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -275,82 +279,308 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>cocoapods<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/10/其他技术/细说HTTP与HTTPS/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/07/31/iOS 开发/组件化实践《二》-基于现有项目拆分组件化实践/" itemprop="url">
-              
-                <span itemprop="name">iOS 组件化实践《二》基于现有项目拆分组件化实践</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">细说HTTP与HTTPS</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-31T16:41:12+08:00"
-              content="2018-07-31" >
-          07-31
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-10T17:57:36+08:00">
+                2018-08-10
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他技术/" itemprop="url" rel="index">
+                    <span itemprop="name">其他技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/10/其他技术/细说HTTP与HTTPS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/10/其他技术/细说HTTP与HTTPS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,597
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/30/iOS 开发/组件化实践《一》创建私有pod/" itemprop="url">
-              
-                <span itemprop="name">iOS 组件化实践《一》创建私有pod</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-30T11:41:12+08:00"
-              content="2018-07-30" >
-          07-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>网上已经有很多关于HTTP与HTTPS的文章，为什么我还要写这篇文章呢，源于昨天有个iOS开发同学昨天在群里面提了一个问题，如果一个人下载了一个APP，该APP与服务器是HTTPS连接，他不会信任任何来源于不明身份的证书，然后连上了我的WIFI，我有没有办法去破解里面的通信内容?</p>
+<p>接下来我们就带着这个疑问去寻找答案，并且给出我的答案。</p>
+<h2 id="什么是HTTP"><a href="#什么是HTTP" class="headerlink" title="什么是HTTP"></a>什么是HTTP</h2><blockquote>
+<p>HTTP(HyperText Transfer Protocol)超文本传输协议，HTTP是七层网络模型中作用在应用层的协议。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="HTTP的缺点："><a href="#HTTP的缺点：" class="headerlink" title="HTTP的缺点："></a>HTTP的缺点：</h3><ol>
+<li>窃听风险（eavesdropping）：第三方可以获知通信内容。</li>
+<li>篡改风险（tampering）：第三方可以修改通信内容。</li>
+<li>冒充风险（pretending）：第三方可以冒充他人身份参与通信。</li>
+</ol>
+<p>因为HTTP是明文传输内容的，所以只要攻击者通过劫持你的WIFI或者你连上了不安全的WIFI那么你所有的传输内容他都可以拿到，接下来就可以篡改里面的数据。基于以上的缺点就有了HTTPS，待会我们再来说这个事儿。</p>
+<h3 id="HTTP的工作流程："><a href="#HTTP的工作流程：" class="headerlink" title="HTTP的工作流程："></a>HTTP的工作流程：</h3><p>相信大家都听说过TCP三次握手，HTTP就是通过TCP三次握手建立连接，值得一提的是HTTP/1.0版本是默认没有复用TCP连接的，每次发送数据都要建立一个连接(需要使用keep-alive来建立长连接)，这样导致了耗时以及占用资源非常严重，后来发布了HTTP/1.1，同一个TCP通道可以复用发送多个请求，但是在该通道里面所有的请求都是按照顺序来发送的发送的，容易导致阻塞。HTTP/2在1.1的基础上改进了，不止复用同一个TCP通道并且可以并发的处理多个请求。</p>
+<p>TCP三次握手，依照惯例，先发一个图片，看图说话</p>
+<p><img src="http://pcd17v2u0.bkt.clouddn.com/15338881870637.png" alt=""></p>
+<p>下面来解释一下上面三次握手的作用：</p>
+<p>第一次握手：客户端发送将SYN标志位设置为1，并且随机产生一个序列号值seq=J，发送给数据包给服务端后，自身状态变为SYN_SENT</p>
+<p>第二次握手：服务端接收到数据包之后，将发送标志位SYN设置为1，ACK应答需要为J+1表，并且再发送一个随机序列号值seq=K然后发送到客户端</p>
+<p>第三次握手：客户端检查ACK是否为J+1，如果是的话发送一个ACK包，ACK=k+!，服务端收到之后确定ack是否等于K+1，是的话连接建立</p>
+<p>我们先来解释一下为什么需要三次握手：<br>第一次握手确认客户端是具有发送消息能力的，发送消息之后客户端出于SYN_SENT状态，第二次握手服务器确定了自己有接收消息的能力，但是还不知道有没有发送消息的能力，此时服务器出于SYN_RECV的状态，也就是半连接的状态，第三次握手确定了服务器有发送消息的能力，因为客户端收到了他的消息并且回应了。此时客户端和服务端都处于establish状态，连接已经建立，可以开始收发消息。</p>
+<p>基于HTTP的确定，后面衍生出来了HTTPS，那接下来我们来讲讲HTTPS以及他们的区别</p>
+<h2 id="什么是HTTPS"><a href="#什么是HTTPS" class="headerlink" title="什么是HTTPS"></a>什么是HTTPS</h2><blockquote>
+<p>HTTPS（Hyper Text Transfer Protocol over Secure Socket Layer）顾名思义就是在HTTP的基础上加了SSL/TLS，以此来保证数据传输的安全性。</p>
+</blockquote>
+<h3 id="HTTPS的优点"><a href="#HTTPS的优点" class="headerlink" title="HTTPS的优点"></a>HTTPS的优点</h3><p>HTTPS 协议旨在解决以上三个风险，因此它可以：</p>
+<ol>
+<li>保证所有信息加密传输，无法被第三方窃取。</li>
+<li>为信息添加校验机制，如果被第三方恶意破坏，可以检测出来。</li>
+<li>配备身份证书，防止第三方伪装参与通信。</li>
+</ol>
+<h3 id="SSL-TLS"><a href="#SSL-TLS" class="headerlink" title="SSL/TLS"></a>SSL/TLS</h3><blockquote>
+<p>SSL(Secure Sockets Layer)/TLS(transport Layer Security)安全套接层是保证HTTPS安全的协议，这个协议主要的思想是通过公钥加解密来实现数据传输安全。</p>
+</blockquote>
+<p>那么我们就面临着两个问题.<br>1.如何保证公钥不被篡改 </p>
+<blockquote>
+<p>我们通过权威机构申请证书，将自己的公钥包装到证书里面，只要证书是可信的，那么公钥就是可信的。</p>
+</blockquote>
+<p>2.每次都生成公钥，消耗的时间太长，如何减少消耗。</p>
+<blockquote>
+<p>使用对称加密来替换非对称加密，每一次对话，客户端和和服务端都生成一个对话秘钥，而这个对称秘钥使用服务端的公私钥来进行加解密，这样就减少了加密运算的消耗时间。</p>
+</blockquote>
+<p>SSL/TLS 握手的流程：</p>
+<ol>
+<li><p>首先客户端发起请求，这个时候客户端会向服务端提供一些信息，包括支持的加密的算法，支持协议的版本TLS,一个随机数（用于待会生成对称秘钥），支持的压缩算法</p>
+</li>
+<li><p>服务端收到请求之后，向客户端发出相应，该响应也包括一些信息，确认使用的加密算法，一个服务端生成的随机数（用于待会生成秘钥）,支持的协议的版本TLS，还有一个最重要的数字证书，该数字证书包含了服务器的域名，还有服务端的公钥，以及经过加密后的摘要，该摘要是通过一定的算法对域名以及公钥进行计算得来。然后使用CA的私钥对摘要进行加密，</p>
+</li>
+<li><p>客户端收到数据之后首先会验证该数字证书是不是权威机构申请的证书，或者证书中的域名与实际域名是否一致，证书是否已经过期，如果都不符合的话那么就会提示是否信任该未知来源证书警告。<br>这里会验证证书是否被篡改，因为本地系统会内置权威机构的公钥，所以可以使  用公钥对解密出证书里面的摘要，然后通过特定的算法对域名以及公钥进行计算得到一个本地摘要，再和服务端传过来的摘要进行对比是否一致，以此来判断证书是否被篡改。<br>如果校验了证书是没有问题，客户端会生成一个随机数，并且使用服务器的公钥进行加密，并且发送编码改变通知，表示随后的信息都将用双方商定的加密方法和密钥发送。</p>
+</li>
+<li><p>服务端获取客户端的数据，然后使用自己的私钥机密客户端发过来的随机数。至此，一共有三个随机数。</p>
+</li>
+<li><p>客户端和服务端通过之前协议好的加密算法，使用前面生成的三个随机数生成一个真正的对称秘钥，该对称秘钥用于加密传输数据。</p>
+</li>
+</ol>
+<p>简单点来说以上步骤就是：</p>
+<ol>
+<li>客户端发送请求</li>
+<li>服务端返回证书，该证书包含服务端的公钥</li>
+<li>客户端验证证书，并且生成对称秘钥，并且使用服务端的公钥加密该对称秘钥</li>
+<li>服务端用私钥解密客户端的对称秘钥</li>
+<li>发送内容通过对称秘钥来加密</li>
+</ol>
+<p>总结一下 HTTPS 协议是如何避免前文所说的三大风险的：<br>先用非对称加密传输密码，然后用这个密码对称加密数据，使得第三方无法获得通信内容<br>发送方将数据的哈希结果写到数据中，接收方解密后对比数据的哈希结果，如果不一致则说明被修改。由于传输数据加密，第三方无法修改哈希结果。<br>由权威机构颁发证书，再加上证书校验机制，避免第三方伪装参与通信。</p>
+<h2 id="答案"><a href="#答案" class="headerlink" title="答案"></a>答案</h2><p>在我们抛砖引玉说了这么多HTTP与HTTPS的区别之后，我们得到了答案。</p>
+<blockquote>
+<p>如果一个人下载了一个APP，该APP与服务器是HTTPS连接，他不会信任任何来源于不明身份的证书，然后连上了我的WIFI，我有没有办法去破解里面的通信内容</p>
+</blockquote>
+<p><strong>答案就是不行</strong></p>
+<p>我们想到的可以破解里面的通信内容也许就是希望能做一个中间人拦截，在服务端向客户端发送证书的时候拦截该证书，并且伪造一个和服务端域名相同并且替换将里面的公钥替换成自己的公钥，并且用自己的私钥进行签名。客户端收到伪造的证书之后，如果客户端的系统中有我们的公钥，那么就可以验证通过该中间人的证书，然后获取得到公钥，然后用该公钥对对称秘钥加密发送给服务端，此时中间件又可以拦截，并且使用自己的私钥解密出对称秘钥，然后中间人通过服务端的公钥对该秘钥进行加密，然后发送给服务端，这样中间人就拿到了对称秘钥信息，所以也可以窃取到里面的通信内容。</p>
+<p>但是……….</p>
+<p>前面的题目说了一个前提，不会信任任何来源于不明身份的证书，也就是说在中间人拦截了服务端的证书并且将伪造的证书发送给客户端之后，客户端并不会通过验证该证书，然后连接就到此中断了。。。。</p>
+<h2 id="附加：HTTPS与HTTPS的区别"><a href="#附加：HTTPS与HTTPS的区别" class="headerlink" title="附加：HTTPS与HTTPS的区别"></a>附加：HTTPS与HTTPS的区别</h2><ol>
+<li>HTTP是明文传输，HTTPS是加密传输</li>
+<li>HTTP只有TCP三次握手，HTTPS是TCP三次握手+SSL/TLS</li>
+<li>HTTP是使用80端口，HTTPS是使用443端口</li>
+<li>HTTPS比HTTPS更加耗时</li>
+<li>HTTPS需要到CA购买证书，需要一定的费用</li>
+</ol>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>1  <a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS协议运行机制的概述</a></p>
+<ol start="2">
+<li><a href="http://www.ruanyifeng.com/blog/2014/09/illustration-ssl.html" target="_blank" rel="noopener">图解SSL/TLS协议</a></li>
+<li><a href="http://skx926.com/2017/12/05/https/" target="_blank" rel="noopener">深入理解HTTPS</a></li>
+</ol>
 
       
     </div>
+    
+    
+    
 
+    <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------评论系统采用disqus，<i class="fa fa-paw"></i>如果看不到需要翻墙-------------</div>
+    
+</div>
+
+  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/http/" rel="tag"># http</a>
+          
+            <a href="/tags/https/" rel="tag"># https</a>
+          
+            <a href="/tags/SSL-TLS/" rel="tag"># SSL/TLS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/10/常见算法/回文数/" rel="next" title="回文数">
+                <i class="fa fa-chevron-left"></i> 回文数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -358,6 +588,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -378,8 +622,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -466,6 +719,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是HTTP"><span class="nav-number">2.</span> <span class="nav-text">什么是HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP的缺点："><span class="nav-number">2.1.</span> <span class="nav-text">HTTP的缺点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP的工作流程："><span class="nav-number">2.2.</span> <span class="nav-text">HTTP的工作流程：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是HTTPS"><span class="nav-number">3.</span> <span class="nav-text">什么是HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS的优点"><span class="nav-number">3.1.</span> <span class="nav-text">HTTPS的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSL-TLS"><span class="nav-number">3.2.</span> <span class="nav-text">SSL/TLS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#答案"><span class="nav-number">4.</span> <span class="nav-text">答案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附加：HTTPS与HTTPS的区别"><span class="nav-number">5.</span> <span class="nav-text">附加：HTTPS与HTTPS的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">6.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -600,6 +869,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -617,6 +890,18 @@
       <script id="dsq-count-scr" src="https://lemon2well.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://lemon2well.top/2018/08/10/其他技术/细说HTTP与HTTPS/';
+          this.page.identifier = '2018/08/10/其他技术/细说HTTP与HTTPS/';
+          this.page.title = '细说HTTP与HTTPS';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lemon2well.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
