@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="链表," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -83,18 +83,17 @@
 
 
 
-<meta name="description" content="给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。  思路：  只要两个非空链表中的其中一个链表不为空的时候就循环便利两个链表 如果其中一个链表为空而另外一个链表不为空，那么为空的那个链表的值就为0 用一个carry位来表示是否有进位，0代表无进位，1代表有进位，因为链表中都是个位数，所以最大进位也只能为1，初始化进位为0 用x,y">
-<meta name="keywords" content="链表">
+<meta name="description" content="两数之和给定一个数组和一个目标数，判断数组中是否有两个数的和等于该目标数，如果存在则输出它们在数组中的序号。  解法1：第一眼看到上述题目我们第一时间的反应应该是通过两个循环遍历来找出它们的序号。第一个循环找出一个数X，然后用目标数减去该数值X得到第二个数Y，然后第二次循环找出有没有与Y相等的数值。这样时间的复杂度是O(n²)。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="非空链表相加">
-<meta property="og:url" content="http://lemon2well.top/2018/07/30/算法/非空链表相加/index.html">
+<meta property="og:title" content="两数之和">
+<meta property="og:url" content="http://lemon2well.top/2018/07/29/常见算法/两数之和/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。  思路：  只要两个非空链表中的其中一个链表不为空的时候就循环便利两个链表 如果其中一个链表为空而另外一个链表不为空，那么为空的那个链表的值就为0 用一个carry位来表示是否有进位，0代表无进位，1代表有进位，因为链表中都是个位数，所以最大进位也只能为1，初始化进位为0 用x,y">
+<meta property="og:description" content="两数之和给定一个数组和一个目标数，判断数组中是否有两个数的和等于该目标数，如果存在则输出它们在数组中的序号。  解法1：第一眼看到上述题目我们第一时间的反应应该是通过两个循环遍历来找出它们的序号。第一个循环找出一个数X，然后用目标数减去该数值X得到第二个数Y，然后第二次循环找出有没有与Y相等的数值。这样时间的复杂度是O(n²)。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-30T09:33:42.698Z">
+<meta property="og:updated_time" content="2018-07-29T09:13:15.756Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="非空链表相加">
-<meta name="twitter:description" content="给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。  思路：  只要两个非空链表中的其中一个链表不为空的时候就循环便利两个链表 如果其中一个链表为空而另外一个链表不为空，那么为空的那个链表的值就为0 用一个carry位来表示是否有进位，0代表无进位，1代表有进位，因为链表中都是个位数，所以最大进位也只能为1，初始化进位为0 用x,y">
+<meta name="twitter:title" content="两数之和">
+<meta name="twitter:description" content="两数之和给定一个数组和一个目标数，判断数组中是否有两个数的和等于该目标数，如果存在则输出它们在数组中的序号。  解法1：第一眼看到上述题目我们第一时间的反应应该是通过两个循环遍历来找出它们的序号。第一个循环找出一个数X，然后用目标数减去该数值X得到第二个数Y，然后第二次循环找出有没有与Y相等的数值。这样时间的复杂度是O(n²)。">
 
 
 
@@ -124,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://lemon2well.top/2018/07/30/算法/非空链表相加/"/>
+  <link rel="canonical" href="http://lemon2well.top/2018/07/29/常见算法/两数之和/"/>
 
 
 
 
 
-  <title>非空链表相加 | Lemon's blog</title>
+  <title>两数之和 | Lemon's blog</title>
   
 
 
@@ -291,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/07/30/算法/非空链表相加/">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/07/29/常见算法/两数之和/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -308,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">非空链表相加</h1>
+          <h1 class="post-title" itemprop="name headline">两数之和</h1>
         
 
         <div class="post-meta">
@@ -320,8 +319,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-30T17:12:45+08:00">
-                2018-07-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-29T17:12:45+08:00">
+                2018-07-29
               </time>
             
 
@@ -361,9 +360,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/30/算法/非空链表相加/#comments" itemprop="discussionUrl">
+                <a href="/2018/07/29/常见算法/两数之和/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/30/算法/非空链表相加/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/07/29/常见算法/两数之和/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -385,7 +384,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  516
+                  362
                 </span>
               
 
@@ -401,7 +400,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  1
                 </span>
               
             </div>
@@ -422,21 +421,15 @@
       
 
       
-        <p>给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。</p>
+        <h1 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h1><p>给定一个数组和一个目标数，判断数组中是否有两个数的和等于该目标数，如果存在则输出它们在数组中的序号。</p>
 <blockquote>
-<p>思路：</p>
-<ol>
-<li>只要两个非空链表中的其中一个链表不为空的时候就循环便利两个链表</li>
-<li>如果其中一个链表为空而另外一个链表不为空，那么为空的那个链表的值就为0</li>
-<li>用一个carry位来表示是否有进位，0代表无进位，1代表有进位，因为链表中都是个位数，所以最大进位也只能为1，初始化进位为0</li>
-<li>用x,y来表示当前两个链表的值，sum = x+y+carry为新链表的值，但是有可能有进位，所以新的carry = sum / 10,当前节点位的值为sum = sum %10。<a id="more"></a></li>
-<li>创建一个新节点，将上述中sum的值赋给新节点，然后将新链表当前节点的next指向新节点，然后将当前节点指向到新节点</li>
-<li>两个链表的当前节点都要指向下一个节点</li>
-<li>当遍历完成之后，还需要判断一下carry的值是不是大于0，如果大于0则代表还需要创建一个节点，并且将新链表的节点的next指向该节点</li>
-</ol>
+<p>解法1：第一眼看到上述题目我们第一时间的反应应该是通过两个循环遍历来找出它们的序号。第一个循环找出一个数X，然后用目标数减去该数值X得到第二个数Y，然后第二次循环找出有没有与Y相等的数值。这样时间的复杂度是O(n²)。</p>
 </blockquote>
-<p>以下是代码实现：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">class ListNode &#123;</span><br><span class="line">      public var val: Int</span><br><span class="line">      public var next: ListNode?</span><br><span class="line">      public init(_ val: Int) &#123;</span><br><span class="line">          self.val = val</span><br><span class="line">          self.next = nil</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">    func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -&gt; ListNode? &#123;</span><br><span class="line">        let resultNode = ListNode(0)</span><br><span class="line">        var currentNode = resultNode</span><br><span class="line">        var p = l1</span><br><span class="line">        var q = l2</span><br><span class="line">        var carry = 0 //表示进位</span><br><span class="line">        while p != nil || q != nil &#123;</span><br><span class="line">            //获取当前的值</span><br><span class="line">            var x = 0,y = 0;</span><br><span class="line">            if let p = p &#123;</span><br><span class="line">                x = p.val</span><br><span class="line">            &#125;</span><br><span class="line">            if let q = q &#123;</span><br><span class="line">                y = q.val</span><br><span class="line">            &#125;</span><br><span class="line">            let sum = x + y + carry</span><br><span class="line">            carry = sum / 10</span><br><span class="line">            let newSum = sum % 10;</span><br><span class="line">            currentNode.next = ListNode(newSum)</span><br><span class="line">            currentNode = currentNode.next!</span><br><span class="line">            p = p?.next</span><br><span class="line">            q = q?.next</span><br><span class="line">        &#125;</span><br><span class="line">        if carry &gt; 0 &#123;</span><br><span class="line">            currentNode.next = ListNode(carry)</span><br><span class="line">        &#125;</span><br><span class="line">        return resultNode.next</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<blockquote>
+<p>解法2：我们可以通过使用字典的的方式，数值作为字典的key，数组下标作为字典的value。我们可以在第一次便利的时候，用目标数减去循环得到的数X，然后得到目标数Y，然后判断字典中有没有以Y作为key的value。<br>如果有的话，那么此次循环的i就是第一个数值的下标，以Y作为key那个value就是第二个数值的下标。<br>如果不存在则将该次循环的下标和数值保存到字典里面。继续下一次遍历。<br>以下是Swift代码示例：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fileprivate func _sum(_ array:[Int],targetNum:Int)-&gt;[Int]&#123;</span><br><span class="line">       var dict = [Int:Int]()</span><br><span class="line">       for(i,num) in array.enumerated()&#123;</span><br><span class="line">           let secondNum = targetNum - num</span><br><span class="line">           if let secondIndex = dict[secondNum]&#123;</span><br><span class="line">               return [i,secondIndex]</span><br><span class="line">           &#125;else&#123;</span><br><span class="line">               dict[num] = i</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       return [0,0]</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -463,12 +456,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/链表/" rel="tag"># 链表</a>
-          
-        </div>
-      
 
       
       
@@ -478,8 +465,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/30/iOS 开发/组件化实践《一》创建私有pod/" rel="next" title="iOS 组件化实践《一》创建私有pod">
-                <i class="fa fa-chevron-left"></i> iOS 组件化实践《一》创建私有pod
+              <a href="/2018/07/29/常见算法/字符串反转算法/" rel="next" title="字符串反转算法">
+                <i class="fa fa-chevron-left"></i> 字符串反转算法
               </a>
             
           </div>
@@ -488,8 +475,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/31/算法/无重复字符的最长子串/" rel="prev" title="无重复字符的最长子串">
-                无重复字符的最长子串 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/30/iOS 开发/组件化实践《一》创建私有pod/" rel="prev" title="iOS 组件化实践《一》创建私有pod">
+                iOS 组件化实践《一》创建私有pod <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -552,8 +539,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -572,7 +568,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -640,6 +636,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#两数之和"><span class="nav-number">1.</span> <span class="nav-text">两数之和</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -798,9 +810,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lemon2well.top/2018/07/30/算法/非空链表相加/';
-          this.page.identifier = '2018/07/30/算法/非空链表相加/';
-          this.page.title = '非空链表相加';
+          this.page.url = 'http://lemon2well.top/2018/07/29/常见算法/两数之和/';
+          this.page.identifier = '2018/07/29/常见算法/两数之和/';
+          this.page.title = '两数之和';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lemon2well.disqus.com/embed.js';

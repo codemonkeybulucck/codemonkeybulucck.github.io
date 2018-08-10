@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lemon2well.top/"/>
-  <updated>2018-08-09T03:18:43.898Z</updated>
+  <updated>2018-08-10T02:35:39.604Z</updated>
   <id>http://lemon2well.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>回文数</title>
+    <link href="http://lemon2well.top/2018/08/10/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/%E5%9B%9E%E6%96%87%E6%95%B0/"/>
+    <id>http://lemon2well.top/2018/08/10/常见算法/回文数/</id>
+    <published>2018-08-10T02:34:40.000Z</published>
+    <updated>2018-08-10T02:35:39.604Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。"><a href="#判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。" class="headerlink" title="判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。"></a>判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。</h1><p>示例 1:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 121</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure><p>示例 2:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: -121</span><br><span class="line">输出: false</span><br><span class="line">解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。</span><br></pre></td></tr></table></figure><a id="more"></a><p>示例 3:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 10</span><br><span class="line">输出: false</span><br><span class="line">解释: 从右向左读, 为 01 。因此它不是一个回文数。</span><br></pre></td></tr></table></figure><blockquote><p>思路：<br>根据定义如果我们要找出一个数是否是回文数我们其实只需要将这个数分成平均分成两个部分，然后将后半部分翻转，只要翻转后的后半部分等于前半部分，就代表这个数是回文数。<br>我们拿1221来举例，假设我们拿到后半段是21然后将21翻转就是12了，和前半段比较相等就代表是回文数。<br>那么我们第一个问题，如何将21翻转，首先我们将1221%10 得到的就是第一个数1，然后用这第一个数 1<em> 10 得到翻转后的正确位置。第二个数我们依然是122%10，然后得到第二个数，用第一个数加上第二个数就得到了12.<br>第二个问题就是我们如何将这个数分成两部分。当原始数/10小于翻转数</em>10的时候就代表已经完成了一半的翻转。</p></blockquote><p><strong>不过依然有两点需要注意，第一点是如果这个原始的数是负数的话我们需要返回，如果这个数是以0结尾的数，那么只有0才满足回文数，其他数都不满足回文数，我们直接返回false。</strong><br><strong>第二点是如果这个数的位数是基数，例如12321，那么循环完成之后原始数编程12，翻转数是123，这个时候我们用123/10得到12再和原始数12比较，忽略中间那一位数</strong></p><p>以下是代码：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fileprivate func solution(_ num:Int)-&gt;Bool&#123;</span><br><span class="line">      if num&lt;0 || (num % 10 == 0 &amp;&amp; num != 0)&#123;</span><br><span class="line">          return false</span><br><span class="line">      &#125;</span><br><span class="line">      var originNum = num</span><br><span class="line">      var reverserNum = 0</span><br><span class="line">      while originNum &gt; reverserNum &#123;</span><br><span class="line">          reverserNum = reverserNum * 10 + originNum % 10</span><br><span class="line">          originNum = originNum / 10</span><br><span class="line">      &#125;</span><br><span class="line">      return originNum == reverserNum || originNum == reverserNum / 10</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。&quot;&gt;&lt;a href=&quot;#判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。&quot; class=&quot;headerlink&quot; title=&quot;判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。&quot;&gt;&lt;/a&gt;判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。&lt;/h1&gt;&lt;p&gt;示例 1:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;输入: 121&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;输出: true&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;示例 2:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;输入: -121&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;输出: false&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="常见算法" scheme="http://lemon2well.top/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>持续集成之Jenkins构建项目并上传到蒲公英</title>
@@ -73,8 +96,8 @@
   
   <entry>
     <title>用队列实现栈和用栈实现队列</title>
-    <link href="http://lemon2well.top/2018/08/03/%E7%AE%97%E6%B3%95/%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88%E5%92%8C%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/"/>
-    <id>http://lemon2well.top/2018/08/03/算法/用队列实现栈和用栈实现队列/</id>
+    <link href="http://lemon2well.top/2018/08/03/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88%E5%92%8C%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/"/>
+    <id>http://lemon2well.top/2018/08/03/常见算法/用队列实现栈和用栈实现队列/</id>
     <published>2018-08-03T02:44:23.000Z</published>
     <updated>2018-08-03T02:46:05.639Z</updated>
     
@@ -93,8 +116,8 @@
   
   <entry>
     <title>swift实现栈和队列</title>
-    <link href="http://lemon2well.top/2018/08/02/%E7%AE%97%E6%B3%95/swift%E5%AE%9E%E7%8E%B0%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/"/>
-    <id>http://lemon2well.top/2018/08/02/算法/swift实现栈和队列/</id>
+    <link href="http://lemon2well.top/2018/08/02/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/swift%E5%AE%9E%E7%8E%B0%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/"/>
+    <id>http://lemon2well.top/2018/08/02/常见算法/swift实现栈和队列/</id>
     <published>2018-08-02T15:58:37.000Z</published>
     <updated>2018-08-02T16:00:14.923Z</updated>
     
@@ -141,8 +164,8 @@
   
   <entry>
     <title>快行指针</title>
-    <link href="http://lemon2well.top/2018/08/01/%E7%AE%97%E6%B3%95/%E5%BF%AB%E8%A1%8C%E6%8C%87%E9%92%88/"/>
-    <id>http://lemon2well.top/2018/08/01/算法/快行指针/</id>
+    <link href="http://lemon2well.top/2018/08/01/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/%E5%BF%AB%E8%A1%8C%E6%8C%87%E9%92%88/"/>
+    <id>http://lemon2well.top/2018/08/01/常见算法/快行指针/</id>
     <published>2018-08-01T15:11:07.000Z</published>
     <updated>2018-08-01T15:12:02.824Z</updated>
     
@@ -166,8 +189,8 @@
   
   <entry>
     <title>dummy节点和尾巴插法</title>
-    <link href="http://lemon2well.top/2018/07/31/%E7%AE%97%E6%B3%95/dummy%E8%8A%82%E7%82%B9%E5%92%8C%E5%B0%BE%E5%B7%B4%E6%8F%92%E6%B3%95/"/>
-    <id>http://lemon2well.top/2018/07/31/算法/dummy节点和尾巴插法/</id>
+    <link href="http://lemon2well.top/2018/07/31/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/dummy%E8%8A%82%E7%82%B9%E5%92%8C%E5%B0%BE%E5%B7%B4%E6%8F%92%E6%B3%95/"/>
+    <id>http://lemon2well.top/2018/07/31/常见算法/dummy节点和尾巴插法/</id>
     <published>2018-07-31T15:35:01.000Z</published>
     <updated>2018-07-31T15:36:54.856Z</updated>
     
@@ -215,8 +238,8 @@
   
   <entry>
     <title>无重复字符的最长子串</title>
-    <link href="http://lemon2well.top/2018/07/31/%E7%AE%97%E6%B3%95/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/"/>
-    <id>http://lemon2well.top/2018/07/31/算法/无重复字符的最长子串/</id>
+    <link href="http://lemon2well.top/2018/07/31/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/"/>
+    <id>http://lemon2well.top/2018/07/31/常见算法/无重复字符的最长子串/</id>
     <published>2018-07-31T02:30:35.000Z</published>
     <updated>2018-07-31T02:31:33.020Z</updated>
     
@@ -239,8 +262,8 @@
   
   <entry>
     <title>非空链表相加</title>
-    <link href="http://lemon2well.top/2018/07/30/%E7%AE%97%E6%B3%95/%E9%9D%9E%E7%A9%BA%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%8A%A0/"/>
-    <id>http://lemon2well.top/2018/07/30/算法/非空链表相加/</id>
+    <link href="http://lemon2well.top/2018/07/30/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/%E9%9D%9E%E7%A9%BA%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%8A%A0/"/>
+    <id>http://lemon2well.top/2018/07/30/常见算法/非空链表相加/</id>
     <published>2018-07-30T09:12:45.000Z</published>
     <updated>2018-07-30T09:33:42.698Z</updated>
     
@@ -290,8 +313,8 @@
   
   <entry>
     <title>两数之和</title>
-    <link href="http://lemon2well.top/2018/07/29/%E7%AE%97%E6%B3%95/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
-    <id>http://lemon2well.top/2018/07/29/算法/两数之和/</id>
+    <link href="http://lemon2well.top/2018/07/29/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
+    <id>http://lemon2well.top/2018/07/29/常见算法/两数之和/</id>
     <published>2018-07-29T09:12:45.000Z</published>
     <updated>2018-07-29T09:13:15.756Z</updated>
     
@@ -313,8 +336,8 @@
   
   <entry>
     <title>字符串反转算法</title>
-    <link href="http://lemon2well.top/2018/07/29/%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC%E7%AE%97%E6%B3%95/"/>
-    <id>http://lemon2well.top/2018/07/29/算法/字符串反转算法/</id>
+    <link href="http://lemon2well.top/2018/07/29/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC%E7%AE%97%E6%B3%95/"/>
+    <id>http://lemon2well.top/2018/07/29/常见算法/字符串反转算法/</id>
     <published>2018-07-29T09:09:32.000Z</published>
     <updated>2018-07-29T09:11:45.515Z</updated>
     
@@ -516,29 +539,6 @@
     
       <category term="iOS 逆向" scheme="http://lemon2well.top/categories/iOS-%E9%80%86%E5%90%91/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>通过theos提供的logify来为类的所有方法添加追踪日志</title>
-    <link href="http://lemon2well.top/2018/07/25/iOS%20%E9%80%86%E5%90%91/%E9%80%9A%E8%BF%87theos%E6%8F%90%E4%BE%9B%E7%9A%84logify%E6%9D%A5%E4%B8%BA%E7%B1%BB%E7%9A%84%E6%89%80%E6%9C%89%E6%96%B9%E6%B3%95%E6%B7%BB%E5%8A%A0%E8%BF%BD%E8%B8%AA%E6%97%A5%E5%BF%97/"/>
-    <id>http://lemon2well.top/2018/07/25/iOS 逆向/通过theos提供的logify来为类的所有方法添加追踪日志/</id>
-    <published>2018-07-25T06:40:31.000Z</published>
-    <updated>2018-07-25T06:41:07.874Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>###logify是THEOS自带的为代码添加Log的工具，可以使用该工具给指定的类添加Log代码并且生成一个新的Tweak.xm文件</p><h2 id="2-用法"><a href="#2-用法" class="headerlink" title="2.用法"></a>2.用法</h2><h3 id="2-1-准备工作"><a href="#2-1-准备工作" class="headerlink" title="2.1 准备工作"></a>2.1 准备工作</h3><h4 id="2-1-1-安装Theos"><a href="#2-1-1-安装Theos" class="headerlink" title="2.1.1 安装Theos"></a>2.1.1 安装Theos</h4><p> 首先需要安装<a href="https://github.com/theos/theos" target="_blank" rel="noopener">Theos</a>，安装完成之后会默认安装此工具。</p><a id="more"></a><h4 id="2-1-2-将APP脱壳，有两种方式可以获得脱壳的APP"><a href="#2-1-2-将APP脱壳，有两种方式可以获得脱壳的APP" class="headerlink" title="2.1.2 将APP脱壳，有两种方式可以获得脱壳的APP"></a>2.1.2 将APP脱壳，有两种方式可以获得脱壳的APP</h4><h5 id="2-1-2-1-无越狱机"><a href="#2-1-2-1-无越狱机" class="headerlink" title="2.1.2.1 无越狱机"></a>2.1.2.1 无越狱机</h5><p>通过PP助手去越狱市场下载脱壳的ipa，有时下载下来的也不一定是脱壳后的，你可以通过在终端执行以下命令<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otool -l target.app/target | grep crypt</span><br></pre></td></tr></table></figure></p><p> 如果输出<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cryptoff 16384</span><br><span class="line">cryptsize 58753024</span><br><span class="line">cryptid 0 //0 代表已经砸壳，1代表未砸壳</span><br></pre></td></tr></table></figure></p><h5 id="2-1-2-2-有越狱机"><a href="#2-1-2-2-有越狱机" class="headerlink" title="2.1.2.2 有越狱机"></a>2.1.2.2 有越狱机</h5><p> 你需要一台越狱机器，安装完整版之后通过工具来脱壳，这个时候你也有两个方法获得脱壳应用。方法一：你可以使用<a href="https://github.com/stefanesser/dumpdecrypted" target="_blank" rel="noopener">dumpdecrypted</a>工具来砸壳。方式二：你也可以使用庆总开源的工具<a href="https://github.com/AloneMonkey/frida-ios-dump" target="_blank" rel="noopener">frida-iOS-dump</a>一条命令行进行砸壳。</p><h4 id="2-1-3-class-dump-出头文件"><a href="#2-1-3-class-dump-出头文件" class="headerlink" title="2.1.3 class-dump 出头文件"></a>2.1.3 class-dump 出头文件</h4><p>通过以上的方式得到砸壳后的应用之后，需要利用<a href="https://github.com/nygard/class-dump" target="_blank" rel="noopener">clas-dump</a>工具dump出头文件。具体的用法如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class-dump -s -S -H target.app/target -o /path/to/save/header</span><br></pre></td></tr></table></figure><h4 id="2-1-4-使用logify工具生成Tweak-xm文件"><a href="#2-1-4-使用logify工具生成Tweak-xm文件" class="headerlink" title="2.1.4 使用logify工具生成Tweak.xm文件"></a>2.1.4 使用logify工具生成Tweak.xm文件</h4><p>该文件里面会hook该头文件对应的类，并且会在代码里面加上Log打印<br>用法如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logify.pl HookHeader.h的全路径 &gt;Tweak.xm</span><br></pre></td></tr></table></figure><p>如果要跟踪多个头文件，则继续转换：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logify.pl 其它头文件 &gt;&gt; Tweak.xm</span><br></pre></td></tr></table></figure><p> <em>注意中间是 &gt;&gt;</em></p><h4 id="2-1-5-使用nic-pl命令来生成Theos工程，选择Teak工具。"><a href="#2-1-5-使用nic-pl命令来生成Theos工程，选择Teak工具。" class="headerlink" title="2.1.5 使用nic.pl命令来生成Theos工程，选择Teak工具。"></a>2.1.5 使用nic.pl命令来生成Theos工程，选择Teak工具。</h4><h4 id="2-1-6-创建完Tweak工程之后，将在2-1-4中生成的Tweak-xm替换掉工程中的Teak-xm-不过此时还需要对该文件做一些修改"><a href="#2-1-6-创建完Tweak工程之后，将在2-1-4中生成的Tweak-xm替换掉工程中的Teak-xm-不过此时还需要对该文件做一些修改" class="headerlink" title="2.1.6 创建完Tweak工程之后，将在2.1.4中生成的Tweak.xm替换掉工程中的Teak.xm.不过此时还需要对该文件做一些修改"></a>2.1.6 创建完Tweak工程之后，将在2.1.4中生成的Tweak.xm替换掉工程中的Teak.xm.不过此时还需要对该文件做一些修改</h4><p>a.去掉.cxx_destruct 方法</p><p>b.将HBLogDebug 改为NSLog</p><p>然后修改makefile文件，在最上面那一行增加<br>THEOS_DEVICE_IP = 你的设备的IP</p><h4 id="2-1-7"><a href="#2-1-7" class="headerlink" title="2.1.7"></a>2.1.7</h4><p> 使用一下make package install 生成deb包，并且安装到越狱设备上。</p><h4 id="2-1-8-运行目标APP，观察日志。"><a href="#2-1-8-运行目标APP，观察日志。" class="headerlink" title="2.1.8 运行目标APP，观察日志。"></a>2.1.8 运行目标APP，观察日志。</h4><p> 有两种方法可以观察日志，第一种是通过xcode-&gt;window-&gt;Device and simulators-&gt;view device logs 。<br> 第二种是通过idevicesyslog -u udid 来查看特定设备的日志。这种方式需要安装<a href="https://www.jianshu.com/p/746f3ddded1f" target="_blank" rel="noopener">libimobiledevice</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;1-简介&quot;&gt;&lt;a href=&quot;#1-简介&quot; class=&quot;headerlink&quot; title=&quot;1.简介&quot;&gt;&lt;/a&gt;1.简介&lt;/h2&gt;&lt;p&gt;###logify是THEOS自带的为代码添加Log的工具，可以使用该工具给指定的类添加Log代码并且生成一个新的Tweak.xm文件&lt;/p&gt;
-&lt;h2 id=&quot;2-用法&quot;&gt;&lt;a href=&quot;#2-用法&quot; class=&quot;headerlink&quot; title=&quot;2.用法&quot;&gt;&lt;/a&gt;2.用法&lt;/h2&gt;&lt;h3 id=&quot;2-1-准备工作&quot;&gt;&lt;a href=&quot;#2-1-准备工作&quot; class=&quot;headerlink&quot; title=&quot;2.1 准备工作&quot;&gt;&lt;/a&gt;2.1 准备工作&lt;/h3&gt;&lt;h4 id=&quot;2-1-1-安装Theos&quot;&gt;&lt;a href=&quot;#2-1-1-安装Theos&quot; class=&quot;headerlink&quot; title=&quot;2.1.1 安装Theos&quot;&gt;&lt;/a&gt;2.1.1 安装Theos&lt;/h4&gt;&lt;p&gt; 首先需要安装&lt;a href=&quot;https://github.com/theos/theos&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Theos&lt;/a&gt;，安装完成之后会默认安装此工具。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS 逆向" scheme="http://lemon2well.top/categories/iOS-%E9%80%86%E5%90%91/"/>
-    
-    
-      <category term="logify" scheme="http://lemon2well.top/tags/logify/"/>
     
   </entry>
   

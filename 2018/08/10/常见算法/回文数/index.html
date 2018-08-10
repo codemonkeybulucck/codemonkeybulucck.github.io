@@ -83,17 +83,17 @@
 
 
 
-<meta name="description" content="用两个栈来实现队列，思路和用数组实现队列一样">
+<meta name="description" content="判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。示例 1: 12输入: 121输出: true 示例 2: 123输入: -121输出: false解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="用队列实现栈和用栈实现队列">
-<meta property="og:url" content="http://lemon2well.top/2018/08/03/算法/用队列实现栈和用栈实现队列/index.html">
+<meta property="og:title" content="回文数">
+<meta property="og:url" content="http://lemon2well.top/2018/08/10/常见算法/回文数/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="用两个栈来实现队列，思路和用数组实现队列一样">
+<meta property="og:description" content="判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。示例 1: 12输入: 121输出: true 示例 2: 123输入: -121输出: false解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-03T02:46:05.639Z">
+<meta property="og:updated_time" content="2018-08-10T02:35:39.604Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用队列实现栈和用栈实现队列">
-<meta name="twitter:description" content="用两个栈来实现队列，思路和用数组实现队列一样">
+<meta name="twitter:title" content="回文数">
+<meta name="twitter:description" content="判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。示例 1: 12输入: 121输出: true 示例 2: 123输入: -121输出: false解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://lemon2well.top/2018/08/03/算法/用队列实现栈和用栈实现队列/"/>
+  <link rel="canonical" href="http://lemon2well.top/2018/08/10/常见算法/回文数/"/>
 
 
 
 
 
-  <title>用队列实现栈和用栈实现队列 | Lemon's blog</title>
+  <title>回文数 | Lemon's blog</title>
   
 
 
@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/03/算法/用队列实现栈和用栈实现队列/">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/10/常见算法/回文数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -307,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">用队列实现栈和用栈实现队列</h1>
+          <h1 class="post-title" itemprop="name headline">回文数</h1>
         
 
         <div class="post-meta">
@@ -319,8 +319,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T10:44:23+08:00">
-                2018-08-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-10T10:34:40+08:00">
+                2018-08-10
               </time>
             
 
@@ -360,9 +360,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/03/算法/用队列实现栈和用栈实现队列/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/10/常见算法/回文数/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/03/算法/用队列实现栈和用栈实现队列/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/10/常见算法/回文数/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -384,7 +384,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  280
+                  564
                 </span>
               
 
@@ -421,11 +421,19 @@
       
 
       
-        <p>用两个栈来实现队列，思路和用数组实现队列一样</p>
+        <h1 id="判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。"><a href="#判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。" class="headerlink" title="判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。"></a>判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。</h1><p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 121</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: -121</span><br><span class="line">输出: false</span><br><span class="line">解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">//用栈实现队列</span><br><span class="line">struct QueueByStack&#123;</span><br><span class="line">    </span><br><span class="line">    var Peek: Int? &#123;</span><br><span class="line">        mutating middleCaulate()</span><br><span class="line">        return rightStack?.peek</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    typealias Element = Int</span><br><span class="line">    </span><br><span class="line">    private var leftStack:IntergerStack?</span><br><span class="line">    private var rightStack:IntergerStack?</span><br><span class="line">    </span><br><span class="line">    init() &#123;</span><br><span class="line">    leftStack = IntergerStack()</span><br><span class="line">    rightStack = IntergerStack()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    var isEmpty: Bool &#123;return leftStack!.isEmpty &amp;&amp; rightStack!.isEmpty&#125;</span><br><span class="line">    var Size: Int &#123;return leftStack!.Size + rightStack!.Size&#125;</span><br><span class="line">    </span><br><span class="line">    mutating func middleCaulate()&#123;</span><br><span class="line">        if leftStack!.isEmpty &#123;</span><br><span class="line">            while !rightStack!.isEmpty&#123;</span><br><span class="line">                leftStack!.push((rightStack?.pop())!)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    mutating func enQueue(_ newElement: Int) &#123;</span><br><span class="line">        rightStack?.push(newElement)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    mutating func deQueue() -&gt; Int? &#123;</span><br><span class="line">        middleCaulate()</span><br><span class="line">        return leftStack?.peek</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>用两个队列来实现栈</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">struct StackByQueue &#123;</span><br><span class="line">    private var queueA : IntergerQueue?</span><br><span class="line">    private var queueB : IntergerQueue?</span><br><span class="line">    init() &#123;</span><br><span class="line">        queueA = IntergerQueue()</span><br><span class="line">        queueB = IntergerQueue()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    var isEmpty: Bool&#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            return queueA!.isEmpty &amp;&amp; queueB!.isEmpty</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    var Size: Int &#123;</span><br><span class="line">        get &#123;</span><br><span class="line">            return queueA!.Size</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    var peek: Int?&#123;</span><br><span class="line">        mutating get &#123;</span><br><span class="line">            transfer()</span><br><span class="line">            let obj = queueB?.Peek</span><br><span class="line">            swap()</span><br><span class="line">            return obj</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    mutating func push(_ newElement:Int)&#123;</span><br><span class="line">        queueB?.enQueue(newElement)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    mutating func pop()-&gt;Int?&#123;</span><br><span class="line">        transfer()</span><br><span class="line">        let obj = queueB?.deQueue()</span><br><span class="line">        swap()</span><br><span class="line">        return obj</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    mutating func transfer() &#123;</span><br><span class="line">        if queueB?.Size != 1&#123;</span><br><span class="line">            queueA?.enQueue((queueB?.deQueue())!)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    mutating func swap()&#123;</span><br><span class="line">        (queueA,queueB) = (queueB,queueA)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>示例 3:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: 10</span><br><span class="line">输出: false</span><br><span class="line">解释: 从右向左读, 为 01 。因此它不是一个回文数。</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>思路：<br>根据定义如果我们要找出一个数是否是回文数我们其实只需要将这个数分成平均分成两个部分，然后将后半部分翻转，只要翻转后的后半部分等于前半部分，就代表这个数是回文数。<br>我们拿1221来举例，假设我们拿到后半段是21然后将21翻转就是12了，和前半段比较相等就代表是回文数。<br>那么我们第一个问题，如何将21翻转，首先我们将1221%10 得到的就是第一个数1，然后用这第一个数 1<em> 10 得到翻转后的正确位置。第二个数我们依然是122%10，然后得到第二个数，用第一个数加上第二个数就得到了12.<br>第二个问题就是我们如何将这个数分成两部分。当原始数/10小于翻转数</em>10的时候就代表已经完成了一半的翻转。</p>
+</blockquote>
+<p><strong>不过依然有两点需要注意，第一点是如果这个原始的数是负数的话我们需要返回，如果这个数是以0结尾的数，那么只有0才满足回文数，其他数都不满足回文数，我们直接返回false。</strong><br><strong>第二点是如果这个数的位数是基数，例如12321，那么循环完成之后原始数编程12，翻转数是123，这个时候我们用123/10得到12再和原始数12比较，忽略中间那一位数</strong></p>
+<p>以下是代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">fileprivate func solution(_ num:Int)-&gt;Bool&#123;</span><br><span class="line">      if num&lt;0 || (num % 10 == 0 &amp;&amp; num != 0)&#123;</span><br><span class="line">          return false</span><br><span class="line">      &#125;</span><br><span class="line">      var originNum = num</span><br><span class="line">      var reverserNum = 0</span><br><span class="line">      while originNum &gt; reverserNum &#123;</span><br><span class="line">          reverserNum = reverserNum * 10 + originNum % 10</span><br><span class="line">          originNum = originNum / 10</span><br><span class="line">      &#125;</span><br><span class="line">      return originNum == reverserNum || originNum == reverserNum / 10</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -461,8 +469,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/02/算法/swift实现栈和队列/" rel="next" title="swift实现栈和队列">
-                <i class="fa fa-chevron-left"></i> swift实现栈和队列
+              <a href="/2018/08/08/iOS 开发/持续集成之Jenkins构建项目并上传到蒲公英/" rel="next" title="持续集成之Jenkins构建项目并上传到蒲公英">
+                <i class="fa fa-chevron-left"></i> 持续集成之Jenkins构建项目并上传到蒲公英
               </a>
             
           </div>
@@ -470,10 +478,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/07/iOS 开发/持续集成之Jenkins搭建/" rel="prev" title="持续集成之Jenkins搭建">
-                持续集成之Jenkins搭建 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -535,8 +539,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -555,7 +568,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -623,6 +636,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。"><span class="nav-number">1.</span> <span class="nav-text">判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -781,9 +810,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lemon2well.top/2018/08/03/算法/用队列实现栈和用栈实现队列/';
-          this.page.identifier = '2018/08/03/算法/用队列实现栈和用栈实现队列/';
-          this.page.title = '用队列实现栈和用栈实现队列';
+          this.page.url = 'http://lemon2well.top/2018/08/10/常见算法/回文数/';
+          this.page.identifier = '2018/08/10/常见算法/回文数/';
+          this.page.title = '回文数';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lemon2well.disqus.com/embed.js';

@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="栈,队列," />
+  <meta name="keywords" content="链表," />
 
 
 
@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="在swift中并没有内设的栈和队列，接下来我们通过数组来实现栈和队列 栈的实现代码如下： 123456789101112131415161718192021222324252627protocol Stack &amp;#123;    associatedtype Element    //是否为空    var isEmpty: Bool&amp;#123; get &amp;#125;    //栈的大小    v">
-<meta name="keywords" content="栈,队列">
+<meta name="description" content="快行指针的定义就是有两个指针访问链表，但是一个指针的速度比另外一个快，或者说一个指针在前，一个在后。 根据这个特性我们可以用来检测一个链表中是否有环。  假设：一个指针的速度是另外一个指针的两倍，它们同时开始访问同一个链表，如果链表有环的情况下，那么快行指针总会追上慢行指针，也就是总有一个时刻快行指针和慢行指针指向同一个节点，当慢行指针跑一圈的时候，快行指针此时刚好跑了两圈。">
+<meta name="keywords" content="链表">
 <meta property="og:type" content="article">
-<meta property="og:title" content="swift实现栈和队列">
-<meta property="og:url" content="http://lemon2well.top/2018/08/02/算法/swift实现栈和队列/index.html">
+<meta property="og:title" content="快行指针">
+<meta property="og:url" content="http://lemon2well.top/2018/08/01/常见算法/快行指针/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="在swift中并没有内设的栈和队列，接下来我们通过数组来实现栈和队列 栈的实现代码如下： 123456789101112131415161718192021222324252627protocol Stack &amp;#123;    associatedtype Element    //是否为空    var isEmpty: Bool&amp;#123; get &amp;#125;    //栈的大小    v">
+<meta property="og:description" content="快行指针的定义就是有两个指针访问链表，但是一个指针的速度比另外一个快，或者说一个指针在前，一个在后。 根据这个特性我们可以用来检测一个链表中是否有环。  假设：一个指针的速度是另外一个指针的两倍，它们同时开始访问同一个链表，如果链表有环的情况下，那么快行指针总会追上慢行指针，也就是总有一个时刻快行指针和慢行指针指向同一个节点，当慢行指针跑一圈的时候，快行指针此时刚好跑了两圈。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-02T16:00:14.923Z">
+<meta property="og:updated_time" content="2018-08-01T15:12:02.824Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="swift实现栈和队列">
-<meta name="twitter:description" content="在swift中并没有内设的栈和队列，接下来我们通过数组来实现栈和队列 栈的实现代码如下： 123456789101112131415161718192021222324252627protocol Stack &amp;#123;    associatedtype Element    //是否为空    var isEmpty: Bool&amp;#123; get &amp;#125;    //栈的大小    v">
+<meta name="twitter:title" content="快行指针">
+<meta name="twitter:description" content="快行指针的定义就是有两个指针访问链表，但是一个指针的速度比另外一个快，或者说一个指针在前，一个在后。 根据这个特性我们可以用来检测一个链表中是否有环。  假设：一个指针的速度是另外一个指针的两倍，它们同时开始访问同一个链表，如果链表有环的情况下，那么快行指针总会追上慢行指针，也就是总有一个时刻快行指针和慢行指针指向同一个节点，当慢行指针跑一圈的时候，快行指针此时刚好跑了两圈。">
 
 
 
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://lemon2well.top/2018/08/02/算法/swift实现栈和队列/"/>
+  <link rel="canonical" href="http://lemon2well.top/2018/08/01/常见算法/快行指针/"/>
 
 
 
 
 
-  <title>swift实现栈和队列 | Lemon's blog</title>
+  <title>快行指针 | Lemon's blog</title>
   
 
 
@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/02/算法/swift实现栈和队列/">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/01/常见算法/快行指针/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">swift实现栈和队列</h1>
+          <h1 class="post-title" itemprop="name headline">快行指针</h1>
         
 
         <div class="post-meta">
@@ -320,8 +320,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-02T23:58:37+08:00">
-                2018-08-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-01T23:11:07+08:00">
+                2018-08-01
               </time>
             
 
@@ -361,9 +361,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/02/算法/swift实现栈和队列/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/01/常见算法/快行指针/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/02/算法/swift实现栈和队列/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/01/常见算法/快行指针/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -385,7 +385,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  276
+                  576
                 </span>
               
 
@@ -401,7 +401,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  3
                 </span>
               
             </div>
@@ -422,12 +422,18 @@
       
 
       
-        <p>在swift中并没有内设的栈和队列，接下来我们通过数组来实现栈和队列</p>
-<p>栈的实现代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">protocol Stack &#123;</span><br><span class="line">    associatedtype Element</span><br><span class="line">    //是否为空</span><br><span class="line">    var isEmpty: Bool&#123; get &#125;</span><br><span class="line">    //栈的大小</span><br><span class="line">    var Size: Int&#123; get &#125;</span><br><span class="line">    //栈顶元素</span><br><span class="line">    var peek: Element? &#123; get &#125;</span><br><span class="line">    //入栈</span><br><span class="line">    mutating func push(_ newElement:Element)</span><br><span class="line">    //出栈</span><br><span class="line">    mutating func pop()-&gt;Element?</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">struct IntegerStack:Stack &#123;</span><br><span class="line">    typealias Element  = Int</span><br><span class="line">    private var stack = [Element]()</span><br><span class="line">    var isEmpty: Bool &#123;return stack.isEmpty&#125;</span><br><span class="line">    var Size: Int &#123;return stack.count&#125;</span><br><span class="line">    var peek: Int? &#123;return stack.last&#125;</span><br><span class="line">    mutating func push(_ newElement: Int) &#123;</span><br><span class="line">        self.stack.append(newElement)</span><br><span class="line">    &#125;</span><br><span class="line">    func pop() -&gt; Int? &#123;</span><br><span class="line">        return stack.last</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>队列的实现代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">protocol Queue &#123;</span><br><span class="line">    associatedtype Element</span><br><span class="line">    var isEmpty: Bool &#123;get&#125;</span><br><span class="line">    var Size: Int &#123;get&#125;</span><br><span class="line">    var Peek:Element? &#123;get&#125;</span><br><span class="line">    mutating func enQueue(_ newElement:Element)</span><br><span class="line">    mutating func deQueue()-&gt;Element?</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">struct IntergerQueue:Queue &#123;</span><br><span class="line">    typealias Element = Int</span><br><span class="line">    private var left = [Element]()</span><br><span class="line">    private var right = [Element]()</span><br><span class="line">    var isEmpty: Bool &#123;return left.isEmpty &amp;&amp; right.isEmpty&#125;</span><br><span class="line">    var Size: Int &#123;return left.count + right.count&#125;</span><br><span class="line">    var Peek: Element? &#123;return left.isEmpty ? right.first : left.last&#125;</span><br><span class="line">    mutating func enQueue(_ newElement: Int) &#123;</span><br><span class="line">       right.append(newElement)</span><br><span class="line">    &#125;</span><br><span class="line">    mutating func deQueue() -&gt; Element? &#123;</span><br><span class="line">        if left.isEmpty &#123;</span><br><span class="line">            left = right.reversed()</span><br><span class="line">            right.removeAll()</span><br><span class="line">        &#125;</span><br><span class="line">        return left.popLast()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>快行指针的定义就是有两个指针访问链表，但是一个指针的速度比另外一个快，或者说一个指针在前，一个在后。</p>
+<p>根据这个特性我们可以用来检测一个链表中是否有环。</p>
+<blockquote>
+<p>假设：一个指针的速度是另外一个指针的两倍，它们同时开始访问同一个链表，如果链表有环的情况下，那么快行指针总会追上慢行指针，也就是总有一个时刻快行指针和慢行指针指向同一个节点，当慢行指针跑一圈的时候，快行指针此时刚好跑了两圈。<br><a id="more"></a><br>以下是具体算法：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class ListNode:Equatable &#123;</span><br><span class="line">//遵守Equatable协议</span><br><span class="line">    static func == (lhs: ListNode, rhs: ListNode) -&gt; Bool &#123;</span><br><span class="line">        if lhs.val == rhs.val &amp;&amp; lhs.next == rhs.next&#123;</span><br><span class="line">            return true</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">      public var val: Int</span><br><span class="line">      public var next: ListNode?</span><br><span class="line">      public init(_ val: Int) &#123;</span><br><span class="line">          self.val = val</span><br><span class="line">          self.next = nil</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">class quickSolution &#123;</span><br><span class="line">    func checkCycle(_ l1:ListNode?)-&gt;Bool&#123;</span><br><span class="line">        guard let l1 = l1 else&#123;</span><br><span class="line">            return false</span><br><span class="line">        &#125;</span><br><span class="line">        var slowNode:ListNode? = l1,fastNode:ListNode? = l1</span><br><span class="line">        while fastNode != nil &amp;&amp; fastNode?.next != nil &#123;</span><br><span class="line">            slowNode = slowNode?.next</span><br><span class="line">            fastNode = fastNode?.next!.next</span><br><span class="line">            if slowNode == fastNode &#123;</span><br><span class="line">                return true</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外，我们依然可以用这个方法来解决另外一个问题。<br>删除链表中的第n个节点，例如：1-&gt;3-&gt;6-&gt;5-&gt;2 ，这里要删除倒数第2个节点。那么删除后的链表为： 1-&gt;3-&gt;6-&gt;2。</p>
+<blockquote>
+<p>思路：<br>假设快行指针从一开始就比慢行指针快n个节点，然后他们以相同的速度前进，当快行指针走到链表的最后一个节点的时候，慢行指针的当前节点的下一个节点就是我们要删除的节点。</p>
+</blockquote>
+<p>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">class DeleteSolution &#123;</span><br><span class="line">    func deleteNode(_ l1:ListNode?,n:Int)-&gt;ListNode?&#123;</span><br><span class="line">        guard let l1 = l1 else&#123;</span><br><span class="line">            return nil</span><br><span class="line">        &#125;</span><br><span class="line">        let dummy = ListNode(0)</span><br><span class="line">        dummy.next = l1</span><br><span class="line">        var slowNode:ListNode? = dummy</span><br><span class="line">        var fastNode:ListNode? = dummy</span><br><span class="line">        //设置快行指针比慢行指针快n个节点</span><br><span class="line">        for _ in 0 ..&lt; n &#123;</span><br><span class="line">            if fastNode == nil &#123;</span><br><span class="line">                break</span><br><span class="line">            &#125;</span><br><span class="line">            fastNode = fastNode?.next</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        //同时移动两个指针</span><br><span class="line">        while fastNode != nil &amp;&amp; fastNode?.next != nil &#123;</span><br><span class="line">            slowNode = slowNode?.next</span><br><span class="line">            fastNode = fastNode?.next</span><br><span class="line">        &#125;</span><br><span class="line">        //删除需要删除的节点</span><br><span class="line">        slowNode?.next = slowNode?.next?.next</span><br><span class="line">        return dummy.next</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -456,9 +462,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/栈/" rel="tag"># 栈</a>
-          
-            <a href="/tags/队列/" rel="tag"># 队列</a>
+            <a href="/tags/链表/" rel="tag"># 链表</a>
           
         </div>
       
@@ -471,8 +475,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/02/iOS 开发/网络层设计方案以及去Model化实践/" rel="next" title="网络层设计方案以及去Model化实践">
-                <i class="fa fa-chevron-left"></i> 网络层设计方案以及去Model化实践
+              <a href="/2018/07/31/常见算法/dummy节点和尾巴插法/" rel="next" title="dummy节点和尾巴插法">
+                <i class="fa fa-chevron-left"></i> dummy节点和尾巴插法
               </a>
             
           </div>
@@ -481,8 +485,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/03/算法/用队列实现栈和用栈实现队列/" rel="prev" title="用队列实现栈和用栈实现队列">
-                用队列实现栈和用栈实现队列 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/02/iOS 开发/网络层设计方案以及去Model化实践/" rel="prev" title="网络层设计方案以及去Model化实践">
+                网络层设计方案以及去Model化实践 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -565,7 +569,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -791,9 +795,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lemon2well.top/2018/08/02/算法/swift实现栈和队列/';
-          this.page.identifier = '2018/08/02/算法/swift实现栈和队列/';
-          this.page.title = 'swift实现栈和队列';
+          this.page.url = 'http://lemon2well.top/2018/08/01/常见算法/快行指针/';
+          this.page.identifier = '2018/08/01/常见算法/快行指针/';
+          this.page.title = '快行指针';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lemon2well.disqus.com/embed.js';
