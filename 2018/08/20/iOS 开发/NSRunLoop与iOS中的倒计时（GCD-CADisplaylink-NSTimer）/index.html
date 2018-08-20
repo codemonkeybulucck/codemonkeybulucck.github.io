@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="dsc-extractor," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -83,18 +83,17 @@
 
 
 
-<meta name="description" content="1前言在iOS逆向中，我们常常需要对dyld_shared_cache_armX类型的文件进行还原，第一个我们经常使用的是dyld_decache工具，但是这个工具并不能用从来还原dyld_shared_cache_arm64文件，也就是64位指令集架构的缓存文件，这个时候dsc_extractor就为你续命了。">
-<meta name="keywords" content="dsc-extractor">
+<meta name="description" content="相信在iOS开发中大家都用过倒计时的功能，而NSTimer也是大家用得最多用来实现该功能的类，但是可能有人不太清楚NSTimer存在计时不准并且可能会导致引用循环资源无法释放的情况，接下来我会介绍一下使用GCD以及CADisplaylink来实现倒计时以及他们三者的利弊。 RunLoop在开始介绍下面三种方法之前，我想我们有必要先来介绍一下RunLoop，因为CADisplaylink和NSTim">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dsc_extractor的编译和使用">
-<meta property="og:url" content="http://lemon2well.top/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/index.html">
+<meta property="og:title" content="NSRunLoop与iOS中的倒计时（GCD,CADisplaylink,NSTimer）">
+<meta property="og:url" content="http://lemon2well.top/2018/08/20/iOS 开发/NSRunLoop与iOS中的倒计时（GCD-CADisplaylink-NSTimer）/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="1前言在iOS逆向中，我们常常需要对dyld_shared_cache_armX类型的文件进行还原，第一个我们经常使用的是dyld_decache工具，但是这个工具并不能用从来还原dyld_shared_cache_arm64文件，也就是64位指令集架构的缓存文件，这个时候dsc_extractor就为你续命了。">
+<meta property="og:description" content="相信在iOS开发中大家都用过倒计时的功能，而NSTimer也是大家用得最多用来实现该功能的类，但是可能有人不太清楚NSTimer存在计时不准并且可能会导致引用循环资源无法释放的情况，接下来我会介绍一下使用GCD以及CADisplaylink来实现倒计时以及他们三者的利弊。 RunLoop在开始介绍下面三种方法之前，我想我们有必要先来介绍一下RunLoop，因为CADisplaylink和NSTim">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-25T06:35:19.999Z">
+<meta property="og:updated_time" content="2018-08-20T03:18:42.822Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dsc_extractor的编译和使用">
-<meta name="twitter:description" content="1前言在iOS逆向中，我们常常需要对dyld_shared_cache_armX类型的文件进行还原，第一个我们经常使用的是dyld_decache工具，但是这个工具并不能用从来还原dyld_shared_cache_arm64文件，也就是64位指令集架构的缓存文件，这个时候dsc_extractor就为你续命了。">
+<meta name="twitter:title" content="NSRunLoop与iOS中的倒计时（GCD,CADisplaylink,NSTimer）">
+<meta name="twitter:description" content="相信在iOS开发中大家都用过倒计时的功能，而NSTimer也是大家用得最多用来实现该功能的类，但是可能有人不太清楚NSTimer存在计时不准并且可能会导致引用循环资源无法释放的情况，接下来我会介绍一下使用GCD以及CADisplaylink来实现倒计时以及他们三者的利弊。 RunLoop在开始介绍下面三种方法之前，我想我们有必要先来介绍一下RunLoop，因为CADisplaylink和NSTim">
 
 
 
@@ -124,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://lemon2well.top/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/"/>
+  <link rel="canonical" href="http://lemon2well.top/2018/08/20/iOS 开发/NSRunLoop与iOS中的倒计时（GCD-CADisplaylink-NSTimer）/"/>
 
 
 
 
 
-  <title>dsc_extractor的编译和使用 | Lemon's blog</title>
+  <title>NSRunLoop与iOS中的倒计时（GCD,CADisplaylink,NSTimer） | Lemon's blog</title>
   
 
 
@@ -291,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/20/iOS 开发/NSRunLoop与iOS中的倒计时（GCD-CADisplaylink-NSTimer）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -308,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">dsc_extractor的编译和使用</h1>
+          <h1 class="post-title" itemprop="name headline">NSRunLoop与iOS中的倒计时（GCD,CADisplaylink,NSTimer）</h1>
         
 
         <div class="post-meta">
@@ -320,8 +319,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T14:34:46+08:00">
-                2018-07-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-20T11:17:45+08:00">
+                2018-08-20
               </time>
             
 
@@ -343,8 +342,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS-逆向/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS 逆向</span>
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
                   </a>
                 </span>
 
@@ -361,9 +360,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/20/iOS 开发/NSRunLoop与iOS中的倒计时（GCD-CADisplaylink-NSTimer）/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/25/iOS 逆向/dsc-extractor的编译和使用/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/20/iOS 开发/NSRunLoop与iOS中的倒计时（GCD-CADisplaylink-NSTimer）/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -385,7 +384,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  646
+                  2,066
                 </span>
               
 
@@ -401,7 +400,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  8
                 </span>
               
             </div>
@@ -422,35 +421,64 @@
       
 
       
-        <h3 id="1前言"><a href="#1前言" class="headerlink" title="1前言"></a>1前言</h3><p>在iOS逆向中，我们常常需要对dyld_shared_cache_armX类型的文件进行还原，第一个我们经常使用的是dyld_decache工具，但是这个工具并不能用从来还原dyld_shared_cache_arm64文件，也就是64位指令集架构的缓存文件，这个时候dsc_extractor就为你续命了。</p>
+        <p>相信在iOS开发中大家都用过倒计时的功能，而NSTimer也是大家用得最多用来实现该功能的类，但是可能有人不太清楚NSTimer存在计时不准并且可能会导致引用循环资源无法释放的情况，接下来我会介绍一下使用GCD以及CADisplaylink来实现倒计时以及他们三者的利弊。</p>
+<h2 id="RunLoop"><a href="#RunLoop" class="headerlink" title="RunLoop"></a>RunLoop</h2><p>在开始介绍下面三种方法之前，我想我们有必要先来介绍一下RunLoop，因为CADisplaylink和NSTimer都是需要通过运行在RunLoop里面才保证了每次到特定的时间点就会执行对应的事件</p>
 <a id="more"></a>
-<h3 id="2编译"><a href="#2编译" class="headerlink" title="2编译"></a>2编译</h3><p>打开终端依次执行以下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir dsc_extractor</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd dsc_extractor</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://opensource.apple.com/tarballs/dyld/dyld-210.2.3.tar.gz</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf dyld-210.2.3.tar.gz</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd dyld-210.2.3/launch-cache/</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch dsc_extractor.patch</span><br></pre></td></tr></table></figure>
-<p>通过上面的操作，我们下载下来了touch dsc_extractor的源码并且解压出来，并在其中创建了一个touch dsc_extractor.patch的空文件，接下来把以下内容复制到该文件里面去。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">--- dyld-210.2.3/launch-cache/dsc_extractor.cpp  2012-05-21 02:35:15.000000000 -0400</span><br><span class="line">+++ dyld-210.2.3/launch-cache/dsc_extractor.cpp	2013-07-26 16:05:03.000000000 -0400</span><br><span class="line">@@ -37,6 +37,7 @@</span><br><span class="line"> #include &lt;mach-o/arch.h&gt;</span><br><span class="line"> #include &lt;mach-o/loader.h&gt;</span><br><span class="line"> #include &lt;Availability.h&gt;</span><br><span class="line">+#include &lt;dlfcn.h&gt;</span><br><span class="line"> </span><br><span class="line"> #define NO_ULEB </span><br><span class="line"> #include &quot;Architectures.hpp&quot;</span><br><span class="line">@@ -456,7 +457,7 @@</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">-#if 1</span><br><span class="line">+/* #if 1 */</span><br><span class="line"> </span><br><span class="line"> typedef int (*extractor_proc)(const char* shared_cache_file_path, const char* extraction_root_path,</span><br><span class="line"> 													void (^progress)(unsigned current, unsigned total));</span><br><span class="line">@@ -468,7 +469,7 @@</span><br><span class="line"> 		return 1;</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	</span><br><span class="line">-	void* handle = dlopen(&quot;/Developer/Platforms/iPhoneOS.platform/usr/lib/dsc_extractor.bundle&quot;, RTLD_LAZY);</span><br><span class="line">+	void* handle = dlopen(&quot;/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/usr/lib/dsc_extractor.bundle&quot;, RTLD_LAZY);</span><br><span class="line"> 	if ( handle == NULL ) &#123;</span><br><span class="line"> 		fprintf(stderr, &quot;dsc_extractor.bundle could not be loaded\n&quot;);</span><br><span class="line"> 		return 1;</span><br><span class="line">@@ -484,7 +485,7 @@</span><br><span class="line"> 	fprintf(stderr, &quot;dyld_shared_cache_extract_dylibs_progress() =&gt; %d\n&quot;, result);</span><br><span class="line"> 	return 0;</span><br><span class="line"> &#125;</span><br><span class="line">-#endif</span><br><span class="line">+/* #endif */</span><br></pre></td></tr></table></figure>
-<h3>记住，在+/<em>endif </em>/后面是还有一行空行的。</h3>
-
-<p>然后执行一下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">patch &lt; dsc_extractor.patch</span><br></pre></td></tr></table></figure>
-<p>执行完成该命令后，你可以在dsc_extractor.patch文件的同级目录下看到一个dsc_extractor.cpp文件，接下来打开这个文件，要修改里面的内容。如下：<br>原处：230行</p>
-<p>const char* afterSlash = &amp;dirs[1];<br>修改成：</p>
-<p>char* afterSlash = &amp;dirs[1];  去除const<br>原处：460行</p>
-<p>#if 0<br>修改成：</p>
-<p>#if 1<br>原处：488行</p>
-<p>/<em> #endif </em>/<br>修改成：</p>
-<p>#endif 放开注释</p>
-<p>修改完成后，回到终端，运行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang++ -o dsc_extractor dsc_extractor.cpp dsc_iterator.cpp</span><br></pre></td></tr></table></figure>
-<p>到了这里，dsc_extractor终于编译完成了，你可以在同级目录下看到dsc_extractor的执行文件。你可以把它复制到任何地方然后使用。</p>
-<h3 id="3使用"><a href="#3使用" class="headerlink" title="3使用"></a>3使用</h3><p>编译dsc_extractor成功后，用iFunBox将iOS 里面的/System/Library/Caches/com.apple.dyld/dyld_shared_cache_arm64复制到OSX的任何位置，然后在终端运行</p>
-<p>dsc_extractor完成路径 arm64缓存文件路径  要保存文件的路径</p>
-<p>然后终端显示<br>0/1004<br>1/1004<br>2/1004<br>3/1004<br>4/1004<br>5/1004<br>6/1004<br>7/1004<br>这样的文本的时候就成功了</p>
+<h2 id="RunLoop是什么"><a href="#RunLoop是什么" class="headerlink" title="RunLoop是什么"></a>RunLoop是什么</h2><p>一般来说线程只能执行一次任务，执行完任务之后就会退出，可是如果需要处理多个任务呢，那就需要RunLoop来保证线程能随时处理事件并且不会退出。</p>
+<p>RunLoop实际上像是一个对象，该对象提供了一个入口函数，该入口函数会实现像不断的循环获取任务执行任务的功能，当线程执行了这个入口函数之后，就会一直处于函数内部：接受任务-&gt;等待-&gt;处理这样的循环中，知道接受到quit消息，就会推出该入口函数，然后线程销毁。</p>
+<h2 id="RunLoop和线程之间的关系"><a href="#RunLoop和线程之间的关系" class="headerlink" title="RunLoop和线程之间的关系"></a>RunLoop和线程之间的关系</h2><p>RunLoop和线程是一一对应的，它们通过key-value的形式保存在一个全局的字典里面（key是p_thread,value是CFRunLoopRef），iOS中不允许直接创建RunLoop，可以通过两个方法获取RunLoop ，CFRunLoopGetMain() 和 CFRunLoopGetCurrent()。这两个方法内部会调用<code>CFRunLoopRef _CFRunLoopGet(pthread_t thread)</code>方法，调用该方法时，会优先判断该字典是不是为空，如果是的话就创建一个以pthread_main_thread_np()为key的runloop并且放到字典里面。然后在字典中寻找thread为key的runloop，如果不存在则创建一个新的RunLoop并且注册一个回调，当线程销毁时，也销毁RunLoop。</p>
+<h2 id="RunLoopMode"><a href="#RunLoopMode" class="headerlink" title="RunLoopMode"></a>RunLoopMode</h2><p>苹果提供了两个公开的RunLoopMode，NSDefaultRunLoop以及UITrackingRunLoopMode，第一个mode程序默认的mode，当程序中有ScrollView滚动的时候，RunLoop就会将当前的mode切换为UITrackingRunLoopMode。</p>
+<blockquote>
+<p>相信很多人都有过NSTimer在默认情况下可用，当APP有ScrollView在滚动的时候就不可用的回调，那是因为NSTimer加到runloop里面的时候默认是NSDefaultRunLoop，当页面滑动的时候RunLoop切换到了UITrackingRunLoopMode，所以timer就不起作用了，这个时候需要使用<code>[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];</code>将timer标记为NSRunLoopCommonModes，NSRunLoopCommonModes默认是包含了NSDefaultRunLoop和UITrackingRunLoopMode两个model。</p>
+</blockquote>
+<h2 id="RunLoop的结构"><a href="#RunLoop的结构" class="headerlink" title="RunLoop的结构"></a>RunLoop的结构</h2><p>我们首先来看一下RunLoop的都包含什么东西：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">struct __CFRunLoopMode &#123;</span><br><span class="line">    CFStringRef _name;            // Mode Name, 例如 @&quot;kCFRunLoopDefaultMode&quot;</span><br><span class="line">    CFMutableSetRef _sources0;    // Set</span><br><span class="line">    CFMutableSetRef _sources1;    // Set</span><br><span class="line">    CFMutableArrayRef _observers; // Array</span><br><span class="line">    CFMutableArrayRef _timers;    // Array</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">struct __CFRunLoop &#123;</span><br><span class="line">    CFMutableSetRef _commonModes;     // Set</span><br><span class="line">    CFMutableSetRef _commonModeItems; // Set&lt;Source/Observer/Timer&gt;</span><br><span class="line">    CFRunLoopModeRef _currentMode;    // Current Runloop Mode</span><br><span class="line">    CFMutableSetRef _modes;           // Set</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>_CFRunLoop:</p>
+<ul>
+<li><p>_commonModes： 一个标记为common的集合，通过<code>CFRunLoopAddCommonMode(CFRunLoopRef runloop, CFStringRef modeName);</code>可以将一个mode加到commonModes里面，当RunLoop的内容变化的时候，RunLoop都会将Timer/Observer/Sources同步到标记为“common”的Mode里面</p>
+</li>
+<li><p>_commonModeItems： 被加到CommonModes里面的所有的Item的集合，一个Item包含_source0,_source1,_observers，_timers。</p>
+</li>
+<li><p>_currentMode： 当前RunLoop的mode，可以通过 <code>CFRunLoopRunInMode(CFStringRef modeName, ...);</code>来切换mode</p>
+</li>
+<li><p>_modes：RunLoop包含的mode</p>
+</li>
+</ul>
+<p>_CFRunLoopMode:</p>
+<ul>
+<li><p>source0(CFRunLoopSourceRef)： mode的事件源，source0只包含一个回调（函数指针），它并不会自动触发，需要先调用 <code>CFRunLoopSourceSinal(source)</code>将source标为待处理，然后调用<code>CFRunLoopSourceWakeUp(source)</code>来唤醒RunLoop才会调用这个方法。</p>
+</li>
+<li><p>_sources1(CFRunLoopSourceRef)： mode的另外一个事件源，source1包含了回调以及一个mach-port，被用于通过内核和其他线程相互发送消息。这种 Source 能主动唤醒 RunLoop 的线程</p>
+</li>
+<li><p>_timers: 是基于时间的触发器，它和 NSTimer 是toll-free bridged 的，可以混用。其包含一个时间长度和一个回调（函数指针）</p>
+</li>
+<li><p>_observers: 是观察者，每个 Observer 都包含了一个回调（函数指针），当 RunLoop 的状态发生变化时，观察者就能通过回调接受到这个变化。</p>
+</li>
+</ul>
+<p>更多的关于RunLoop的内容可以看<a href="https://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="noopener">深入理解RunLoop</a></p>
+<h2 id="NSTimer"><a href="#NSTimer" class="headerlink" title="NSTimer"></a>NSTimer</h2><p>我们通常会使用以下的代码来创建一个Timer并且将Timer加到RunLoop里面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sellf.timer = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(doSomeThing) userInfo:nil repeats:YES];</span><br><span class="line">[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];</span><br></pre></td></tr></table></figure>
+<p>以上的代码会有两个问题：</p>
+<ol>
+<li>内存泄漏的问题，首先RunLoop会强引用timer，而timer会强引用self,所以timer不释放的时候，self也无法释放。通常我们会用以下的代码来释放Timer，但是需要找一个合适的时机去释放它，加入我们像以下代码那样在viewWillDisapper那样释放它，当回到主屏幕的时候那timer又要被销毁了，然后重新进入重新创建一个timer，这样就会非常麻烦，需要多个地方维护timer的状态。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewWillDisappear:(BOOL)animated&#123;</span><br><span class="line">    [super viewWillDisappear:animated];</span><br><span class="line">    [self.timer invalidate];</span><br><span class="line">    self.timer  = nil;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很明显我们这里要解决的就是timer的释放时机的问题，我们当然是希望持有timer的视图控制器执行dealloc释放的时候释放它，但是这时候千万别企图在dealloc方法里面做这个事情，原因自己想。</p>
+<p>我们的思路就是通过创建一个MagicClass来弱应用这个target，然后timer的target强引用这个MagicClass，执行MagicClass的一个替身Action，在这个Action里面我们可以判断target是不是被销毁了（因为这个时候没有Timer强引用它，所以不会有有内存泄漏的问题），然后没有被销毁则执行真正的Action，如果Target已经被销毁了则调用invalidate销毁timer。</p>
+<p>here is the code</p>
+<p>NSTimer+LMExtension.h</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@interface NSTimer (LMExtension)</span><br><span class="line">+ (instancetype)lmScheduledTimerWithTimeInterval:(NSTimeInterval)interval target:(id)target selector:(SEL)selector userInfo:(id)userInfo;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>NSTimer+LMExtension.m</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;NSTimer+LMExtension.h&quot;</span><br><span class="line"></span><br><span class="line">@interface LMMagicTarget : NSObject</span><br><span class="line">@property (nonatomic, weak) id target;</span><br><span class="line">@property (nonatomic, assign) SEL selector;</span><br><span class="line">@property (nonatomic, weak) NSTimer *timer;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation LMMagicTarget</span><br><span class="line">- (void)LMTimerStarAction:(NSTimer *)timer</span><br><span class="line">&#123;</span><br><span class="line">    if (self.target) &#123;</span><br><span class="line">        [self.target performSelector:self.selector withObject:timer afterDelay:0.0];</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        [self.timer invalidate];</span><br><span class="line">        self.timer = nil;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@implementation NSTimer (LMExtension)</span><br><span class="line">+ (instancetype)lmScheduledTimerWithTimeInterval:(NSTimeInterval)interval target:(id)target selector:(SEL)selector userInfo:(id)userInfo&#123;</span><br><span class="line">    LMMagicTarget *magicTarget = [[LMMagicTarget alloc]init];</span><br><span class="line">    magicTarget.target = target;</span><br><span class="line">    magicTarget.selector = selector;</span><br><span class="line">    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:interval target:magicTarget selector:@selector(LMTimerStarAction:) userInfo:nil repeats:YES];</span><br><span class="line">    magicTarget.timer = timer;</span><br><span class="line">    return  timer;</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>第二个问题，精度问题。NSTimer其实就是 CFRunLoopTimerRef，他们之间是 toll-free bridged 的，一个timer注册好后，RunLoop会在其重复的时间点注册事件，但是如果这个时候RunLoop正在处理一个其他任务的时候，错过了该事件点，则该次不会执行timer的事件源，会跳过当前时间点，直到下一个时间点才执行该timer的事件源。所以timer会有一个Tolerance的属性，这属性就是宽容度，该属性标记当时间点到了后，容许有多少的误差。</li>
+</ol>
+<h2 id="CADisplayLink"><a href="#CADisplayLink" class="headerlink" title="CADisplayLink"></a>CADisplayLink</h2><p>CADisplayLink是一个以屏幕刷新频率同步的计时器。以下是创建方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">创建方法</span><br><span class="line">self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(handleDisplayLink:)];    </span><br><span class="line">[self.displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];</span><br><span class="line">停止方法</span><br><span class="line">[self.displayLink invalidate];  </span><br><span class="line">self.displayLink = nil;</span><br></pre></td></tr></table></figure>
+<p>CADisplayLink的计算时间并不依靠RunLoop，当一个屏幕刷新完成时候则会通知RunLoop给对应的target执行action。但是CADisplayLink依然会有精度的问题，当两次界面刷新之间执行了一次长任务的时候，那就会有一帧被跳过去，也就是所谓的掉帧，那相应的此次也不会调用target的action。</p>
+<h2 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h2><p>GCD提供了一个计时的方法，GCD定时器的底层是由XNU内核中的select方法实现的。具体的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);</span><br><span class="line">    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);</span><br><span class="line">    dispatch_source_set_timer(self.timer, DISPATCH_TIME_NOW , 1 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);</span><br><span class="line">    dispatch_source_set_event_handler(self.timer, ^&#123;</span><br><span class="line">        NSLog(@&quot;GCD&quot;);</span><br><span class="line">    &#125;);</span><br><span class="line">    //开启定时器</span><br><span class="line">    dispatch_resume(self.timer);</span><br><span class="line">    </span><br><span class="line">    //销毁定时器</span><br><span class="line">    dispatch_source_cancel(self.timer);</span><br><span class="line">    self.timer = nil;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>如果是对时间的要求不精确的计算，可以使用NSTimer，如果是对时间比较精确的，可以使用GCD提供的倒计时方法。如果是实现动画，需要高频率的绘制，可以使用CADisplayLink。</p>
 
       
     </div>
@@ -477,12 +505,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/dsc-extractor/" rel="tag"># dsc-extractor</a>
-          
-        </div>
-      
 
       
       
@@ -492,8 +514,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/25/iOS 开发/iOS-基础汇编知识/" rel="next" title="iOS 基础汇编知识">
-                <i class="fa fa-chevron-left"></i> iOS 基础汇编知识
+              <a href="/2018/08/15/iOS 开发/图文混排的四种方案/" rel="next" title="图文混排的四种方案">
+                <i class="fa fa-chevron-left"></i> 图文混排的四种方案
               </a>
             
           </div>
@@ -501,10 +523,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/25/iOS 逆向/导出iOS真机缓存的dyld-shared-cache-arm64文件/" rel="prev" title="导出iOS真机缓存的dyld_shared_cache_arm64文件">
-                导出iOS真机缓存的dyld_shared_cache_arm64文件 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -673,7 +691,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1前言"><span class="nav-number">1.</span> <span class="nav-text">1前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2编译"><span class="nav-number">2.</span> <span class="nav-text">2编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">记住，在+/endif /后面是还有一行空行的。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3使用"><span class="nav-number">4.</span> <span class="nav-text">3使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RunLoop"><span class="nav-number">1.</span> <span class="nav-text">RunLoop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RunLoop是什么"><span class="nav-number">2.</span> <span class="nav-text">RunLoop是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RunLoop和线程之间的关系"><span class="nav-number">3.</span> <span class="nav-text">RunLoop和线程之间的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RunLoopMode"><span class="nav-number">4.</span> <span class="nav-text">RunLoopMode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RunLoop的结构"><span class="nav-number">5.</span> <span class="nav-text">RunLoop的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSTimer"><span class="nav-number">6.</span> <span class="nav-text">NSTimer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CADisplayLink"><span class="nav-number">7.</span> <span class="nav-text">CADisplayLink</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GCD"><span class="nav-number">8.</span> <span class="nav-text">GCD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -837,9 +855,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lemon2well.top/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/';
-          this.page.identifier = '2018/07/25/iOS 逆向/dsc-extractor的编译和使用/';
-          this.page.title = 'dsc_extractor的编译和使用';
+          this.page.url = 'http://lemon2well.top/2018/08/20/iOS 开发/NSRunLoop与iOS中的倒计时（GCD-CADisplaylink-NSTimer）/';
+          this.page.identifier = '2018/08/20/iOS 开发/NSRunLoop与iOS中的倒计时（GCD-CADisplaylink-NSTimer）/';
+          this.page.title = 'NSRunLoop与iOS中的倒计时（GCD,CADisplaylink,NSTimer）';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lemon2well.disqus.com/embed.js';
