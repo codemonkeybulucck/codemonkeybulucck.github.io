@@ -290,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/22/iOS 开发/iOS收集Crash信息上报/">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/23/iOS 开发/Runloop黑魔法之复活APP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -309,7 +309,204 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/22/iOS 开发/iOS收集Crash信息上报/" itemprop="url">iOS收集Crash信息上报</a></h1>
+                <a class="post-title-link" href="/2018/08/23/iOS 开发/Runloop黑魔法之复活APP/" itemprop="url">Runloop黑魔法之复活APP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T10:18:42+08:00">
+                2018-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/23/iOS 开发/Runloop黑魔法之复活APP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/23/iOS 开发/Runloop黑魔法之复活APP/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  710
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Runloop黑魔法之复活APP"><a href="#Runloop黑魔法之复活APP" class="headerlink" title="Runloop黑魔法之复活APP"></a>Runloop黑魔法之复活APP</h1><p>看到这个标题是不是觉得很酷炫，但是我还要是解释一下标题是什么意思，以免有人说我标题党，我现在要做的就是当APP发生Crash的时候，不要让APP闪退，而是重新复活。</p>
+<blockquote>
+<p>换句话可以这么形容，把一个Crash信息吞掉，大家当没事发生过。</p>
+</blockquote>
+<p>说得这么牛批，这个东西有什么实际的用处呢？额，其实还真的没啥实际的用处，不过我们当发生异常信息的时候可以友好的弹一个框告诉用户当前发生了异常，是选择上传异常信息继续运行还是直接退出，当然继续运行依然会有Crash风险。</p>
+<p>接下来我们就来实现这么一个事情吧。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/23/iOS 开发/Runloop黑魔法之复活APP/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/22/iOS 开发/iOSCrash信息上报和处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/22/iOS 开发/iOSCrash信息上报和处理/" itemprop="url">iOSCrash信息上报和处理</a></h1>
         
 
         <div class="post-meta">
@@ -362,9 +559,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/22/iOS 开发/iOS收集Crash信息上报/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/22/iOS 开发/iOSCrash信息上报和处理/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/22/iOS 开发/iOS收集Crash信息上报/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/22/iOS 开发/iOSCrash信息上报和处理/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -386,7 +583,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,669
+                  2,672
                 </span>
               
 
@@ -425,7 +622,7 @@
       
         
           <p>在iOS开发中，最严重的bug估计就是应用奔溃，如果应用奔溃了，除了做好挨骂的准备，还需要冷静的下来去处理这个事情，接下来我们来看看需要做什么事情。</p>
-<h2 id="获取crash的四种方式"><a href="#获取crash的四种方式" class="headerlink" title="获取crash的四种方式"></a>获取crash的四种方式</h2><p>我们首先第一个事情就是要知道应用的奔溃信息是什么，这里有几种方式去获取奔溃信息。</p>
+<h2 id="获取crash信息"><a href="#获取crash信息" class="headerlink" title="获取crash信息"></a>获取crash信息</h2><p>我们首先第一个事情就是要知道应用的奔溃信息是什么，这里有几种方式去获取奔溃信息。</p>
 <ol>
 <li>使用Bugly，友盟等第三方SDK登入后台查看奔溃信息</li>
 <li>代码自动上传奔溃信息到服务器，然后通过恢复dSYM文件来查看奔溃信息</li>
@@ -434,7 +631,7 @@
 </ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/22/iOS 开发/iOS收集Crash信息上报/#more" rel="contents">
+            <a class="btn" href="/2018/08/22/iOS 开发/iOSCrash信息上报和处理/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2037,205 +2234,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/02/常见算法/swift实现栈和队列/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lemon">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Lemon's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/02/常见算法/swift实现栈和队列/" itemprop="url">swift实现栈和队列</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-02T23:58:37+08:00">
-                2018-08-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/常见算法/" itemprop="url" rel="index">
-                    <span itemprop="name">常见算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/02/常见算法/swift实现栈和队列/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/02/常见算法/swift实现栈和队列/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  276
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在swift中并没有内设的栈和队列，接下来我们通过数组来实现栈和队列</p>
-<p>栈的实现代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">protocol Stack &#123;</span><br><span class="line">    associatedtype Element</span><br><span class="line">    //是否为空</span><br><span class="line">    var isEmpty: Bool&#123; get &#125;</span><br><span class="line">    //栈的大小</span><br><span class="line">    var Size: Int&#123; get &#125;</span><br><span class="line">    //栈顶元素</span><br><span class="line">    var peek: Element? &#123; get &#125;</span><br><span class="line">    //入栈</span><br><span class="line">    mutating func push(_ newElement:Element)</span><br><span class="line">    //出栈</span><br><span class="line">    mutating func pop()-&gt;Element?</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">struct IntegerStack:Stack &#123;</span><br><span class="line">    typealias Element  = Int</span><br><span class="line">    private var stack = [Element]()</span><br><span class="line">    var isEmpty: Bool &#123;return stack.isEmpty&#125;</span><br><span class="line">    var Size: Int &#123;return stack.count&#125;</span><br><span class="line">    var peek: Int? &#123;return stack.last&#125;</span><br><span class="line">    mutating func push(_ newElement: Int) &#123;</span><br><span class="line">        self.stack.append(newElement)</span><br><span class="line">    &#125;</span><br><span class="line">    func pop() -&gt; Int? &#123;</span><br><span class="line">        return stack.last</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/02/常见算法/swift实现栈和队列/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-  
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2285,7 +2288,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

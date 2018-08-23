@@ -4,11 +4,29 @@
 
     
   <url>
-    <loc>http://lemon2well.top/2018/08/22/iOS%20%E5%BC%80%E5%8F%91/iOS%E6%94%B6%E9%9B%86Crash%E4%BF%A1%E6%81%AF%E4%B8%8A%E6%8A%A5/</loc>
-    <lastmod>2018-08-22T09:42:21.829Z</lastmod>
+    <loc>http://lemon2well.top/2018/08/23/iOS%20%E5%BC%80%E5%8F%91/Runloop%E9%BB%91%E9%AD%94%E6%B3%95%E4%B9%8B%E5%A4%8D%E6%B4%BBAPP/</loc>
+    <lastmod>2018-08-23T02:19:09.869Z</lastmod>
     <data>
         <display>
-        <title>iOS收集Crash信息上报</title>
+        <title>Runloop黑魔法之复活APP</title>
+        <pubTime>2018-08-23T02:18:42.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="iOS 开发" url="http://lemon2well.top/categories/iOS-%E5%BC%80%E5%8F%91/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://lemon2well.top/2018/08/22/iOS%20%E5%BC%80%E5%8F%91/iOSCrash%E4%BF%A1%E6%81%AF%E4%B8%8A%E6%8A%A5%E5%92%8C%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2018-08-23T01:46:25.542Z</lastmod>
+    <data>
+        <display>
+        <title>iOSCrash信息上报和处理</title>
         <pubTime>2018-08-22T09:41:36.000Z</pubTime>
         
          

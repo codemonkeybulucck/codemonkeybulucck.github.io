@@ -83,19 +83,17 @@
 
 
 
-<meta name="description" content="在iOS开发中，最严重的bug估计就是应用奔溃，如果应用奔溃了，除了做好挨骂的准备，还需要冷静的下来去处理这个事情，接下来我们来看看需要做什么事情。 获取crash的四种方式我们首先第一个事情就是要知道应用的奔溃信息是什么，这里有几种方式去获取奔溃信息。  使用Bugly，友盟等第三方SDK登入后台查看奔溃信息 代码自动上传奔溃信息到服务器，然后通过恢复dSYM文件来查看奔溃信息 通过使用当前发生">
+<meta name="description" content="Runloop黑魔法之复活APP看到这个标题是不是觉得很酷炫，但是我还要是解释一下标题是什么意思，以免有人说我标题党，我现在要做的就是当APP发生Crash的时候，不要让APP闪退，而是重新复活。  换句话可以这么形容，把一个Crash信息吞掉，大家当没事发生过。  说得这么牛批，这个东西有什么实际的用处呢？额，其实还真的没啥实际的用处，不过我们当发生异常信息的时候可以友好的弹一个框告诉用户当前发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS收集Crash信息上报">
-<meta property="og:url" content="http://lemon2well.top/2018/08/22/iOS 开发/iOS收集Crash信息上报/index.html">
+<meta property="og:title" content="Runloop黑魔法之复活APP">
+<meta property="og:url" content="http://lemon2well.top/2018/08/23/iOS 开发/Runloop黑魔法之复活APP/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="在iOS开发中，最严重的bug估计就是应用奔溃，如果应用奔溃了，除了做好挨骂的准备，还需要冷静的下来去处理这个事情，接下来我们来看看需要做什么事情。 获取crash的四种方式我们首先第一个事情就是要知道应用的奔溃信息是什么，这里有几种方式去获取奔溃信息。  使用Bugly，友盟等第三方SDK登入后台查看奔溃信息 代码自动上传奔溃信息到服务器，然后通过恢复dSYM文件来查看奔溃信息 通过使用当前发生">
+<meta property="og:description" content="Runloop黑魔法之复活APP看到这个标题是不是觉得很酷炫，但是我还要是解释一下标题是什么意思，以免有人说我标题党，我现在要做的就是当APP发生Crash的时候，不要让APP闪退，而是重新复活。  换句话可以这么形容，把一个Crash信息吞掉，大家当没事发生过。  说得这么牛批，这个东西有什么实际的用处呢？额，其实还真的没啥实际的用处，不过我们当发生异常信息的时候可以友好的弹一个框告诉用户当前发">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15349278888373.jpg">
-<meta property="og:updated_time" content="2018-08-22T09:42:21.829Z">
+<meta property="og:updated_time" content="2018-08-23T02:19:09.869Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS收集Crash信息上报">
-<meta name="twitter:description" content="在iOS开发中，最严重的bug估计就是应用奔溃，如果应用奔溃了，除了做好挨骂的准备，还需要冷静的下来去处理这个事情，接下来我们来看看需要做什么事情。 获取crash的四种方式我们首先第一个事情就是要知道应用的奔溃信息是什么，这里有几种方式去获取奔溃信息。  使用Bugly，友盟等第三方SDK登入后台查看奔溃信息 代码自动上传奔溃信息到服务器，然后通过恢复dSYM文件来查看奔溃信息 通过使用当前发生">
-<meta name="twitter:image" content="http://pcd17v2u0.bkt.clouddn.com/15349278888373.jpg">
+<meta name="twitter:title" content="Runloop黑魔法之复活APP">
+<meta name="twitter:description" content="Runloop黑魔法之复活APP看到这个标题是不是觉得很酷炫，但是我还要是解释一下标题是什么意思，以免有人说我标题党，我现在要做的就是当APP发生Crash的时候，不要让APP闪退，而是重新复活。  换句话可以这么形容，把一个Crash信息吞掉，大家当没事发生过。  说得这么牛批，这个东西有什么实际的用处呢？额，其实还真的没啥实际的用处，不过我们当发生异常信息的时候可以友好的弹一个框告诉用户当前发">
 
 
 
@@ -125,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://lemon2well.top/2018/08/22/iOS 开发/iOS收集Crash信息上报/"/>
+  <link rel="canonical" href="http://lemon2well.top/2018/08/23/iOS 开发/Runloop黑魔法之复活APP/"/>
 
 
 
 
 
-  <title>iOS收集Crash信息上报 | Lemon's blog</title>
+  <title>Runloop黑魔法之复活APP | Lemon's blog</title>
   
 
 
@@ -292,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/22/iOS 开发/iOS收集Crash信息上报/">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/23/iOS 开发/Runloop黑魔法之复活APP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -309,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS收集Crash信息上报</h1>
+          <h1 class="post-title" itemprop="name headline">Runloop黑魔法之复活APP</h1>
         
 
         <div class="post-meta">
@@ -321,8 +319,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T17:41:36+08:00">
-                2018-08-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-23T10:18:42+08:00">
+                2018-08-23
               </time>
             
 
@@ -362,9 +360,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/22/iOS 开发/iOS收集Crash信息上报/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/23/iOS 开发/Runloop黑魔法之复活APP/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/22/iOS 开发/iOS收集Crash信息上报/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/23/iOS 开发/Runloop黑魔法之复活APP/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -386,7 +384,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,669
+                  710
                 </span>
               
 
@@ -402,7 +400,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  11
+                  3
                 </span>
               
             </div>
@@ -423,67 +421,22 @@
       
 
       
-        <p>在iOS开发中，最严重的bug估计就是应用奔溃，如果应用奔溃了，除了做好挨骂的准备，还需要冷静的下来去处理这个事情，接下来我们来看看需要做什么事情。</p>
-<h2 id="获取crash的四种方式"><a href="#获取crash的四种方式" class="headerlink" title="获取crash的四种方式"></a>获取crash的四种方式</h2><p>我们首先第一个事情就是要知道应用的奔溃信息是什么，这里有几种方式去获取奔溃信息。</p>
-<ol>
-<li>使用Bugly，友盟等第三方SDK登入后台查看奔溃信息</li>
-<li>代码自动上传奔溃信息到服务器，然后通过恢复dSYM文件来查看奔溃信息</li>
-<li>通过使用当前发生应用奔溃的设备导出相关的奔溃信息</li>
-<li>如果是线上的应用，还可以通过itunesConnect来查看（非即时）</li>
-</ol>
+        <h1 id="Runloop黑魔法之复活APP"><a href="#Runloop黑魔法之复活APP" class="headerlink" title="Runloop黑魔法之复活APP"></a>Runloop黑魔法之复活APP</h1><p>看到这个标题是不是觉得很酷炫，但是我还要是解释一下标题是什么意思，以免有人说我标题党，我现在要做的就是当APP发生Crash的时候，不要让APP闪退，而是重新复活。</p>
+<blockquote>
+<p>换句话可以这么形容，把一个Crash信息吞掉，大家当没事发生过。</p>
+</blockquote>
+<p>说得这么牛批，这个东西有什么实际的用处呢？额，其实还真的没啥实际的用处，不过我们当发生异常信息的时候可以友好的弹一个框告诉用户当前发生了异常，是选择上传异常信息继续运行还是直接退出，当然继续运行依然会有Crash风险。</p>
+<p>接下来我们就来实现这么一个事情吧。</p>
 <a id="more"></a>
-<p>第一种集成第三方SDK的方案基本上不用我们管，只需要根据文档集成即可。<br>下面我们要讲的是第二种和第三种方案，第四种方案其实和第三种方案差不多，为什么要区分这两种方案呢，因为第二种方案中我们可以直接拿到奔溃的堆栈和具体信息，也就是可以看出在那段代码奔溃以及具体的奔溃内容。但是第三种和第四种方案我们拿到的奔溃信息是经过处理的奔溃信息，如下面所示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">Incident Identifier: 66BAB91F-07F7-4242-B8EF-8CC1771E5EF0</span><br><span class="line">CrashReporter Key:   bb6af27d5f29cc19a8df5dbdff702227fdb1232b</span><br><span class="line">Hardware Model:      iPhone8,1</span><br><span class="line">Process:             testImageSourceCode [25042]</span><br><span class="line">Path:                /private/var/containers/Bundle/Application/C8A371D9-3F19-4A17-A817-5FF35A40C8E7/testImageSourceCode.app/testImageSourceCode</span><br><span class="line">Identifier:          com.cmcc.enterprise-classID.onecardmultinumber.sdk</span><br><span class="line">Version:             1 (1.0)</span><br><span class="line">Code Type:           ARM-64 (Native)</span><br><span class="line">Role:                Foreground</span><br><span class="line">Parent Process:      launchd [1]</span><br><span class="line">Coalition:           com.cmcc.enterprise-classID.onecardmultinumber.sdk [8274]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Date/Time:           2018-08-22 15:35:09.3494 +0800</span><br><span class="line">Launch Time:         2018-08-22 15:35:03.3154 +0800</span><br><span class="line">OS Version:          iPhone OS 11.3.1 (15E302)</span><br><span class="line">Baseband Version:    4.56.00</span><br><span class="line">Report Version:      104</span><br><span class="line"></span><br><span class="line">Exception Type:  EXC_CRASH (SIGABRT)</span><br><span class="line">Exception Codes: 0x0000000000000000, 0x0000000000000000</span><br><span class="line">Exception Note:  EXC_CORPSE_NOTIFY</span><br><span class="line">Triggered by Thread:  0</span><br><span class="line"></span><br><span class="line">Application Specific Information:</span><br><span class="line">abort() called</span><br><span class="line"></span><br><span class="line">Filtered syslog:</span><br><span class="line">None found</span><br><span class="line"></span><br><span class="line">Last Exception Backtrace:</span><br><span class="line">0   CoreFoundation                	0x184152d8c __exceptionPreprocess + 228</span><br><span class="line">1   libobjc.A.dylib               	0x18330c5ec objc_exception_throw + 55</span><br><span class="line">2   CoreFoundation                	0x1840eb750 _CFThrowFormattedException + 111</span><br><span class="line">3   CoreFoundation                	0x18401b90c -[__NSArrayI objectAtIndex:] + 131</span><br><span class="line">4   testImageSourceCode           	0x100d55ee4 _hidden#0_ + 24292 (__hidden#4_:14)</span><br><span class="line">5   testImageSourceCode           	0x100d5ed6c _hidden#425_ + 60780 (__hidden#452_:131)</span><br><span class="line">6   UIKit                         	0x18de826c8 -[UIApplication sendAction:to:from:forEvent:] + 95</span><br><span class="line">7   UIKit                         	0x18dfa38a4 -[UIControl sendAction:to:forEvent:] + 79</span><br><span class="line">8   UIKit                         	0x18de8877c -[UIControl _sendActionsForEvents:withEvent:] + 439</span><br><span class="line">9   UIKit                         	0x18dfbe1dc -[UIControl touchesEnded:withEvent:] + 571</span><br><span class="line">10  UIKit                         	0x18df05a48 -[UIWindow _sendTouchesForEvent:] + 2427</span><br><span class="line">11  UIKit                         	0x18defa8f8 -[UIWindow sendEvent:] + 3159</span><br><span class="line">12  UIKit                         	0x18def9238 -[UIApplication sendEvent:] + 339</span><br><span class="line">13  UIKit                         	0x18e6dac0c __dispatchPreprocessedEventFromEventQueue + 2339</span><br><span class="line">14  UIKit                         	0x18e6dd1b8 __handleEventQueueInternal + 4743</span><br><span class="line">15  UIKit                         	0x18e6d6258 __handleHIDEventFetcherDrain + 151</span><br><span class="line">16  CoreFoundation                	0x1840fb404 __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__ + 23</span><br><span class="line">17  CoreFoundation                	0x1840fac2c __CFRunLoopDoSources0 + 275</span><br><span class="line">18  CoreFoundation                	0x1840f879c __CFRunLoopRun + 1203</span><br><span class="line">19  CoreFoundation                	0x184018da8 CFRunLoopRunSpecific + 551</span><br><span class="line">20  GraphicsServices              	0x185ffb020 GSEventRunModal + 99</span><br><span class="line">21  UIKit                         	0x18dff978c UIApplicationMain + 235</span><br><span class="line">22  testImageSourceCode           	0x100d75ca8 main + 154792 (__hidden#956_:14)</span><br><span class="line">23  libdyld.dylib                 	0x183aa9fc0 start + 3</span><br></pre></td></tr></table></figure>
-<p>看到上面的奔溃信息我们是一脸懵逼的，完全看不出是因为哪里的代码导致了错误，这个时候我们就要进行符号化，通过dSYM文件通过奔溃信息的地址找到源码中奔溃的地方。这个我们放到第三点来讲，下面我们先将第二个方案。</p>
-<h2 id="收集Crash信息"><a href="#收集Crash信息" class="headerlink" title="收集Crash信息"></a>收集Crash信息</h2><p>在iOS中，系统给我们提供了<code>NSException</code>这个类来帮助我们收集异常信息。</p>
-<blockquote>
-<p>NSException is used to implement exception handling and contains information about an exception — Apple Documentation.</p>
-</blockquote>
-<p>我们可以看一下这个类里面都包含什么属性和方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@interface NSException : NSObject &lt;NSCopying, NSCoding&gt; &#123;</span><br><span class="line">    @private</span><br><span class="line">    NSString		*name;</span><br><span class="line">    NSString		*reason;</span><br><span class="line">    NSDictionary	*userInfo;</span><br><span class="line">    id			reserved;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (NSException *)exceptionWithName:(NSExceptionName)name reason:(nullable NSString *)reason userInfo:(nullable NSDictionary *)userInfo;</span><br><span class="line">- (instancetype)initWithName:(NSExceptionName)aName reason:(nullable NSString *)aReason userInfo:(nullable NSDictionary *)aUserInfo NS_DESIGNATED_INITIALIZER;</span><br><span class="line"></span><br><span class="line">@property (readonly, copy) NSExceptionName name;</span><br><span class="line">@property (nullable, readonly, copy) NSString *reason;</span><br><span class="line">@property (nullable, readonly, copy) NSDictionary *userInfo;</span><br><span class="line"></span><br><span class="line">@property (readonly, copy) NSArray&lt;NSNumber *&gt; *callStackReturnAddresses API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));</span><br><span class="line">@property (readonly, copy) NSArray&lt;NSString *&gt; *callStackSymbols API_AVAILABLE(macos(10.6), ios(4.0), watchos(2.0), tvos(9.0));</span><br><span class="line"></span><br><span class="line">- (void)raise;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<p>我们来看看几个比较重要的属性和方法：<br>例如我们碰到一个<code>name: @&quot;NSRangeException&quot; - reason: @&quot;*** -[__NSArrayI objectAtIndex:]: index 3 beyond bounds [0 .. 1]&quot;</code>这样的错误</p>
-<blockquote>
-<ol>
-<li>name : exception的名字，在上面中就是NSRangeException</li>
-<li>reason : exception的原因，这是我们修复的最主要的提示。也就是上面的[__NSArrayI objectAtIndex:]: index 3 beyond bounds [0 .. 1]。</li>
-<li>userInfo : 其他信息，一般用于自定义的时候传递一些其他的信息。</li>
-<li>callStackSymbols : 这个产生Exception的调用栈，从下到上。</li>
-<li>raise方法，这个方法就是让系统产生Exception，例如我们的APP如果检测到正在被其他不怀好意的人调试的时候，可以创建一个NSException的方法，然后调用raise直接闪退，不过他也有可能hook了这个方法，这里就不多说了。</li>
-</ol>
-</blockquote>
-<p>既然我们知道了有这么一个类，那我们如何来捕捉系统异常呢，Crash分为两种，一种是由EXC_BAD_ACCESS引起的，原因是访问了不属于本进程的内存地址，有可能是访问已被释放的内存；另一种是未被捕获的Objective-C异常（NSException），导致程序向自身发送了SIGABRT信号而崩溃。其实对于未捕获的Objective-C异常，我们是有办法将它记录下来的。</p>
-<p>我们先说第一种，第一种就是我们上面所说的Exception，系统提供了一个</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FOUNDATION_EXPORT void NSSetUncaughtExceptionHandler(NSUncaughtExceptionHandler * _Nullable);</span><br></pre></td></tr></table></figure>
-<p>方法来捕获异常，这个方法一般会在程序启动的时候就调用一次，这样才能保证捕获所有的异常。<br>在APPDelegate的didFinishLaunch方法中 调用  <code>NSSetUncaughtExceptionHandler(&amp;CrashExceptionHandler);</code><br>然后增加一个方法的实现。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">void CrashExceptionHandler(NSException *exception)&#123;</span><br><span class="line">    NSArray *callStack = [exception callStackSymbols];</span><br><span class="line">    NSString *reson = [exception reason];</span><br><span class="line">    NSString *name = [exception name];</span><br><span class="line">   //TODO: 保存奔溃信息到本地，下次启动的时候上传到服务器</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>接下来我们来看看第二种异常，这种异常通过上面的方法无法捕捉，但是系统会发送一个信号，我们可以通过注册对应的Signal信息来监听是否捕捉到系统发出的异常信号。</p>
-<p>同样是在APPDelaget中加入以下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">signal(SIGABRT, SignalExceptionHandler);</span><br><span class="line">signal(SIGILL, SignalExceptionHandler);</span><br><span class="line">signal(SIGSEGV, SignalExceptionHandler);</span><br><span class="line">signal(SIGFPE, SignalExceptionHandler);</span><br><span class="line">signal(SIGBUS, SignalExceptionHandler);</span><br><span class="line">signal(SIGPIPE, SignalExceptionHandler);</span><br></pre></td></tr></table></figure>
-<p>然后实现 <code>SignalExceptionHandler</code>方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">void SignalExceptionHandler(int signal)&#123;</span><br><span class="line">    NSArray *callStack = [LMExceptionHandler backtrace];</span><br><span class="line">    NSLog(@&quot;信号捕获崩溃，堆栈信息：%@&quot;,callStack);</span><br><span class="line">    NSString *name = LMSignalException;</span><br><span class="line">    NSString *reason = [NSString stringWithFormat:@&quot;signal %d was raised&quot;,signal];</span><br><span class="line">    //TODO: 保存信息上传到本地</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (NSArray *)backtrace</span><br><span class="line">&#123;</span><br><span class="line">    void* callstack[128];</span><br><span class="line">    int frames = backtrace(callstack, 128);</span><br><span class="line">    char **strs = backtrace_symbols(callstack, frames);</span><br><span class="line">    </span><br><span class="line">    NSMutableArray *backtrace = [NSMutableArray arrayWithCapacity:frames];</span><br><span class="line">    for (int i = 0; i &lt; frames; i++) &#123;</span><br><span class="line">        [backtrace addObject:[NSString stringWithUTF8String:strs[i]]];</span><br><span class="line">    &#125;</span><br><span class="line">    free(strs);</span><br><span class="line">    </span><br><span class="line">    return backtrace;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过以上的方法我们已经可以捕获到系统的crash信息，从而根据信息修复相关的bug。</p>
-<h2 id="通过Xcode查看Crash信息"><a href="#通过Xcode查看Crash信息" class="headerlink" title="通过Xcode查看Crash信息"></a>通过Xcode查看Crash信息</h2><p>如果奔溃发生在我们测试的设备上面，那么奔溃信息是保存到我们手机本地的，这个时候我们可以通过xcode来查看。</p>
-<p>手机连接电脑，然后打开Xcode，点击Window-&gt;Devices And Simulators-&gt;左侧选择对应的设备，然后右侧点击View Device Logs，然后就可以看到以下的奔溃信息，你可以在搜索出对应的APP也可以根据时间来排序找到对应的那一条奔溃信息。</p>
-<p><img src="http://pcd17v2u0.bkt.clouddn.com/15349278888373.jpg" alt=""></p>
-<p>如上图所示我们其实是看不出具体的错误信息以及堆栈信息的，根据这些我们很难再代码中找到导致奔溃的代码在哪里。接下来我们就要开始通过dSYM文件找到对应的堆栈。</p>
-<h2 id="dSYM"><a href="#dSYM" class="headerlink" title="dSYM"></a>dSYM</h2><p>进行崩溃分析，首先要弄懂一个概念，就是符号集。</p>
-<blockquote>
-<p>符号集是我们对ipa文件进行打包之后，和.app文件同级的后缀名为.dSYM的文件，这个文件必须使用Xcode进行打包才有。<br>每一个.dSYM文件都有一个UUID，和.app文件中的UUID对应，代表着是一个应用。而.dSYM文件中每一条崩溃信息也有一个单独的UUID，用来和程序的UUID进行校对。<br>我们如果不使用.dSYM文件获取到的崩溃信息都是不准确的。<br>符号集中存储着文件名、方法名、行号的信息，是和可执行文件的16进制函数地址对应的，通过分析崩溃的.Crash文件可以准确知道具体的崩溃信息。<br>我们每次Archive一个包之后，都会随之生成一个dSYM文件。每次发布一个版本，我们都需要备份这个文件，以方便以后的调试。进行崩溃信息符号化的时候，必须使用当前应用打包的电脑所生成的dSYM文件，其他电脑生成的文件可能会导致分析不准确的问题。</p>
-</blockquote>
-<p>当程序崩溃的时候，我们可以获得到崩溃的错误堆栈，但是这个错误堆栈都是0x开头的16进制地址，需要我们使用Xcode自带的atos工具或者<a href="https://github.com/answer-huang/dSYMTools" target="_blank" rel="noopener">dSYMTools</a>来将.Crash和.dSYM文件进行符号化，就可以得到详细崩溃的信息。</p>
-<p>那我们如何得到dSYM文件呢</p>
-<blockquote>
-<p>先打开Xcode，Windows-&gt;Organize-&gt;找到对应的app包，然后右键-&gt;Show in finder,找到appName. xcarchive-&gt;显示包内容-&gt;把dSYMs拷贝出来(或者就在里面操作)。</p>
-</blockquote>
-<p>我们可以新建一个CrashFolder的文件夹，然后将上面的dSYMs文件拷贝到该文件夹中，然后我们还需要找到上面的Crash信息，然后右键导出该Crash信息，同样拷贝到CrashFolder文件夹中，接下来我们就可以利用atos来将Crash文件中的地址还原为代码。</p>
-<p>atos的基本用法为：</p>
-<p><code>$ atos -arch &lt;Binary Architecture&gt; -o &lt;Path to dSYM file&gt;/Contents/Resources/DWARF/&lt;binary image name&gt; -l &lt;load address&gt; &lt;address to symbolicate&gt;</code></p>
-<p>在我本地中，我执行的是：<code>atos -arch arm64 -o testImageSourceCode.app.dSYM/Contents/Resources/DWARF/testImageSourceCode -l 0x100d50000 0x100d55ee4</code></p>
-<p>在上述命令中，需要解释的可能就是-l后面的两个参数，第一个参数是程序的基地址，也就是在crash文件中，在 <code>Binary Images:</code>下面的第一行中的第一个以0X开头的地址，然后第二个参数就是Crash文件中错误信息的地址，执行完上述命令之后输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-[LMTool test] (in testImageSourceCode) (LMTool.m:15)</span><br></pre></td></tr></table></figure>
-<p>字符串，该字符串就是对应代码中的方法以及对应的文件里面的行数。</p>
-<p>另外一个方法就是使用一个第三方工具<a href="https://github.com/answer-huang/dSYMTools" target="_blank" rel="noopener">dSYMTools</a>这里的用法和我们上述的差不多，只不过那里是可视化工具。</p>
-<p>完整的<a href="https://github.com/codemonkeybulucck/CrashCatchDemo" target="_blank" rel="noopener">demo</a>已经上传到Github。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>大家都知道，我们的APP能随时的处理事件就是因为有Runloop的存在，Runloop顾名思义就是一个环，不断的跑，并且Runloop是事件驱动的，也就是说没有事情做得时候就休眠，当有事情做的时候就做事情。</p>
+<p>Runloop实际上是一个对象，这个对象管理了其所需要的消息和事件，并且提供了一个入口函数。线程执行了该函数之后，就会一直处于Runloop的内部，而Runloop的内部就会一直处于接受消息-&gt;处理-&gt;等待-&gt;接受消息这样的循环中。直到这个循环结束，线程才会退出。</p>
+<p>想想如果我们的APP接受到Exception消息的时候，我们先获得当前的Runloop，然后获取所有的mode，自行创建一个死循环，让runloop在里面执行不同的mode，这样就相当于让Runloop起死回生了，这样APP也复活了。</p>
+<h2 id="如何实现"><a href="#如何实现" class="headerlink" title="如何实现"></a>如何实现</h2><p>在我前面写得这一篇<a href="http://lemon2well.top/2018/08/22/iOS%20%E5%BC%80%E5%8F%91/iOS%E6%94%B6%E9%9B%86Crash%E4%BF%A1%E6%81%AF%E4%B8%8A%E6%8A%A5/">iOSCrash信息上报和处理</a>中我们已经实现了监听Exception事件，所以我们在监听到该事件之后插入以下代码即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//获得当前的runloop并且重新启动</span><br><span class="line">   CFRunLoopRef runloop = CFRunLoopGetCurrent();</span><br><span class="line">   NSArray *modes = CFBridgingRelease(CFRunLoopCopyAllModes(runloop));</span><br><span class="line">   while (!self.isExit) &#123;</span><br><span class="line">       for (NSString *mode in modes) &#123;</span><br><span class="line">           CFRunLoopRunInMode((CFStringRef)mode, 0.001, false);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>我们来逐行看一下上面的代码，首先我们获取到当前的Runloop，然后我们获取到当前Runloop的所有mode，然后我们创建一个循环，在里面不断的跑所有的mode，这样就实现了APP的复活。</p>
+<p><a href="https://github.com/codemonkeybulucck/RunloopResurgenceAPP" target="_blank" rel="noopener">这里</a>是完整的demo</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Runloop是个好东西，它能做的事情远远超出我们的想像，虽然我们开发中很少直接去接触Runloop，但是它却起着无比重要的作用，所以下面提供一些关于Runloop的资料介绍：</p>
+<p><a href="https://v.youku.com/v_show/id_XODgxODkzODI0.html" target="_blank" rel="noopener">sunnyxx线下分享Runloop</a><br><a href="https://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="noopener">ibireme深入理解Runloop</a></p>
 
       
     </div>
@@ -519,8 +472,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/20/iOS 开发/NSRunLoop与iOS中的倒计时（GCD-CADisplaylink-NSTimer）/" rel="next" title="NSRunLoop与iOS中的倒计时（GCD,CADisplaylink,NSTimer）">
-                <i class="fa fa-chevron-left"></i> NSRunLoop与iOS中的倒计时（GCD,CADisplaylink,NSTimer）
+              <a href="/2018/08/22/iOS 开发/iOSCrash信息上报和处理/" rel="next" title="iOSCrash信息上报和处理">
+                <i class="fa fa-chevron-left"></i> iOSCrash信息上报和处理
               </a>
             
           </div>
@@ -618,7 +571,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -696,7 +649,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取crash的四种方式"><span class="nav-number">1.</span> <span class="nav-text">获取crash的四种方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#收集Crash信息"><span class="nav-number">2.</span> <span class="nav-text">收集Crash信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过Xcode查看Crash信息"><span class="nav-number">3.</span> <span class="nav-text">通过Xcode查看Crash信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dSYM"><span class="nav-number">4.</span> <span class="nav-text">dSYM</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Runloop黑魔法之复活APP"><span class="nav-number">1.</span> <span class="nav-text">Runloop黑魔法之复活APP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何实现"><span class="nav-number">1.2.</span> <span class="nav-text">如何实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -860,9 +813,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lemon2well.top/2018/08/22/iOS 开发/iOS收集Crash信息上报/';
-          this.page.identifier = '2018/08/22/iOS 开发/iOS收集Crash信息上报/';
-          this.page.title = 'iOS收集Crash信息上报';
+          this.page.url = 'http://lemon2well.top/2018/08/23/iOS 开发/Runloop黑魔法之复活APP/';
+          this.page.identifier = '2018/08/23/iOS 开发/Runloop黑魔法之复活APP/';
+          this.page.title = 'Runloop黑魔法之复活APP';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lemon2well.disqus.com/embed.js';
