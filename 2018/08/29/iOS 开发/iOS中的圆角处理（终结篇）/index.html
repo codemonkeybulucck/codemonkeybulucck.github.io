@@ -83,17 +83,21 @@
 
 
 
-<meta name="description" content="iOS Developer | 拥抱变化 | 🍋😊">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://lemon2well.top/categories/index.html">
+<meta name="description" content="前言在开发中，我们经常用到圆角的处理，圆角看起来会比直角更加美观和柔美。但是设置圆角往往会带来一定的性能损耗，损耗的来源主要由于大量的离屏渲染，接下来我们就来讲一下如果实现高性能的圆角。我们下面来看以下几种设置圆角的方式以及它们对性能的影响。 1.CornerRadius+masksToBounds第一种方式就是我们最常用的设置圆角的方式，我们首先来看看cornerRadius的定义是什么：  T">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS中的圆角处理（终结篇）">
+<meta property="og:url" content="http://lemon2well.top/2018/08/29/iOS 开发/iOS中的圆角处理（终结篇）/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="iOS Developer | 拥抱变化 | 🍋😊">
+<meta property="og:description" content="前言在开发中，我们经常用到圆角的处理，圆角看起来会比直角更加美观和柔美。但是设置圆角往往会带来一定的性能损耗，损耗的来源主要由于大量的离屏渲染，接下来我们就来讲一下如果实现高性能的圆角。我们下面来看以下几种设置圆角的方式以及它们对性能的影响。 1.CornerRadius+masksToBounds第一种方式就是我们最常用的设置圆角的方式，我们首先来看看cornerRadius的定义是什么：  T">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-25T03:14:47.355Z">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/sim.png">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/sim2.png">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/sim3.png">
+<meta property="og:updated_time" content="2018-08-29T09:19:03.468Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
-<meta name="twitter:description" content="iOS Developer | 拥抱变化 | 🍋😊">
+<meta name="twitter:title" content="iOS中的圆角处理（终结篇）">
+<meta name="twitter:description" content="前言在开发中，我们经常用到圆角的处理，圆角看起来会比直角更加美观和柔美。但是设置圆角往往会带来一定的性能损耗，损耗的来源主要由于大量的离屏渲染，接下来我们就来讲一下如果实现高性能的圆角。我们下面来看以下几种设置圆角的方式以及它们对性能的影响。 1.CornerRadius+masksToBounds第一种方式就是我们最常用的设置圆角的方式，我们首先来看看cornerRadius的定义是什么：  T">
+<meta name="twitter:image" content="http://pcd17v2u0.bkt.clouddn.com/sim.png">
 
 
 
@@ -123,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://lemon2well.top/categories/"/>
+  <link rel="canonical" href="http://lemon2well.top/2018/08/29/iOS 开发/iOS中的圆角处理（终结篇）/"/>
 
 
 
 
 
-  <title>分类 | Lemon's blog</title>
+  <title>iOS中的圆角处理（终结篇） | Lemon's blog</title>
   
 
 
@@ -278,40 +282,233 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/29/iOS 开发/iOS中的圆角处理（终结篇）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">分类</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="category-all-page">
-            <div class="category-all-title">
-                目前共计 4 个分类
+          <h1 class="post-title" itemprop="name headline">iOS中的圆角处理（终结篇）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-29T17:18:46+08:00">
+                2018-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/29/iOS 开发/iOS中的圆角处理（终结篇）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/29/iOS 开发/iOS中的圆角处理（终结篇）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,760
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
             </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS-开发/">iOS 开发</a><span class="category-list-count">20</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/iOS-逆向/">iOS 逆向</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/其他技术/">其他技术</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/常见算法/">常见算法</a><span class="category-list-count">9</span></li></ul>
-            </div>
-          </div>
-        
-      </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在开发中，我们经常用到圆角的处理，圆角看起来会比直角更加美观和柔美。但是设置圆角往往会带来一定的性能损耗，损耗的来源主要由于大量的离屏渲染，接下来我们就来讲一下如果实现高性能的圆角。我们下面来看以下几种设置圆角的方式以及它们对性能的影响。</p>
+<h2 id="1-CornerRadius-masksToBounds"><a href="#1-CornerRadius-masksToBounds" class="headerlink" title="1.CornerRadius+masksToBounds"></a>1.CornerRadius+masksToBounds</h2><p>第一种方式就是我们最常用的设置圆角的方式，我们首先来看看<code>cornerRadius</code>的定义是什么：</p>
+<blockquote>
+<p>The radius to use when drawing rounded corners for the layer’s background. Animatable.<br>Setting the radius to a value greater than 0.0 causes the layer to begin drawing rounded corners on its background. By default, the corner radius does not apply to the image in the layer’s contents property; it applies only to the background color and border of the layer. However, setting the masksToBounds property to YES causes the content to be clipped to the rounded corners.<br>The default value of this property is 0.0.</p>
+</blockquote>
+<a id="more"></a>
+<p>通过上面的解释我们可以看到cornerRadius只是对view的背景颜色和边框起作用，对于一些像ImageView以及Label等含有内部子视图的就不起作用了，这个时候我们往往还要添下下面这一句来让label生成一个适配圆角的剪切蒙版，该蒙版与label的边界相匹配，这样就达到了圆角的效果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">label.layer.masksToBounds = YES;</span><br></pre></td></tr></table></figure>
+<p>但是这样就会导致另外一个问题，离屏渲染。前面我们已经说了大量的离屏渲染会导致性能下降，最直观的感受就是如果在一个tableView中有大量的离屏渲染，就会导致FPS下降导致掉帧，界面看起来卡顿。</p>
+<h3 id="1-1-性能影响"><a href="#1-1-性能影响" class="headerlink" title="1.1 性能影响"></a>1.1 性能影响</h3><p>我们通过模拟器的 <font color="#dd0000">Color-Off-screen-Render</font>可以看到那个元素产生了离屏渲染了，和很多人说的不一样，不可以统筹的说<font color="#dd0000">创建圆角是产生离屏渲染的原因</font>。<br>正确的来说：</p>
+<font color="#dd0000"><br>view.layer.cornerRadius = 5;<br>view.layer.maskToBounds = YES;<br></font><br>这两句代码合在一起才是产生离屏渲染的原因。如下图所示，每个cell的第一和第二个的ImageView都是执行了上面的两句代码，产生了离屏幕渲染，而第三个棕色的圆形则是一个view，代码里面仅使用了<code>view.layer.cornerRadius</code>，所以没有产生离屏渲染。<br><br><img src="http://pcd17v2u0.bkt.clouddn.com/sim.png" alt="si"><br><br>如上所示，当一个tableView的离屏渲染达到了44个的时候，FPS下降到了35左右，性能下降得很厉害。所以如果一个界面上需要有很多的圆角的时候，这种方式不可取。<br><br>## 2. CAShapeLayer + UIBezierPath<br><br>这种方式简直是<font color="#dd0000">噩梦</font>，我们先来看代码：<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> CAShapeLayer *mask = [CAShapeLayer new];</span><br><span class="line">    mask.path = [UIBezierPath bezierPathWithRoundedRect:imageView.bounds cornerRadius:10].CGPath;</span><br><span class="line">imageView.layer.mask = mask;</span><br></pre></td></tr></table></figure><br><br>我们首先创建一个mask，然后通过贝塞尔曲线覆盖到原来的imageView上面，几行代码搞定。<br><br>### 2.1 性能影响<br><br>然后我们来看看界面是否会产生离屏渲染。<br><br><img src="http://pcd17v2u0.bkt.clouddn.com/sim2.png" alt="si"><br><br>如果不看一下真的吓一跳，全部的元素都产生了离屏渲染，还不如第一种方式。然后我们看一下FPS是10，其实都不用看FPS，直接页面上都能看出来了，卡到怀疑人生。<br><br>上面的方式是创建子控件的时候直接添加mask，还有一种方式是在 <code>-(void)drawRect:(CGRect)rect</code>里面添加mask，这样方式更加糟糕，因为不恰当的使用这个方法会导致内存暴增。举个例子，iPhone6 上与屏幕等大的 UIView，即使重写一个空的 drawRect 方法，它也至少占用 750 <em> 1134 </em> 4 字节 ≈ 3.4 Mb 的内存。在 <a href="http://bihongbo.com/2016/01/03/memoryGhostdrawRect/" target="_blank" rel="noopener">内存恶鬼drawRect</a> 及其后续中，作者详细介绍了其中原理，据他测试，在 iPhone6 上空的、与屏幕等大的视图重写 drawRect 方法会消耗 5.2 Mb 内存。总之，能避免重写 drawRect 方法就尽可能避免。<br><br>## 3. Core Graphics<br>我们知道UIView其实是由CALayer和UIResponder组成，一个负责显示，一个负责响应。但是CALayer也只是一个普通的类，它并不能直接渲染到屏幕上，我们看到屏幕上面的东西其实也只是一张张图片，那为什么我们可以看到CALayer的内容呢。因为CALayer有一个content的属性，该属性可以传一个id类型的对象，当你传的对象为CGImage的时候，才会显示出来。<br><br>那通过Core Graphics 我们可以画出一个具有圆角的图片，然后添加到layer上面。<br><br>不过UIVIew和UIImageView的实现方式不一样，UIView的方式是创建一个空白的图片，然后插入到视图的最下面。而UIImageView是将在原来Image的基础上重新绘制一张带有圆角的图片，然后赋值给ImageView。<br><br>以下是关键代码：<br><br>UIVIew:<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">- (UIImage *)lm_drawRectWithRoundedCorner:(CGFloat)radius</span><br><span class="line">                              borderWidth:(CGFloat)borderWidth</span><br><span class="line">                              borderColor:(UIColor *)borderColor</span><br><span class="line">                          backGroundColor:(UIColor*)bgColor&#123;</span><br><span class="line">    CGSize size = self.bounds.size;</span><br><span class="line">    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);</span><br><span class="line">    CGContextRef contextRef =  UIGraphicsGetCurrentContext();</span><br><span class="line">    </span><br><span class="line">    CGContextSetLineWidth(contextRef, borderWidth);</span><br><span class="line">    CGContextSetStrokeColorWithColor(contextRef, borderColor.CGColor);</span><br><span class="line">    CGContextSetFillColorWithColor(contextRef, bgColor.CGColor);</span><br><span class="line">    </span><br><span class="line">    CGFloat halfBorderWidth = borderWidth / 2.0;</span><br><span class="line">    CGFloat width = size.width;</span><br><span class="line">    CGFloat height = size.height;</span><br><span class="line">    </span><br><span class="line">    CGContextMoveToPoint(contextRef, width - halfBorderWidth, radius + halfBorderWidth);</span><br><span class="line">    CGContextAddArcToPoint(contextRef, width - halfBorderWidth, height - halfBorderWidth, width - radius - halfBorderWidth, height - halfBorderWidth, radius);  // 右下角角度</span><br><span class="line">    CGContextAddArcToPoint(contextRef, halfBorderWidth, height - halfBorderWidth, halfBorderWidth, height - radius - halfBorderWidth, radius); // 左下角角度</span><br><span class="line">    CGContextAddArcToPoint(contextRef, halfBorderWidth, halfBorderWidth, width - halfBorderWidth, halfBorderWidth, radius); // 左上角</span><br><span class="line">    CGContextAddArcToPoint(contextRef, width - halfBorderWidth, halfBorderWidth, width - halfBorderWidth, radius + halfBorderWidth, radius); // 右上角</span><br><span class="line">    CGContextDrawPath(contextRef, kCGPathFillStroke);</span><br><span class="line">    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();</span><br><span class="line">    UIGraphicsEndImageContext();</span><br><span class="line">    return image;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>————<br><br>UIImageVIew:<br><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (UIImage *)lm_drawRectWithRoundedCorner:(CGFloat)radius</span><br><span class="line">                                     size:(CGSize)size&#123;</span><br><span class="line">    </span><br><span class="line">    CGRect rect = CGRectMake(0, 0, size.width, size.height);</span><br><span class="line">    </span><br><span class="line">    UIGraphicsBeginImageContextWithOptions(rect.size, false, [UIScreen mainScreen].scale);</span><br><span class="line">    CGContextRef context = UIGraphicsGetCurrentContext();</span><br><span class="line">    </span><br><span class="line">    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(radius, radius)];</span><br><span class="line">    CGContextAddPath(context, path.CGPath);</span><br><span class="line">    </span><br><span class="line">    CGContextClip(context);</span><br><span class="line">    </span><br><span class="line">    [self drawInRect:rect];</span><br><span class="line">    CGContextDrawPath(context, kCGPathFillStroke);</span><br><span class="line">    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();</span><br><span class="line">    UIGraphicsEndImageContext();</span><br><span class="line">    return  image;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>### 3.1 性能影响<br><br><img src="http://pcd17v2u0.bkt.clouddn.com/sim3.png" alt="si"><br><br><br>从上面的图片我们可以看出，设置圆角已经没有离屏渲染了，通过Core Animation可以看出FPS也回到60左右，界面也没有卡顿了。<br><br><font color="#dd0000">注意：即使我们使用了这种方式，我们还是要谨慎直接设置view.backGroundColor，因为我们没有设置maskToBounds属性，所以以这样的方式设置了背景颜色依然会导致没有圆角效果。<br>如果想要背景颜色，可以在画圆角图片的时候改变一下backGroundColor。</font>
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过上面的分析，我们得出以下的结论：</p>
+<ol>
+<li>layer.cornerRadius不会触发离屏渲染，该属性只是对边框和背景颜色起作用，适用于内部没有其他控件的view。</li>
+<li>CAShapeLayer+UIBezierPath会触发离屏渲染。</li>
+<li>最好的方式就是使用Core Graphics的方式绘制圆角图片。</li>
+<li>当然，还是那句话，根据场景来使用，如果界面中圆角的地方不多，第一种方式是最简单快捷，效率最高的。如果用到的圆角很多，那还是使用Core Graphics的方式把。</li>
+</ol>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>本文章的代码已经放到Github，需要的可以自取。<a href="/Users/lemon/Desktop/练习/source Code/testImageSourceCode/CornerViewDemo">CornerViewDemo</a></p>
+
       
     </div>
     
     
     
+
+    <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------评论系统采用disqus，<i class="fa fa-paw"></i>如果看不到需要翻墙-------------</div>
+    
+</div>
+
+  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/23/iOS 开发/Runloop黑魔法之复活APP/" rel="next" title="Runloop黑魔法之复活APP">
+                <i class="fa fa-chevron-left"></i> Runloop黑魔法之复活APP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -354,8 +551,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -442,6 +648,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-CornerRadius-masksToBounds"><span class="nav-number">2.</span> <span class="nav-text">1.CornerRadius+masksToBounds</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-性能影响"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 性能影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -600,9 +822,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lemon2well.top/categories/index.html';
-          this.page.identifier = 'categories/index.html';
-          this.page.title = '分类';
+          this.page.url = 'http://lemon2well.top/2018/08/29/iOS 开发/iOS中的圆角处理（终结篇）/';
+          this.page.identifier = '2018/08/29/iOS 开发/iOS中的圆角处理（终结篇）/';
+          this.page.title = 'iOS中的圆角处理（终结篇）';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lemon2well.disqus.com/embed.js';
