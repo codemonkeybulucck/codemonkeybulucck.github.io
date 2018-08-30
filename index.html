@@ -386,7 +386,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,763
+                  1,753
                 </span>
               
 
@@ -424,8 +424,8 @@
 
       
         
-          <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h2><p>在开发中，我们经常用到圆角的处理，圆角看起来会比直角更加美观和柔美。但是设置圆角往往会带来一定的性能损耗，损耗的来源主要由于大量的离屏渲染，接下来我们就来讲一下如果实现高性能的圆角。我们下面来看以下几种设置圆角的方式以及它们对性能的影响。</p>
-<h2 id="2-CornerRadius-masksToBounds"><a href="#2-CornerRadius-masksToBounds" class="headerlink" title="2.CornerRadius+masksToBounds"></a>2.CornerRadius+masksToBounds</h2><p>第一种方式就是我们最常用的设置圆角的方式，我们首先来看看<code>cornerRadius</code>的定义是什么：</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在开发中，我们经常用到圆角的处理，圆角看起来会比直角更加美观和柔美。但是设置圆角往往会带来一定的性能损耗，损耗的来源主要由于大量的离屏渲染，接下来我们就来讲一下如果实现高性能的圆角。我们下面来看以下几种设置圆角的方式以及它们对性能的影响。</p>
+<h2 id="CornerRadius-masksToBounds"><a href="#CornerRadius-masksToBounds" class="headerlink" title="CornerRadius+masksToBounds"></a>CornerRadius+masksToBounds</h2><p>第一种方式就是我们最常用的设置圆角的方式，我们首先来看看<code>cornerRadius</code>的定义是什么：</p>
 <blockquote>
 <p>The radius to use when drawing rounded corners for the layer’s background. Animatable.<br>Setting the radius to a value greater than 0.0 causes the layer to begin drawing rounded corners on its background. By default, the corner radius does not apply to the image in the layer’s contents property; it applies only to the background color and border of the layer. However, setting the masksToBounds property to YES causes the content to be clipped to the rounded corners.<br>The default value of this property is 0.0.</p>
 </blockquote>
