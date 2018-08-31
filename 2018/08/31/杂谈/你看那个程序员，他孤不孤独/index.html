@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="AMR,wav,音频开发," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -83,18 +83,17 @@
 
 
 
-<meta name="description" content="由于公司正在做声纹方面的开发，所以需要对语音数据做压缩，目前想到了三种压缩方式，1是AMR，2是Speex,3是Opus,这里先说第一种方式，在iOS4.0之前是可以进行amr格式的录音的，后来苹果取消了这个声音格式，但是可以使用opencore-amr来将wav格式转换为amr格式。">
-<meta name="keywords" content="AMR,wav,音频开发">
+<meta name="description" content="今天是星期五，对于大多数人来说估计已经在琢磨着周末去哪里浪了，或者周末在家睡个天昏地暗，享受一下这难得不用早起挤车挤地铁的周末。 龙哥看看手表，凌晨四点整，刚吃完酸菜牛肉面的龙哥打算下班回家。这已经是龙哥这周第三次加班到凌晨了，只有星期二的时候休息了一天没加班，因为项目快要上线了，估计周末还得在办公室度过。 作为“资深”程序员的龙哥虽然才工作三年多，但是已经有五年的工作经验了。如果是同行的话估计会">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用opencore_amr实现wav转amr(8khz,16khz)">
-<meta property="og:url" content="http://lemon2well.top/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/index.html">
+<meta property="og:title" content="你看那个程序员，他孤不孤独">
+<meta property="og:url" content="http://lemon2well.top/2018/08/31/杂谈/你看那个程序员，他孤不孤独/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="由于公司正在做声纹方面的开发，所以需要对语音数据做压缩，目前想到了三种压缩方式，1是AMR，2是Speex,3是Opus,这里先说第一种方式，在iOS4.0之前是可以进行amr格式的录音的，后来苹果取消了这个声音格式，但是可以使用opencore-amr来将wav格式转换为amr格式。">
+<meta property="og:description" content="今天是星期五，对于大多数人来说估计已经在琢磨着周末去哪里浪了，或者周末在家睡个天昏地暗，享受一下这难得不用早起挤车挤地铁的周末。 龙哥看看手表，凌晨四点整，刚吃完酸菜牛肉面的龙哥打算下班回家。这已经是龙哥这周第三次加班到凌晨了，只有星期二的时候休息了一天没加班，因为项目快要上线了，估计周末还得在办公室度过。 作为“资深”程序员的龙哥虽然才工作三年多，但是已经有五年的工作经验了。如果是同行的话估计会">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-16T07:24:50.667Z">
+<meta property="og:updated_time" content="2018-08-31T02:29:25.970Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用opencore_amr实现wav转amr(8khz,16khz)">
-<meta name="twitter:description" content="由于公司正在做声纹方面的开发，所以需要对语音数据做压缩，目前想到了三种压缩方式，1是AMR，2是Speex,3是Opus,这里先说第一种方式，在iOS4.0之前是可以进行amr格式的录音的，后来苹果取消了这个声音格式，但是可以使用opencore-amr来将wav格式转换为amr格式。">
+<meta name="twitter:title" content="你看那个程序员，他孤不孤独">
+<meta name="twitter:description" content="今天是星期五，对于大多数人来说估计已经在琢磨着周末去哪里浪了，或者周末在家睡个天昏地暗，享受一下这难得不用早起挤车挤地铁的周末。 龙哥看看手表，凌晨四点整，刚吃完酸菜牛肉面的龙哥打算下班回家。这已经是龙哥这周第三次加班到凌晨了，只有星期二的时候休息了一天没加班，因为项目快要上线了，估计周末还得在办公室度过。 作为“资深”程序员的龙哥虽然才工作三年多，但是已经有五年的工作经验了。如果是同行的话估计会">
 
 
 
@@ -124,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://lemon2well.top/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/"/>
+  <link rel="canonical" href="http://lemon2well.top/2018/08/31/杂谈/你看那个程序员，他孤不孤独/"/>
 
 
 
 
 
-  <title>使用opencore_amr实现wav转amr(8khz,16khz) | Lemon's blog</title>
+  <title>你看那个程序员，他孤不孤独 | Lemon's blog</title>
   
 
 
@@ -291,7 +290,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/08/31/杂谈/你看那个程序员，他孤不孤独/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -308,7 +307,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">使用opencore_amr实现wav转amr(8khz,16khz)</h1>
+          <h1 class="post-title" itemprop="name headline">你看那个程序员，他孤不孤独</h1>
         
 
         <div class="post-meta">
@@ -320,8 +319,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T11:28:16+08:00">
-                2018-07-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-31T10:28:41+08:00">
+                2018-08-31
               </time>
             
 
@@ -343,8 +342,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS 开发</span>
+                  <a href="/categories/杂谈/" itemprop="url" rel="index">
+                    <span itemprop="name">杂谈</span>
                   </a>
                 </span>
 
@@ -361,9 +360,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/#comments" itemprop="discussionUrl">
+                <a href="/2018/08/31/杂谈/你看那个程序员，他孤不孤独/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/08/31/杂谈/你看那个程序员，他孤不孤独/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -385,7 +384,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,517
+                  2,032
                 </span>
               
 
@@ -422,21 +421,28 @@
       
 
       
-        <blockquote>
-<p>由于公司正在做声纹方面的开发，所以需要对语音数据做压缩，目前想到了三种压缩方式，1是AMR，2是Speex,3是Opus,这里先说第一种方式，在iOS4.0之前是可以进行amr格式的录音的，后来苹果取消了这个声音格式，但是可以使用opencore-amr来将wav格式转换为amr格式。</p>
-</blockquote>
+        <p>今天是星期五，对于大多数人来说估计已经在琢磨着周末去哪里浪了，或者周末在家睡个天昏地暗，享受一下这难得不用早起挤车挤地铁的周末。</p>
+<p>龙哥看看手表，凌晨四点整，刚吃完酸菜牛肉面的龙哥打算下班回家。这已经是龙哥这周第三次加班到凌晨了，只有星期二的时候休息了一天没加班，因为项目快要上线了，估计周末还得在办公室度过。</p>
+<p>作为“资深”程序员的龙哥虽然才工作三年多，但是已经有五年的工作经验了。如果是同行的话估计会懂这句话是啥意思，那多出来的一年半的工作经验就是加班多出来的。</p>
 <a id="more"></a>
+<p>加班对于龙哥来说已经司空见惯了，因为加班，他认识了很多出租车司机，通过出租车司机他就能知道今天哪里哪里又发生什么大事了，哪里的休闲会所能提供最好质量的服务，哪里的人最没素质。龙哥每次就这么坐在车上听司机闲扯着，也不会反驳司机说的不对的事情。对于龙哥来说他每天凌晨碰到的这些人就是他的私人新闻导播，只不过有点不一样的是，这些新闻往往被放大很多倍，甚至有些是谣言，不过他并不在意，毕竟这是一天中最有趣的时刻，或者更确切的说，这是龙哥最不孤独的时刻。</p>
+<p>刚刚说了龙哥中间有一天不加班，其实是去帮女生搬家了，据说还请女生吃饭了。<br>那天我还问了龙哥，对话是这样的：<br>我：”龙哥，你去帮女生搬家，应该她请你吃饭才对啊，怎么变成你请她吃饭了？”<br>龙哥笑着说：”我请她吃饭是因为我已经很久没有和别人一起吃饭了，每天下班基本上都是自己随便吃一点就解决了，应该还要感谢她陪我吃饭。“<br>我：“那这样说的话，以后你想找别人陪你吃饭了你就找我，这样的好事别便宜别人了，但是前提是你买单”。<br>龙哥：“滚”。（请自行脑补龙哥臭脸的样子）</p>
+<p>龙哥没有女朋友，据他说是大学的时候谈过一次恋爱，分手的原因和很多人一样，毕业之后大家意向不同，龙哥想去北上广深这些大城市工作，那里的IT就业环境是其他二线城市不能比的，但是他前女友想留在老家找个教师的工作，家里的生活压力相对小点，然后他们就和平分手了。</p>
+<p>我问过龙哥想过重新找个女朋友吗？龙哥也很实诚，说想过，但是有个事情他意想不到。因为大学是在师范院校读的计算机专业，所以大学的时候身边的女生也相对较多一点，找女朋友机会也多一点。没想到毕业之后进去的科技公司，身边纯一色的抠脚大汉，根本没有途径去认识女生。好不容易来了一个女同事，要不就是有男朋友，要不就是已婚，再要不就是他喜欢的女生他还没行动又成为别人的女朋友了。</p>
+<p>后来龙哥就对谈恋爱这个事情不强求了，佛系找女朋友，有也行，没有也行，不争不抢。</p>
+<p>龙哥不喜欢待在家里，就喜欢在外边溜达，龙哥自己一个人住，广州的城中村大家都知道，即使是一房一厅也小得可怜，握手楼，一栋挨着一栋。打开窗没有阳光，看到的都是水泥钢筋，关上门也不隔音，听到的都是嘈杂噪音。这个时节的广州，基本上每天都下雨，龙哥家里也潮湿，之前听他说家里的柜子都因为潮湿木头膨胀倒塌了，不过他又把它给修好了，后来逢人他就炫耀他会修柜子这个事情。</p>
+<p>龙哥爱好不多，如果发呆算是爱好的话那他就只有一个爱好。我经常看到他坐在座位上发呆，也不知道他在想些什么，不过我知道他很少和人说他自己的私事，他朋友不多，我算是他比较好的朋友，不过我也没听他向我抱怨过什么或者说一些，那一次龙哥发呆真的吓到我了。</p>
+<p>那是我们俩在加班的时候，我和龙哥算是同道中人，我也是加班狂魔。除了工作原因外，我是想着攒多一点假期后面调休出去旅游一趟，至于龙哥，我问过他，但是我觉得他是在逃避一些什么东西。</p>
+<p>我印象最深刻的时候是那一天，星期五，已经是凌晨三点钟了，办公室的人都走光了，就只有我和龙哥还在工作，我突然觉得肚子有点饿，我就和龙哥说，“龙哥，你饿吗？和你一起下去吃点东西”。龙哥抬头看着我，“我有点忙，商品详情功能我快写完了，你帮我买一个方便面上来可以吗？惯例，酸菜牛肉面”。“OK，那我帮你买上来。”然后我就下去买方便面了，龙哥总是对酸菜牛肉面情有独钟，每次都是吃这个面，而我讨厌酸菜牛肉面，我喜欢吃点健康的，蔬菜面。不到十分钟我就把面买上来了。</p>
+<p>然后我就看到了以下的一幕，办公司所有的灯都关掉了，就只有我们俩头顶那两盏灯还开着，在暗黄的灯光的照耀下，龙哥双手交叉抱在胸前，后背靠在座位上，身体侧着对着电脑，眼镜好像看着斜上方的横梁，但是处于放空的状态，准确来说应该是双目无神，他看起来整个人静止了。</p>
+<p>说实话我刚看到那一刻的时候我第一想法就是打120，龙哥是不是出事了， 因为我从来没有见过他这么疲惫，脸上毫无表情，一副与世隔绝的样子。那时我真的被吓到了，后来我看龙哥眨了一下眼睛，我才放下心来。</p>
+<p>我记得我问过龙哥，“你孤独吗？”，龙哥说了下面一段话：</p>
 <blockquote>
-<p>目前网上的例子大多数都是8Khz采样率的wav文件转AMR,具体可以参照<a href="http://my.oschina.net/jeans/blog/69937" target="_blank" rel="noopener">iOS音频格式之AMR和WAV互转(更新支持64位)</a>，这里也要感谢这篇博文的作者黄俊鹏，他给我提供了帮助我才找到了方法。但是我们公司由于对于声音采集样本的要求比较高，所以我们要使用16Khz的采样率，那么问题就出现了，在opencore-amr中并没有提供amr-wb的encode方法，8kHZ使用的opencore-amrnb.a的静态库，其中提供了encode和decode的方法，但是对于16Khz使用的是opencore-amrwb的静态库，其中里面只提供了decode的方法，后来通过其他资料我我才明白encode在另外一个项目vo-amrwbenc里面，如果要使用的话必须要单独编译这个项目才可以，项目下载可以看<a href="https://sourceforge.net/projects/opencore-amr/files/?source=navbar" target="_blank" rel="noopener">opencore-amr</a>，所以如果需要将16Khz wav文件转为amr文件，只需要编译这个库然后使用就可以了，如果要解码那么还是需要使用原来的opencore-amr库。</p>
+<p>“你试过凌晨三点钟突然惊醒吗？我试过！我醒来之后我看着四周黑暗一片，我看向窗外，只有微微的光亮。后来我打开灯，四周是亮白的墙，但是我还是很怕，感觉我被别人困在房子里面了，孤独感包围着我，我那晚一宿没睡，第二天六点钟我就出门去上班了，我不想再有那样的时刻。”</p>
 </blockquote>
-<p> #下面就可以编译vo-amrwebenc</p>
-<h2 id="1-首先新建一个文件夹，将下载到的vo-amrwbenc-0-1-3-tar-gz压缩包放到里面（有可能下载下来的不一定是这个版本，因为这个库会更新，所以下面的命令也要跟着改变VERSION为对应的下载的压缩包的版本），然后进入这个文件夹，在里面创建build-sh文件-将以下脚本粘贴到文件里面"><a href="#1-首先新建一个文件夹，将下载到的vo-amrwbenc-0-1-3-tar-gz压缩包放到里面（有可能下载下来的不一定是这个版本，因为这个库会更新，所以下面的命令也要跟着改变VERSION为对应的下载的压缩包的版本），然后进入这个文件夹，在里面创建build-sh文件-将以下脚本粘贴到文件里面" class="headerlink" title="1.首先新建一个文件夹，将下载到的vo-amrwbenc-0.1.3.tar.gz压缩包放到里面（有可能下载下来的不一定是这个版本，因为这个库会更新，所以下面的命令也要跟着改变VERSION为对应的下载的压缩包的版本），然后进入这个文件夹，在里面创建build.sh文件,将以下脚本粘贴到文件里面"></a>1.首先新建一个文件夹，将下载到的vo-amrwbenc-0.1.3.tar.gz压缩包放到里面（有可能下载下来的不一定是这个版本，因为这个库会更新，所以下面的命令也要跟着改变VERSION为对应的下载的压缩包的版本），然后进入这个文件夹，在里面创建build.sh文件,将以下脚本粘贴到文件里面</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">set -xe</span><br><span class="line"></span><br><span class="line"># 注意这里需要改为下载下来的压缩包的版本</span><br><span class="line">VERSION=&quot;0.1.3&quot;</span><br><span class="line"></span><br><span class="line">LIBSRCNAME=&quot;vo-amrwbenc&quot;</span><br><span class="line"></span><br><span class="line">CURRENTPATH=`pwd`</span><br><span class="line"></span><br><span class="line">mkdir -p &quot;$&#123;CURRENTPATH&#125;/src&quot;</span><br><span class="line"></span><br><span class="line"># 下载压缩包的后缀有可能是tar不一定是tar.gz，下面也要根据情况修改</span><br><span class="line">tar zxvf $&#123;LIBSRCNAME&#125;-$&#123;VERSION&#125;.tar.gz -C &quot;$&#123;CURRENTPATH&#125;/src&quot;</span><br><span class="line"></span><br><span class="line">cd &quot;$&#123;CURRENTPATH&#125;/src/$&#123;LIBSRCNAME&#125;-$&#123;VERSION&#125;&quot;</span><br><span class="line"></span><br><span class="line"># 设置环境变量并创建lib-ios文件夹，后续生成的.a类库都会放在这个文件夹里边</span><br><span class="line"></span><br><span class="line">DEST=&quot;$&#123;CURRENTPATH&#125;/lib-ios&quot;</span><br><span class="line"></span><br><span class="line">mkdir -p &quot;$&#123;DEST&#125;&quot;</span><br><span class="line"></span><br><span class="line">ARCHS=&quot;armv7 armv7s arm64 i386 x86_64&quot;</span><br><span class="line"></span><br><span class="line">LIBS=&quot;libvo-amrwbenc.a&quot;</span><br><span class="line"></span><br><span class="line">for arch in $ARCHS; do</span><br><span class="line"></span><br><span class="line">case $arch in arm*)</span><br><span class="line"></span><br><span class="line">IOSV=&quot;-miphoneos-version-min=7.0&quot;</span><br><span class="line"></span><br><span class="line">if [ $arch == &quot;arm64&quot; ]</span><br><span class="line"></span><br><span class="line">then</span><br><span class="line"></span><br><span class="line">IOSV=&quot;-miphoneos-version-min=7.0&quot;</span><br><span class="line"></span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;Building for iOS $arch ****************&quot;</span><br><span class="line"></span><br><span class="line"># 编译 $arch 环境的类库（amr类型类型）</span><br><span class="line"></span><br><span class="line">SDKROOT=&quot;$(xcrun --sdk iphoneos --show-sdk-path)&quot;</span><br><span class="line"></span><br><span class="line">CC=&quot;$(xcrun --sdk iphoneos -f clang)&quot;</span><br><span class="line"></span><br><span class="line">CXX=&quot;$(xcrun --sdk iphoneos -f clang++)&quot;</span><br><span class="line"></span><br><span class="line">CPP=&quot;$(xcrun -sdk iphonesimulator -f clang++)&quot;</span><br><span class="line"></span><br><span class="line">CFLAGS=&quot;-isysroot $SDKROOT -arch $arch $IOSV -isystem $SDKROOT/usr/include -fembed-bitcode&quot;</span><br><span class="line"></span><br><span class="line">CXXFLAGS=$CFLAGS</span><br><span class="line"></span><br><span class="line">CPPFLAGS=$CFLAGS</span><br><span class="line"></span><br><span class="line">export CC CXX CFLAGS CXXFLAGS CPPFLAGS</span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line"></span><br><span class="line">--host=arm-apple-darwin \</span><br><span class="line"></span><br><span class="line">--prefix=$DEST \</span><br><span class="line"></span><br><span class="line">--disable-shared --enable-static</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">*)</span><br><span class="line"></span><br><span class="line">IOSV=&quot;-mios-simulator-version-min=7.0&quot;</span><br><span class="line"></span><br><span class="line">echo &quot;Building for iOS $arch*****************&quot;</span><br><span class="line"></span><br><span class="line">SDKROOT=`xcodebuild -version -sdk iphonesimulator Path`</span><br><span class="line"></span><br><span class="line">CC=&quot;$(xcrun -sdk iphoneos -f clang)&quot;</span><br><span class="line"></span><br><span class="line">CXX=&quot;$(xcrun -sdk iphonesimulator -f clang++)&quot;</span><br><span class="line"></span><br><span class="line">CPP=&quot;$(xcrun -sdk iphonesimulator -f clang++)&quot;</span><br><span class="line"></span><br><span class="line">CFLAGS=&quot;-isysroot $SDKROOT -arch $arch $IOSV -isystem $SDKROOT/usr/include -fembed-bitcode&quot;</span><br><span class="line"></span><br><span class="line">CXXFLAGS=$CFLAGS</span><br><span class="line"></span><br><span class="line">CPPFLAGS=$CFLAGS</span><br><span class="line"></span><br><span class="line">export CC CXX CFLAGS CXXFLAGS CPPFLAGS</span><br><span class="line"></span><br><span class="line">./configure \</span><br><span class="line"></span><br><span class="line">--prefix=$DEST \</span><br><span class="line"></span><br><span class="line">--disable-shared</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">make &gt; /dev/null</span><br><span class="line"></span><br><span class="line">make install     </span><br><span class="line"></span><br><span class="line">make clean   </span><br><span class="line"></span><br><span class="line">for i in $LIBS; do</span><br><span class="line"></span><br><span class="line">mv $DEST/lib/$i $DEST/lib/$i.$arch</span><br><span class="line"></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">for i in $LIBS; do</span><br><span class="line"></span><br><span class="line">input=&quot;&quot;</span><br><span class="line"></span><br><span class="line">for arch in $ARCHS; do</span><br><span class="line"></span><br><span class="line">input=&quot;$input $DEST/lib/$i.$arch&quot;</span><br><span class="line"></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">lipo -create -output $DEST/lib/$i $input</span><br><span class="line"></span><br><span class="line">done</span><br></pre></td></tr></table></figure>
-<p>##2.修改build.sh的权限，打开终端，cd到新建的文件夹，使用命令 chmod  777 build.sh 修改权限。</p>
-<p>##3.修改完成之后在终端执行 ./build.sh 就会在vo-amrwbenc里面生成一个lib-ios文件夹，里面就包含了libvo-amrwbenc.a的静态库和enc_if_h的头文件。</p>
-<p>最后我已经将编译好的项目放到github上面</p>
-<p><a href="https://github.com/codemonkeybulucck/opencore-amrDemo-iOS" target="_blank" rel="noopener">vo-amrwbenc编译</a></p>
-<h2 id="4-更新"><a href="#4-更新" class="headerlink" title="4.更新"></a>4.更新</h2><p>——————-2018.8.16更新———————————————<br>今天有收到issues说编码的效率很慢，然后需要更新open-amr的库然后重新编译，大家需要到<a href="https://sourceforge.net/projects/opencore-amr/files/?source=navbar" target="_blank" rel="noopener">opencore-amr</a>下载最新的库，然后重新编译打包静态库，下面附上打包脚本，打包方法和上面一致。同时记得要改一下脚本里面压缩报的版本和压缩后缀。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#!/bin/sh</span><br><span class="line">set -xe</span><br><span class="line"> </span><br><span class="line">VERSION=&quot;0.1.3&quot;</span><br><span class="line">SDKVERSION=&quot;8.4&quot;</span><br><span class="line">LIBSRCNAME=&quot;opencore-amr&quot;</span><br><span class="line"> </span><br><span class="line">CURRENTPATH=`pwd`</span><br><span class="line"> </span><br><span class="line">mkdir -p &quot;$&#123;CURRENTPATH&#125;/src&quot;</span><br><span class="line">tar zxvf $&#123;LIBSRCNAME&#125;-$&#123;VERSION&#125;.tar.gz -C &quot;$&#123;CURRENTPATH&#125;/src&quot;</span><br><span class="line">cd &quot;$&#123;CURRENTPATH&#125;/src/$&#123;LIBSRCNAME&#125;-$&#123;VERSION&#125;&quot;</span><br><span class="line"> </span><br><span class="line">DEVELOPER=`xcode-select -print-path`</span><br><span class="line">DEST=&quot;$&#123;CURRENTPATH&#125;/lib-ios&quot;</span><br><span class="line">mkdir -p &quot;$&#123;DEST&#125;&quot;</span><br><span class="line"> </span><br><span class="line">ARCHS=&quot;armv7 armv7s arm64 i386 x86_64&quot;</span><br><span class="line"># ARCHS=&quot;armv7&quot;</span><br><span class="line">LIBS=&quot;libopencore-amrnb.a libopencore-amrwb.a&quot;</span><br><span class="line"> </span><br><span class="line">DEVELOPER=`xcode-select -print-path`</span><br><span class="line"> </span><br><span class="line">for arch in $ARCHS; do</span><br><span class="line">case $arch in</span><br><span class="line">arm*)</span><br><span class="line"> </span><br><span class="line">IOSV=&quot;-miphoneos-version-min=7.0&quot;</span><br><span class="line">if [ $arch == &quot;arm64&quot; ]</span><br><span class="line">then</span><br><span class="line">IOSV=&quot;-miphoneos-version-min=7.0&quot;</span><br><span class="line">fi</span><br><span class="line"> </span><br><span class="line">echo &quot;Building for iOS $arch ****************&quot;</span><br><span class="line">SDKROOT=&quot;$(xcrun --sdk iphoneos --show-sdk-path)&quot;</span><br><span class="line">CC=&quot;$(xcrun --sdk iphoneos -f clang)&quot;</span><br><span class="line">CXX=&quot;$(xcrun --sdk iphoneos -f clang++)&quot;</span><br><span class="line">CPP=&quot;$(xcrun -sdk iphonesimulator -f clang++)&quot;</span><br><span class="line">CFLAGS=&quot;-isysroot $SDKROOT -arch $arch $IOSV -isystem $SDKROOT/usr/include -fembed-bitcode&quot;</span><br><span class="line">CXXFLAGS=$CFLAGS</span><br><span class="line">CPPFLAGS=$CFLAGS</span><br><span class="line">export CC CXX CFLAGS CXXFLAGS CPPFLAGS</span><br><span class="line"> </span><br><span class="line">./configure \</span><br><span class="line">--host=arm-apple-darwin \</span><br><span class="line">--prefix=$DEST \</span><br><span class="line">--disable-shared --enable-static</span><br><span class="line">;;</span><br><span class="line">*)</span><br><span class="line">IOSV=&quot;-mios-simulator-version-min=7.0&quot;</span><br><span class="line">echo &quot;Building for iOS $arch*****************&quot;</span><br><span class="line"> </span><br><span class="line">SDKROOT=`xcodebuild -version -sdk iphonesimulator Path`</span><br><span class="line">CC=&quot;$(xcrun -sdk iphoneos -f clang)&quot;</span><br><span class="line">CXX=&quot;$(xcrun -sdk iphonesimulator -f clang++)&quot;</span><br><span class="line">CPP=&quot;$(xcrun -sdk iphonesimulator -f clang++)&quot;</span><br><span class="line">CFLAGS=&quot;-isysroot $SDKROOT -arch $arch $IOSV -isystem $SDKROOT/usr/include -fembed-bitcode&quot;</span><br><span class="line">CXXFLAGS=$CFLAGS</span><br><span class="line">CPPFLAGS=$CFLAGS</span><br><span class="line">export CC CXX CFLAGS CXXFLAGS CPPFLAGS</span><br><span class="line">./configure \</span><br><span class="line">--prefix=$DEST \</span><br><span class="line">--disable-shared</span><br><span class="line">;;</span><br><span class="line">esac</span><br><span class="line">make &gt; /dev/null</span><br><span class="line">make install</span><br><span class="line">make clean</span><br><span class="line">for i in $LIBS; do</span><br><span class="line">mv $DEST/lib/$i $DEST/lib/$i.$arch</span><br><span class="line">done</span><br><span class="line">done</span><br><span class="line"> </span><br><span class="line">for i in $LIBS; do</span><br><span class="line">input=&quot;&quot;</span><br><span class="line">for arch in $ARCHS; do</span><br><span class="line">input=&quot;$input $DEST/lib/$i.$arch&quot;</span><br><span class="line">done</span><br><span class="line">lipo -create -output $DEST/lib/$i $input</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>可能发呆的这一刻龙哥什么都没有在想，也有可能是想起了那天的情景，那种孤独感蔓延到了公司，同样在三点钟，将龙哥包围了。</p>
+<p>或许龙哥真的在逃避，他是在逃避孤独，我见过他一个人抱着爆米花去电影院看爱情电影，旁边都是一对对的情侣；我见过他一个人去吃海底捞，店员看他是一个人来的对面给他放了一个大的公仔；我见过他一个人去KTV，唱了一晚上《男人KTV》。</p>
+<p>现在是凌晨四点钟，终于把商品详情功能完成了，刚吃完酸菜牛肉面，还有点饱，写完这篇文章就打算回去睡觉，今天有点累，不过我还是宁愿凌晨三点钟睡觉也不愿凌晨三点钟醒来。</p>
 
       
     </div>
@@ -463,16 +469,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/AMR/" rel="tag"># AMR</a>
-          
-            <a href="/tags/wav/" rel="tag"># wav</a>
-          
-            <a href="/tags/音频开发/" rel="tag"># 音频开发</a>
-          
-        </div>
-      
 
       
       
@@ -482,8 +478,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/25/其他技术/使用hexo在github上搭建自己的博客/" rel="next" title="使用hexo在github上搭建自己的博客">
-                <i class="fa fa-chevron-left"></i> 使用hexo在github上搭建自己的博客
+              <a href="/2018/08/29/iOS 开发/iOS中的圆角处理（终结篇）/" rel="next" title="iOS中的圆角处理（终结篇）">
+                <i class="fa fa-chevron-left"></i> iOS中的圆角处理（终结篇）
               </a>
             
           </div>
@@ -491,10 +487,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/25/iOS 开发/iOS使用AMR进行编码和解码/" rel="prev" title="iOS使用AMR进行编码和解码">
-                iOS使用AMR进行编码和解码 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -556,17 +548,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -653,22 +636,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-首先新建一个文件夹，将下载到的vo-amrwbenc-0-1-3-tar-gz压缩包放到里面（有可能下载下来的不一定是这个版本，因为这个库会更新，所以下面的命令也要跟着改变VERSION为对应的下载的压缩包的版本），然后进入这个文件夹，在里面创建build-sh文件-将以下脚本粘贴到文件里面"><span class="nav-number">1.</span> <span class="nav-text">1.首先新建一个文件夹，将下载到的vo-amrwbenc-0.1.3.tar.gz压缩包放到里面（有可能下载下来的不一定是这个版本，因为这个库会更新，所以下面的命令也要跟着改变VERSION为对应的下载的压缩包的版本），然后进入这个文件夹，在里面创建build.sh文件,将以下脚本粘贴到文件里面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-更新"><span class="nav-number">2.</span> <span class="nav-text">4.更新</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -827,9 +794,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lemon2well.top/2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/';
-          this.page.identifier = '2018/07/25/iOS 开发/使用opencore-amr实现wav转amr-8khz-16khz/';
-          this.page.title = '使用opencore_amr实现wav转amr(8khz,16khz)';
+          this.page.url = 'http://lemon2well.top/2018/08/31/杂谈/你看那个程序员，他孤不孤独/';
+          this.page.identifier = '2018/08/31/杂谈/你看那个程序员，他孤不孤独/';
+          this.page.title = '你看那个程序员，他孤不孤独';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lemon2well.disqus.com/embed.js';
