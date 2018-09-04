@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://lemon2well.top/"/>
-  <updated>2018-08-31T08:57:07.706Z</updated>
+  <updated>2018-09-04T03:40:15.500Z</updated>
   <id>http://lemon2well.top/</id>
   
   <author>
@@ -17,9 +17,25 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>iOS图片解码实践</title>
+    <link href="http://lemon2well.top/2018/09/04/iOS%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://lemon2well.top/2018/09/04/iOS图片解码实践/</id>
+    <published>2018-09-04T03:40:15.000Z</published>
+    <updated>2018-09-04T03:40:15.500Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="iOS 开发" scheme="http://lemon2well.top/categories/iOS-%E5%BC%80%E5%8F%91/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>MVVM实践</title>
-    <link href="http://lemon2well.top/2018/08/31/MVVM%E5%AE%9E%E8%B7%B5/"/>
-    <id>http://lemon2well.top/2018/08/31/MVVM实践/</id>
+    <link href="http://lemon2well.top/2018/08/31/iOS%20%E5%BC%80%E5%8F%91/MVVM%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://lemon2well.top/2018/08/31/iOS 开发/MVVM实践/</id>
     <published>2018-08-31T08:57:07.000Z</published>
     <updated>2018-08-31T08:57:07.706Z</updated>
     
@@ -474,35 +490,6 @@
     
       <category term="常见算法" scheme="http://lemon2well.top/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>非空链表相加</title>
-    <link href="http://lemon2well.top/2018/07/30/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/%E9%9D%9E%E7%A9%BA%E9%93%BE%E8%A1%A8%E7%9B%B8%E5%8A%A0/"/>
-    <id>http://lemon2well.top/2018/07/30/常见算法/非空链表相加/</id>
-    <published>2018-07-30T09:12:45.000Z</published>
-    <updated>2018-07-30T09:33:42.698Z</updated>
-    
-    <content type="html"><![CDATA[<p>给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。</p><blockquote><p>思路：</p><ol><li>只要两个非空链表中的其中一个链表不为空的时候就循环便利两个链表</li><li>如果其中一个链表为空而另外一个链表不为空，那么为空的那个链表的值就为0</li><li>用一个carry位来表示是否有进位，0代表无进位，1代表有进位，因为链表中都是个位数，所以最大进位也只能为1，初始化进位为0</li><li>用x,y来表示当前两个链表的值，sum = x+y+carry为新链表的值，但是有可能有进位，所以新的carry = sum / 10,当前节点位的值为sum = sum %10。<a id="more"></a></li><li>创建一个新节点，将上述中sum的值赋给新节点，然后将新链表当前节点的next指向新节点，然后将当前节点指向到新节点</li><li>两个链表的当前节点都要指向下一个节点</li><li>当遍历完成之后，还需要判断一下carry的值是不是大于0，如果大于0则代表还需要创建一个节点，并且将新链表的节点的next指向该节点</li></ol></blockquote><p>以下是代码实现：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">class ListNode &#123;</span><br><span class="line">      public var val: Int</span><br><span class="line">      public var next: ListNode?</span><br><span class="line">      public init(_ val: Int) &#123;</span><br><span class="line">          self.val = val</span><br><span class="line">          self.next = nil</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">class Solution &#123;</span><br><span class="line">    func addTwoNumbers(_ l1: ListNode?, _ l2: ListNode?) -&gt; ListNode? &#123;</span><br><span class="line">        let resultNode = ListNode(0)</span><br><span class="line">        var currentNode = resultNode</span><br><span class="line">        var p = l1</span><br><span class="line">        var q = l2</span><br><span class="line">        var carry = 0 //表示进位</span><br><span class="line">        while p != nil || q != nil &#123;</span><br><span class="line">            //获取当前的值</span><br><span class="line">            var x = 0,y = 0;</span><br><span class="line">            if let p = p &#123;</span><br><span class="line">                x = p.val</span><br><span class="line">            &#125;</span><br><span class="line">            if let q = q &#123;</span><br><span class="line">                y = q.val</span><br><span class="line">            &#125;</span><br><span class="line">            let sum = x + y + carry</span><br><span class="line">            carry = sum / 10</span><br><span class="line">            let newSum = sum % 10;</span><br><span class="line">            currentNode.next = ListNode(newSum)</span><br><span class="line">            currentNode = currentNode.next!</span><br><span class="line">            p = p?.next</span><br><span class="line">            q = q?.next</span><br><span class="line">        &#125;</span><br><span class="line">        if carry &gt; 0 &#123;</span><br><span class="line">            currentNode.next = ListNode(carry)</span><br><span class="line">        &#125;</span><br><span class="line">        return resultNode.next</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;给定两个非空链表来表示两个非负整数。位数按照逆序方式存储，它们的每个节点只存储单个数字。将两数相加返回一个新的链表。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;思路：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;只要两个非空链表中的其中一个链表不为空的时候就循环便利两个链表&lt;/li&gt;
-&lt;li&gt;如果其中一个链表为空而另外一个链表不为空，那么为空的那个链表的值就为0&lt;/li&gt;
-&lt;li&gt;用一个carry位来表示是否有进位，0代表无进位，1代表有进位，因为链表中都是个位数，所以最大进位也只能为1，初始化进位为0&lt;/li&gt;
-&lt;li&gt;用x,y来表示当前两个链表的值，sum = x+y+carry为新链表的值，但是有可能有进位，所以新的carry = sum / 10,当前节点位的值为sum = sum %10。
-    
-    </summary>
-    
-      <category term="常见算法" scheme="http://lemon2well.top/categories/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="链表" scheme="http://lemon2well.top/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   

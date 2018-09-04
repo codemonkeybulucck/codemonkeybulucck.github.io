@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[iOS图片解码实践]]></title>
+    <url>%2F2018%2F09%2F04%2FiOS%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81%E5%AE%9E%E8%B7%B5%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>iOS 开发</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[MVVM实践]]></title>
-    <url>%2F2018%2F08%2F31%2FMVVM%E5%AE%9E%E8%B7%B5%2F</url>
+    <url>%2F2018%2F08%2F31%2FiOS%20%E5%BC%80%E5%8F%91%2FMVVM%E5%AE%9E%E8%B7%B5%2F</url>
     <content type="text"></content>
       <categories>
         <category>iOS 开发</category>
