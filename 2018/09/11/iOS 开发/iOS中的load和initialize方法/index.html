@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="google-site-verification" content="Yb2cZMtB2AU2pFggqyD2-CaAoPhXfz96ArZedI1__VU" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lemon's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="前言我们知道在NSObject中有两个初始化的方法，+(void)load以及+ (void)initialize方法，这两个方法都是由系统来自动调用，不需要我们手动来调用，我们经常会在这两个方法的内部做一些magic的事情。 下面我们首先对这两个方法做一个初步的使用，看看他们两的调用时机以及异同。 当然如果已经知道了他们的异同以及调用顺序的可以直接看总结或者源码分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS中的load和initialize方法">
+<meta property="og:url" content="http://lemon2well.top/2018/09/11/iOS 开发/iOS中的load和initialize方法/index.html">
+<meta property="og:site_name" content="Lemon&#39;s blog">
+<meta property="og:description" content="前言我们知道在NSObject中有两个初始化的方法，+(void)load以及+ (void)initialize方法，这两个方法都是由系统来自动调用，不需要我们手动来调用，我们经常会在这两个方法的内部做一些magic的事情。 下面我们首先对这两个方法做一个初步的使用，看看他们两的调用时机以及异同。 当然如果已经知道了他们的异同以及调用顺序的可以直接看总结或者源码分析">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-11T03:21:32.880Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS中的load和initialize方法">
+<meta name="twitter:description" content="前言我们知道在NSObject中有两个初始化的方法，+(void)load以及+ (void)initialize方法，这两个方法都是由系统来自动调用，不需要我们手动来调用，我们经常会在这两个方法的内部做一些magic的事情。 下面我们首先对这两个方法做一个初步的使用，看看他们两的调用时机以及异同。 当然如果已经知道了他们的异同以及调用顺序的可以直接看总结或者源码分析">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lemon2well.top/2018/09/11/iOS 开发/iOS中的load和initialize方法/"/>
+
+
+
+
+
+  <title>iOS中的load和initialize方法 | Lemon's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lemon's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">让梦想实现的最好的方式，就是醒来</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-家">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/09/11/iOS 开发/iOS中的load和initialize方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS中的load和initialize方法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-11T11:21:13+08:00">
+                2018-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/11/iOS 开发/iOS中的load和initialize方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/09/11/iOS 开发/iOS中的load和initialize方法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,294
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们知道在NSObject中有两个初始化的方法，<code>+(void)load</code>以及<code>+ (void)initialize</code>方法，这两个方法都是由系统来自动调用，不需要我们手动来调用，我们经常会在这两个方法的内部做一些magic的事情。</p>
+<p>下面我们首先对这两个方法做一个初步的使用，看看他们两的调用时机以及异同。</p>
+<p><strong>当然如果已经知道了他们的异同以及调用顺序的可以直接看总结或者源码分析</strong></p>
+<a id="more"></a>
+<h2 id="调用时机以及调用策略"><a href="#调用时机以及调用策略" class="headerlink" title="调用时机以及调用策略"></a>调用时机以及调用策略</h2><p>我们创建一个xcode工程，然后建立了一个person类，以及一个student类，student类继承于person类，person类里面有一个sayHello的类方法，然后我们创建了一个分类，Student(Extension),我们分别在这三个类下面重写了<code>load</code>以及<code>initialize</code>方法，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">//Persom.m</span><br><span class="line">#import &quot;Person.h&quot;</span><br><span class="line">@implementation Person</span><br><span class="line">+ (void)load&#123;</span><br><span class="line">    NSLog(@&quot;person load&quot;);</span><br><span class="line">&#125;</span><br><span class="line">+ (void)initialize&#123;</span><br><span class="line">    NSLog(@&quot;person initialize&quot;);</span><br><span class="line">&#125;</span><br><span class="line">+ (void)hello&#123;</span><br><span class="line">    NSLog(@&quot;Person say hello&quot;);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">//Student.m</span><br><span class="line">#import &quot;Student.h&quot;</span><br><span class="line">@implementation Student</span><br><span class="line">+ (void)load&#123;</span><br><span class="line">    NSLog(@&quot;student load&quot;);</span><br><span class="line">&#125;</span><br><span class="line">+ (void)initialize&#123;</span><br><span class="line">    NSLog(@&quot;student initialize&quot;);</span><br><span class="line">&#125;</span><br><span class="line">+ (void)hello&#123;</span><br><span class="line">    NSLog(@&quot;student say hello&quot;);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">//Student+Extension.m</span><br><span class="line">#import &quot;Student+Extension.h&quot;</span><br><span class="line">@implementation Student (Extension)</span><br><span class="line">+ (void)load&#123;</span><br><span class="line">    NSLog(@&quot;Student Category load&quot;);</span><br><span class="line">&#125;</span><br><span class="line">+ (void)initialize&#123;</span><br><span class="line">    NSLog(@&quot;Student Category initialize&quot;);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>然后我们在ViewController的<code>touchBegan</code>方法里面加入<code>[Studnet hello]</code>，程序启动之后会打打印出以下信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2018-09-10 16:51:26.487852+0800 Runtime[38325:14188628] person load</span><br><span class="line">2018-09-10 16:51:26.489395+0800 Runtime[38325:14188628] student load</span><br><span class="line">2018-09-10 16:51:26.489825+0800 Runtime[38325:14188628] Student Category load</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过上面的打印信息我们可以看出，load方法是由系统自动执行，并且调用的顺序是父类-&gt;子类-&gt;分类。</p>
+</blockquote>
+<p>接下来我们点击屏幕，打印以下信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2018-09-10 16:53:36.481032+0800 Runtime[38325:14188628] person initialize</span><br><span class="line">2018-09-10 16:53:36.481312+0800 Runtime[38325:14188628] Student Category initialize</span><br><span class="line">2018-09-10 16:53:36.481437+0800 Runtime[38325:14188628] student say hello</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过打印信息我们知道，只有当该类第一次接收到消息的时候才会调用initialize方法，同样会优先调用父类的initialize方法，但是我们的子类同样也实现了initialize方法，这里只打印了分类的方法，会不会是分类的方法把子类的方法覆盖了？</p>
+</blockquote>
+<p>下面我们来验证一下，我们通过修改将分类的initialize方法注释掉，然后重新运行点击屏幕，打印信息如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2018-09-10 17:00:22.099887+0800 Runtime[39163:14201501] person initialize</span><br><span class="line">2018-09-10 17:00:22.100215+0800 Runtime[39163:14201501] student initialize</span><br><span class="line">2018-09-10 17:00:22.101254+0800 Runtime[39163:14201501] student say hello</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>果然验证了我们的猜想，分类的initialize确实会覆盖原类的initialize方法。但是我们还有一个疑问，如果子类也不实现initialize方法的话，这样还会调用到父类的initialize方法吗？</p>
+</blockquote>
+<p>接下来我们将Student类的initialize方法注释掉，看一下打印信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2018-09-10 17:02:47.361138+0800 Runtime[39388:14205240] person initialize</span><br><span class="line">2018-09-10 17:02:47.361337+0800 Runtime[39388:14205240] person initialize</span><br><span class="line">2018-09-10 17:02:47.361451+0800 Runtime[39388:14205240] student say hello</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过打印信息我们看出来了，如果子类没有实现对应的initialize方法，那么将会调用父类的initialize方法。可是为什么父类initialize方法会被调用两次呢，是不是每个子类第一次收到消息的时候都会先调用父类的initialize方法呢？</p>
+</blockquote>
+<p>接下来我们将ViewController的<code>TouchBegan</code>方法修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Person hello];</span><br><span class="line">[Student hello];</span><br></pre></td></tr></table></figure>
+<p>我们来看看打印信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2018-09-10 17:06:34.228551+0800 Runtime[39744:14211193] person initialize</span><br><span class="line">2018-09-10 17:06:34.228788+0800 Runtime[39744:14211193] Person say hello</span><br><span class="line">2018-09-10 17:06:34.229098+0800 Runtime[39744:14211193] person initialize</span><br><span class="line">2018-09-10 17:06:34.229187+0800 Runtime[39744:14211193] student say hello</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过打印信息我们看到了当Person收到hello消息的时候，会调用自身的initialize方法，当Person的子类Student收到消息的时候，同样调用了父类的initialize方法（这个是因为之类没有实现initialize方法，刚刚已经论证。），通过和上个打印信息对比，我们发现了如果子类第一次收到消息之前，父类没有收到过消息，也就是没有调用过initialize方法，会先调用initialize初始化父类，如果父类initialize方法已经被调用过，那么就不会调用父类的initialize的方法，而且调用自身的initialize方法，如果自身的initialize方法没有实现，那么就调用父类initialize方法。</p>
+</blockquote>
+<p><strong>我们做了这么多的对比论证，接下来我们来总结一下我们上面得到的结论</strong></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过代码我们可以总结出以下的信息：</p>
+<blockquote>
+<ul>
+<li>调用时机<br> <code>+(void)load</code>是在类或者分类加入到Objective-C Runtime的时候调用<br> <code>+(void)initialize</code>是在类或者子类第一次收到消息的时候调用（类消息或者对象消息）</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>调用顺序<br>   <code>+(void)load</code>方法的调用顺序是，父类-&gt;子类-&gt;分类。<br>   <code>+(void)initialize</code>方法的顺序是，父类-&gt;子类（如果有分类，分类方法会替换子类的方法，只执行分类的实现）</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>调用次数<br> <code>+(void)load</code>方法只会调用一次<br> <code>+(void)initialize</code>有可能会调用多次，如果子类没有实现该方法，则子类第一次收到消息的时候会调用父类的方法。<br>  值得一提的是，如果在子类收到消息之前，父类及其其他子类没有收到过消息，那么会先调用父类的<code>initialize</code>方法再调用子类的<code>initialize</code>方法</li>
+</ul>
+</blockquote>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><p>这一系列的对比实验下来我们得出了自己的论证结果，但是从实现原理上面来说我还是对它们的底层实现很感兴趣，接下来我们就来看看源码实现。</p>
+<p>源码我这边下载的是 <a href="https://opensource.apple.com/tarballs/objc4/" target="_blank" rel="noopener">objc4-723</a>版本。</p>
+<h2 id="void-load"><a href="#void-load" class="headerlink" title="+ (void)load"></a>+ (void)load</h2><p>我们首先来看看在load方法是在哪里调用的以及在load方法之前都做了什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//在_objc_init运行时初始化方法里面会注册load_images的回调，当有新的镜像加载到runtime时，都会通知load_images方法</span><br><span class="line">_dyld_objc_notify_register(&amp;map_images, load_images, unmap_image);</span><br><span class="line"></span><br><span class="line">//处理由DYLD(动态链接器)映射加载的镜像里面处理load方法</span><br><span class="line">load_images(const char *path __unused, const struct mach_header *mh)</span><br><span class="line">&#123;</span><br><span class="line">    // Return without taking locks if there are no +load methods here.</span><br><span class="line">    if (!hasLoadMethods((const headerType *)mh)) return;</span><br><span class="line"></span><br><span class="line">    recursive_mutex_locker_t lock(loadMethodLock);</span><br><span class="line"></span><br><span class="line">    // Discover load methods</span><br><span class="line">    &#123;</span><br><span class="line">        rwlock_writer_t lock2(runtimeLock);</span><br><span class="line">        prepare_load_methods((const headerType *)mh);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Call +load methods (without runtimeLock - re-entrant)</span><br><span class="line">    call_load_methods();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过上面的代码我们可以到和load有关的方法有两个，一个是prepare_load_methods以及call_load_methods。下面我们分别来看看这两个方法。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">void prepare_load_methods(const headerType *mhdr)</span><br><span class="line">&#123;</span><br><span class="line">    size_t count, i;</span><br><span class="line"></span><br><span class="line">    runtimeLock.assertWriting();</span><br><span class="line"></span><br><span class="line">    classref_t *classlist = </span><br><span class="line">        _getObjc2NonlazyClassList(mhdr, &amp;count);</span><br><span class="line">    for (i = 0; i &lt; count; i++) &#123;</span><br><span class="line">        schedule_class_load(remapClass(classlist[i]));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    category_t **categorylist = _getObjc2NonlazyCategoryList(mhdr, &amp;count);</span><br><span class="line">    for (i = 0; i &lt; count; i++) &#123;</span><br><span class="line">        category_t *cat = categorylist[i];</span><br><span class="line">        Class cls = remapClass(cat-&gt;cls);</span><br><span class="line">        if (!cls) continue;  // category for ignored weak-linked class</span><br><span class="line">        realizeClass(cls);</span><br><span class="line">        assert(cls-&gt;ISA()-&gt;isRealized());</span><br><span class="line">        add_category_to_loadable_list(cat);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>通过上面的代码我们可以看到，这个方法是为了做一些准备工作。首先会获取镜像里面的所有的Classlist，然后遍历该classList，调用schedule_class_load，传入每一个class。然后全部遍历完成之后会获取category，同样的遍历之后直接加入到loadable_categories列表中。<strong>这样是为了保证class的load方法在category的load方法之前调用。</strong></p>
+</li>
+<li><p>接下来我们来看看schedule_class_load 方法：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">static void schedule_class_load(Class cls)</span><br><span class="line">&#123;</span><br><span class="line">    if (!cls) return;</span><br><span class="line">    assert(cls-&gt;isRealized());  // _read_images should realize</span><br><span class="line"></span><br><span class="line">    if (cls-&gt;data()-&gt;flags &amp; RW_LOADED) return;</span><br><span class="line"></span><br><span class="line">    // Ensure superclass-first ordering</span><br><span class="line">    schedule_class_load(cls-&gt;superclass);</span><br><span class="line"></span><br><span class="line">    add_class_to_loadable_list(cls);</span><br><span class="line">    cls-&gt;setInfo(RW_LOADED); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>该方法会获取该类的父类然后递归调用<code>schedule_class_load</code>方法，保证父类的load方法在子类的load方法之前执行。然后将class 加入到loadable_classes里面。</li>
+</ul>
+<p><strong>综上所述，prepare_load_methods这个方法就是将满足load方法的class和category分别存放到loadble_classs以及loadable_categories里面</strong></p>
+<p>接下来我们来看看<code>call_load_methods</code>方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">void call_load_methods(void)</span><br><span class="line">&#123;</span><br><span class="line">    static bool loading = NO;</span><br><span class="line">    bool more_categories;</span><br><span class="line"></span><br><span class="line">    loadMethodLock.assertLocked();</span><br><span class="line"></span><br><span class="line">    // Re-entrant calls do nothing; the outermost call will finish the job.</span><br><span class="line">    if (loading) return;</span><br><span class="line">    loading = YES;</span><br><span class="line"></span><br><span class="line">    void *pool = objc_autoreleasePoolPush();</span><br><span class="line"></span><br><span class="line">    do &#123;</span><br><span class="line">        // 1. Repeatedly call class +loads until there aren&apos;t any more</span><br><span class="line">        while (loadable_classes_used &gt; 0) &#123;</span><br><span class="line">            call_class_loads();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 2. Call category +loads ONCE</span><br><span class="line">        more_categories = call_category_loads();</span><br><span class="line"></span><br><span class="line">        // 3. Run more +loads if there are classes OR more untried categories</span><br><span class="line">    &#125; while (loadable_classes_used &gt; 0  ||  more_categories);</span><br><span class="line"></span><br><span class="line">    objc_autoreleasePoolPop(pool);</span><br><span class="line"></span><br><span class="line">    loading = NO;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这一步就是调用loabable_classes 以及 loadable_categories中准备好的load方法，并且class优先于category先调用。接下来我们以call_class_loads为例来看看代码。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">static void call_class_loads(void)</span><br><span class="line">&#123;</span><br><span class="line">    int i;</span><br><span class="line">    </span><br><span class="line">    // Detach current loadable list.</span><br><span class="line">    struct loadable_class *classes = loadable_classes;</span><br><span class="line">    int used = loadable_classes_used;</span><br><span class="line">    loadable_classes = nil;</span><br><span class="line">    loadable_classes_allocated = 0;</span><br><span class="line">    loadable_classes_used = 0;</span><br><span class="line">    </span><br><span class="line">    // Call all +loads for the detached list.</span><br><span class="line">    for (i = 0; i &lt; used; i++) &#123;</span><br><span class="line">        Class cls = classes[i].cls;</span><br><span class="line">        load_method_t load_method = (load_method_t)classes[i].method;</span><br><span class="line">        if (!cls) continue; </span><br><span class="line"></span><br><span class="line">        if (PrintLoading) &#123;</span><br><span class="line">            _objc_inform(&quot;LOAD: +[%s load]\n&quot;, cls-&gt;nameForLogging());</span><br><span class="line">        &#125;</span><br><span class="line">        (*load_method)(cls, SEL_load);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // Destroy the detached list.</span><br><span class="line">    if (classes) free(classes);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>从全局变量loadable_classes中得到所有可供调用的class，然后将变量进行清零操作，然后遍历加载所有的class,通过<code>(*load_method)(cls, SEL_load);</code>的方式调用+(void)load方法，这里是通过直接调用函数的内存地址的方式来实现调用load方法，而不是objc常见的msg_send()方法。<br><strong>所以这里就可以解释了为什么子类没有实现load方法的时候不会调用到父类的load方法，因为不是通过msg_send的方式去调用的。也就是每个类的load方法都是独立的，不会有消息的转发等情况发生，也就是利用这个特性，我们可以在这里做<a href="https://nshipster.com/method-swizzling/" target="_blank" rel="noopener">method swizzling</a></strong></li>
+</ul>
+<h2 id="void-initialize"><a href="#void-initialize" class="headerlink" title="+ (void)initialize"></a>+ (void)initialize</h2><p>接下来我们来看看<code>+ (void)initialize</code>方法是如何被调用的，我们来关注一下runtime-new.mm文件里面的lookUpImpOrForward方法，我相信有些人看到这个方法应该觉得有点熟悉，这里就是返回一个方法的实现或者消息转发的时候就会调用该方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">IMP lookUpImpOrForward(Class cls, SEL sel, id inst, </span><br><span class="line">                       bool initialize, bool cache, bool resolver)</span><br><span class="line">&#123;</span><br><span class="line">    ......</span><br><span class="line">    if (initialize  &amp;&amp;  !cls-&gt;isInitialized()) &#123;</span><br><span class="line">        runtimeLock.unlockRead();</span><br><span class="line">        _class_initialize (_class_getNonMetaClass(cls, inst));</span><br><span class="line">        runtimeLock.read();</span><br><span class="line">        // If sel == initialize, _class_initialize will send +initialize and </span><br><span class="line">        // then the messenger will send +initialize again after this </span><br><span class="line">        // procedure finishes. Of course, if this is not being called </span><br><span class="line">        // from the messenger then it won&apos;t happen. 2778172</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    ......</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过上面的关键代码我们可以看出当一个类的方法任何一个方法被调用的时候，就会判断该类是否已经调用了initialize方法，如果没有调用的话就会通过<code>void_class_initialize(Class cls)</code>方法来调用initialize方法，接下来我们来看具体实现。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">void _class_initialize(Class cls)</span><br><span class="line">&#123;</span><br><span class="line">    assert(!cls-&gt;isMetaClass());</span><br><span class="line"></span><br><span class="line">    Class supercls;</span><br><span class="line">    bool reallyInitialize = NO;</span><br><span class="line"></span><br><span class="line">    // Make sure super is done initializing BEFORE beginning to initialize cls.</span><br><span class="line">    // See note about deadlock above.</span><br><span class="line">    supercls = cls-&gt;superclass;</span><br><span class="line">    if (supercls  &amp;&amp;  !supercls-&gt;isInitialized())   &#123;</span><br><span class="line">        _class_initialize(supercls);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // Try to atomically set CLS_INITIALIZING.</span><br><span class="line">    &#123;</span><br><span class="line">        monitor_locker_t lock(classInitLock);</span><br><span class="line">        if (!cls-&gt;isInitialized() &amp;&amp; !cls-&gt;isInitializing()) &#123;</span><br><span class="line">            cls-&gt;setInitializing();</span><br><span class="line">            reallyInitialize = YES;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    if (reallyInitialize) &#123;</span><br><span class="line">        // We successfully set the CLS_INITIALIZING bit. Initialize the class.</span><br><span class="line">        </span><br><span class="line">        // Record that we&apos;re initializing this class so we can message it.</span><br><span class="line">        _setThisThreadIsInitializingClass(cls);</span><br><span class="line"></span><br><span class="line">        if (MultithreadedForkChild) &#123;</span><br><span class="line">            // LOL JK we don&apos;t really call +initialize methods after fork().</span><br><span class="line">            performForkChildInitialize(cls, supercls);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        // Send the +initialize message.</span><br><span class="line">        // Note that +initialize is sent to the superclass (again) if </span><br><span class="line">        // this class doesn&apos;t implement +initialize. 2157218</span><br><span class="line">        if (PrintInitializing) &#123;</span><br><span class="line">            _objc_inform(&quot;INITIALIZE: thread %p: calling +[%s initialize]&quot;,</span><br><span class="line">                         pthread_self(), cls-&gt;nameForLogging());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // Exceptions: A +initialize call that throws an exception </span><br><span class="line">        // is deemed to be a complete and successful +initialize.</span><br><span class="line">        //</span><br><span class="line">        // Only __OBJC2__ adds these handlers. !__OBJC2__ has a</span><br><span class="line">        // bootstrapping problem of this versus CF&apos;s call to</span><br><span class="line">        // objc_exception_set_functions().</span><br><span class="line">#if __OBJC2__</span><br><span class="line">        @try</span><br><span class="line">#endif</span><br><span class="line">        &#123;</span><br><span class="line">        </span><br><span class="line">        //通过objc_msgSend方法调用initialize方法</span><br><span class="line">           ((void(*)(Class, SEL))objc_msgSend)(cls, SEL_initialize);</span><br><span class="line">    asm(&quot;&quot;);</span><br><span class="line"></span><br><span class="line">            if (PrintInitializing) &#123;</span><br><span class="line">                _objc_inform(&quot;INITIALIZE: thread %p: finished +[%s initialize]&quot;,</span><br><span class="line">                             pthread_self(), cls-&gt;nameForLogging());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">#if __OBJC2__</span><br><span class="line">        @catch (...) &#123;</span><br><span class="line">            if (PrintInitializing) &#123;</span><br><span class="line">                _objc_inform(&quot;INITIALIZE: thread %p: +[%s initialize] &quot;</span><br><span class="line">                             &quot;threw an exception&quot;,</span><br><span class="line">                             pthread_self(), cls-&gt;nameForLogging());</span><br><span class="line">            &#125;</span><br><span class="line">            @throw;</span><br><span class="line">        &#125;</span><br><span class="line">        @finally</span><br><span class="line">#endif</span><br><span class="line">        &#123;</span><br><span class="line">            // Done initializing.</span><br><span class="line">            lockAndFinishInitializing(cls, supercls);</span><br><span class="line">        &#125;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">  .......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过上面的代码我们看到了该方法首先会获取该类的父类，并且递归调用<code>_class_initialize</code>方法保证父类的方法优先于子类执行。然后我们看到了有一行很关键的代码。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">((void(*)(Class, SEL))objc_msgSend)(cls, SEL_initialize);</span><br><span class="line">  asm(&quot;&quot;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>+(void)initialize方法是通过objc_msgSend方法来调用的，区别于load方法通过方法内存地址调用，所以根据objc_msgSend的特性，如果一个子类没有实现initialize方法，那么将会调用父类的initialize方法，如果分类实现了initialize方法，那么将会替换子类方法。</li>
+</ul>
+<p><strong>综上所述，一个类的initialize方法是有可能被调用多次的，如果他有对应的子类并且子类没有实现对应的initialize方法的时候本类的initialize方法就会被调用多次。所以为了保证一个类的initialize方法里面的逻辑只会被调用一次，我们可以通过以下的代码判断</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+ (void)initialize &#123;</span><br><span class="line">  if (self == [ClassName self]) &#123;</span><br><span class="line">    // ... do the initialization ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2>
+      
+    </div>
+    
+    
+    
+
+    <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------评论系统采用disqus，<i class="fa fa-paw"></i>如果看不到需要翻墙-------------</div>
+    
+</div>
+
+  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/04/iOS 开发/iOS图片解码实践/" rel="next" title="iOS图片解码实践">
+                <i class="fa fa-chevron-left"></i> iOS图片解码实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg"
+                alt="lemon" />
+            
+              <p class="site-author-name" itemprop="name">lemon</p>
+              <p class="site-description motion-element" itemprop="description">iOS Developer | 拥抱变化 | 🍋😊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/codemonkeybulucck" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:codebulucck@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用时机以及调用策略"><span class="nav-number">2.</span> <span class="nav-text">调用时机以及调用策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码分析"><span class="nav-number">4.</span> <span class="nav-text">源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#void-load"><span class="nav-number">5.</span> <span class="nav-text">+ (void)load</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#void-initialize"><span class="nav-number">6.</span> <span class="nav-text">+ (void)initialize</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#End"><span class="nav-number">7.</span> <span class="nav-text">End</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lemon</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://lemon2well.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://lemon2well.top/2018/09/11/iOS 开发/iOS中的load和initialize方法/';
+          this.page.identifier = '2018/09/11/iOS 开发/iOS中的load和initialize方法/';
+          this.page.title = 'iOS中的load和initialize方法';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lemon2well.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
