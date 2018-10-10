@@ -424,44 +424,17 @@
 
       
         
-          
-            <h2 id="什么是KVO"><a href="#什么是KVO" class="headerlink" title="什么是KVO"></a>什么是KVO</h2><blockquote>
+          <h2 id="什么是KVO"><a href="#什么是KVO" class="headerlink" title="什么是KVO"></a>什么是KVO</h2><blockquote>
 <p>KVO(key-value observing)是观察者模式的一种实现，通过监听对象的某一个属性，当属性的值发生改变的时候，监听者会获得通知。</p>
 </blockquote>
 <h2 id="KVO的使用以及缺点"><a href="#KVO的使用以及缺点" class="headerlink" title="KVO的使用以及缺点"></a>KVO的使用以及缺点</h2><p>我们来看一下是如何使用系统的KVO的。<br>系统提供了三个重要的方法，一个是设置监听，一个是监听回调，另外一个是移除监听。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(nullable void *)context;</span><br><span class="line">- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary&lt;NSKeyValueChangeKey, id&gt; *)change context:(nullable void *)context;</span><br><span class="line">- (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath context:(nullable void *)context API_AVAILABLE(macos(10.7), ios(5.0), watchos(2.0), tvos(9.0));</span><br></pre></td></tr></table></figure>
-<p>怎么使用我就不说了，我来说说系统的KVO的缺点。</p>
-<ol>
-<li>当一个观察者监听了很多对象的时候，所有的回调方法都在一个地方处理，这样就要做很多的判断来根据不同的对象不同的属性来做相应的响应。</li>
-<li>没有提供<code>@selector</code>的形式以及<code>block</code>的形式，而且还要处理父类的情况，如果父类同样也监听了对象的同一属性，你不知道父类是否对这个消息感兴趣，还要根据context来处理，这样显得很混乱。</li>
-</ol>
-<h2 id="KVO的实现"><a href="#KVO的实现" class="headerlink" title="KVO的实现"></a>KVO的实现</h2><p>基于以上的缺点考虑，我们想自己实现一个KVO，并且以block的形式进行回调，那么我们首先要知道KVO的实现原理。</p>
-<p>在苹果的开发者网站上面有透露了KVO的实现，虽然没有透露内部的细节，但是我们也可以知道一个大概。</p>
-<blockquote>
-<p>Automatic key-value observing is implemented using a technique called isa-swizzling.<br>The isa pointer, as the name suggests, points to the object’s class which maintains a dispatch table. This dispatch table essentially contains pointers to the methods the class implements, among other data.<br>When an observer is registered for an attribute of an object the isa pointer of the observed object is modified, pointing to an intermediate class rather than at the true class. As a result the value of the isa pointer does not necessarily reflect the actual class of the instance.<br>You should never rely on the isa pointer to determine class membership. Instead, you should use the class method to determine the class of an object instance.</p>
-</blockquote>
-<p>上面的话翻译过来就是KVO的实现是基于一个叫做isa-swizzling的技术，也就是改变isa的指针，我们知道每个对象都有一个isa指针指向他的类，后面调用方法的时候根据isa指针找到对应的类然后调用相应的方法。当一个对象被注册监听的时候，系统会创建一个该对象所属的类的子类，然后修改子类的setter方法，该setter方法里面会调用父类的setter实现，然后实现通知告诉观察者。最后改变该对象的isa指针，指向我们自定义的kvo类。最后当我们给一个属性赋值的时候，其实调用的setter方法应不是原来的类的setter，而是系统创建的kvo子类。</p>
-<p>基于以上的原理，我们来开始动手实现一个通过block回调的kvo</p>
-<h2 id="实现带有block的KVO"><a href="#实现带有block的KVO" class="headerlink" title="实现带有block的KVO"></a>实现带有block的KVO</h2><p>我们创建一个NSObject的category，然后向外面提供两个方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">typedef void(^lmObserveBlock)(id observer, NSString *key ,id oldValue, id newValue);</span><br><span class="line"></span><br><span class="line">@interface NSObject (LMKVO)</span><br><span class="line">- (void)lm_AddObserver:(id)observer</span><br><span class="line">                  key:(NSString *)key</span><br><span class="line">         observeBlock:(lmObserveBlock)block;</span><br><span class="line"></span><br><span class="line">- (void)lm_removeObserver:(id)observer</span><br><span class="line">                   key:(NSString*)key;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<p>我们首先来看看添加监听的方法：</p>
-<p>下面的代码主要做了下面四件事：</p>
-<blockquote>
-<ol>
-<li>判断对象的类是否存在setter方法，不存在的话则直接返回</li>
-<li>判断对象的isa指针指向的类是否是kvo类，不是的话就通过objc_allocateClassPair()以及objc_registerClassPair()两个主要方法来注册一个kvo类，修改对象的isa指针。</li>
-<li>判断kvo类是否已经存在setter方法，不存在的话则创建setter方法.</li>
-<li>通过obj_getAssociatedObject以及objc_setAssociatedObject来动态给分类增加一个array的属性，通过该属性保存所有的obverve信息，以便后面属性值发生改变的时候调用。</li>
-</ol>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">- (void)lm_AddObserver:(id)observer</span><br><span class="line">                   key:(NSString *)key</span><br><span class="line">          observeBlock:(lmObserveBlock)block&#123;</span><br><span class="line">    SEL selForSetter = NSSelectorFromString([self setterName:key]);</span><br><span class="line">    Method setterMethod = class_getInstanceMethod([self class], selForSetter);</span><br><span class="line">    //lei判断如果父类不存在setter方法，那么直接返回</span><br><span class="line">    if (!setterMethod) &#123;</span><br><span class="line">        NSLog(@&quot;父类方法不存在setter&quot;);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    //判断对象的isa指针指向的类是否是kvo，如果不是则创建该类的子类，并且将对象的isa指向该子类。</span><br><span class="line">    Class class = object_getClass(self);</span><br><span class="line">    NSString *className = NSStringFromClass(class);</span><br><span class="line">    </span><br><span class="line">    if (![className hasPrefix:LMKVOPREFIX]) &#123;</span><br><span class="line">        //创建一个新的类并且修改isa指针</span><br><span class="line">        class = [self makeNewClassWithClassName:className];</span><br><span class="line">        object_setClass(self, class);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //判断新创建的类是否已经实现了setter方法，如果没有则创建新的setter方法</span><br><span class="line">    if (![self hasSelector:selForSetter]) &#123;</span><br><span class="line">        const char *types = method_getTypeEncoding(setterMethod);</span><br><span class="line">        class_addMethod(class, selForSetter, (IMP)kvo_setter, types);</span><br><span class="line">    &#125;</span><br><span class="line">    //保存observerInfo</span><br><span class="line">    LMObserverInfo *info = [[LMObserverInfo alloc] initWithObserver:observer key:key block:block];</span><br><span class="line">    NSMutableArray *observers = objc_getAssociatedObject(self,(__bridge const void * _Nonnull)(LMKVOAssociatedObservers));</span><br><span class="line">    if (!observers) &#123;</span><br><span class="line">        observers = [NSMutableArray array];</span><br><span class="line">        objc_setAssociatedObject(self, (__bridge const void * _Nonnull)(LMKVOAssociatedObservers), observers, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">    &#125;</span><br><span class="line">    if ([self containsSameObserver:observer key:key]) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    [observers addObject:info];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后我们来看一下移除监听的方法实现：</p>
-<p>这里就是在我们之前保存的数组中找到对应的observe和key，然后移除相应的对象。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)lm_removeObserver:(id)observer</span><br><span class="line">                   key:(NSString*)key&#123;</span><br><span class="line">    NSMutableArray *observers = objc_getAssociatedObject(self,(__bridge const void * _Nonnull)(LMKVOAssociatedObservers));</span><br><span class="line">    LMObserverInfo *specialInfo = [self containsSameObserver:observer key:key];</span><br><span class="line">    if (specialInfo) &#123;</span><br><span class="line">        [observers removeObject:specialInfo];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>实现的逻辑很简单，看看demo就一目了然了。<br>这里是[demo][<a href="https://github.com/codemonkeybulucck/LMKVOTool]" target="_blank" rel="noopener">https://github.com/codemonkeybulucck/LMKVOTool]</a></p>
-<p>参考：<a href="https://github.com/okcomp/ImplementKVO" target="_blank" rel="noopener">ImplementKVO</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/10/iOS 开发/iOS动手实现KVO/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

@@ -83,18 +83,18 @@
 
 
 
-<meta name="description" content="什么是KVO KVO(key-value observing)是观察者模式的一种实现，通过监听对象的某一个属性，当属性的值发生改变的时候，监听者会获得通知。  KVO的使用以及缺点我们来看一下是如何使用系统的KVO的。系统提供了三个重要的方法，一个是设置监听，一个是监听回调，另外一个是移除监听。 123- (void)addObserver:(NSObject *)observer forKeyP">
+<meta name="description" content="什么是KVO KVO(key-value observing)是观察者模式的一种实现，通过监听对象的某一个属性，当属性的值发生改变的时候，监听者会获得通知。  KVO的使用以及缺点我们来看一下是如何使用系统的KVO的。系统提供了三个重要的方法，一个是设置监听，一个是监听回调，另外一个是移除监听。">
 <meta name="keywords" content="kvo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS动手实现KVO">
 <meta property="og:url" content="http://lemon2well.top/2018/10/10/iOS 开发/iOS动手实现KVO/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="什么是KVO KVO(key-value observing)是观察者模式的一种实现，通过监听对象的某一个属性，当属性的值发生改变的时候，监听者会获得通知。  KVO的使用以及缺点我们来看一下是如何使用系统的KVO的。系统提供了三个重要的方法，一个是设置监听，一个是监听回调，另外一个是移除监听。 123- (void)addObserver:(NSObject *)observer forKeyP">
+<meta property="og:description" content="什么是KVO KVO(key-value observing)是观察者模式的一种实现，通过监听对象的某一个属性，当属性的值发生改变的时候，监听者会获得通知。  KVO的使用以及缺点我们来看一下是如何使用系统的KVO的。系统提供了三个重要的方法，一个是设置监听，一个是监听回调，另外一个是移除监听。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-10T07:12:18.191Z">
+<meta property="og:updated_time" content="2018-10-10T07:16:26.904Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS动手实现KVO">
-<meta name="twitter:description" content="什么是KVO KVO(key-value observing)是观察者模式的一种实现，通过监听对象的某一个属性，当属性的值发生改变的时候，监听者会获得通知。  KVO的使用以及缺点我们来看一下是如何使用系统的KVO的。系统提供了三个重要的方法，一个是设置监听，一个是监听回调，另外一个是移除监听。 123- (void)addObserver:(NSObject *)observer forKeyP">
+<meta name="twitter:description" content="什么是KVO KVO(key-value observing)是观察者模式的一种实现，通过监听对象的某一个属性，当属性的值发生改变的时候，监听者会获得通知。  KVO的使用以及缺点我们来看一下是如何使用系统的KVO的。系统提供了三个重要的方法，一个是设置监听，一个是监听回调，另外一个是移除监听。">
 
 
 
@@ -426,6 +426,7 @@
 <p>KVO(key-value observing)是观察者模式的一种实现，通过监听对象的某一个属性，当属性的值发生改变的时候，监听者会获得通知。</p>
 </blockquote>
 <h2 id="KVO的使用以及缺点"><a href="#KVO的使用以及缺点" class="headerlink" title="KVO的使用以及缺点"></a>KVO的使用以及缺点</h2><p>我们来看一下是如何使用系统的KVO的。<br>系统提供了三个重要的方法，一个是设置监听，一个是监听回调，另外一个是移除监听。</p>
+<a id="more"></a>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(nullable void *)context;</span><br><span class="line">- (void)observeValueForKeyPath:(nullable NSString *)keyPath ofObject:(nullable id)object change:(nullable NSDictionary&lt;NSKeyValueChangeKey, id&gt; *)change context:(nullable void *)context;</span><br><span class="line">- (void)removeObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath context:(nullable void *)context API_AVAILABLE(macos(10.7), ios(5.0), watchos(2.0), tvos(9.0));</span><br></pre></td></tr></table></figure>
 <p>怎么使用我就不说了，我来说说系统的KVO的缺点。</p>
 <ol>
