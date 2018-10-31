@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="logify," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -83,18 +83,19 @@
 
 
 
-<meta name="description" content="1.简介###logify是THEOS自带的为代码添加Log的工具，可以使用该工具给指定的类添加Log代码并且生成一个新的Tweak.xm文件 2.用法2.1 准备工作2.1.1 安装Theos 首先需要安装Theos，安装完成之后会默认安装此工具。">
-<meta name="keywords" content="logify">
+<meta name="description" content="为什么需要锁在iOS中相信大家都用过多线程，多线程带来的好处显而易见，但是我们需要关注一下多线程有可能带来的问题。假设我们有一个这样的场景，我们有两条线程A和线程B，A线程做的事情是修改这个对象之后读取这个对象的数据，这个时候B线程可能也在修改这个对象。这个时候有两种情况（取决于B线程修改对象的时机）：   正常的情况，A线程修改对象以及读取对象之后，B线程才开始修改这个对象。 异常的情况，A线程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="通过theos提供的logify来为类的所有方法添加追踪日志">
-<meta property="og:url" content="http://lemon2well.top/2018/07/25/iOS 逆向/通过theos提供的logify来为类的所有方法添加追踪日志/index.html">
+<meta property="og:title" content="iOS中常见的八种锁">
+<meta property="og:url" content="http://lemon2well.top/2018/10/31/iOS中常见的八种锁/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="1.简介###logify是THEOS自带的为代码添加Log的工具，可以使用该工具给指定的类添加Log代码并且生成一个新的Tweak.xm文件 2.用法2.1 准备工作2.1.1 安装Theos 首先需要安装Theos，安装完成之后会默认安装此工具。">
+<meta property="og:description" content="为什么需要锁在iOS中相信大家都用过多线程，多线程带来的好处显而易见，但是我们需要关注一下多线程有可能带来的问题。假设我们有一个这样的场景，我们有两条线程A和线程B，A线程做的事情是修改这个对象之后读取这个对象的数据，这个时候B线程可能也在修改这个对象。这个时候有两种情况（取决于B线程修改对象的时机）：   正常的情况，A线程修改对象以及读取对象之后，B线程才开始修改这个对象。 异常的情况，A线程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-25T06:41:07.874Z">
+<meta property="og:image" content="http://pcd17v2u0.bkt.clouddn.com/15407991692950.png">
+<meta property="og:updated_time" content="2018-10-31T03:19:52.617Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="通过theos提供的logify来为类的所有方法添加追踪日志">
-<meta name="twitter:description" content="1.简介###logify是THEOS自带的为代码添加Log的工具，可以使用该工具给指定的类添加Log代码并且生成一个新的Tweak.xm文件 2.用法2.1 准备工作2.1.1 安装Theos 首先需要安装Theos，安装完成之后会默认安装此工具。">
+<meta name="twitter:title" content="iOS中常见的八种锁">
+<meta name="twitter:description" content="为什么需要锁在iOS中相信大家都用过多线程，多线程带来的好处显而易见，但是我们需要关注一下多线程有可能带来的问题。假设我们有一个这样的场景，我们有两条线程A和线程B，A线程做的事情是修改这个对象之后读取这个对象的数据，这个时候B线程可能也在修改这个对象。这个时候有两种情况（取决于B线程修改对象的时机）：   正常的情况，A线程修改对象以及读取对象之后，B线程才开始修改这个对象。 异常的情况，A线程">
+<meta name="twitter:image" content="http://pcd17v2u0.bkt.clouddn.com/15407991692950.png">
 
 
 
@@ -124,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://lemon2well.top/2018/07/25/iOS 逆向/通过theos提供的logify来为类的所有方法添加追踪日志/"/>
+  <link rel="canonical" href="http://lemon2well.top/2018/10/31/iOS中常见的八种锁/"/>
 
 
 
 
 
-  <title>通过theos提供的logify来为类的所有方法添加追踪日志 | Lemon's blog</title>
+  <title>iOS中常见的八种锁 | Lemon's blog</title>
   
 
 
@@ -291,7 +292,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/07/25/iOS 逆向/通过theos提供的logify来为类的所有方法添加追踪日志/">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/10/31/iOS中常见的八种锁/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -308,7 +309,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">通过theos提供的logify来为类的所有方法添加追踪日志</h1>
+          <h1 class="post-title" itemprop="name headline">iOS中常见的八种锁</h1>
         
 
         <div class="post-meta">
@@ -320,8 +321,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T14:40:31+08:00">
-                2018-07-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T11:19:26+08:00">
+                2018-10-31
               </time>
             
 
@@ -343,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS-逆向/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS 逆向</span>
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
                   </a>
                 </span>
 
@@ -361,9 +362,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/25/iOS 逆向/通过theos提供的logify来为类的所有方法添加追踪日志/#comments" itemprop="discussionUrl">
+                <a href="/2018/10/31/iOS中常见的八种锁/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/25/iOS 逆向/通过theos提供的logify来为类的所有方法添加追踪日志/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2018/10/31/iOS中常见的八种锁/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -385,7 +386,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  610
+                  2,458
                 </span>
               
 
@@ -401,7 +402,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  9
                 </span>
               
             </div>
@@ -422,24 +423,57 @@
       
 
       
-        <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>###logify是THEOS自带的为代码添加Log的工具，可以使用该工具给指定的类添加Log代码并且生成一个新的Tweak.xm文件</p>
-<h2 id="2-用法"><a href="#2-用法" class="headerlink" title="2.用法"></a>2.用法</h2><h3 id="2-1-准备工作"><a href="#2-1-准备工作" class="headerlink" title="2.1 准备工作"></a>2.1 准备工作</h3><h4 id="2-1-1-安装Theos"><a href="#2-1-1-安装Theos" class="headerlink" title="2.1.1 安装Theos"></a>2.1.1 安装Theos</h4><p> 首先需要安装<a href="https://github.com/theos/theos" target="_blank" rel="noopener">Theos</a>，安装完成之后会默认安装此工具。</p>
+        <h2 id="为什么需要锁"><a href="#为什么需要锁" class="headerlink" title="为什么需要锁"></a>为什么需要锁</h2><p>在iOS中相信大家都用过多线程，多线程带来的好处显而易见，但是我们需要关注一下多线程有可能带来的问题。假设我们有一个这样的场景，我们有两条线程A和线程B，A线程做的事情是修改这个对象之后读取这个对象的数据，这个时候B线程可能也在修改这个对象。这个时候有两种情况（取决于B线程修改对象的时机）：</p>
+<blockquote>
+<ol>
+<li>正常的情况，A线程修改对象以及读取对象之后，B线程才开始修改这个对象。</li>
+<li>异常的情况，A线程修改对象之后，B线程立刻修改了这个帝乡，然后A线程读取对象。这个时候A线程读取到的数据就出错了。</li>
+</ol>
+</blockquote>
+<p>这就是我们常说的Data race，当两个线程同时在访问修改同一个块内存的时候，就有可能得到意想不到的结果。</p>
 <a id="more"></a>
-<h4 id="2-1-2-将APP脱壳，有两种方式可以获得脱壳的APP"><a href="#2-1-2-将APP脱壳，有两种方式可以获得脱壳的APP" class="headerlink" title="2.1.2 将APP脱壳，有两种方式可以获得脱壳的APP"></a>2.1.2 将APP脱壳，有两种方式可以获得脱壳的APP</h4><h5 id="2-1-2-1-无越狱机"><a href="#2-1-2-1-无越狱机" class="headerlink" title="2.1.2.1 无越狱机"></a>2.1.2.1 无越狱机</h5><p>通过PP助手去越狱市场下载脱壳的ipa，有时下载下来的也不一定是脱壳后的，你可以通过在终端执行以下命令<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otool -l target.app/target | grep crypt</span><br></pre></td></tr></table></figure></p>
-<p> 如果输出<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cryptoff 16384</span><br><span class="line">cryptsize 58753024</span><br><span class="line">cryptid 0 //0 代表已经砸壳，1代表未砸壳</span><br></pre></td></tr></table></figure></p>
-<h5 id="2-1-2-2-有越狱机"><a href="#2-1-2-2-有越狱机" class="headerlink" title="2.1.2.2 有越狱机"></a>2.1.2.2 有越狱机</h5><p> 你需要一台越狱机器，安装完整版之后通过工具来脱壳，这个时候你也有两个方法获得脱壳应用。方法一：你可以使用<a href="https://github.com/stefanesser/dumpdecrypted" target="_blank" rel="noopener">dumpdecrypted</a>工具来砸壳。方式二：你也可以使用庆总开源的工具<a href="https://github.com/AloneMonkey/frida-ios-dump" target="_blank" rel="noopener">frida-iOS-dump</a>一条命令行进行砸壳。</p>
-<h4 id="2-1-3-class-dump-出头文件"><a href="#2-1-3-class-dump-出头文件" class="headerlink" title="2.1.3 class-dump 出头文件"></a>2.1.3 class-dump 出头文件</h4><p>通过以上的方式得到砸壳后的应用之后，需要利用<a href="https://github.com/nygard/class-dump" target="_blank" rel="noopener">clas-dump</a>工具dump出头文件。具体的用法如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class-dump -s -S -H target.app/target -o /path/to/save/header</span><br></pre></td></tr></table></figure>
-<h4 id="2-1-4-使用logify工具生成Tweak-xm文件"><a href="#2-1-4-使用logify工具生成Tweak-xm文件" class="headerlink" title="2.1.4 使用logify工具生成Tweak.xm文件"></a>2.1.4 使用logify工具生成Tweak.xm文件</h4><p>该文件里面会hook该头文件对应的类，并且会在代码里面加上Log打印<br>用法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logify.pl HookHeader.h的全路径 &gt;Tweak.xm</span><br></pre></td></tr></table></figure>
-<p>如果要跟踪多个头文件，则继续转换：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logify.pl 其它头文件 &gt;&gt; Tweak.xm</span><br></pre></td></tr></table></figure>
-<p> <em>注意中间是 &gt;&gt;</em></p>
-<h4 id="2-1-5-使用nic-pl命令来生成Theos工程，选择Teak工具。"><a href="#2-1-5-使用nic-pl命令来生成Theos工程，选择Teak工具。" class="headerlink" title="2.1.5 使用nic.pl命令来生成Theos工程，选择Teak工具。"></a>2.1.5 使用nic.pl命令来生成Theos工程，选择Teak工具。</h4><h4 id="2-1-6-创建完Tweak工程之后，将在2-1-4中生成的Tweak-xm替换掉工程中的Teak-xm-不过此时还需要对该文件做一些修改"><a href="#2-1-6-创建完Tweak工程之后，将在2-1-4中生成的Tweak-xm替换掉工程中的Teak-xm-不过此时还需要对该文件做一些修改" class="headerlink" title="2.1.6 创建完Tweak工程之后，将在2.1.4中生成的Tweak.xm替换掉工程中的Teak.xm.不过此时还需要对该文件做一些修改"></a>2.1.6 创建完Tweak工程之后，将在2.1.4中生成的Tweak.xm替换掉工程中的Teak.xm.不过此时还需要对该文件做一些修改</h4><p>a.去掉.cxx_destruct 方法</p>
-<p>b.将HBLogDebug 改为NSLog</p>
-<p>然后修改makefile文件，在最上面那一行增加<br>THEOS_DEVICE_IP = 你的设备的IP</p>
-<h4 id="2-1-7"><a href="#2-1-7" class="headerlink" title="2.1.7"></a>2.1.7</h4><p> 使用一下make package install 生成deb包，并且安装到越狱设备上。</p>
-<h4 id="2-1-8-运行目标APP，观察日志。"><a href="#2-1-8-运行目标APP，观察日志。" class="headerlink" title="2.1.8 运行目标APP，观察日志。"></a>2.1.8 运行目标APP，观察日志。</h4><p> 有两种方法可以观察日志，第一种是通过xcode-&gt;window-&gt;Device and simulators-&gt;view device logs 。<br> 第二种是通过idevicesyslog -u udid 来查看特定设备的日志。这种方式需要安装<a href="https://www.jianshu.com/p/746f3ddded1f" target="_blank" rel="noopener">libimobiledevice</a></p>
+<p>基于上面的前提，我们在出现了用<code>锁</code>来解决问题的方法。下面我们就来说说iOS中的锁。</p>
+<p>在ibireme写的<a href="https://blog.ibireme.com/2016/01/16/spinlock_is_unsafe_in_ios/" target="_blank" rel="noopener">不再安全的OSSpinLock</a>中给出了常用的锁的性能如下所示：</p>
+<p><img src="http://pcd17v2u0.bkt.clouddn.com/15407991692950.png" alt=""></p>
+<p>在解释下面的锁之前，我们先说说两种类型的锁，一种是自旋锁，一种是互斥锁。</p>
+<h2 id="按照功能来区分锁"><a href="#按照功能来区分锁" class="headerlink" title="按照功能来区分锁"></a>按照功能来区分锁</h2><h3 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h3><blockquote>
+<p><code>互斥锁</code>是为了保护一个临界区或者资源不能同时被多个小城访问。当临界区加上互斥锁以后，其他的调用方不能获得锁，只有当互斥锁的持有方释放锁之后其他调用方才能获得锁。<br>如果调用方在获得锁的时候发现<code>互斥锁</code>已经被其他方持有，那么该调用方只能进入睡眠状态，这样不会占用CPU资源。但是会有时间的消耗，系统的运行时基于CPU时间调度的，每次线程可能有100ms的运行时间，频繁的CPU切换也会消耗一定的时间。</p>
+</blockquote>
+<h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><blockquote>
+<p><code>自旋锁</code>和互斥锁相似，但是自旋锁不会引起休眠,当自旋锁被别的线程锁定的时候，那么调用方会一直处于等待的状态，用一种生活化的例子来说就像是上厕所，当你要上厕所发现里面已经有人的时候，你就会一直等在外面，直到他出来你就立刻抢占厕所。<br>由于调用方会一直循环看该自旋锁的的保持者是否已经释放了资源，所以总的效率来说比互斥锁高。但是自旋锁只用于短时间的资源访问，如果不能短时间内获得锁，就会一直占用着CPU，造成效率低下。</p>
+</blockquote>
+<h2 id="常见的锁的类型"><a href="#常见的锁的类型" class="headerlink" title="常见的锁的类型"></a>常见的锁的类型</h2><h3 id="OSSpinLock"><a href="#OSSpinLock" class="headerlink" title="OSSpinLock"></a>OSSpinLock</h3><p><code>OSSpinLock</code>是自旋锁，也正是由于它是自旋锁，所以容易发生优先级反转的问题。在ibireme的文章中已经写到，当一个低优先级线程获得锁的时候，如果此时一个高优先级的系统到来，那么会进入忙等状态，不会进入睡眠，此时会一直占用着系统CPU时间，导致低优先级的无法拿到CPU时间片，从而无法完成任务也无法释放锁。除非能保证访问锁的线程全部处于同一优先级，否则系统所有的自旋锁都会出现优先级反转的问题。现在苹果的<code>OSSpinLock</code>已经被替换成<code>os_unfair_lock</code><br><code>typedef int32_t OSSpinLock OSSPINLOCK_DEPRECATED_REPLACE_WITH(os_unfair_lock);</code></p>
+<h3 id="dispatch-semaphore"><a href="#dispatch-semaphore" class="headerlink" title="dispatch_semaphore"></a>dispatch_semaphore</h3><p><code>dispatch_semaphore</code>主要提供了三个函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dispatch_semaphore_create(long value);//创造信号量</span><br><span class="line">dispatch_semaphore_wait(dispatch_semaphore_t dsema, dispatch_time_t timeout); //等待信号</span><br><span class="line">dispatch_semaphore_signal(dispatch_semaphore_t dsema);//发送信号</span><br></pre></td></tr></table></figure>
+<p><code>dispatch_semaphore</code>是GCD用来同步的一种方式，<code>dispatch_semephore_create</code>方法用户创建一个<code>dispatch_semephore_t</code>类型的信号量，初始的参数必须大于0，该参数用来表示该信号量有多少个信号，简单的说也就是同事允许多少个线程访问。<br><code>dispatch_semaphore_wait()</code>方法是等待一个信号量，该方法会判断signal的信号值是否大于0，如果大于0则不会阻塞线程，消耗点一个信号值，执行后续任务。如果信号值等于0那么就和NSCondition一样，阻塞当前线程进入等待状态，如果等待时间未超过timeout并且<code>dispatch_semaphore_signal</code>释放了了一个信号值，那么就会消耗掉一个信号值并且向下执行。如果期间一直不能获得信号量并且超过超时时间，那么就会自动执行后续语句。</p>
+<h3 id="pthread-mutex"><a href="#pthread-mutex" class="headerlink" title="pthread-mutex"></a>pthread-mutex</h3><blockquote>
+<p><code>pthread-mutex</code>是互斥锁，互斥锁与信号量的机制非常相似，不会处于忙等状态，而是会阻塞线程并休眠。</p>
+</blockquote>
+<p><code>pthread-mutex</code>提供了几个常用的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int pthread_mutex_init(pthread_mutex_t * __restrict, const pthread_mutexattr_t * __restrict);//初始化锁</span><br><span class="line">int pthread_mutex_lock(pthread_mutex_t *); //加锁</span><br><span class="line">int pthread_mutex_unlock(pthread_mutex_t *); //解锁</span><br></pre></td></tr></table></figure>
+<p><code>pthread_mutex_init</code>方法用来初始化一个锁，需要传入一个pthread_mutex_t的对象，并且需要设置互斥锁的类型。互斥锁有四种类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PTHREAD_MUTEX_NORMAL : 默认值普通锁，当一个线程加锁以后，其他线程进入按照优先顺序进入等待队列，并且解锁的时候按照先入先出的方式获得锁。</span><br><span class="line">PTHREAD_MUTEX_ERRORCHECK : 检错锁，当同一个线程获得同一个锁的时候，则返回EDEADLK，否则与普通锁处理一样。</span><br><span class="line">PTHREAD_MUTEX_RECURSIVE : 递归锁。这里有别于上面的检错锁，同一个线程可以递归获得锁，但是加锁和解锁必须要一一对应。</span><br><span class="line">PTHREAD_MUTEX_DEFAULT : 适应锁，等待解锁之后重新竞争，没有等待队列。</span><br></pre></td></tr></table></figure>
+<h3 id="NSLock"><a href="#NSLock" class="headerlink" title="NSLock"></a>NSLock</h3><p><code>NSLock</code>遵循<code>NSLocking</code>协议，同时也是互斥锁，提供了lock和unlock方法来进行加锁和解锁。<br><code>NSLock</code>内部是封装了<code>pthread_mutext</code>，类型是<code>PTHREAD_MUTEXT_ERRORCHECK</code>，它会损失一定的性能换来错误提示。</p>
+<h3 id="NSCondition"><a href="#NSCondition" class="headerlink" title="NSCondition"></a>NSCondition</h3><p><code>NSCondition</code>是封装了一个互斥锁和信号量，它把前者的lock以及后者的wait/signal统一到<code>NSCondition</code>对象中，是基于条件变量<code>pthread_cond_t</code>来实现的，和信号量相似，如果当前线程不满足条件，那么就会进入睡眠状态，等待其他线程释放锁或者释放信号之后，就会唤醒线程。类似于生产者和消费者模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">NSCondition *lock = [[NSCondition alloc] init];</span><br><span class="line">    NSMutableArray *array = [[NSMutableArray alloc] init];</span><br><span class="line">    //消费者</span><br><span class="line">    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">        [lock lock];</span><br><span class="line">        while (!array.count) &#123;</span><br><span class="line">            [lock wait];</span><br><span class="line">        &#125;</span><br><span class="line">        [array removeAllObjects];</span><br><span class="line">        NSLog(@&quot;array removeAllObjects&quot;);</span><br><span class="line">        [lock unlock];</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    //生产者</span><br><span class="line">    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^&#123;</span><br><span class="line">        sleep(1);//以保证让线程2的代码后执行</span><br><span class="line">        [lock lock];</span><br><span class="line">        [array addObject:@1];</span><br><span class="line">        NSLog(@&quot;array addObject:@1&quot;);</span><br><span class="line">        [lock signal];</span><br><span class="line">        [lock unlock];</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="NSRecursiveLock"><a href="#NSRecursiveLock" class="headerlink" title="NSRecursiveLock"></a>NSRecursiveLock</h3><blockquote>
+<p><code>NSRecursiveLock</code>实际上定义的是一个递归锁，这个锁可以被同一线程多次请求，而不会引起死锁。这主要是用在循环或递归操作中</p>
+</blockquote>
+<p><code>NSRecursiveLock</code>内部是通过pthread_mutex_lock来实现的，在内部会判断锁的类型，如果是递归锁，就允许递归调用，内部仅仅是将计数器+1。当调用unlock的时候，就将计数器减1。NSRecursiveLock内部使用的pthread_mutex_t的类型是<code>PTHREAD_MUTEXT_RECURSIVE</code></p>
+<h3 id="NSConditionLock"><a href="#NSConditionLock" class="headerlink" title="NSConditionLock"></a>NSConditionLock</h3><p><code>NSConditonLock</code> 是借助NSCondition，本质上是生产者-消费者模式，<code>NSConditonLock</code>内部持有了一个<code>NSCondition</code>对象和<code>_condition_value</code>属性，当调用<code>- (instancetype)initWithCondition:(NSInteger)condition NS_DESIGNATED_INITIALIZER;</code>初始化的时候会传入一个condition参数，该参数会赋值<code>_condition_value</code>属性。</p>
+<ul>
+<li><p>在<code>NSConditionLock</code>r中，对应的消费者就是<code>- (void)lockWhenCondition:(NSInteger)condition;</code>方法，首先会调用[condition lock]，然后开始进入阻塞状态，如果condition=_condition_value，那么就会休眠，直到代码调用<code>- (void)unlockWithCondition:(NSInteger)condition;</code>才会唤起</p>
+</li>
+<li><p><code>- (void)unlockWithCondition:(NSInteger)condition;</code>就是对应的生产者方法，内部会设置condition=_contion_value，并且发送广播告诉所有的消费者，表示生产完成，然后调用[condition unlock]释放锁。</p>
+</li>
+</ul>
+<h3 id="synchronized"><a href="#synchronized" class="headerlink" title="@synchronized"></a>@synchronized</h3><p>@synchronized是OC层面上的锁，是所有的锁之中性能最差的。<br>@synchronized后面紧跟一个OC对象，实际上是将这个对象当做锁来使用。这是通过一个哈希表来实现的，OC在底层维护了一个互斥锁的数组，通过对象的哈希值去得到对象的互斥锁。<br>具体的实现原理可以参考萧玉大神的这篇文章: <a href="http://yulingtianxia.com/blog/2015/11/01/More-than-you-want-to-know-about-synchronized/" target="_blank" rel="noopener">关于 @synchronized，这儿比你想知道的还要多</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>经过上面的分析我们知道锁的性能由高到低分别是<br><code>OSSpinLock(已经不推荐使用)</code>-&gt;<code>dispatch_semaphore</code>-&gt;<code>pthread_mutext</code>-&gt;<code>NSLock</code>-&gt;<code>NSCondition</code>-&gt;<code>NSRecursiveLock</code>-&gt;<code>NSConditonLock</code>-&gt;<code>@synchronized</code></p>
+<p>我们再来梳理一下它们的关系：</p>
+<ol>
+<li><code>dipatch_semaphore</code>是GCD同步的一种方式，通过dispatch_semaphore_t信号量来实现。<br>2.<code>pthread_mutex</code>是互斥锁，提供了四种不同类型，不会像自旋锁一样忙等，而是会进入休眠等待。<br>3.<code>NSLock</code>是封装了<code>prthread_mutex</code>，锁的类型是<code>PTHREAD_MUTEX_ERRORCHECK</code>，也就是当同一个线程获得同一个锁的时候，会返回错误。<br>4.<code>NSCondition</code>是基于条件变量<code>pthread_cond_t</code>实现的，和信号量相似，当不满足条件的时候就会进入休眠等待，知道condition对象发出signal信号，才会被唤醒执行。<br>5.<code>NSRecursiveLock</code>是递归锁，同样是封装了<code>pthread_mutex</code>来实现，但是锁的类型是<code>PTHREAD_MUTEX_RECURSIVE</code>，允许统一递归获得锁，但是要注意加锁和解锁要一一对应。<br>6.<code>NSConditionLock</code>是基于<code>NSCondition</code>实现的，同样也是生产者和消费者模式。<br>7.<code>@synchronized</code>是OC层面的锁，传入一个OC对象，通过对象的哈希值来作为标识符得到互斥锁，存入到一个数组里面。</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://juejin.im/post/57f6e9f85bbb50005b126e5f" target="_blank" rel="noopener">深入理解iOS中的锁</a><br><a href="https://www.jianshu.com/p/938d68ed832c" target="_blank" rel="noopener">iOS中保证线程安全的几种方式与性能对比</a><br><a href="https://www.jianshu.com/p/ddbe44064ca4" target="_blank" rel="noopener">iOS 常见知识点（三）：Lock</a><br><a href="https://blog.ibireme.com/2016/01/16/spinlock_is_unsafe_in_ios/" target="_blank" rel="noopener">不再安全的OSSpinLock</a></p>
 
       
     </div>
@@ -466,12 +500,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/logify/" rel="tag"># logify</a>
-          
-        </div>
-      
 
       
       
@@ -481,8 +509,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/25/iOS 逆向/导出iOS真机缓存的dyld-shared-cache-arm64文件/" rel="next" title="导出iOS真机缓存的dyld_shared_cache_arm64文件">
-                <i class="fa fa-chevron-left"></i> 导出iOS真机缓存的dyld_shared_cache_arm64文件
+              <a href="/2018/10/10/iOS 开发/iOS动手实现KVO/" rel="next" title="iOS动手实现KVO">
+                <i class="fa fa-chevron-left"></i> iOS动手实现KVO
               </a>
             
           </div>
@@ -490,10 +518,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/25/iOS 逆向/iOS-逆向常用命令/" rel="prev" title="iOS 逆向常用命令">
-                iOS 逆向常用命令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -662,7 +686,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简介"><span class="nav-number">1.</span> <span class="nav-text">1.简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-用法"><span class="nav-number">2.</span> <span class="nav-text">2.用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-准备工作"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-安装Theos"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 安装Theos</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-将APP脱壳，有两种方式可以获得脱壳的APP"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 将APP脱壳，有两种方式可以获得脱壳的APP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-2-1-无越狱机"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">2.1.2.1 无越狱机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-2-2-有越狱机"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">2.1.2.2 有越狱机</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-class-dump-出头文件"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 class-dump 出头文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-4-使用logify工具生成Tweak-xm文件"><span class="nav-number">2.1.4.</span> <span class="nav-text">2.1.4 使用logify工具生成Tweak.xm文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-5-使用nic-pl命令来生成Theos工程，选择Teak工具。"><span class="nav-number">2.1.5.</span> <span class="nav-text">2.1.5 使用nic.pl命令来生成Theos工程，选择Teak工具。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-6-创建完Tweak工程之后，将在2-1-4中生成的Tweak-xm替换掉工程中的Teak-xm-不过此时还需要对该文件做一些修改"><span class="nav-number">2.1.6.</span> <span class="nav-text">2.1.6 创建完Tweak工程之后，将在2.1.4中生成的Tweak.xm替换掉工程中的Teak.xm.不过此时还需要对该文件做一些修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-7"><span class="nav-number">2.1.7.</span> <span class="nav-text">2.1.7</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-8-运行目标APP，观察日志。"><span class="nav-number">2.1.8.</span> <span class="nav-text">2.1.8 运行目标APP，观察日志。</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要锁"><span class="nav-number">1.</span> <span class="nav-text">为什么需要锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按照功能来区分锁"><span class="nav-number">2.</span> <span class="nav-text">按照功能来区分锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#互斥锁"><span class="nav-number">2.1.</span> <span class="nav-text">互斥锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自旋锁"><span class="nav-number">2.2.</span> <span class="nav-text">自旋锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的锁的类型"><span class="nav-number">3.</span> <span class="nav-text">常见的锁的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OSSpinLock"><span class="nav-number">3.1.</span> <span class="nav-text">OSSpinLock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dispatch-semaphore"><span class="nav-number">3.2.</span> <span class="nav-text">dispatch_semaphore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pthread-mutex"><span class="nav-number">3.3.</span> <span class="nav-text">pthread-mutex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSLock"><span class="nav-number">3.4.</span> <span class="nav-text">NSLock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSCondition"><span class="nav-number">3.5.</span> <span class="nav-text">NSCondition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSRecursiveLock"><span class="nav-number">3.6.</span> <span class="nav-text">NSRecursiveLock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSConditionLock"><span class="nav-number">3.7.</span> <span class="nav-text">NSConditionLock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized"><span class="nav-number">3.8.</span> <span class="nav-text">@synchronized</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
@@ -826,9 +850,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lemon2well.top/2018/07/25/iOS 逆向/通过theos提供的logify来为类的所有方法添加追踪日志/';
-          this.page.identifier = '2018/07/25/iOS 逆向/通过theos提供的logify来为类的所有方法添加追踪日志/';
-          this.page.title = '通过theos提供的logify来为类的所有方法添加追踪日志';
+          this.page.url = 'http://lemon2well.top/2018/10/31/iOS中常见的八种锁/';
+          this.page.identifier = '2018/10/31/iOS中常见的八种锁/';
+          this.page.title = 'iOS中常见的八种锁';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lemon2well.disqus.com/embed.js';
