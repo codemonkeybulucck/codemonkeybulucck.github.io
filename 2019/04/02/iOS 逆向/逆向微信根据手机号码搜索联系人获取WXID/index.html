@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+<meta name="google-site-verification" content="Yb2cZMtB2AU2pFggqyD2-CaAoPhXfz96ArZedI1__VU" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lemon's blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="这段时间在忙着新版本SDK的开发，也在准备换工作的事情，虽然现在是“寒潮”，但是还是想走出舒适区，去感受一下春天的“寒冷”。也很久没有接触逆向方面的工作了，昨天一个大学同学问我，能不能通过一个人的手机号以及微信号找到那个人对应的wxid，其实我也不清楚，但是我们来尝试一下找一下。  1. wxid 是什么？wxid是顾名思义就是微信的ID，也就是一个手机号码刚注册的时候，微信给予用户的一个初始化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆向微信根据手机号码搜索联系人获取WXID">
+<meta property="og:url" content="http://lemon2well.top/2019/04/02/iOS 逆向/逆向微信根据手机号码搜索联系人获取WXID/index.html">
+<meta property="og:site_name" content="Lemon&#39;s blog">
+<meta property="og:description" content="这段时间在忙着新版本SDK的开发，也在准备换工作的事情，虽然现在是“寒潮”，但是还是想走出舒适区，去感受一下春天的“寒冷”。也很久没有接触逆向方面的工作了，昨天一个大学同学问我，能不能通过一个人的手机号以及微信号找到那个人对应的wxid，其实我也不清楚，但是我们来尝试一下找一下。  1. wxid 是什么？wxid是顾名思义就是微信的ID，也就是一个手机号码刚注册的时候，微信给予用户的一个初始化">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://lemon2well.top/2019/04/02/iOS%20逆向/逆向微信根据手机号码搜索联系人获取WXID/media/15537420649103/15537427751243.jpg">
+<meta property="og:image" content="http://lemon2well.top/2019/04/02/iOS%20逆向/逆向微信根据手机号码搜索联系人获取WXID/media/15537420649103/15537443880035.jpg">
+<meta property="og:updated_time" content="2019-04-02T01:45:32.503Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="逆向微信根据手机号码搜索联系人获取WXID">
+<meta name="twitter:description" content="这段时间在忙着新版本SDK的开发，也在准备换工作的事情，虽然现在是“寒潮”，但是还是想走出舒适区，去感受一下春天的“寒冷”。也很久没有接触逆向方面的工作了，昨天一个大学同学问我，能不能通过一个人的手机号以及微信号找到那个人对应的wxid，其实我也不清楚，但是我们来尝试一下找一下。  1. wxid 是什么？wxid是顾名思义就是微信的ID，也就是一个手机号码刚注册的时候，微信给予用户的一个初始化">
+<meta name="twitter:image" content="http://lemon2well.top/2019/04/02/iOS%20逆向/逆向微信根据手机号码搜索联系人获取WXID/media/15537420649103/15537427751243.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lemon2well.top/2019/04/02/iOS 逆向/逆向微信根据手机号码搜索联系人获取WXID/"/>
+
+
+
+
+
+  <title>逆向微信根据手机号码搜索联系人获取WXID | Lemon's blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lemon's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">所有的东西你都要坚持到最后才知道值不值得</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-家">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            家
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2019/04/02/iOS 逆向/逆向微信根据手机号码搜索联系人获取WXID/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lemon's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">逆向微信根据手机号码搜索联系人获取WXID</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-02T09:43:09+08:00">
+                2019-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS-逆向/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 逆向</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/02/iOS 逆向/逆向微信根据手机号码搜索联系人获取WXID/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/04/02/iOS 逆向/逆向微信根据手机号码搜索联系人获取WXID/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,222
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>这段时间在忙着新版本SDK的开发，也在准备换工作的事情，虽然现在是“寒潮”，但是还是想走出舒适区，去感受一下春天的“寒冷”。也很久没有接触逆向方面的工作了，昨天一个大学同学问我，能不能通过一个人的手机号以及微信号找到那个人对应的wxid，其实我也不清楚，但是我们来尝试一下找一下。</p>
+</blockquote>
+<h3 id="1-wxid-是什么？"><a href="#1-wxid-是什么？" class="headerlink" title="1. wxid 是什么？"></a>1. wxid 是什么？</h3><p>wxid是顾名思义就是微信的ID，也就是一个手机号码刚注册的时候，微信给予用户的一个初始化ID，这个和后面的微信号其实是分开的，经过我测试，如果设置了微信号之后，可能原始的wxid就会被覆盖。但是也有一些是不会被覆盖的，这个就不清楚微信是怎么处理的了。</p>
+<a id="more"></a>
+<h3 id="2-开始wxid的寻找之旅"><a href="#2-开始wxid的寻找之旅" class="headerlink" title="2. 开始wxid的寻找之旅"></a>2. 开始wxid的寻找之旅</h3><h4 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h4><p>当我们通过手机号码查找一个人的时候，查找出来的界面是只会显示下面的信息，不会有wxid或者微信号这样的信息。</p>
+<p><img src="media/15537420649103/15537427751243.jpg" alt="-w160"></p>
+<p>但是直觉告诉我，既然已经搜出来这个人，那么这个控制器里面肯定有一个包含这个人信息的对象，看一下那个对象里面的全部信息，可能会找到我想要的。所以我们的目标就是找到这个对象的控制器，然后看看里面有没有一个类似于联系人之类的对象，然后再看一下这个对象里面的属性。Let’s do it.</p>
+<h4 id="2-探究"><a href="#2-探究" class="headerlink" title="2. 探究"></a>2. 探究</h4><blockquote>
+<p>在探究之前如果你不清楚LLDB+DebugServer的使用可以看<a href="http://lemon2well.top/2018/07/25/iOS%20逆向/LLDB-debugserver的使用/">这里</a></p>
+</blockquote>
+<h5 id="2-1-首先拿出我那台祖传的iPhone，连上数据线，然后SSH登陆上去："><a href="#2-1-首先拿出我那台祖传的iPhone，连上数据线，然后SSH登陆上去：" class="headerlink" title="2.1 首先拿出我那台祖传的iPhone，连上数据线，然后SSH登陆上去："></a>2.1 首先拿出我那台祖传的iPhone，连上数据线，然后SSH登陆上去：</h5><ul>
+<li>iTerm打开一个窗口，将本地的2222端口映射到iPhone的22端口</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Last login: Thu Mar 28 11:20:01 on ttys003</span><br><span class="line">LemonsMcBookPro:~ lemon$ tcprelay.py -t 22:2222</span><br><span class="line">Forwarding local port 2222 to remote port 22</span><br></pre></td></tr></table></figure>
+<ul>
+<li>iTerm打开另外一个窗口，通过ssh连接上去</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LemonsMcBookPro:~ lemon$ ssh root@localhost -p 2222</span><br><span class="line">lemons-iPhone5S:~ root#</span><br></pre></td></tr></table></figure>
+<h5 id="2-2-登陆上去之后，看一下当前微信的进程ID，然后通过将debugserver挂到微信上面，然后接受来自LLDB的命令，达到动态调试微信的目的。"><a href="#2-2-登陆上去之后，看一下当前微信的进程ID，然后通过将debugserver挂到微信上面，然后接受来自LLDB的命令，达到动态调试微信的目的。" class="headerlink" title="2.2 登陆上去之后，看一下当前微信的进程ID，然后通过将debugserver挂到微信上面，然后接受来自LLDB的命令，达到动态调试微信的目的。"></a>2.2 登陆上去之后，看一下当前微信的进程ID，然后通过将debugserver挂到微信上面，然后接受来自LLDB的命令，达到动态调试微信的目的。</h5><ul>
+<li>先在手机运行微信，然后查找微信的进程ID，然后通过debugserver监听来自1234端口的消息。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">LemonsMcBookPro:~ lemon$ ssh root@localhost -p 2222</span><br><span class="line">lemons-iPhone5S:~ root# ps -e | grep /var</span><br><span class="line">  632 ??         0:04.03 /usr/libexec/pkd -d/var/db/PlugInKit-Annotations</span><br><span class="line"> 1902 ??         0:11.14 /var/containers/Bundle/Application/2A191819-B0B1-41DB-813A-ED369475D3B9/NewsLite.app/NewsLite</span><br><span class="line"> 1910 ??         0:02.20 /var/containers/Bundle/Application/0841859F-B658-4A66-AB81-6B51C4A04D7B/Chain.app/Chain</span><br><span class="line"> 1991 ??         0:45.40 /var/containers/Bundle/Application/81DE6416-3F32-4C7E-BD0C-ABA1585E77E2/wework.app/wework</span><br><span class="line"> 2612 ??         2:16.97 /var/containers/Bundle/Application/5FE48592-3233-47A2-B933-C2F0CF277F14/WeChat.app/WeChat</span><br><span class="line"> 2721 ??         0:31.45 /var/containers/Bundle/Application/A7E1F925-9859-4C2C-9092-C10B719E604F/AndFetion.app/AndFetion</span><br><span class="line"> 2996 ??         0:04.00 /var/containers/Bundle/Application/06B248D3-61C9-48EC-98BF-A95BEFC782BA/WhatsApp.app/WhatsApp</span><br><span class="line"> 3392 ttys000    0:00.01 grep /var</span><br><span class="line">lemons-iPhone5S:~ root# debugserver *:1234 -a 2612</span><br><span class="line">debugserver-@(#)PROGRAM:debugserver  PROJECT:debugserver-340.3.124</span><br><span class="line"> for arm64.</span><br><span class="line">Attaching to process 2612...</span><br><span class="line">Listening to port 1234 for a connection from *...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此时debugserver正在监听1234端口的消息。此时我们还是通过将本地的1234端口映射到iPhone的1234端口，然后连接本地的1234端口。<br>iTerm 打开一个新窗口</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Last login: Thu Mar 28 11:20:24 on ttys003</span><br><span class="line">LemonsMcBookPro:~ lemon$ tcprelay.py -t 1234:1234</span><br><span class="line">Forwarding local port 1234 to remote port 1234</span><br><span class="line">Incoming connection to 1234</span><br><span class="line">Waiting for devices...</span><br></pre></td></tr></table></figure>
+<p>  iTerm 打开一个新窗口</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Last login: Thu Mar 28 11:31:52 on ttys005</span><br><span class="line">LemonsMcBookPro:~ lemon$ lldb</span><br><span class="line">(lldb) process connect connect://localhost:1234</span><br><span class="line">Process 2612 stopped</span><br><span class="line">* thread #1, queue = &apos;com.apple.main-thread&apos;, stop reason = signal SIGSTOP</span><br><span class="line">    frame #0: 0x00000001819b0fd8 libsystem_kernel.dylib`mach_msg_trap + 8</span><br><span class="line">libsystem_kernel.dylib`mach_msg_trap:</span><br><span class="line">-&gt;  0x1819b0fd8 &lt;+8&gt;: ret</span><br><span class="line"></span><br><span class="line">libsystem_kernel.dylib`mach_msg_overwrite_trap:</span><br><span class="line">    0x1819b0fdc &lt;+0&gt;: mov    x16, #-0x20</span><br><span class="line">    0x1819b0fe0 &lt;+4&gt;: svc    #0x80</span><br><span class="line">    0x1819b0fe4 &lt;+8&gt;: ret</span><br><span class="line">Target 0: (WeChat) stopped.</span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此时微信的进程已经停止了，并且正在等待我们的命令。我们先输入<strong>c</strong>让进程继续。(这是LLDB的基础命令，c代表continue)</li>
+</ul>
+<h5 id="2-3-打开目标界面，查找目标对象"><a href="#2-3-打开目标界面，查找目标对象" class="headerlink" title="2.3 打开目标界面，查找目标对象"></a>2.3 打开目标界面，查找目标对象</h5><ul>
+<li><p>上面我们已经将LLDB挂到微信上面了，接下来我们先搜索一个手机号，然后去到添加联系人界面。<br><img src="media/15537420649103/15537443880035.jpg" alt="-w160"></p>
+</li>
+<li><p>我们搜索到联系人之后，我们需要找到当前界面的控制器。下面是关键命令:</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">(lldb) process interrupt</span><br><span class="line">(lldb) po [[[UIApplication sharedApplication]keyWindow]recursiveDescription]</span><br><span class="line">&lt;MMUILongPressImageView: 0x140982bf0; baseClass = UIImageView; frame = (3 3; 64 64); opaque = NO; layer = &lt;CALayer: 0x14338b660&gt;&gt;</span><br><span class="line">&lt;UIImageView: 0x14337eb10; frame = (0 0; 70 70); hidden = YES; userInteractionEnabled = NO; layer = &lt;CALayer: 0x14337ecc0&gt;&gt;</span><br><span class="line">&lt;MMCPLabel: 0x1433cf8f0; baseClass = UILabel; frame = (107 0; 88 27); text = &apos;默默等待&apos;; tag = 90220; gestureRecognizers = &lt;NSArray: 0x143517010&gt;; layer = &lt;_UILabelLayer: 0x1402ac6c0&gt;&gt;</span><br><span class="line">&lt;_UILabelContentLayer: 0x143398ee0&gt; (layer)</span><br><span class="line">&lt;UIView: 0x1433e1600; frame = (304 1.5; 0 24); layer = &lt;CALayer: 0x1433e1520&gt;&gt;</span><br><span class="line">(lldb) po [0x1433cf8f0 nextResponder]</span><br><span class="line">&lt;MMUIButton: 0x143581b10; baseClass = UIButton; frame = (0 0; 320 77); opaque = NO; tag = 90221; layer = &lt;CALayer: 0x14354ff50&gt;&gt;</span><br><span class="line"></span><br><span class="line">(lldb) po [0x143581b10 nextResponder]</span><br><span class="line">&lt;UIView: 0x140982a80; frame = (0 0; 320 105); layer = &lt;CALayer: 0x143541d80&gt;&gt;</span><br><span class="line"></span><br><span class="line">(lldb) po [0x140982a80 nextResponder]</span><br><span class="line">&lt;WCStoryTableView: 0x13f5f7a00; baseClass = UITableView; frame = (0 0; 320 568); autoresize = W+H; gestureRecognizers = &lt;NSArray: 0x143510ee0&gt;; layer = &lt;CALayer: 0x1433f3570&gt;; contentOffset: &#123;0, -64&#125;; contentSize: &#123;320, 504&#125;&gt;</span><br><span class="line"></span><br><span class="line">(lldb) po [0x13f5f7a00 nextResponder];</span><br><span class="line">&lt;MMUIButton: 0x1426b1960; baseClass = UIButton; frame = (0 0; 320 1136); opaque = NO; autoresize = W; gestureRecognizers = &lt;NSArray: 0x14315c0c0&gt;; layer = &lt;CALayer: 0x14093f9a0&gt;&gt;</span><br><span class="line"></span><br><span class="line">(lldb) po [0x1426b1960 nextResponder]</span><br><span class="line">&lt;UIView: 0x14354d550; frame = (0 0; 320 568); autoresize = W+H; layer = &lt;CALayer: 0x13ef32f00&gt;&gt;</span><br><span class="line"></span><br><span class="line">(lldb) po [0x1426b1960 nextResponder];</span><br><span class="line">&lt;UIView: 0x14354d550; frame = (0 0; 320 568); autoresize = W+H; layer = &lt;CALayer: 0x13ef32f00&gt;&gt;</span><br><span class="line"></span><br><span class="line">(lldb) po [0x14354d550 nextResponder];</span><br><span class="line">&lt;ContactInfoViewController: 0x13fc0c400&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>process interrupt</strong>: 中断当前进程<br><strong>[[[UIApplication sharedApplication]keyWindow]recursiveDescription]</strong> : 答应当前界面的信息，此时会显示所有的界面的元素。</p>
+</blockquote>
+<p>此时我们可以根据名字“默默等待”来找到到对应的Label，然后通过这个label的找到对应ViewController。使用nextResponder一级一级的找到对应的ViewController。通过上面的信息我们可以看到当前的ViewController是ContactInfoViewController。</p>
+<p>#####2.4 打印对象属性。</p>
+<ul>
+<li>打印ContactInfoViewController的所有成员变量。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">(lldb) po [0x13fc0c400 _ivarDescription]</span><br><span class="line">&lt;ContactInfoViewController: 0x13fc0c400&gt;:</span><br><span class="line">in ContactInfoViewController:</span><br><span class="line">	m_uiVerify (unsigned int): 0</span><br><span class="line">	m_contact (CContact*): &lt;CSearchedContact: 0x1433b0550&gt;</span><br><span class="line">	m_chatContact (CContact*): nil</span><br><span class="line">	m_delegate (&lt;contactInfoDelegate&gt;*): nil</span><br><span class="line">	m_InfoDelegate (&lt;ContactInfoViewControllerDelegate&gt;*): nil</span><br><span class="line">	m_oContactInfoAssist (CBaseContactInfoAssist*): &lt;WeixinContactInfoAssist: 0x14331a240&gt;</span><br><span class="line">	m_contactVerifyLogic (CContactVerifyLogic*): nil</span><br><span class="line">	m_nsLocation (NSString*): nil</span><br><span class="line">	m_bPopToRootWhenDelete (BOOL): &lt;00&gt;</span><br><span class="line">	m_uiFromScene (unsigned int): 6</span><br><span class="line">	m_wcOperateMode (int): 0</span><br><span class="line">	m_popToViewControllerClassWhenDelete (Class): (null)</span><br><span class="line">	m_searchScene (int): 0</span><br><span class="line">	m_userData (id): nil</span><br><span class="line">	m_clickHelper (FavClickStreamHelper*): &lt;FavClickStreamHelper: 0x14260e330&gt;</span><br><span class="line">	m_CurrentWidth (double): 320</span><br><span class="line">	m_forwardLogic (ForwardMessageLogicController*): nil</span><br><span class="line">	_startTime (unsigned int): 1553744360</span><br><span class="line">	m_sendVerifylogicVC (SendVerifyMsgLogicController*): nil</span><br><span class="line">	_isFullScreenShowStory (BOOL): &lt;00&gt;</span><br><span class="line">	_hasStoryData (BOOL): &lt;00&gt;</span><br><span class="line">	_canShowStoryView (BOOL): &lt;01&gt;</span><br><span class="line">	_isShowingStoryPreview (BOOL): &lt;00&gt;</span><br><span class="line">	m_uiAddFriendStatScene (int): 0</span><br><span class="line">	_m_qrCodeAddFriendScene (int): 0</span><br><span class="line">	_searchFromIndex (unsigned int): 0</span><br><span class="line">	_favId (unsigned int): 0</span><br><span class="line">	_verifyUserInfoList (NSMutableDictionary*): nil</span><br><span class="line">	_searchId (NSString*): nil</span><br><span class="line">	_searchKeyword (NSString*): nil</span><br><span class="line">	........</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个时候我们可以看到在最上面有一个<code>m_contact (CContact*): &lt;CSearchedContact: 0x1433b0550&gt;</code>我猜测这个应该是我们搜索出来的微信号信息的对象，我们可以试着打印一下这个对象看看。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">(lldb) po [0x1433b0550 _ivarDescription]</span><br><span class="line">&lt;CSearchedContact: 0x1433b0550&gt;:</span><br><span class="line">in CSearchedContact:</span><br><span class="line">	matchType (unsigned int): 2</span><br><span class="line">	searchString (NSString*): @&quot;18575784615&quot;&lt;__NSCFString: 0x1435838e0&gt;</span><br><span class="line">in CContact:</span><br><span class="line">	m_uiChatRoomStatus (unsigned int): 0</span><br><span class="line">	m_nsChatRoomMemList (NSString*): nil</span><br><span class="line">	m_nsChatRoomAdminList (NSString*): nil</span><br><span class="line">	m_uiChatRoomAccessType (unsigned int): 0</span><br><span class="line">	m_uiChatRoomMaxCount (unsigned int): 0</span><br><span class="line">	m_uiChatRoomVersion (unsigned int): 0</span><br><span class="line">	m_ChatRoomDetail (ChatRoomDetail*): nil</span><br><span class="line">	m_nsChatRoomData (NSString*): nil</span><br><span class="line">	m_ChatRoomData (ChatRoomData*): nil</span><br><span class="line">	m_nsCountry (NSString*): @&quot;CN&quot;&lt;NSTaggedPointerString: 0xa00000000004e432&gt;</span><br><span class="line">	m_nsProvince (NSString*): @&quot;Anhui&quot;&lt;NSTaggedPointerString: 0xa00006975686e415&gt;</span><br><span class="line">	m_nsCity (NSString*): @&quot;Fuyang&quot;&lt;NSTaggedPointerString: 0xa00676e617975466&gt;</span><br><span class="line">	m_nsSignature (NSString*): @&quot;&quot;&lt;__NSCFConstantString: 0x10adaff28&gt;</span><br><span class="line">	m_uiCertificationFlag (unsigned int): 0</span><br><span class="line">	m_nsCertificationInfo (NSString*): @&quot;&quot;&lt;__NSCFConstantString: 0x10adaff28&gt;</span><br><span class="line">	m_nsOwner (NSString*): nil</span><br><span class="line">	m_nsFBNickName (NSString*): nil</span><br><span class="line">	m_nsFBID (NSString*): nil</span><br><span class="line">	m_uiNeedUpdate (unsigned int): 0</span><br><span class="line">	m_nsWCBGImgObjectID (NSString*): @&quot;0&quot;&lt;NSTaggedPointerString: 0xa000000000000301&gt;</span><br><span class="line">	m_iWCFlag (int): 0</span><br><span class="line">	m_pcWCBGImgID (NSString*): @&quot;&quot;&lt;__NSCFConstantString: 0x10adaff28&gt;</span><br><span class="line">	m_nsExternalInfo (NSString*): @&quot;&quot;&lt;__NSCFConstantString: 0x10adaff28&gt;</span><br><span class="line">	m_nsBrandSubscriptConfigUrl (NSString*): @&quot;&quot;&lt;__NSCFConstantString: 0x10adaff28&gt;</span><br><span class="line">	m_uiBrandSubscriptionSettings (unsigned int): 0</span><br><span class="line">	m_subBrandInfo (SubscriptBrandInfo*): &lt;SubscriptBrandInfo: 0x140936fe0&gt;</span><br><span class="line">	m_nsBrandIconUrl (NSString*): @&quot;&quot;&lt;__NSCFConstantString: 0x10adaff28&gt;</span><br><span class="line">	m_isExtInfoValid (BOOL): &lt;01&gt;</span><br><span class="line">	externalInfoJSONCache (NSDictionary*): nil</span><br><span class="line">	m_isShowRedDot (BOOL): &lt;00&gt;</span><br><span class="line">	m_nsMobileHash (NSString*): nil</span><br><span class="line">	m_nsMobileFullHash (NSString*): nil</span><br><span class="line">	m_nsLinkedInID (NSString*): nil</span><br><span class="line">	m_nsLinkedInName (NSString*): nil</span><br><span class="line">	m_nsLinkedInPublicUrl (NSString*): nil</span><br><span class="line">	m_uiDeleteFlag (unsigned int): 0</span><br><span class="line">	m_nsDescription (NSString*): nil</span><br><span class="line">	m_nsCardUrl (NSString*): nil</span><br><span class="line">	m_nsWorkID (NSString*): nil</span><br><span class="line">	m_nsLabelIDList (NSString*): nil</span><br><span class="line">	m_arrPhoneItem (NSArray*): &lt;__NSArrayM: 0x1433d60a0&gt;</span><br><span class="line">	m_lockForChatRoomData (NSRecursiveLock*): &lt;NSRecursiveLock: 0x1406dada0&gt;</span><br><span class="line">	_appBrandInfo (CAppBrandInfo*): nil</span><br><span class="line">	_m_bFromNewDB (BOOL): &lt;01&gt;</span><br><span class="line">	_m_hasNewBizMsg (BOOL): &lt;00&gt;</span><br><span class="line">	_m_uiLastUpdate (unsigned int): 0</span><br><span class="line">	_m_uiMetaFlag (unsigned int): 0</span><br><span class="line">	_m_uiDebugModeType (unsigned int): 0</span><br><span class="line">	_m_uiWxAppOpt (unsigned int): 0</span><br><span class="line">	_uiLastUpdateAppVersionInfoTime (unsigned int): 0</span><br><span class="line">	openIMAppid (NSString*): nil</span><br><span class="line">	openIMInfo (COpenIMInfo*): nil</span><br><span class="line">	_m_dicWeiDianInfo (NSDictionary*): nil</span><br><span class="line">	_m_nsWeiDianInfo (NSString*): nil</span><br><span class="line">in CBaseContact:</span><br><span class="line">	m_nsUsrName (NSString*): @&quot;v1_81f423f663f69d690124bb98c81aade8c47642dfb41842bb2bdfd85907d912df04b2f31b8f910255577a8cde8dc835d4@stranger&quot;&lt;__NSCFString: 0x1434c5630&gt;</span><br><span class="line">	m_nsEncodeUserName (NSString*): nil</span><br><span class="line">	m_nsAliasName (NSString*): @&quot;yao1054057455&quot;&lt;__NSCFString: 0x1432f4c60&gt;</span><br><span class="line">	m_uiConType (unsigned int): 0</span><br><span class="line">	m_nsNickName (NSString*): @&quot;默默等待&quot;&lt;__NSCFString: 0x1434b18c0&gt;</span><br><span class="line">	m_nsFullPY (NSString*): @&quot;wxid0rxnvbwkf1n512132&quot;&lt;__NSCFString: 0x14324d5f0&gt;</span><br><span class="line">	m_nsShortPY (NSString*): @&quot;mmdd&quot;&lt;__NSCFString: 0x143526120&gt;</span><br><span class="line">	m_nsRemark (NSString*): nil</span><br><span class="line">	m_nsRemarkPYShort (NSString*): nil</span><br><span class="line">	m_nsRemarkPYFull (NSString*): nil</span><br><span class="line">	m_nsDisplayNamePY (NSString*): nil</span><br><span class="line">	m_uiSex (unsigned int): 2</span><br><span class="line">	m_uiType (unsigned int): 0</span><br><span class="line">	m_uiChatState (unsigned int): 0</span><br><span class="line">	m_dtUsrImg (NSData*): nil</span><br><span class="line">	m_nsImgStatus (NSString*): @&quot;IMG_HAS&quot;&lt;__NSCFConstantString: 0x104085c48&gt;</span><br><span class="line">	m_nsHDImgStatus (NSString*): nil</span><br><span class="line">	m_nsHeadImgUrl (NSString*): @&quot;http://wx.qlogo.cn/mmhead/ver_1/x0enJ9WJoJ9lSdibxAk8ukuriaLjBphAFdnAfib9pLM6fZXJclib1uyenjSr3fUdVSBOAfdlAAyrs8JhSbbOatpRUTgeqO4ReTkNG9ahRpJJHms/132&quot;&lt;__NSCFString: 0x1426bc500&gt;</span><br><span class="line">	m_nsHeadHDImgUrl (NSString*): @&quot;http://wx.qlogo.cn/mmhead/ver_1/x0enJ9WJoJ9lSdibxAk8ukuriaLjBphAFdnAfib9pLM6fZXJclib1uyenjSr3fUdVSBOAfdlAAyrs8JhSbbOatpRUTgeqO4ReTkNG9ahRpJJHms/0&quot;&lt;__NSCFString: 0x14354d710&gt;</span><br><span class="line">	m_nsHeadHDMd5 (NSString*): nil</span><br><span class="line">	m_nsDraft (NSString*): nil</span><br><span class="line">	m_uiDraftTime (unsigned int): 0</span><br><span class="line">	m_nsAtUserList (NSString*): nil</span><br><span class="line">	m_uiQQUin (unsigned int): 0</span><br><span class="line">	m_nsMobileIdentify (NSString*): nil</span><br><span class="line">	m_uiFriendScene (unsigned int): 15</span><br><span class="line">	m_uiImgKey (unsigned int): 0</span><br><span class="line">	m_uiExtKey (unsigned int): 0</span><br><span class="line">	m_uiImgKeyAtLastGet (unsigned int): 0</span><br><span class="line">	m_uiExtKeyAtLastGet (unsigned int): 0</span><br><span class="line">	m_hasDetectPlugin (BOOL): &lt;01&gt;</span><br><span class="line">	m_isPlugin (BOOL): &lt;00&gt;</span><br><span class="line">	m_hasDetectSelf (BOOL): &lt;01&gt;</span><br><span class="line">	m_isSelf (BOOL): &lt;00&gt;</span><br><span class="line">	m_nsAntispamTicket (NSString*): @&quot;v2_2e4d1f9deb2d50cec867afc7481db2adc7bf821f79562b66d83225ae2338039a7abd1160dcc4a7122640fb42e0784801@stranger&quot;&lt;__NSCFString: 0x143539fe0&gt;</span><br><span class="line">	_externalInfoJSONCache (NSDictionary*): nil</span><br><span class="line">in NSObject:</span><br><span class="line">	isa (Class): CSearchedContact (isa, 0x81a104c3d59d)</span><br></pre></td></tr></table></figure>
+<p>结果没有让我们失望，到这里已经看到了m_nsFullPY这个属性包含的就是wxid。这次逆向很简单，都没有用到静态分析看汇编代码等方法，直接就能实现我们想做的。</p>
+<p>最后有个小tips，一般通过wxid是加不了好友的，但是在wxid前面加几个汉字可以搜索到好友哦。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------评论系统采用disqus，<i class="fa fa-paw"></i>如果看不到需要翻墙-------------</div>
+    
+</div>
+
+  
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/31/iOS 开发/iOS中常见的八种锁/" rel="next" title="iOS中常见的八种锁">
+                <i class="fa fa-chevron-left"></i> iOS中常见的八种锁
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pcd17v2u0.bkt.clouddn.com/lemon.jpeg"
+                alt="lemon" />
+            
+              <p class="site-author-name" itemprop="name">lemon</p>
+              <p class="site-description motion-element" itemprop="description">iOS Developer | 拥抱变化 | 🍋😊</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/codemonkeybulucck" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:codebulucck@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-wxid-是什么？"><span class="nav-number">1.</span> <span class="nav-text">1. wxid 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-开始wxid的寻找之旅"><span class="nav-number">2.</span> <span class="nav-text">2. 开始wxid的寻找之旅</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-分析"><span class="nav-number">2.1.</span> <span class="nav-text">1. 分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-探究"><span class="nav-number">2.2.</span> <span class="nav-text">2. 探究</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-首先拿出我那台祖传的iPhone，连上数据线，然后SSH登陆上去："><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 首先拿出我那台祖传的iPhone，连上数据线，然后SSH登陆上去：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-登陆上去之后，看一下当前微信的进程ID，然后通过将debugserver挂到微信上面，然后接受来自LLDB的命令，达到动态调试微信的目的。"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 登陆上去之后，看一下当前微信的进程ID，然后通过将debugserver挂到微信上面，然后接受来自LLDB的命令，达到动态调试微信的目的。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-打开目标界面，查找目标对象"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.3 打开目标界面，查找目标对象</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lemon</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://lemon2well.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://lemon2well.top/2019/04/02/iOS 逆向/逆向微信根据手机号码搜索联系人获取WXID/';
+          this.page.identifier = '2019/04/02/iOS 逆向/逆向微信根据手机号码搜索联系人获取WXID/';
+          this.page.title = '逆向微信根据手机号码搜索联系人获取WXID';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://lemon2well.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
