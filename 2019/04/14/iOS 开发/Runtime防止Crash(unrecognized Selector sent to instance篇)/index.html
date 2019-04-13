@@ -70,7 +70,7 @@
 
 
 
-  <meta name="keywords" content="dsc-extractor," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -83,18 +83,19 @@
 
 
 
-<meta name="description" content="1前言在iOS逆向中，我们常常需要对dyld_shared_cache_armX类型的文件进行还原，第一个我们经常使用的是dyld_decache工具，但是这个工具并不能用从来还原dyld_shared_cache_arm64文件，也就是64位指令集架构的缓存文件，这个时候dsc_extractor就为你续命了。">
-<meta name="keywords" content="dsc-extractor">
+<meta name="description" content="我相信对于所有的iOSer来说，最恐怖的就是线上的crash了。对于有（mei）强迫(you)症（qian）的我来说，只要一发现有crash，只要条件允许，无论是在凌晨三点还是在晚上十二点，我都会立刻拿出电脑来查找原因看看是哪里导致的crash。所以为了让程序不要crash，我们有两种方法，一种是预防，一种是补救。  今天我们的重点是预防，至于补救我在之前的一篇文章中有说过，大体就是通过上传cr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dsc_extractor的编译和使用">
-<meta property="og:url" content="http://lemon2well.top/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/index.html">
+<meta property="og:title" content="Runtime防止Crash(unrecognized Selector sent to instance篇)">
+<meta property="og:url" content="http://lemon2well.top/2019/04/14/iOS 开发/Runtime防止Crash(unrecognized Selector sent to instance篇)/index.html">
 <meta property="og:site_name" content="Lemon&#39;s blog">
-<meta property="og:description" content="1前言在iOS逆向中，我们常常需要对dyld_shared_cache_armX类型的文件进行还原，第一个我们经常使用的是dyld_decache工具，但是这个工具并不能用从来还原dyld_shared_cache_arm64文件，也就是64位指令集架构的缓存文件，这个时候dsc_extractor就为你续命了。">
+<meta property="og:description" content="我相信对于所有的iOSer来说，最恐怖的就是线上的crash了。对于有（mei）强迫(you)症（qian）的我来说，只要一发现有crash，只要条件允许，无论是在凌晨三点还是在晚上十二点，我都会立刻拿出电脑来查找原因看看是哪里导致的crash。所以为了让程序不要crash，我们有两种方法，一种是预防，一种是补救。  今天我们的重点是预防，至于补救我在之前的一篇文章中有说过，大体就是通过上传cr">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-25T06:35:19.999Z">
+<meta property="og:image" content="http://7xqcm1.com1.z0.glb.clouddn.com/message_forwarding.png">
+<meta property="og:updated_time" content="2019-04-13T16:40:59.148Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dsc_extractor的编译和使用">
-<meta name="twitter:description" content="1前言在iOS逆向中，我们常常需要对dyld_shared_cache_armX类型的文件进行还原，第一个我们经常使用的是dyld_decache工具，但是这个工具并不能用从来还原dyld_shared_cache_arm64文件，也就是64位指令集架构的缓存文件，这个时候dsc_extractor就为你续命了。">
+<meta name="twitter:title" content="Runtime防止Crash(unrecognized Selector sent to instance篇)">
+<meta name="twitter:description" content="我相信对于所有的iOSer来说，最恐怖的就是线上的crash了。对于有（mei）强迫(you)症（qian）的我来说，只要一发现有crash，只要条件允许，无论是在凌晨三点还是在晚上十二点，我都会立刻拿出电脑来查找原因看看是哪里导致的crash。所以为了让程序不要crash，我们有两种方法，一种是预防，一种是补救。  今天我们的重点是预防，至于补救我在之前的一篇文章中有说过，大体就是通过上传cr">
+<meta name="twitter:image" content="http://7xqcm1.com1.z0.glb.clouddn.com/message_forwarding.png">
 
 
 
@@ -124,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://lemon2well.top/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/"/>
+  <link rel="canonical" href="http://lemon2well.top/2019/04/14/iOS 开发/Runtime防止Crash(unrecognized Selector sent to instance篇)/"/>
 
 
 
 
 
-  <title>dsc_extractor的编译和使用 | Lemon's blog</title>
+  <title>Runtime防止Crash(unrecognized Selector sent to instance篇) | Lemon's blog</title>
   
 
 
@@ -291,7 +292,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/">
+    <link itemprop="mainEntityOfPage" href="http://lemon2well.top/2019/04/14/iOS 开发/Runtime防止Crash(unrecognized Selector sent to instance篇)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lemon">
@@ -308,7 +309,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">dsc_extractor的编译和使用</h1>
+          <h1 class="post-title" itemprop="name headline">Runtime防止Crash(unrecognized Selector sent to instance篇)</h1>
         
 
         <div class="post-meta">
@@ -320,8 +321,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T14:34:46+08:00">
-                2018-07-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-14T00:39:46+08:00">
+                2019-04-14
               </time>
             
 
@@ -343,8 +344,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS-逆向/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS 逆向</span>
+                  <a href="/categories/iOS-开发/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS 开发</span>
                   </a>
                 </span>
 
@@ -361,9 +362,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/#comments" itemprop="discussionUrl">
+                <a href="/2019/04/14/iOS 开发/Runtime防止Crash(unrecognized Selector sent to instance篇)/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/25/iOS 逆向/dsc-extractor的编译和使用/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2019/04/14/iOS 开发/Runtime防止Crash(unrecognized Selector sent to instance篇)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -385,7 +386,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  646
+                  1,998
                 </span>
               
 
@@ -401,7 +402,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  8
                 </span>
               
             </div>
@@ -422,35 +423,63 @@
       
 
       
-        <h3 id="1前言"><a href="#1前言" class="headerlink" title="1前言"></a>1前言</h3><p>在iOS逆向中，我们常常需要对dyld_shared_cache_armX类型的文件进行还原，第一个我们经常使用的是dyld_decache工具，但是这个工具并不能用从来还原dyld_shared_cache_arm64文件，也就是64位指令集架构的缓存文件，这个时候dsc_extractor就为你续命了。</p>
+        <blockquote>
+<p>我相信对于所有的iOSer来说，最恐怖的就是线上的crash了。对于有（mei）强迫(you)症（qian）的我来说，只要一发现有crash，只要条件允许，无论是在凌晨三点还是在晚上十二点，我都会立刻拿出电脑来查找原因看看是哪里导致的crash。所以为了让程序不要crash，我们有两种方法，一种是预防，一种是补救。</p>
+</blockquote>
+<p>今天我们的重点是预防，至于补救我在之前的一篇文章中有说过，大体就是通过上传crash堆栈信息，或者通过xcode拿到log，然后通过符号表还原定位到crash的代码。具体的可以看<a href="http://lemon2well.top/2018/08/22/iOS%20开发/iOSCrash信息上报和处理/">iOSCrash信息上报和处理</a></p>
 <a id="more"></a>
-<h3 id="2编译"><a href="#2编译" class="headerlink" title="2编译"></a>2编译</h3><p>打开终端依次执行以下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir dsc_extractor</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd dsc_extractor</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://opensource.apple.com/tarballs/dyld/dyld-210.2.3.tar.gz</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf dyld-210.2.3.tar.gz</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd dyld-210.2.3/launch-cache/</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch dsc_extractor.patch</span><br></pre></td></tr></table></figure>
-<p>通过上面的操作，我们下载下来了touch dsc_extractor的源码并且解压出来，并在其中创建了一个touch dsc_extractor.patch的空文件，接下来把以下内容复制到该文件里面去。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">--- dyld-210.2.3/launch-cache/dsc_extractor.cpp  2012-05-21 02:35:15.000000000 -0400</span><br><span class="line">+++ dyld-210.2.3/launch-cache/dsc_extractor.cpp	2013-07-26 16:05:03.000000000 -0400</span><br><span class="line">@@ -37,6 +37,7 @@</span><br><span class="line"> #include &lt;mach-o/arch.h&gt;</span><br><span class="line"> #include &lt;mach-o/loader.h&gt;</span><br><span class="line"> #include &lt;Availability.h&gt;</span><br><span class="line">+#include &lt;dlfcn.h&gt;</span><br><span class="line"> </span><br><span class="line"> #define NO_ULEB </span><br><span class="line"> #include &quot;Architectures.hpp&quot;</span><br><span class="line">@@ -456,7 +457,7 @@</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">-#if 1</span><br><span class="line">+/* #if 1 */</span><br><span class="line"> </span><br><span class="line"> typedef int (*extractor_proc)(const char* shared_cache_file_path, const char* extraction_root_path,</span><br><span class="line"> 													void (^progress)(unsigned current, unsigned total));</span><br><span class="line">@@ -468,7 +469,7 @@</span><br><span class="line"> 		return 1;</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	</span><br><span class="line">-	void* handle = dlopen(&quot;/Developer/Platforms/iPhoneOS.platform/usr/lib/dsc_extractor.bundle&quot;, RTLD_LAZY);</span><br><span class="line">+	void* handle = dlopen(&quot;/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/usr/lib/dsc_extractor.bundle&quot;, RTLD_LAZY);</span><br><span class="line"> 	if ( handle == NULL ) &#123;</span><br><span class="line"> 		fprintf(stderr, &quot;dsc_extractor.bundle could not be loaded\n&quot;);</span><br><span class="line"> 		return 1;</span><br><span class="line">@@ -484,7 +485,7 @@</span><br><span class="line"> 	fprintf(stderr, &quot;dyld_shared_cache_extract_dylibs_progress() =&gt; %d\n&quot;, result);</span><br><span class="line"> 	return 0;</span><br><span class="line"> &#125;</span><br><span class="line">-#endif</span><br><span class="line">+/* #endif */</span><br></pre></td></tr></table></figure>
-<h3>记住，在+/<em>endif </em>/后面是还有一行空行的。</h3>
-
-<p>然后执行一下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">patch &lt; dsc_extractor.patch</span><br></pre></td></tr></table></figure>
-<p>执行完成该命令后，你可以在dsc_extractor.patch文件的同级目录下看到一个dsc_extractor.cpp文件，接下来打开这个文件，要修改里面的内容。如下：<br>原处：230行</p>
-<p>const char* afterSlash = &amp;dirs[1];<br>修改成：</p>
-<p>char* afterSlash = &amp;dirs[1];  去除const<br>原处：460行</p>
-<p>#if 0<br>修改成：</p>
-<p>#if 1<br>原处：488行</p>
-<p>/<em> #endif </em>/<br>修改成：</p>
-<p>#endif 放开注释</p>
-<p>修改完成后，回到终端，运行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang++ -o dsc_extractor dsc_extractor.cpp dsc_iterator.cpp</span><br></pre></td></tr></table></figure>
-<p>到了这里，dsc_extractor终于编译完成了，你可以在同级目录下看到dsc_extractor的执行文件。你可以把它复制到任何地方然后使用。</p>
-<h3 id="3使用"><a href="#3使用" class="headerlink" title="3使用"></a>3使用</h3><p>编译dsc_extractor成功后，用iFunBox将iOS 里面的/System/Library/Caches/com.apple.dyld/dyld_shared_cache_arm64复制到OSX的任何位置，然后在终端运行</p>
-<p>dsc_extractor完成路径 arm64缓存文件路径  要保存文件的路径</p>
-<p>然后终端显示<br>0/1004<br>1/1004<br>2/1004<br>3/1004<br>4/1004<br>5/1004<br>6/1004<br>7/1004<br>这样的文本的时候就成功了</p>
+<h3 id="1-crash的原因"><a href="#1-crash的原因" class="headerlink" title="1. crash的原因"></a>1. crash的原因</h3><p>我们最常见的crash的原因不外乎以下几种：</p>
+<blockquote>
+<ul>
+<li>unrecognized selector sent to instance</li>
+<li>KVO crash</li>
+<li>NSNotification crash</li>
+<li>NSTimer crash</li>
+<li>数组越界，字典插入nil</li>
+<li>字符串处理crash</li>
+<li>EXC_BAD_ACCESS</li>
+</ul>
+</blockquote>
+<p>unrecognized selector sent to instance这个crash我相信所有的开发者都见过，这种问题一般在开发或者测试的时候可以发现并且很容易就修复了。</p>
+<p>但是有一天，我们亲爱的服务端同事，本来是返回一个person的name属性，但是那个name是空的，在OC中，<code>nil</code>代表的是空，但是服务端返回的可能是一个<code>“&lt;NULL&gt;”</code>，OC解析出来会是一个<code>NSNull</code>的对象。如果我们在代码里面还有对name属性做一些字符串的处理，例如<code>[name subString:]</code>，毫无疑问，这个APP会自杀给你看。</p>
+<h3 id="2-unrecognized-selector的背后"><a href="#2-unrecognized-selector的背后" class="headerlink" title="2. unrecognized selector的背后"></a>2. unrecognized selector的背后</h3><p>拿上面的<code>[name subStringFromIndex:1]</code>来说，我们知道OC中的调用方法不是单纯的直接获取到方法函数的地址直接调用，而是一个消息发送的过程。先放一张图：</p>
+<p><img src="http://7xqcm1.com1.z0.glb.clouddn.com/message_forwarding.png" alt=""></p>
+<p>上面是消息转发的流程，也就是我今天重点要说的。</p>
+<p>但是其实在这张图之前还有一个消息查找的流程，消息查找的流程如下：</p>
+<blockquote>
+<ol>
+<li>如果是对象方法，首先会在对象的缓存方法里面查找，如果没找到则根据对象的isa指针，去类对象里面查找。</li>
+<li>如果类对象里面没有查找到该方法，则会在该类对象的父类里面查找，查找遵循1，2的顺序</li>
+<li>如果一直查找到根类都没有找到该方法的实现的话，就会开始消息的转发流程，也就是上图的流程</li>
+<li>如果消息的转发依然没有找到对应的处理，则会crash。</li>
+</ol>
+</blockquote>
+<h3 id="3-在哪里做拦截处理"><a href="#3-在哪里做拦截处理" class="headerlink" title="3. 在哪里做拦截处理"></a>3. 在哪里做拦截处理</h3><p>如果我们要防止程序unrecognized selector crash，我们可以在消息的转发流程中做拦截处理，我们先来看看runtime给我们提供的三个消息处理的方法。</p>
+<p><code>1. + (BOOL)resolveInstanceMethod:(SEL)sel OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);</code><br><strong><em>这个是消息转发的第一个方法，开发者可以在这个方法里面利用class_addMethod给该对象提供一个方法的实现，然后返回YES。如果返回了NO或者则会调用下面第二个方法。</em></strong></p>
+<p><code>2. - (id)forwardingTargetForSelector:(SEL)aSelector OBJC_AVAILABLE(10.5, 2.0, 9.0, 1.0, 2.0);</code><br><strong><em>当系统调用到该方法的时候，需要开发者返回一个id对象，如果返回了一个非nil的对象，那么系统会将该selector转发到该对象上去，也就是会重新开始消息的发送流程。如果返回了nil或者self，那么就会执行下面的第三步</em></strong></p>
+<p>`3. - (void)forwardInvocation:(NSInvocation *)anInvocation OBJC_SWIFT_UNAVAILABLE(“”);</p>
+<ul>
+<li>(NSMethodSignature <em>)methodSignatureForSelector:(SEL)aSelector OBJC_SWIFT_UNAVAILABLE(“”);`<br>**</em>系统会首先调用<code>methodSignatureForSelector</code>来获取一个方法的签名，如果返回了方法的签名则会创建一个NSInvocation对象并且调用<code>forwardInvocation</code>将消息转发给目标对象。***</li>
+</ul>
+<p>接下来就有一个疑问了，我们应该在哪一步里面拦截消息会比较好。</p>
+<blockquote>
+<ol>
+<li>resolveInstanceMethod方法需要我们为该类添加一个实现，这是不必要的，因为本来那个类就不需要有那个方法，没必要为了防止crash而给它添加一个多余的实现。</li>
+<li>methodSignatureForSelector 以及 forwardInvocation 这里的开销比较大，需要创建invocation对象并且这里有可能会被开发者调用进行消息多重转发机制，所以这里也不太适合。</li>
+<li>剩下的就只有forwardingTargetForSelector方法了，这个方法需要提供一个处理消息的类，我们正好可以创建一个用于保护的<code>LMProtecter</code>类，到时由该类里面处理就可以了。</li>
+</ol>
+</blockquote>
+<h3 id="4-拦截的流程"><a href="#4-拦截的流程" class="headerlink" title="4. 拦截的流程"></a>4. 拦截的流程</h3><p>我们拦截处理的流程大概有以下几点：</p>
+<ol>
+<li>利用method_swizzle，创建一个NSObject的分类在load方法里面替换原来的forwardingTargetForSelector。</li>
+<li>提供一个白名单机制，只对特定的类进行处理，例如常见的NSNull或或者是SDK中的类，通过类前缀来判断该类是否属于SDK的类。如果是系统的类（一般以_开头，则不进行拦截）</li>
+<li>创建一个protect类，并且重写protect类的resolveInstanceMethod方法，提供一个方法的实现，当消息转发给protect类的时候，执行默认的实现，该方法会有一个返回值返回NSNull，这样当执行某些有返回值的方法的时候，可以避免其他的异常。为什么在该方法返回nul而不是nil或者其他对象呢，因为返回NUll正好在我们的白名单里面设置了null的判断，如果返回nil的话，可能会引发其他的例如将nil插入到字典中的错误。</li>
+<li>在该方法里面进行异常的上报，下次版本修复该问题。</li>
+</ol>
+<h3 id="5-关键代码："><a href="#5-关键代码：" class="headerlink" title="5. 关键代码："></a>5. 关键代码：</h3><p>原理和流程我们都说了，接下来代码实现就比较简单了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  NSObject+UnrecognizedSelectorProtecter.m</span><br><span class="line">//  UnRecognizedSelectorProtecter</span><br><span class="line">//</span><br><span class="line">//  Created by lemon on 2019/4/12.</span><br><span class="line">//  Copyright © 2019年 Lemon. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">#import &quot;NSObject+UnrecognizedSelectorProtecter.h&quot;</span><br><span class="line">#import &lt;objc/runtime.h&gt;</span><br><span class="line">#import &quot;LMProtecter.h&quot;</span><br><span class="line"></span><br><span class="line">static id protecter = nil;</span><br><span class="line">static NSString *const ClassPrefix = @&quot;LM&quot;;</span><br><span class="line"></span><br><span class="line">@implementation NSObject (UnrecognizedSelectorProtecter)</span><br><span class="line"></span><br><span class="line">+ (void)load&#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        protecter = [[LMProtecter alloc]init];</span><br><span class="line">        swizzleMethod([self class], @selector(forwardingTargetForSelector:), @selector(swizzleForwardingTargetForSelector:));</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - instance method</span><br><span class="line">- (id)swizzleForwardingTargetForSelector:(SEL)aSelector&#123;</span><br><span class="line">    //先执行原来的逻辑，如果已经外部提供一个对象，则不进行处理</span><br><span class="line">    id instance = [self swizzleForwardingTargetForSelector:aSelector];</span><br><span class="line">    if (instance) &#123;</span><br><span class="line">        return instance;</span><br><span class="line">    &#125;</span><br><span class="line">    //判断当前类是否在白名单中</span><br><span class="line">    BOOL isWhiteList = isWhiteListClass([self class]);</span><br><span class="line">    if (!isWhiteList) &#123;</span><br><span class="line">        //如果是系统类则不做处理</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    if (!instance) &#123;</span><br><span class="line">        //将消息转发给procter对象</span><br><span class="line">        instance = protecter;</span><br><span class="line">    &#125;</span><br><span class="line">    return instance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#pragma mark -  private method</span><br><span class="line">static inline BOOL swizzleMethod(Class aClass,SEL originSelector , SEL swizzleSelector)&#123;</span><br><span class="line">    Method originMethod = class_getInstanceMethod(aClass, originSelector);</span><br><span class="line">    Method swizzleMethod = class_getInstanceMethod(aClass, swizzleSelector);</span><br><span class="line">    </span><br><span class="line">    BOOL isAdded = class_addMethod(aClass, originSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod));</span><br><span class="line">    </span><br><span class="line">    if (isAdded) &#123;</span><br><span class="line">        class_replaceMethod(aClass, swizzleSelector, method_getImplementation(originMethod), method_getTypeEncoding(originMethod));</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        method_exchangeImplementations(originMethod, swizzleMethod);</span><br><span class="line">    &#125;</span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline BOOL isWhiteListClass(Class aClass)&#123;</span><br><span class="line">    NSString *classStr = NSStringFromClass(aClass);</span><br><span class="line">    //如果是下划线开头的代表是系统类,不对系统类进行处理</span><br><span class="line">    if ([classStr hasPrefix:@&quot;_&quot;]) &#123;</span><br><span class="line">        return NO;</span><br><span class="line">    &#125;</span><br><span class="line">    //如果是自己的类或者是NSNULL则进行处理</span><br><span class="line">    BOOL isNull = [classStr isEqualToString:NSStringFromClass([NSNull class])];</span><br><span class="line">    BOOL isBusinessCls = [classStr hasPrefix:classStr];</span><br><span class="line">    return isNull || isBusinessCls;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">//</span><br><span class="line">//  LMProtecter.m</span><br><span class="line">//  UnRecognizedSelectorProtecter</span><br><span class="line">//</span><br><span class="line">//  Created by lemon on 2019/4/12.</span><br><span class="line">//  Copyright © 2019年 Lemon. All rights reserved.</span><br><span class="line">//</span><br><span class="line"></span><br><span class="line">#import &quot;LMProtecter.h&quot;</span><br><span class="line">#import &lt;objc/runtime.h&gt;</span><br><span class="line"></span><br><span class="line">@implementation LMProtecter</span><br><span class="line"></span><br><span class="line">id protect_method_implementation(id self, SEL _cmd)&#123;</span><br><span class="line">    return [NSNull null];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (BOOL)resolveInstanceMethod:(SEL)sel&#123;</span><br><span class="line">    //消息会转发到这里来，动态的给Sel提供一个方法的实现就👌了</span><br><span class="line">    class_addMethod([self class], sel, (IMP)protect_method_implementation, &quot;@@:&quot;);</span><br><span class="line">    NSLog(@&quot;捕获到一个unRecognized Selector = %@ 崩溃信息&quot;,NSStringFromSelector(sel));</span><br><span class="line">    return YES;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//- (id)forwardingTargetForSelector:(SEL)aSelector&#123;</span><br><span class="line">//    return [super forwardingTargetForSelector:aSelector];</span><br><span class="line">//&#125;</span><br><span class="line">//</span><br><span class="line">//- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector&#123;</span><br><span class="line">//    return [super methodSignatureForSelector:aSelector];</span><br><span class="line">//&#125;</span><br><span class="line">//</span><br><span class="line">//- (void)forwardInvocation:(NSInvocation *)anInvocation&#123;</span><br><span class="line">//    return [super forwardInvocation:anInvocation];</span><br><span class="line">//&#125;</span><br><span class="line">//</span><br><span class="line">//- (void)doesNotRecognizeSelector:(SEL)aSelector&#123;</span><br><span class="line">//    return [super doesNotRecognizeSelector:aSelector];</span><br><span class="line">//&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>全部代码已经放到git，需要的自取： <a href="https://github.com/codemonkeybulucck/LMProtecter" target="_blank" rel="noopener">LMProtecter</a></p>
 
       
     </div>
@@ -477,12 +506,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/dsc-extractor/" rel="tag"># dsc-extractor</a>
-          
-        </div>
-      
 
       
       
@@ -492,8 +515,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/25/iOS 开发/iOS-基础汇编知识/" rel="next" title="iOS 基础汇编知识">
-                <i class="fa fa-chevron-left"></i> iOS 基础汇编知识
+              <a href="/2019/04/02/iOS 逆向/逆向微信根据手机号码搜索联系人获取WXID/" rel="next" title="逆向微信根据手机号码搜索联系人获取WXID">
+                <i class="fa fa-chevron-left"></i> 逆向微信根据手机号码搜索联系人获取WXID
               </a>
             
           </div>
@@ -501,10 +524,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/25/iOS 逆向/导出iOS真机缓存的dyld-shared-cache-arm64文件/" rel="prev" title="导出iOS真机缓存的dyld_shared_cache_arm64文件">
-                导出iOS真机缓存的dyld_shared_cache_arm64文件 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -673,7 +692,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1前言"><span class="nav-number">1.</span> <span class="nav-text">1前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2编译"><span class="nav-number">2.</span> <span class="nav-text">2编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">记住，在+/endif /后面是还有一行空行的。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3使用"><span class="nav-number">4.</span> <span class="nav-text">3使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-crash的原因"><span class="nav-number">1.</span> <span class="nav-text">1. crash的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-unrecognized-selector的背后"><span class="nav-number">2.</span> <span class="nav-text">2. unrecognized selector的背后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-在哪里做拦截处理"><span class="nav-number">3.</span> <span class="nav-text">3. 在哪里做拦截处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-拦截的流程"><span class="nav-number">4.</span> <span class="nav-text">4. 拦截的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-关键代码："><span class="nav-number">5.</span> <span class="nav-text">5. 关键代码：</span></a></li></ol></div>
             
 
           </div>
@@ -837,9 +856,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://lemon2well.top/2018/07/25/iOS 逆向/dsc-extractor的编译和使用/';
-          this.page.identifier = '2018/07/25/iOS 逆向/dsc-extractor的编译和使用/';
-          this.page.title = 'dsc_extractor的编译和使用';
+          this.page.url = 'http://lemon2well.top/2019/04/14/iOS 开发/Runtime防止Crash(unrecognized Selector sent to instance篇)/';
+          this.page.identifier = '2019/04/14/iOS 开发/Runtime防止Crash(unrecognized Selector sent to instance篇)/';
+          this.page.title = 'Runtime防止Crash(unrecognized Selector sent to instance篇)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://lemon2well.disqus.com/embed.js';
